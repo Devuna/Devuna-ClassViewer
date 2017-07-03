@@ -16,6 +16,10 @@ Clearly, a utility program that let me **view any class**, it's **methods** and 
 
 **ClassViewer** does all this and more. It works with classes from all Clarion Versions, understand the new Clarion INTERFACE mechanism and allows the user to keep notes about the methods. It gives you the ability to view all classes or just the ABC classes and access the help file. The user can also specify other files to include in the scan process as well as set color and tooltip preferences.
 
+# Overview #
+
+The **setup** folder contains the ***ClassViewerSetup.exe*** program for installing ClassViewer for Clarion Version 10.  The **SetupBuilder** subfolder contains the [**SetupBuilder®**](http://www.lindersoft.com/products_setupbuilder_dev.htm) install project used to create ***ClassVIewerSetup.exe*** 
+
 ![Screen Shot](images/ClassViewer.png)
 
 # Getting Started #
@@ -52,4 +56,4 @@ The source code in this repository requires some templates and classes that are 
 
 Documentation for using **ClassViewer** can be found in the Help folder of the repository.  The Help folder contains everything needed to build an HTML_Help file for the **ClassViewer** application.
 
-**[View Help](../help/ABCVIEW.chm)**
+**[View Help](https://github.com/Devuna/Devuna-ClassViewer/blob/master/help/abcview.chm)**
