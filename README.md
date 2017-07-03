@@ -55,5 +55,3 @@ The source code in this repository requires some templates and classes that are 
 ----------
 
 Documentation for using **ClassViewer** can be found in the Help folder of the repository.  The Help folder contains everything needed to build an HTML_Help file for the **ClassViewer** application.
-
-**[View Help](https://github.com/Devuna/Devuna-ClassViewer/blob/master/help/abcview.chm)**
