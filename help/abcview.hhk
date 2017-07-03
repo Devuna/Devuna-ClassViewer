@@ -1,0 +1,113 @@
+
+<HTML>
+<!-- Sitemap 1.0 -->
+<OBJECT TYPE="text/site properties">
+</OBJECT>
+<UL>
+	<LI><OBJECT TYPE="text/sitemap">
+		<PARAM NAME="Name" VALUE="About Class Viewer">
+		<PARAM NAME="Name" VALUE="About Class Viewer">
+		<PARAM NAME="Local" VALUE="html\About_Class_Viewer.htm">
+		</OBJECT>
+	<LI><OBJECT TYPE="text/sitemap">
+		<PARAM NAME="Name" VALUE="Add Class Wizard">
+		<PARAM NAME="Name" VALUE="Add Class Wizard">
+		<PARAM NAME="Local" VALUE="html\Add_Class_Wizard.htm">
+		</OBJECT>
+	<LI><OBJECT TYPE="text/sitemap">
+		<PARAM NAME="Name" VALUE="Additional Files">
+		<PARAM NAME="Name" VALUE="Additional Files">
+		<PARAM NAME="Local" VALUE="html\Additional_Files.htm">
+		</OBJECT>
+	<LI><OBJECT TYPE="text/sitemap">
+		<PARAM NAME="Name" VALUE="Ascii File Viewer">
+		<PARAM NAME="Name" VALUE="Ascii File Viewer">
+		<PARAM NAME="Local" VALUE="html\Ascii_File_Viewer.htm">
+		</OBJECT>
+	<LI><OBJECT TYPE="text/sitemap">
+		<PARAM NAME="Name" VALUE="Browse Database">
+		<PARAM NAME="Name" VALUE="Browse Database">
+		<PARAM NAME="Local" VALUE="html\Browse_Database.htm">
+		</OBJECT>
+	<LI><OBJECT TYPE="text/sitemap">
+		<PARAM NAME="Name" VALUE="Class Properties">
+		<PARAM NAME="Name" VALUE="Class Properties">
+		<PARAM NAME="Local" VALUE="html\Class_Properties.htm">
+		</OBJECT>
+	<LI><OBJECT TYPE="text/sitemap">
+		<PARAM NAME="Name" VALUE="ClassViewer Templates">
+		<PARAM NAME="Name" VALUE="ClassViewer Templates">
+		<PARAM NAME="Local" VALUE="html\ClassViewer_Templates.htm">
+		</OBJECT>
+	<LI><OBJECT TYPE="text/sitemap">
+		<PARAM NAME="Name" VALUE="Contents">
+		<PARAM NAME="Name" VALUE="Contents">
+		<PARAM NAME="Local" VALUE="html\Contents.htm">
+		</OBJECT>
+	<LI><OBJECT TYPE="text/sitemap">
+		<PARAM NAME="Name" VALUE="Export Database To XML">
+		<PARAM NAME="Name" VALUE="Export Database To XML">
+		<PARAM NAME="Local" VALUE="html\Export_Database_To_XML.htm">
+		</OBJECT>
+	<LI><OBJECT TYPE="text/sitemap">
+		<PARAM NAME="Name" VALUE="Favorites Menu">
+		<PARAM NAME="Name" VALUE="Edit Favorites">
+		<PARAM NAME="Local" VALUE="html\Favorites_Menu.htm">
+		</OBJECT>
+	<LI><OBJECT TYPE="text/sitemap">
+		<PARAM NAME="Name" VALUE="Find Notes">
+		<PARAM NAME="Name" VALUE="Find Notes">
+		<PARAM NAME="Local" VALUE="html\Find_Notes.htm">
+		</OBJECT>
+	<LI><OBJECT TYPE="text/sitemap">
+		<PARAM NAME="Name" VALUE="interface callback">
+		<PARAM NAME="Name" VALUE="interface callback">
+		<PARAM NAME="Local" VALUE="html\interface_callback.htm">
+		</OBJECT>
+	<LI><OBJECT TYPE="text/sitemap">
+		<PARAM NAME="Name" VALUE="Main Window">
+		<PARAM NAME="Name" VALUE="Main Window">
+		<PARAM NAME="Local" VALUE="html\Main_Window.htm">
+		</OBJECT>
+	<LI><OBJECT TYPE="text/sitemap">
+		<PARAM NAME="Name" VALUE="Options">
+		<PARAM NAME="Name" VALUE="Edit Options">
+		<PARAM NAME="Local" VALUE="html\Edit_Options.htm">
+		</OBJECT>
+	<LI><OBJECT TYPE="text/sitemap">
+		<PARAM NAME="Name" VALUE="Scan Options">
+		<PARAM NAME="Name" VALUE="Scan Options">
+		<PARAM NAME="Local" VALUE="html\Scan_Options.htm">
+		</OBJECT>
+	<LI><OBJECT TYPE="text/sitemap">
+		<PARAM NAME="Name" VALUE="Software Licence">
+		<PARAM NAME="Name" VALUE="Software Licence">
+		<PARAM NAME="Local" VALUE="html\Software_Licence.htm">
+		</OBJECT>
+	<LI><OBJECT TYPE="text/sitemap">
+		<PARAM NAME="Name" VALUE="Template Files">
+		<PARAM NAME="Name" VALUE="Template Files">
+		<PARAM NAME="Local" VALUE="html\Template_Files.htm">
+		</OBJECT>
+	<LI><OBJECT TYPE="text/sitemap">
+		<PARAM NAME="Name" VALUE="View Callers">
+		<PARAM NAME="Name" VALUE="View Callers">
+		<PARAM NAME="Local" VALUE="html\View_Callers.htm">
+		</OBJECT>
+	<LI><OBJECT TYPE="text/sitemap">
+		<PARAM NAME="Name" VALUE="View Notes">
+		<PARAM NAME="Name" VALUE="View Notes">
+		<PARAM NAME="Local" VALUE="html\View_Notes.htm">
+		</OBJECT>
+	<LI><OBJECT TYPE="text/sitemap">
+		<PARAM NAME="Name" VALUE="Wrapper Generator">
+		<PARAM NAME="Name" VALUE="Wrapper Generator">
+		<PARAM NAME="Local" VALUE="html\Wrapper_Generator.htm">
+		</OBJECT>
+	<LI><OBJECT TYPE="text/sitemap">
+		<PARAM NAME="Name" VALUE="Wrapper Generator Templates">
+		<PARAM NAME="Name" VALUE="Wrapper Generator Templates">
+		<PARAM NAME="Local" VALUE="html\Wrapper_Generator_Templates.htm">
+		</OBJECT>
+</UL>
+</HTML>

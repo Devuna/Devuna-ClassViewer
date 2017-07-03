@@ -1,0 +1,3188 @@
+[MODULE]
+[COMMON]
+FROM ABC GENERATED
+[EMBED]
+EMBED %StartOfModule
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 1300
+PROPERTY:END
+!region Notices
+! ================================================================================
+! Notice : Copyright (C) 2017, Devuna
+!          Distributed under LGPLv3 (http://www.gnu.org/licenses/lgpl.html)
+!
+!    This file is part of Devuna-ClassViewer (https://github.com/Devuna/Devuna-ClassViewer)
+!
+!    Devuna-ClassViewer is free software: you can redistribute it and/or modify
+!    it under the terms of the GNU General Public License as published by
+!    the Free Software Foundation, either version 3 of the License, or
+!    (at your option) any later version.
+!
+!    Devuna-ClassViewer is distributed in the hope that it will be useful,
+!    but WITHOUT ANY WARRANTY; without even the implied warranty of
+!    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+!    GNU General Public License for more details.
+!
+!    You should have received a copy of the GNU General Public License
+!    along with Devuna-ClassViewer.  If not, see <http://www.gnu.org/licenses/>.
+! ================================================================================
+!endregion Notices
+[END]
+[END]
+[PROCEDURE]
+NAME winAddClass
+PROTOTYPE '(),BYTE'
+GLOBAL
+[COMMON]
+DESCRIPTION 'Add a New Class File'
+FROM ABC Window
+MODIFIED '2017/07/02' ' 8:43:45'
+[DATA]
+[SCREENCONTROLS]
+! PROMPT('Ret Val:'),USE(?RetVal:Prompt)
+! ENTRY(@n-14),USE(RetVal),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(RetVal),RIGHT(1)
+RetVal                   LONG
+!!> GUID('4fc10fdd-0f77-4de1-8344-84c215a5ad6f'),INITIAL('Level:Cancel'),PROMPT('Ret Val:'),HEADER('Ret Val'),PICTURE(@n-14),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! PROMPT('C&lass name:'),USE(?szClassName:Prompt),TRN
+! ENTRY(@s20),USE(szClassName)
+[REPORTCONTROLS]
+! STRING(@s20),USE(szClassName)
+szClassName              LIKE(classQ.szClassName)
+!!> GUID('14b5f27d-d1d8-4129-a46c-650961b97f02'),PROMPT('C&lass name:'),PICTURE(@s20)
+[SCREENCONTROLS]
+! PROMPT('&Base class:'),USE(?szParentClassName:Prompt),TRN
+! ENTRY(@s20),USE(szParentClassName)
+[REPORTCONTROLS]
+! STRING(@s20),USE(szParentClassName)
+szParentClassName        LIKE(classQ.szParentClassName)
+!!> GUID('117147a4-f73c-47c0-9587-5d4fcdfb7556'),PROMPT('&Base class:'),HEADER('sz Parent Class Name'),PICTURE(@s20)
+[SCREENCONTROLS]
+! TEXT,USE(szInterfaces)
+[REPORTCONTROLS]
+! TEXT,USE(szInterfaces)
+szInterfaces             CSTRING(256)
+!!> GUID('2ebb6193-7db9-4605-8901-9d72eac1aa72'),PICTURE(@s255)
+[SCREENCONTROLS]
+! ENTRY(@s20),USE(szCategory),TIP('Category/Template Family')
+[REPORTCONTROLS]
+! STRING(@s20),USE(szCategory)
+szCategory               LIKE(CategoryQ.szCategory)
+!!> GUID('679157bf-2654-4d00-9331-5a9cdead14ca'),INITIAL('ABC'),PROMPT('Class Category:'),TOOLTIP('Category/Template Family'),PICTURE(@s20)
+[SCREENCONTROLS]
+! PROMPT('.inc f&ile:'),USE(?IncFileName:Prompt),TRN
+! ENTRY(@s255),USE(IncFileName)
+[REPORTCONTROLS]
+! TEXT,USE(IncFileName)
+IncFileName              CSTRING(256)
+!!> GUID('06ba4047-a072-4f91-8830-fd48856f7280'),PROMPT('.inc f&ile:'),PICTURE(@s255)
+[SCREENCONTROLS]
+! PROMPT('.cl&w file:'),USE(?ClwFileName:Prompt),TRN
+! ENTRY(@s255),USE(ClwFileName)
+[REPORTCONTROLS]
+! TEXT,USE(ClwFileName)
+ClwFileName              CSTRING(256)
+!!> GUID('0086a74f-b96b-4b37-ac69-0f54a4851459'),PROMPT('.cl&w file:'),PICTURE(@s255)
+[SCREENCONTROLS]
+! ENTRY(@s1),USE(CategoryQueue)
+[REPORTCONTROLS]
+! STRING(@s1),USE(CategoryQueue)
+CategoryQueue            QUEUE(CATEGORYQUEUETYPE),PRE(CategoryQueue)
+!!> GUID('2c30b359-d8c3-4b63-9755-c7106c2f94c6'),PICTURE(@s1)
+                         END
+!!> GUID('59c9c1a2-c05f-4555-b00b-385ffd536110')
+[SCREENCONTROLS]
+! ENTRY(@s128),USE(ClassQueue)
+[REPORTCONTROLS]
+! STRING(@s128),USE(ClassQueue)
+ClassQueue               QUEUE,PRE(ClassQueue)
+!!> GUID('fbb37d71-fe0c-4d89-be3d-262ea6398bd7'),PICTURE(@s128)
+[SCREENCONTROLS]
+! ENTRY(@s63),USE(ClassQueue:szClassName)
+[REPORTCONTROLS]
+! STRING(@s63),USE(ClassQueue:szClassName)
+szClassName                CSTRING(64)
+!!> GUID('6199a4fb-9a07-47f6-aef0-eb2f60831156'),PICTURE(@s63)
+[SCREENCONTROLS]
+! ENTRY(@s63),USE(ClassQueue:szSortName)
+[REPORTCONTROLS]
+! STRING(@s63),USE(ClassQueue:szSortName)
+szSortName                 CSTRING(64)
+!!> GUID('15898d17-a929-4ca8-97e4-e32c6ee5582d'),PICTURE(@s63)
+                         END
+!!> GUID('565e842b-2bb7-4806-891d-642211086634')
+[SCREENCONTROLS]
+! ENTRY(@s134),USE(InterfaceQueue)
+[REPORTCONTROLS]
+! STRING(@s134),USE(InterfaceQueue)
+InterfaceQueue           QUEUE,PRE(InterfaceQueue)
+!!> GUID('3c47381d-e284-4a74-942b-2682481c97b7'),PICTURE(@s134)
+[SCREENCONTROLS]
+! ENTRY(@s63),USE(InterfaceQueue:szClassName)
+[REPORTCONTROLS]
+! STRING(@s63),USE(InterfaceQueue:szClassName)
+szClassName                CSTRING(64)
+!!> GUID('d931a810-ef75-41da-a881-2691a863ecf0'),PICTURE(@s63)
+[SCREENCONTROLS]
+! PROMPT('w Icon:'),USE(?InterfaceQueue:wIcon:Prompt)
+! ENTRY(@n-7),USE(InterfaceQueue:wIcon),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@n-7),USE(InterfaceQueue:wIcon),RIGHT(1)
+wIcon                      SHORT
+!!> GUID('9b542384-d225-4394-9d91-91e070f3b2c0'),PROMPT('w Icon:'),HEADER('w Icon'),PICTURE(@n-7),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! PROMPT('l Style:'),USE(?InterfaceQueue:lStyle:Prompt)
+! ENTRY(@n-14),USE(InterfaceQueue:lStyle),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(InterfaceQueue:lStyle),RIGHT(1)
+lStyle                     LONG
+!!> GUID('de2d4a89-8edd-49c0-9eba-69908e44d6bb'),PROMPT('l Style:'),HEADER('l Style'),PICTURE(@n-14),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! ENTRY(@s63),USE(InterfaceQueue:szSortName)
+[REPORTCONTROLS]
+! STRING(@s63),USE(InterfaceQueue:szSortName)
+szSortName                 CSTRING(64)
+!!> GUID('25400fdb-9c34-45b3-81de-b884f2c7280a'),PICTURE(@s63)
+                         END
+!!> GUID('6f4a3bb2-1be1-4581-af08-388b67cd8dcc')
+[SCREENCONTROLS]
+! PROMPT('inc Template:'),USE(?incTemplateName:Prompt)
+! ENTRY(@s60),USE(incTemplateName)
+[REPORTCONTROLS]
+! STRING(@s60),USE(incTemplateName)
+incTemplateName          CSTRING(61)
+!!> GUID('791d7818-c9e9-4d2e-9e1a-030e9c50d144'),PROMPT('inc Template:'),HEADER('inc Template'),PICTURE(@s60)
+[SCREENCONTROLS]
+! PROMPT('clw Template Name:'),USE(?clwTemplateName:Prompt)
+! ENTRY(@s60),USE(clwTemplateName)
+[REPORTCONTROLS]
+! STRING(@s60),USE(clwTemplateName)
+clwTemplateName          CSTRING(61)
+!!> GUID('538c752b-dc87-462c-b591-f0bf832cbd31'),PROMPT('clw Template Name:'),HEADER('clw Template Name'),PICTURE(@s60)
+[SCREENCONTROLS]
+! ENTRY(@s255),USE(BaseMethodQ)
+[REPORTCONTROLS]
+! STRING(@s255),USE(BaseMethodQ)
+BaseMethodQ              QUEUE,PRE(BaseMethodQ)
+!!> GUID('1c658915-223c-4a77-8a2c-6b2b6d969b5a'),PICTURE(@s255)
+[SCREENCONTROLS]
+! TEXT,USE(BaseMethodQ:szMethod)
+[REPORTCONTROLS]
+! TEXT,USE(BaseMethodQ:szMethod)
+szMethod                   CSTRING(1025)
+!!> GUID('debfb2db-c5fa-4a46-8eea-6bea2da80c70'),PICTURE(@s255)
+[SCREENCONTROLS]
+! PROMPT('w Icon:'),USE(?BaseMethodQ:wIcon:Prompt)
+! ENTRY(@n-7),USE(BaseMethodQ:wIcon),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@n-7),USE(BaseMethodQ:wIcon),RIGHT(1)
+wIcon                      SHORT
+!!> GUID('9ca19114-74ce-413d-9520-c484e74c5f25'),PROMPT('w Icon:'),HEADER('w Icon'),PICTURE(@n-7),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! PROMPT('l Style:'),USE(?BaseMethodQ:lStyle:Prompt)
+! ENTRY(@n-14),USE(BaseMethodQ:lStyle),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(BaseMethodQ:lStyle),RIGHT(1)
+lStyle                     LONG
+!!> GUID('9022803b-a17f-4e5b-b443-38ab0950b4d3'),PROMPT('l Style:'),HEADER('l Style'),PICTURE(@n-14),JUSTIFY(RIGHT,1)
+                         END
+!!> GUID('678bc398-ec50-414a-be17-719cd5592e9f')
+[SCREENCONTROLS]
+! ENTRY(@s30),USE(GenerationDate)
+[REPORTCONTROLS]
+! STRING(@s30),USE(GenerationDate)
+GenerationDate           CSTRING(31)
+!!> GUID('25300cb3-ab4d-4fbf-95ea-d7f268cb70be'),PICTURE(@s30)
+[SCREENCONTROLS]
+! ENTRY(@s30),USE(GenerationTime)
+[REPORTCONTROLS]
+! STRING(@s30),USE(GenerationTime)
+GenerationTime           CSTRING(31)
+!!> GUID('0460f087-3e81-4558-a8ee-96578f2d890f'),PICTURE(@s30)
+[SCREENCONTROLS]
+! ENTRY(@s20),USE(PopupMgr)
+[REPORTCONTROLS]
+! STRING(@s20),USE(PopupMgr)
+PopupMgr                 PopupClass
+!!> GUID('7671b4d3-d415-4b25-ae23-18ac77f210e2'),PICTURE(@s20)
+[SCREENCONTROLS]
+! CHECK(' Generate Interface Callbacks'),USE(bGenerateInterfaceCallbacks)
+[REPORTCONTROLS]
+! CHECK(' Generate Interface Callbacks'),USE(bGenerateInterfaceCallbacks)
+bGenerateInterfaceCallbacks BYTE
+!!> GUID('79260f08-d089-4e06-843f-dc05665dc538'),VALID(BOOLEAN),PROMPT(' Generate Interface Callbacks'),HEADER(' Generate Interface Callbacks'),PICTURE(@n3)
+[SCREENCONTROLS]
+! ENTRY(@n3),USE(bProcessingInc)
+[REPORTCONTROLS]
+! STRING(@n3),USE(bProcessingInc)
+bProcessingInc           BYTE
+!!> GUID('7320ad1d-020b-4ff6-88bd-6a94af73febc'),PICTURE(@n3)
+[SCREENCONTROLS]
+! PROMPT('Property Queue:'),USE(?PropertyQueue:Prompt)
+! ENTRY(@s134),USE(PropertyQueue)
+[REPORTCONTROLS]
+! STRING(@s134),USE(PropertyQueue)
+PropertyQueue            QUEUE,PRE(PropertyQueue)
+!!> GUID('8fcb185b-f0da-4e37-85da-e22ed07c9e34'),PROMPT('Property Queue:'),HEADER('Property Queue'),PICTURE(@s198)
+[SCREENCONTROLS]
+! PROMPT('sz Property Name:'),USE(?PropertyQueue:szPropertyName:Prompt)
+! ENTRY(@s19),USE(PropertyQueue:szPropertyName)
+[REPORTCONTROLS]
+! STRING(@s19),USE(PropertyQueue:szPropertyName)
+szPropertyName             CSTRING(64)
+!!> GUID('ef695505-2dd6-45dc-aaef-3304e454e609'),PROMPT('sz Property Name:'),HEADER('sz Property Name'),PICTURE(@s19)
+[SCREENCONTROLS]
+! ENTRY(@n-7),USE(PropertyQueue:wIcon)
+[REPORTCONTROLS]
+! STRING(@n-7),USE(PropertyQueue:wIcon)
+wIcon                      SHORT
+!!> GUID('5ef86384-187e-4d57-b884-dbcfb06be58c'),PICTURE(@n-7)
+[SCREENCONTROLS]
+! ENTRY(@n-14),USE(PropertyQueue:lStyle)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(PropertyQueue:lStyle)
+lStyle                     LONG
+!!> GUID('8c8effb6-f400-4e83-ba9c-41b73166e70c'),PICTURE(@n-14)
+[SCREENCONTROLS]
+! ENTRY(@s63),USE(PropertyQueue:szDataType)
+[REPORTCONTROLS]
+! STRING(@s63),USE(PropertyQueue:szDataType)
+szDataType                 CSTRING(64)
+!!> GUID('fd96bafc-4f85-4038-8ffd-053f69cd8410'),PROMPT('sz Data Type:'),HEADER('sz Data Type'),PICTURE(@s63)
+[SCREENCONTROLS]
+! PROMPT('sz Sort Name:'),USE(?PropertyQueue:szSortName:Prompt)
+! ENTRY(@s63),USE(PropertyQueue:szSortName)
+[REPORTCONTROLS]
+! STRING(@s63),USE(PropertyQueue:szSortName)
+szSortName                 CSTRING(64)
+!!> GUID('4ab99bee-97fa-45f5-aa04-1da63642646f'),PROMPT('sz Sort Name:'),HEADER('sz Sort Name'),PICTURE(@s63)
+                         END
+!!> GUID('8899d29f-6075-4b8c-8a49-321b9126e6c1')
+[PROMPTS]
+%ClassItem UNIQUE DEFAULT  ('Default', 'WindowToolbar')
+%DefaultBaseClassType DEPEND %ClassItem DEFAULT TIMES 2
+WHEN  ('Default') ('WindowManager')
+WHEN  ('WindowToolbar') ('ToolbarClass')
+
+%ActualDefaultBaseClassType DEPEND %ClassItem DEFAULT TIMES 2
+WHEN  ('Default') ('')
+WHEN  ('WindowToolbar') ('')
+
+%ClassLines DEPEND %ClassItem MULTI DEFAULT TIMES 1
+WHEN  ('Default') ('Init {19}PROCEDURE(),BYTE,PROC,DERIVED', 'Kill {19}PROCEDURE(),BYTE,PROC,DERIVED', |
+  'Open {19}PROCEDURE(),DERIVED', 'TakeAccepted {11}PROCEDURE(),BYTE,PROC,DERIVED', |
+  'TakeFieldEvent {9}PROCEDURE(),BYTE,PROC,DERIVED')
+
+%ReturnValue FIELD  (RetVal)
+%WindowOperationMode DEFAULT  ('Use WINDOW setting')
+%INISaveWindow LONG  (0)
+%ProcedureDisableEnhanceFocus LONG  (0)
+%ProcedureUseEnterInsteadTabOverride LONG  (0)
+%WindowUseEnterInsteadTab LONG  (1)
+%ProcedureUseEnterInsteadTabExcludeG LONG  (1)
+%WindowUseEnterInsteadTabExclude MULTI DEFAULT  ()
+%GlobalObject DEPEND %ClassItem DEFAULT TIMES 2
+WHEN  ('Default') ('NO')
+WHEN  ('WindowToolbar') ('NO')
+
+%ThisObjectName DEPEND %ClassItem DEFAULT TIMES 2
+WHEN  ('Default') ('ThisWindow')
+WHEN  ('WindowToolbar') ('Toolbar')
+
+%UseDefaultABCBaseClass DEPEND %ClassItem LONG TIMES 2
+WHEN  ('Default') (1)
+WHEN  ('WindowToolbar') (1)
+
+%UseABCBaseClass DEPEND %ClassItem LONG TIMES 2
+WHEN  ('Default') (1)
+WHEN  ('WindowToolbar') (1)
+
+%ABCBaseClass DEPEND %ClassItem DEFAULT TIMES 2
+WHEN  ('Default') ('ADOProcCommCalled')
+WHEN  ('WindowToolbar') ('ADOProcCommCalled')
+
+%ExtBaseClass DEPEND %ClassItem DEFAULT TIMES 0
+
+%BaseClassIncludeFile DEPEND %ClassItem DEFAULT TIMES 0
+
+%DeriveFromBaseClass DEPEND %ClassItem LONG TIMES 2
+WHEN  ('Default') (0)
+WHEN  ('WindowToolbar') (0)
+
+%NewMethods DEPEND %ClassItem MULTI LONG TIMES 0
+
+%NewMethodName DEPEND %NewMethods DEFAULT TIMES 0
+
+%NewMethodPrototype DEPEND %NewMethods DEFAULT TIMES 0
+
+%NewClassPropertyItems DEPEND %ClassItem MULTI LONG TIMES 0
+
+%NewClassProperty DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataType DEPEND %NewClassPropertyItems DEFAULT TIMES 1
+WHEN  ('WindowToolbar')TIMES 0
+
+%NewClassOtherType DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataIsRef DEPEND %NewClassPropertyItems LONG TIMES 0
+
+%NewClassDataSize DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim1 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim2 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim3 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim4 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%ClassMethods DEPEND %ClassItem MULTI LONG TIMES 0
+
+%ClassMethodName DEPEND %ClassMethods DEFAULT TIMES 0
+
+%ClassMethodPrototype DEPEND %ClassMethods DEFAULT TIMES 0
+
+%ClassPropertyItems DEPEND %ClassItem MULTI LONG TIMES 0
+
+%ClassProperty DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataType DEPEND %ClassPropertyItems DEFAULT TIMES 1
+WHEN  ('WindowToolbar')TIMES 0
+
+%ClassOtherType DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataIsRef DEPEND %ClassPropertyItems LONG TIMES 0
+
+%ClassDataSize DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim1 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim2 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim3 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim4 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%WindowStyles MULTI LONG  ()
+%WindowStyleFontName DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontNameVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontNameIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleFontSize DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontSizeVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontSizeIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleFontStyle DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontStyleVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontStyleIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleFontColor DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontCharSet DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleForegroundNormal DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleForegroundNormalVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleForegroundNormalIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleBackgroundNormal DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleBackgroundNormalVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleBackgroundNormalIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleForegroundSelected DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleForegroundSelectedVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleForegroundSelectedIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleBackgroundSelected DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleBackgroundSelectedVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleBackgroundSelectedIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStylePicture DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStylePictureVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStylePictureIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleOtherListboxes MULTI DEFAULT  ()
+%ProcedureAutoBindFields MULTI LONG  ()
+%ProcedureAutoBindField DEPEND %ProcedureAutoBindFields DEFAULT TIMES 0
+
+%ProcedureAutoBindFieldTPL DEPEND %ProcedureAutoBindFields DEFAULT TIMES 0
+
+%ProcedureAutoBindProcedures MULTI LONG  ()
+%ProcedureAutoBindProcedure DEPEND %ProcedureAutoBindProcedures DEFAULT TIMES 0
+
+%ProcedureAutoBindProcedureTPL DEPEND %ProcedureAutoBindProcedures DEFAULT TIMES 0
+
+%ProcedureUserBindFields MULTI LONG  ()
+%ProcedureUserBindField DEPEND %ProcedureUserBindFields FIELD TIMES 0
+
+%ProcedureAutoBindFieldIgnore DEPEND %ProcedureAutoBindFields LONG TIMES 0
+
+%ProcedureUserBindProcedures MULTI LONG  ()
+%ProcedureUserBindProcedure DEPEND %ProcedureUserBindProcedures PROCEDURE TIMES 0
+
+%ProcedureAutoBindProcedureIgnore DEPEND %ProcedureAutoBindProcedures LONG TIMES 0
+
+%ProcedureUserBindExpressions MULTI LONG  ()
+%ProcedureUserBindExpressionName DEPEND %ProcedureUserBindExpressions DEFAULT TIMES 0
+
+%ProcedureUserBindExpression DEPEND %ProcedureUserBindExpressions DEFAULT TIMES 0
+
+%ButtonAction DEPEND %Control DEFAULT TIMES 28
+WHEN  ('') ('No Special Action')
+WHEN  ('?CancelButton') ('No Special Action')
+WHEN  ('?ClwFileName') ('No Special Action')
+WHEN  ('?EditClwTemplate:Button') ('No Special Action')
+WHEN  ('?EditIncTemplate:Button') ('No Special Action')
+WHEN  ('?General:Tab') ('No Special Action')
+WHEN  ('?IncFileName') ('No Special Action')
+WHEN  ('?Interfaces') ('No Special Action')
+WHEN  ('?Interfaces:Prompt') ('No Special Action')
+WHEN  ('?Interfaces:Tab') ('No Special Action')
+WHEN  ('?LookupClwFile') ('No Special Action')
+WHEN  ('?LookupFile') ('No Special Action')
+WHEN  ('?Methods') ('No Special Action')
+WHEN  ('?Methods:Prompt') ('No Special Action')
+WHEN  ('?NextButton') ('No Special Action')
+WHEN  ('?OkButton') ('No Special Action')
+WHEN  ('?Sheet1') ('No Special Action')
+WHEN  ('?Templates:Prompt') ('No Special Action')
+WHEN  ('?Templates:Tab') ('No Special Action')
+WHEN  ('?bGenerateInterfaceCallbacks') ('No Special Action')
+WHEN  ('?clwTemplateName') ('No Special Action')
+WHEN  ('?clwTemplateName:Prompt') ('No Special Action')
+WHEN  ('?incTemplateName') ('No Special Action')
+WHEN  ('?incTemplateName:Prompt') ('No Special Action')
+WHEN  ('?szCategory') ('No Special Action')
+WHEN  ('?szCategory:Prompt') ('No Special Action')
+WHEN  ('?szParentClass:Prompt') ('No Special Action')
+WHEN  ('?szParentClassName') ('No Special Action')
+
+%ButtonRunName DEPEND %Control DEFAULT TIMES 7
+WHEN  ('?CancelButton') ('')
+WHEN  ('?EditClwTemplate:Button') ('')
+WHEN  ('?EditIncTemplate:Button') ('')
+WHEN  ('?LookupClwFile') ('')
+WHEN  ('?LookupFile') ('')
+WHEN  ('?NextButton') ('')
+WHEN  ('?OkButton') ('')
+
+%ButtonRunParameters DEPEND %Control DEFAULT TIMES 7
+WHEN  ('?CancelButton') ('')
+WHEN  ('?EditClwTemplate:Button') ('')
+WHEN  ('?EditIncTemplate:Button') ('')
+WHEN  ('?LookupClwFile') ('')
+WHEN  ('?LookupFile') ('')
+WHEN  ('?NextButton') ('')
+WHEN  ('?OkButton') ('')
+
+%ButtonProcedure DEPEND %Control PROCEDURE TIMES 7
+WHEN  ('?CancelButton') ()
+WHEN  ('?EditClwTemplate:Button') ()
+WHEN  ('?EditIncTemplate:Button') ()
+WHEN  ('?LookupClwFile') ()
+WHEN  ('?LookupFile') ()
+WHEN  ('?NextButton') ()
+WHEN  ('?OkButton') ()
+
+%ButtonThread DEPEND %Control LONG TIMES 7
+WHEN  ('?CancelButton') (0)
+WHEN  ('?EditClwTemplate:Button') (0)
+WHEN  ('?EditIncTemplate:Button') (0)
+WHEN  ('?LookupClwFile') (0)
+WHEN  ('?LookupFile') (0)
+WHEN  ('?NextButton') (0)
+WHEN  ('?OkButton') (0)
+
+%ButtonThreadStack DEPEND %Control DEFAULT TIMES 28
+WHEN  ('') ('25000')
+WHEN  ('?CancelButton') ('25000')
+WHEN  ('?ClwFileName') ('25000')
+WHEN  ('?EditClwTemplate:Button') ('25000')
+WHEN  ('?EditIncTemplate:Button') ('25000')
+WHEN  ('?General:Tab') ('25000')
+WHEN  ('?IncFileName') ('25000')
+WHEN  ('?Interfaces') ('25000')
+WHEN  ('?Interfaces:Prompt') ('25000')
+WHEN  ('?Interfaces:Tab') ('25000')
+WHEN  ('?LookupClwFile') ('25000')
+WHEN  ('?LookupFile') ('25000')
+WHEN  ('?Methods') ('25000')
+WHEN  ('?Methods:Prompt') ('25000')
+WHEN  ('?NextButton') ('25000')
+WHEN  ('?OkButton') ('25000')
+WHEN  ('?Sheet1') ('25000')
+WHEN  ('?Templates:Prompt') ('25000')
+WHEN  ('?Templates:Tab') ('25000')
+WHEN  ('?bGenerateInterfaceCallbacks') ('25000')
+WHEN  ('?clwTemplateName') ('25000')
+WHEN  ('?clwTemplateName:Prompt') ('25000')
+WHEN  ('?incTemplateName') ('25000')
+WHEN  ('?incTemplateName:Prompt') ('25000')
+WHEN  ('?szCategory') ('25000')
+WHEN  ('?szCategory:Prompt') ('25000')
+WHEN  ('?szParentClass:Prompt') ('25000')
+WHEN  ('?szParentClassName') ('25000')
+
+%ButtonParameters DEPEND %Control DEFAULT TIMES 7
+WHEN  ('?CancelButton') ('')
+WHEN  ('?EditClwTemplate:Button') ('')
+WHEN  ('?EditIncTemplate:Button') ('')
+WHEN  ('?LookupClwFile') ('')
+WHEN  ('?LookupFile') ('')
+WHEN  ('?NextButton') ('')
+WHEN  ('?OkButton') ('')
+
+%ButtonReturnValueAssignment DEPEND %Control FIELD TIMES 7
+WHEN  ('?CancelButton') ()
+WHEN  ('?EditClwTemplate:Button') ()
+WHEN  ('?EditIncTemplate:Button') ()
+WHEN  ('?LookupClwFile') ()
+WHEN  ('?LookupFile') ()
+WHEN  ('?NextButton') ()
+WHEN  ('?OkButton') ()
+
+%ButtonReturnValueReferenceAssign DEPEND %Control LONG TIMES 7
+WHEN  ('?CancelButton') (0)
+WHEN  ('?EditClwTemplate:Button') (0)
+WHEN  ('?EditIncTemplate:Button') (0)
+WHEN  ('?LookupClwFile') (0)
+WHEN  ('?LookupFile') (0)
+WHEN  ('?NextButton') (0)
+WHEN  ('?OkButton') (0)
+
+%ButtonRequest DEPEND %Control DEFAULT TIMES 28
+WHEN  ('') ('None')
+WHEN  ('?CancelButton') ('None')
+WHEN  ('?ClwFileName') ('None')
+WHEN  ('?EditClwTemplate:Button') ('None')
+WHEN  ('?EditIncTemplate:Button') ('None')
+WHEN  ('?General:Tab') ('None')
+WHEN  ('?IncFileName') ('None')
+WHEN  ('?Interfaces') ('None')
+WHEN  ('?Interfaces:Prompt') ('None')
+WHEN  ('?Interfaces:Tab') ('None')
+WHEN  ('?LookupClwFile') ('None')
+WHEN  ('?LookupFile') ('None')
+WHEN  ('?Methods') ('None')
+WHEN  ('?Methods:Prompt') ('None')
+WHEN  ('?NextButton') ('None')
+WHEN  ('?OkButton') ('None')
+WHEN  ('?Sheet1') ('None')
+WHEN  ('?Templates:Prompt') ('None')
+WHEN  ('?Templates:Tab') ('None')
+WHEN  ('?bGenerateInterfaceCallbacks') ('None')
+WHEN  ('?clwTemplateName') ('None')
+WHEN  ('?clwTemplateName:Prompt') ('None')
+WHEN  ('?incTemplateName') ('None')
+WHEN  ('?incTemplateName:Prompt') ('None')
+WHEN  ('?szCategory') ('None')
+WHEN  ('?szCategory:Prompt') ('None')
+WHEN  ('?szParentClass:Prompt') ('None')
+WHEN  ('?szParentClassName') ('None')
+
+%ButtonThreadParameters DEPEND %Control DEFAULT TIMES 7
+WHEN  ('?CancelButton') ('')
+WHEN  ('?EditClwTemplate:Button') ('')
+WHEN  ('?EditIncTemplate:Button') ('')
+WHEN  ('?LookupClwFile') ('')
+WHEN  ('?LookupFile') ('')
+WHEN  ('?NextButton') ('')
+WHEN  ('?OkButton') ('')
+
+%ButtonThreadReturnValueAssignment DEPEND %Control FIELD TIMES 7
+WHEN  ('?CancelButton') ()
+WHEN  ('?EditClwTemplate:Button') ()
+WHEN  ('?EditIncTemplate:Button') ()
+WHEN  ('?LookupClwFile') ()
+WHEN  ('?LookupFile') ()
+WHEN  ('?NextButton') ()
+WHEN  ('?OkButton') ()
+
+%PreLookupKey DEPEND %Control KEY TIMES 0
+
+%PreLookupField DEPEND %Control COMPONENT TIMES 3
+WHEN  ('?ClwFileName') ()
+WHEN  ('?IncFileName') ()
+WHEN  ('?szCategory') ()
+
+%PreLookupProcedure DEPEND %Control PROCEDURE TIMES 3
+WHEN  ('?ClwFileName') ()
+WHEN  ('?IncFileName') ()
+WHEN  ('?szCategory') ()
+
+%PreLookupProcedureParameters DEPEND %Control DEFAULT TIMES 3
+WHEN  ('?ClwFileName') ('')
+WHEN  ('?IncFileName') ('')
+WHEN  ('?szCategory') ('')
+
+%PostLookupKey DEPEND %Control KEY TIMES 0
+
+%PostLookupField DEPEND %Control COMPONENT TIMES 3
+WHEN  ('?ClwFileName') ()
+WHEN  ('?IncFileName') ()
+WHEN  ('?szCategory') ()
+
+%PostLookupProcedure DEPEND %Control PROCEDURE TIMES 3
+WHEN  ('?ClwFileName') ()
+WHEN  ('?IncFileName') ()
+WHEN  ('?szCategory') ()
+
+%PostLookupProcedureParameters DEPEND %Control DEFAULT TIMES 3
+WHEN  ('?ClwFileName') ('')
+WHEN  ('?IncFileName') ('')
+WHEN  ('?szCategory') ('')
+
+%PostLookupDuringValidate DEPEND %Control LONG TIMES 29
+WHEN  ('') (1)
+WHEN  ('?CancelButton') (1)
+WHEN  ('?ClwFileName') (1)
+WHEN  ('?EditClwTemplate:Button') (1)
+WHEN  ('?EditIncTemplate:Button') (1)
+WHEN  ('?General:Tab') (1)
+WHEN  ('?IncFileName') (1)
+WHEN  ('?Interfaces') (1)
+WHEN  ('?Interfaces:Prompt') (1)
+WHEN  ('?Interfaces:Tab') (1)
+WHEN  ('?LookupClwFile') (1)
+WHEN  ('?LookupFile') (1)
+WHEN  ('?Methods') (1)
+WHEN  ('?Methods:Prompt') (1)
+WHEN  ('?NextButton') (1)
+WHEN  ('?OkButton') (1)
+WHEN  ('?Sheet1') (1)
+WHEN  ('?Templates:Prompt') (1)
+WHEN  ('?Templates:Tab') (1)
+WHEN  ('?bGenerateInterfaceCallbacks') (1)
+WHEN  ('?clwTemplateName') (1)
+WHEN  ('?clwTemplateName:Prompt') (1)
+WHEN  ('?incTemplateName') (1)
+WHEN  ('?incTemplateName:Prompt') (1)
+WHEN  ('?szCategory') (1)
+WHEN  ('?szCategory:Prompt') (1)
+WHEN  ('?szClassName') (1)
+WHEN  ('?szParentClass:Prompt') (1)
+WHEN  ('?szParentClassName') (1)
+
+%LookupAssign DEPEND %Control MULTI LONG TIMES 0
+
+%MoreTarget DEPEND %LookupAssign FIELD TIMES 0
+
+%MoreField DEPEND %LookupAssign DEFAULT TIMES 0
+
+%ForceWindowRefresh DEPEND %Control LONG TIMES 0
+
+%CheckedAssigns DEPEND %Control MULTI LONG TIMES 0
+
+%CheckedAssignVariable DEPEND %CheckedAssigns FIELD TIMES 0
+
+%CheckedAssignValue DEPEND %CheckedAssigns DEFAULT TIMES 0
+
+%CheckedHides DEPEND %Control MULTI LONG TIMES 0
+
+%CheckedControl DEPEND %CheckedHides DEFAULT TIMES 0
+
+%CheckedControlAction DEPEND %CheckedHides DEFAULT TIMES 28
+WHEN  ('')TIMES 0
+WHEN  ('?CancelButton')TIMES 0
+WHEN  ('?ClwFileName')TIMES 0
+WHEN  ('?EditClwTemplate:Button')TIMES 0
+WHEN  ('?EditIncTemplate:Button')TIMES 0
+WHEN  ('?General:Tab')TIMES 0
+WHEN  ('?IncFileName')TIMES 0
+WHEN  ('?Interfaces')TIMES 0
+WHEN  ('?Interfaces:Prompt')TIMES 0
+WHEN  ('?Interfaces:Tab')TIMES 0
+WHEN  ('?LookupClwFile')TIMES 0
+WHEN  ('?LookupFile')TIMES 0
+WHEN  ('?Methods')TIMES 0
+WHEN  ('?Methods:Prompt')TIMES 0
+WHEN  ('?NextButton')TIMES 0
+WHEN  ('?OkButton')TIMES 0
+WHEN  ('?Sheet1')TIMES 0
+WHEN  ('?Templates:Prompt')TIMES 0
+WHEN  ('?Templates:Tab')TIMES 0
+WHEN  ('?bGenerateInterfaceCallbacks')TIMES 0
+WHEN  ('?clwTemplateName')TIMES 0
+WHEN  ('?clwTemplateName:Prompt')TIMES 0
+WHEN  ('?incTemplateName')TIMES 0
+WHEN  ('?incTemplateName:Prompt')TIMES 0
+WHEN  ('?szCategory')TIMES 0
+WHEN  ('?szCategory:Prompt')TIMES 0
+WHEN  ('?szParentClass:Prompt')TIMES 0
+WHEN  ('?szParentClassName')TIMES 0
+
+%CheckedEnables DEPEND %Control MULTI LONG TIMES 0
+
+%CheckedControl1 DEPEND %CheckedEnables DEFAULT TIMES 0
+
+%CheckedControl1Action DEPEND %CheckedEnables DEFAULT TIMES 28
+WHEN  ('')TIMES 0
+WHEN  ('?CancelButton')TIMES 0
+WHEN  ('?ClwFileName')TIMES 0
+WHEN  ('?EditClwTemplate:Button')TIMES 0
+WHEN  ('?EditIncTemplate:Button')TIMES 0
+WHEN  ('?General:Tab')TIMES 0
+WHEN  ('?IncFileName')TIMES 0
+WHEN  ('?Interfaces')TIMES 0
+WHEN  ('?Interfaces:Prompt')TIMES 0
+WHEN  ('?Interfaces:Tab')TIMES 0
+WHEN  ('?LookupClwFile')TIMES 0
+WHEN  ('?LookupFile')TIMES 0
+WHEN  ('?Methods')TIMES 0
+WHEN  ('?Methods:Prompt')TIMES 0
+WHEN  ('?NextButton')TIMES 0
+WHEN  ('?OkButton')TIMES 0
+WHEN  ('?Sheet1')TIMES 0
+WHEN  ('?Templates:Prompt')TIMES 0
+WHEN  ('?Templates:Tab')TIMES 0
+WHEN  ('?bGenerateInterfaceCallbacks')TIMES 0
+WHEN  ('?clwTemplateName')TIMES 0
+WHEN  ('?clwTemplateName:Prompt')TIMES 0
+WHEN  ('?incTemplateName')TIMES 0
+WHEN  ('?incTemplateName:Prompt')TIMES 0
+WHEN  ('?szCategory')TIMES 0
+WHEN  ('?szCategory:Prompt')TIMES 0
+WHEN  ('?szParentClass:Prompt')TIMES 0
+WHEN  ('?szParentClassName')TIMES 0
+
+%UncheckedAssigns DEPEND %Control MULTI LONG TIMES 0
+
+%UncheckedAssignVariable DEPEND %UncheckedAssigns FIELD TIMES 0
+
+%UncheckedAssignValue DEPEND %UncheckedAssigns DEFAULT TIMES 0
+
+%UnCheckedHides DEPEND %Control MULTI LONG TIMES 0
+
+%UnCheckedControl DEPEND %UnCheckedHides DEFAULT TIMES 0
+
+%UnCheckedControlAction DEPEND %UnCheckedHides DEFAULT TIMES 28
+WHEN  ('')TIMES 0
+WHEN  ('?CancelButton')TIMES 0
+WHEN  ('?ClwFileName')TIMES 0
+WHEN  ('?EditClwTemplate:Button')TIMES 0
+WHEN  ('?EditIncTemplate:Button')TIMES 0
+WHEN  ('?General:Tab')TIMES 0
+WHEN  ('?IncFileName')TIMES 0
+WHEN  ('?Interfaces')TIMES 0
+WHEN  ('?Interfaces:Prompt')TIMES 0
+WHEN  ('?Interfaces:Tab')TIMES 0
+WHEN  ('?LookupClwFile')TIMES 0
+WHEN  ('?LookupFile')TIMES 0
+WHEN  ('?Methods')TIMES 0
+WHEN  ('?Methods:Prompt')TIMES 0
+WHEN  ('?NextButton')TIMES 0
+WHEN  ('?OkButton')TIMES 0
+WHEN  ('?Sheet1')TIMES 0
+WHEN  ('?Templates:Prompt')TIMES 0
+WHEN  ('?Templates:Tab')TIMES 0
+WHEN  ('?bGenerateInterfaceCallbacks')TIMES 0
+WHEN  ('?clwTemplateName')TIMES 0
+WHEN  ('?clwTemplateName:Prompt')TIMES 0
+WHEN  ('?incTemplateName')TIMES 0
+WHEN  ('?incTemplateName:Prompt')TIMES 0
+WHEN  ('?szCategory')TIMES 0
+WHEN  ('?szCategory:Prompt')TIMES 0
+WHEN  ('?szParentClass:Prompt')TIMES 0
+WHEN  ('?szParentClassName')TIMES 0
+
+%UnCheckedEnables DEPEND %Control MULTI LONG TIMES 0
+
+%UnCheckedControl1 DEPEND %UnCheckedEnables DEFAULT TIMES 0
+
+%UnCheckedControl1Action DEPEND %UnCheckedEnables DEFAULT TIMES 28
+WHEN  ('')TIMES 0
+WHEN  ('?CancelButton')TIMES 0
+WHEN  ('?ClwFileName')TIMES 0
+WHEN  ('?EditClwTemplate:Button')TIMES 0
+WHEN  ('?EditIncTemplate:Button')TIMES 0
+WHEN  ('?General:Tab')TIMES 0
+WHEN  ('?IncFileName')TIMES 0
+WHEN  ('?Interfaces')TIMES 0
+WHEN  ('?Interfaces:Prompt')TIMES 0
+WHEN  ('?Interfaces:Tab')TIMES 0
+WHEN  ('?LookupClwFile')TIMES 0
+WHEN  ('?LookupFile')TIMES 0
+WHEN  ('?Methods')TIMES 0
+WHEN  ('?Methods:Prompt')TIMES 0
+WHEN  ('?NextButton')TIMES 0
+WHEN  ('?OkButton')TIMES 0
+WHEN  ('?Sheet1')TIMES 0
+WHEN  ('?Templates:Prompt')TIMES 0
+WHEN  ('?Templates:Tab')TIMES 0
+WHEN  ('?bGenerateInterfaceCallbacks')TIMES 0
+WHEN  ('?clwTemplateName')TIMES 0
+WHEN  ('?clwTemplateName:Prompt')TIMES 0
+WHEN  ('?incTemplateName')TIMES 0
+WHEN  ('?incTemplateName:Prompt')TIMES 0
+WHEN  ('?szCategory')TIMES 0
+WHEN  ('?szCategory:Prompt')TIMES 0
+WHEN  ('?szParentClass:Prompt')TIMES 0
+WHEN  ('?szParentClassName')TIMES 0
+
+%ProcedureAutoBindFieldsIgnored MULTI LONG  ()
+%ProcedureAutoBindFieldIgnored DEPEND %ProcedureAutoBindFieldsIgnored DEFAULT TIMES 0
+
+%ProcedureAutoBindProceduresIgnored MULTI LONG  ()
+%ProcedureAutoBindProcedureIgnored DEPEND %ProcedureAutoBindProceduresIgnored DEFAULT TIMES 0
+
+%ProcedureAutoBindValidToAddField LONG  (0)
+%ProcedureUseEnterInsteadTabExcludeListCombo LONG  (0)
+%ProcedureUseEnterInsteadTabDisableNextTabStop LONG  (0)
+%ProcedureUseEnterInsteadTabEnableNextTabStop LONG  (0)
+%ExtUITabIcon DEPEND %Control DEFAULT TIMES 0
+
+%ExtUITabStyleOverrideGlobal DEPEND %Control LONG TIMES 0
+
+%ExtUITabStyle DEPEND %Control DEFAULT TIMES 2
+WHEN  ('') ('Default')
+WHEN  ('?Sheet1') ('Default')
+
+%CheckedDisables DEPEND %Control MULTI LONG TIMES 0
+
+%CheckedDisableControl DEPEND %CheckedDisables DEFAULT TIMES 0
+
+%CheckedDisableControlAction DEPEND %CheckedDisables DEFAULT TIMES 1
+WHEN  ('')TIMES 0
+
+%UnCheckedDisables DEPEND %Control MULTI LONG TIMES 0
+
+%UnCheckedDisableControl DEPEND %UnCheckedDisables DEFAULT TIMES 0
+
+%UnCheckedDisableControlAction DEPEND %UnCheckedDisables DEFAULT TIMES 1
+WHEN  ('')TIMES 0
+
+%ProcedureOneInstance LONG  (0)
+%FieldGradientColorType DEPEND %Control DEFAULT TIMES 1
+WHEN  ('') ('Off')
+
+%FieldGradientColorTypeVariable DEPEND %Control DEFAULT TIMES 1
+WHEN  ('') ('')
+
+%FieldGradientColorTypeIsVariable DEPEND %Control LONG TIMES 1
+WHEN  ('') (0)
+
+%FieldGradientColorFrom DEPEND %Control LONG TIMES 1
+WHEN  ('') (-1)
+
+%FieldGradientColorFromVariable DEPEND %Control DEFAULT TIMES 0
+
+%FieldGradientColorFromIsVariable DEPEND %Control LONG TIMES 1
+WHEN  ('') (0)
+
+%FieldGradientColorTo DEPEND %Control LONG TIMES 1
+WHEN  ('') (-1)
+
+%FieldGradientColorToVariable DEPEND %Control DEFAULT TIMES 0
+
+%FieldGradientColorToIsVariable DEPEND %Control LONG TIMES 1
+WHEN  ('') (0)
+
+%PreserveVarsLoc MULTI LONG  ()
+%PreserveVarLoc DEPEND %PreserveVarsLoc DEFAULT TIMES 0
+
+%ActiveImageEnable DEPEND %Control LONG TIMES 0
+
+%AIObjectName DEPEND %Control DEFAULT TIMES 1
+WHEN  ('') ('AIBtn0')
+
+%AIEnableMimicControl DEPEND %Control LONG TIMES 1
+WHEN  ('') (1)
+
+%AIMimicControl DEPEND %Control DEFAULT TIMES 1
+WHEN  ('') ('?Sheet1')
+
+%AIImgRound DEPEND %Control LONG TIMES 0
+
+%AIOverrideImg DEPEND %Control DEFAULT TIMES 0
+
+%AIOverrideImgVariable DEPEND %Control DEFAULT TIMES 0
+
+%AIOverrideImgIsVariable DEPEND %Control LONG TIMES 1
+WHEN  ('') (0)
+
+%AIDisableImg DEPEND %Control DEFAULT TIMES 0
+
+%AIDisableImgVariable DEPEND %Control DEFAULT TIMES 0
+
+%AIDisableImgIsVariable DEPEND %Control LONG TIMES 1
+WHEN  ('') (0)
+
+%AIHotImg DEPEND %Control DEFAULT TIMES 0
+
+%AIHotImgVariable DEPEND %Control DEFAULT TIMES 0
+
+%AIHotImgIsVariable DEPEND %Control LONG TIMES 1
+WHEN  ('') (0)
+
+%AIPressedImg DEPEND %Control DEFAULT TIMES 0
+
+%AIPressedImgVariable DEPEND %Control DEFAULT TIMES 0
+
+%AIPressedImgIsVariable DEPEND %Control LONG TIMES 1
+WHEN  ('') (0)
+
+[EMBED]
+EMBED %ControlEventHandling
+[INSTANCES]
+WHEN '?CancelButton'
+[INSTANCES]
+WHEN 'Accepted'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 5000
+PROPERTY:END
+RetVal = Level:Cancel
+[GROUP]
+PRIORITY 5000
+INSTANCE 3
+[END]
+[END]
+WHEN '?OkButton'
+[INSTANCES]
+WHEN 'Accepted'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 5000
+PROPERTY:END
+IF szClassName = ''
+   SELECT(?szClassName)
+ELSIF incFileName = ''
+   SELECT(?incFileName)
+ELSIF clwFileName = ''
+   SELECT(?clwFileName)
+ELSE
+   DO Finish     !Do the Finish Processing
+   POST(Event:CloseWindow)
+END
+[END]
+[END]
+WHEN '?szClassName'
+[INSTANCES]
+WHEN 'Accepted'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 5000
+PROPERTY:END
+IF IncFileName = ''
+   IncFileName = szClassName & '.inc'
+   DISPLAY(?IncFileName)
+END
+IF ClwFileName = ''
+   ClwFileName = szClassName & '.clw'
+   DISPLAY(?ClwFileName)
+END
+[END]
+[END]
+WHEN '?NextButton'
+[INSTANCES]
+WHEN 'Accepted'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 5000
+PROPERTY:END
+HIDE(?Templates:Tab)
+UNHIDE(?General:Tab)
+UNHIDE(?Interfaces:Tab)
+UNHIDE(?OKButton)
+DO InitializeTemplates                                  !Load Templates (adds user tokens)
+SELECT(?General:Tab)
+[END]
+[END]
+WHEN '?incTemplateName'
+[INSTANCES]
+WHEN 'Accepted'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 5000
+PROPERTY:END
+GET(incTemplateQ,CHOICE(?incTemplateName))
+[END]
+[END]
+WHEN '?clwTemplateName'
+[INSTANCES]
+WHEN 'Accepted'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 5000
+PROPERTY:END
+GET(clwTemplateQ,CHOICE(?clwTemplateName))
+[END]
+[END]
+WHEN '?szParentClassName'
+[INSTANCES]
+WHEN 'Accepted'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 5000
+LABEL
+PROPERTY:END
+      IF szParentClassName <> ''
+         DO FillBaseMethodQ
+         UNHIDE(?Methods:Tab)
+         DO FillPropertyQueue
+         UNHIDE(?Properties:Tab)
+      ELSE
+         FREE(BaseMethodQ)
+         HIDE(?Methods:Tab)
+         FREE(PropertyQueue)
+         HIDE(?Properties:Tab)
+      END
+[END]
+[END]
+WHEN '?Interfaces'
+[INSTANCES]
+WHEN 'AlertKey'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 5000
+PROPERTY:END
+IF KEYCODE() = MouseLeft
+   MouseDownRow = ?Interfaces{PROPLIST:MouseDownRow}
+   GET(InterfaceQueue,MouseDownRow)
+   InterfaceQueue.wIcon = CHOOSE(InterfaceQueue.wIcon=2,1,2)
+   InterfaceQueue.lStyle = CHOOSE(InterfaceQueue.wIcon=2,0,1)
+   PUT(InterfaceQueue)
+   DISPLAY(?Interfaces)
+END
+[END]
+[END]
+WHEN '?Methods'
+[INSTANCES]
+WHEN 'AlertKey'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 5000
+PROPERTY:END
+CASE KEYCODE()
+OF MouseRight
+   DO PopupMenu
+OF MouseLeft
+   MouseDownRow = ?Methods{PROPLIST:MouseDownRow}
+   GET(BaseMethodQ,MouseDownRow)
+   BaseMethodQ.wIcon = CHOOSE(BaseMethodQ.wIcon=2,1,2)
+   BaseMethodQ.lStyle = CHOOSE(BaseMethodQ.wIcon=2,0,1)
+   PUT(BaseMethodQ)
+   DISPLAY(?Methods)
+END
+[END]
+[END]
+WHEN '?EditIncTemplate:Button'
+[INSTANCES]
+WHEN 'Accepted'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 5000
+PROPERTY:END
+q &= incTemplateQ
+DO EditSource
+[END]
+[END]
+WHEN '?EditClwTemplate:Button'
+[INSTANCES]
+WHEN 'Accepted'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 5000
+PROPERTY:END
+q &= clwTemplateQ
+DO EditSource
+[END]
+[END]
+WHEN '?Properties'
+[INSTANCES]
+WHEN 'AlertKey'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 7500
+PROPERTY:END
+IF KEYCODE() = MouseLeft
+   MouseDownRow = ?Properties{PROPLIST:MouseDownRow}
+   GET(PropertyQueue,MouseDownRow)
+   PropertyQueue.wIcon = CHOOSE(PropertyQueue.wIcon=2,1,2)
+   PropertyQueue.lStyle = CHOOSE(PropertyQueue.wIcon=2,0,1)
+   PUT(PropertyQueue)
+   DISPLAY(?Properties)
+END
+[END]
+[END]
+[END]
+EMBED %WindowManagerMethodDataSection
+[INSTANCES]
+WHEN 'Init'
+[INSTANCES]
+WHEN '(),BYTE'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 5000
+PROPERTY:END
+I   LONG,AUTO
+J   LONG,AUTO
+szName  LIKE(incTemplateQ.szName),AUTO
+[END]
+[END]
+WHEN 'Kill'
+[INSTANCES]
+WHEN '(),BYTE'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 5000
+PROPERTY:END
+I   LONG,AUTO
+J   LONG,AUTO
+[END]
+[END]
+WHEN 'TakeFieldEvent'
+[INSTANCES]
+WHEN '(),BYTE'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 8500
+PROPERTY:END
+MouseDownRow    LONG
+[END]
+[END]
+[END]
+EMBED %WindowManagerMethodCodeSection
+[INSTANCES]
+WHEN 'Init'
+[INSTANCES]
+WHEN '(),BYTE'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 8050
+PROPERTY:END
+DO LoadDefaultTokens                                    !load the default tokens
+DO FillClassQueues                                      !fill the lookup queues
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 8400
+PROPERTY:END
+CASE glo:Background
+OF 1  !Color
+   window{PROP:Wallpaper} = ''
+   window{PROP:Color} = glo:Color2
+OF 2  !Wallpaper
+   window{PROP:Wallpaper} = glo:szWallpaper2
+   window{PROP:Tiled} = glo:Tiled2
+   window{PROP:Color} = COLOR:NONE
+OF 3  !None
+   window{PROP:Wallpaper} = ''
+   window{PROP:Color} = COLOR:NONE
+END
+J = LASTFIELD()
+LOOP I = 1 TO J
+   SETFONT(I,glo:Typeface,glo:FontSize,glo:FontColor,glo:FontStyle,0)
+END
+
+?Interfaces{PROP:IconList,1} = '~checkyes.ico'
+?Interfaces{PROP:IconList,2} = '~checkno.ico'
+?Interfaces{PROPSTYLE:TextColor,1} = COLOR:BLUE
+?Interfaces{PROPSTYLE:BackColor,1} = COLOR:BTNFACE
+?Interfaces{PROPSTYLE:TextSelected,1} = glo:lSelectedFore !COLOR:BLUE
+?Interfaces{PROPSTYLE:BackSelected,1} = glo:lSelectedBack
+?Interfaces{PROPSTYLE:FontName,STYLE:NORMAL} = glo:Typeface
+?Interfaces{PROPSTYLE:FontSize,STYLE:NORMAL} = glo:FontSize
+?Interfaces{PROPSTYLE:FontStyle,STYLE:NORMAL} = glo:FontStyle
+
+?Methods{PROP:IconList,1} = '~checkyes.ico'
+?Methods{PROP:IconList,2} = '~checkno.ico'
+?Methods{PROPSTYLE:TextColor,1} = COLOR:BLUE
+?Methods{PROPSTYLE:BackColor,1} = COLOR:BTNFACE
+?Methods{PROPSTYLE:TextSelected,1} = glo:lSelectedFore !COLOR:BLUE
+?Methods{PROPSTYLE:BackSelected,1} = glo:lSelectedBack
+?Methods{PROPSTYLE:FontName,STYLE:NORMAL} = glo:Typeface
+?Methods{PROPSTYLE:FontSize,STYLE:NORMAL} = glo:FontSize
+?Methods{PROPSTYLE:FontStyle,STYLE:NORMAL} = glo:FontStyle
+
+?Properties{PROP:IconList,1} = '~checkyes.ico'
+?Properties{PROP:IconList,2} = '~checkno.ico'
+?Properties{PROPSTYLE:TextColor,1} = COLOR:BLUE
+?Properties{PROPSTYLE:BackColor,1} = COLOR:BTNFACE
+?Properties{PROPSTYLE:TextSelected,1} = glo:lSelectedFore !COLOR:BLUE
+?Properties{PROPSTYLE:BackSelected,1} = glo:lSelectedBack
+?Properties{PROPSTYLE:FontName,STYLE:NORMAL} = glo:Typeface
+?Properties{PROPSTYLE:FontSize,STYLE:NORMAL} = glo:FontSize
+?Properties{PROPSTYLE:FontStyle,STYLE:NORMAL} = glo:FontStyle
+
+DO FillCategoryQueue
+
+IF ~RECORDS(incTemplateQ)
+   incTemplateQ.szPath = PATH() & '\' & 'IncTemplate.txt'
+   IF EXISTS(incTemplateQ.szPath)
+      incTemplateQ.szName = 'Sample INC Template'
+      ADD(incTemplateQ)
+   END
+END
+SORT(incTemplateQ,incTemplateQ.szPath)
+INIMgr.Fetch('Options','incTemplate',incTemplateQ.szPath)
+incTemplateQ.szPath = UPPER(incTemplateQ.szPath)
+GET(incTemplateQ,+incTemplateQ.szPath)
+IF ERRORCODE()
+   SORT(incTemplateQ,incTemplateQ.szName)
+   GET(incTemplateQ,1)
+ELSE
+   szName = incTemplateQ.szName
+   SORT(incTemplateQ,incTemplateQ.szName)
+   GET(incTemplateQ,+incTemplateQ.szName)
+   IF ERRORCODE()
+      GET(incTemplateQ,1)
+   END
+END
+incTemplateName = incTemplateQ.szName
+?incTemplateName{PROP:Selected} = POINTER(incTemplateQ)
+
+IF ~RECORDS(clwTemplateQ)
+   clwTemplateQ.szPath = PATH() & '\' & 'ClwTemplate.txt'
+   IF EXISTS(clwTemplateQ.szPath)
+      clwTemplateQ.szName = 'Sample CLW Template'
+      ADD(clwTemplateQ)
+   END
+END
+SORT(clwTemplateQ,clwTemplateQ.szName)
+SORT(clwTemplateQ,clwTemplateQ.szPath)
+INIMgr.Fetch('Options','clwTemplate',clwTemplateQ.szPath)
+clwTemplateQ.szPath = UPPER(clwTemplateQ.szPath)
+GET(clwTemplateQ,+clwTemplateQ.szPath)
+IF ERRORCODE()
+   SORT(clwTemplateQ,clwTemplateQ.szName)
+   GET(clwTemplateQ,1)
+ELSE
+   szName = clwTemplateQ.szName
+   SORT(clwTemplateQ,clwTemplateQ.szName)
+   GET(clwTemplateQ,+clwTemplateQ.szName)
+   IF ERRORCODE()
+      GET(clwTemplateQ,1)
+   END
+END
+clwTemplateName = clwTemplateQ.szName
+?clwTemplateName{PROP:Selected} = POINTER(clwTemplateQ)
+popupmgr.init()
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 9300
+PROPERTY:END
+IF glo:bUseHTMLHelp
+   IF ohh &= NULL
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 9700
+PROPERTY:END
+   ELSE
+      oHH.SetHelpFile( 'ABCVIEW.CHM' )
+   END
+END
+[END]
+[END]
+WHEN 'Kill'
+[INSTANCES]
+WHEN '(),BYTE'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 5001
+PROPERTY:END
+J = RECORDS(Token)
+LOOP I = 1 TO J
+  GET(Token,I)
+  IF Token.bFree
+     IF ~Token.szValue &= NULL
+        DISPOSE(Token.szValue)
+        Token.szValue &= NULL
+     END
+     IF ~Token.nValue &= NULL
+        DISPOSE(Token.nValue)
+        Token.nValue &= NULL
+     END
+     IF Token.PromptFeq
+        DESTROY(Token.PromptFeq)
+        Token.PromptFeq = 0
+     END
+     IF Token.EntryFeq
+        DESTROY(Token.EntryFeq)
+        Token.EntryFeq = 0
+     END
+     PUT(Token)
+  END
+END
+FREE(Token)
+
+J = RECORDS(TabQueue)
+LOOP I = 1 TO J
+   GET(TabQueue,I)
+   IF TabQueue.Feq
+      DESTROY(TabQueue.Feq)
+      TabQueue.Feq = 0
+      PUT(TabQueue)
+   END
+END
+FREE(TabQueue)
+
+FREE(ClassQueue)
+FREE(InterfaceQueue)
+FREE(CategoryQueue)
+popupmgr.kill()
+[END]
+[END]
+[END]
+EMBED %ProcedureRoutines
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 3240
+PROPERTY:END
+FillClassQueues   ROUTINE
+  DATA
+I       LONG,AUTO
+J       LONG,AUTO
+
+  CODE
+  FREE(ClassQueue)
+  FREE(InterfaceQueue)
+
+  !add blank records
+  !====================================================================
+  ClassQueue.szClassName = ''
+  ClassQueue.szSortName  = ''
+  ADD(ClassQueue)
+
+  J = RECORDS(ClassQ)
+  LOOP I = 1 TO J
+    GET(ClassQ,I)
+    IF ClassQ.bInterface
+       InterfaceQueue.szClassName = ClassQ.szClassName
+       InterfaceQueue.szSortName  = ClassQ.szClassSort
+       InterfaceQueue.wIcon = 2
+       InterfaceQueue.lStyle = 0
+       ADD(InterfaceQueue)
+    ELSE
+       ClassQueue.szClassName = ClassQ.szClassName
+       ClassQueue.szSortName  = ClassQ.szClassSort
+       ADD(ClassQueue)
+    END
+  END
+
+  SORT(ClassQueue,+ClassQueue.szSortName)
+  SORT(InterfaceQueue,+InterfaceQueue.szSortName)
+  EXIT
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 3600
+PROPERTY:END
+FillCategoryQueue   ROUTINE
+  DATA
+I       LONG,AUTO
+J       LONG,AUTO
+
+  CODE
+  FREE(CategoryQueue)
+  J = RECORDS(CategoryQ)
+  LOOP I = 1 TO J
+    GET(CategoryQ,I)
+    CategoryQueue.szCategory = UPPER(CategoryQ.szCategory)
+    GET(CategoryQueue,+CategoryQueue.szCategory)
+    IF ERRORCODE()
+       ADD(CategoryQueue,+CategoryQueue.szCategory)
+    END
+  END
+
+  !szCategory = 'ABC'
+  !CategoryQueue.szCategory = szCategory
+  !GET(CategoryQueue,+CategoryQueue.szCategory)
+  !IF ERRORCODE()
+     GET(CategoryQueue,1)
+  !END
+  IF ThisWindow.Opened
+     ?szCategory{PROP:Selected} = POINTER(CategoryQueue)
+  END
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 3600
+PROPERTY:END
+FillBaseMethodQ ROUTINE
+  DATA
+I           LONG,AUTO
+J           LONG,AUTO
+lSourceLine LONG,AUTO
+
+  CODE
+  FREE(BaseMethodQ)
+  SORT(ClassQ,+ClassQ.szClassSort)
+  ClassQ.szClassSort = UPPER(szParentClassName)
+  GET(ClassQ,+ClassQ.szClassSort)
+  IF ~ERRORCODE()
+     J = RECORDS(MethodQ)
+     LOOP I = 1 TO J
+        GET(MethodQ,I)
+        IF MethodQ.lClassId = ClassQ.lClassId
+           IF MethodQ.bPrivate = TRUE OR MethodQ.bModule = TRUE
+              CYCLE
+           ELSE
+              lSourceLine = srcGetSourceLine(ClassQ.lIncludeId,MethodQ.szMethodName,MethodQ.szPrototype,BaseMethodQ.szMethod)
+              BaseMethodQ.wIcon = 2
+              BaseMethodQ.lStyle = 0
+              ADD(BaseMethodQ)
+           END
+        END
+     END
+  END
+  EXIT
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 3600
+PROPERTY:END
+FillPropertyQueue   ROUTINE
+  DATA
+I           LONG,AUTO
+J           LONG,AUTO
+
+  CODE
+  FREE(PropertyQueue)
+  ClassQ.szClassSort = UPPER(szParentClassName)
+  GET(ClassQ,+ClassQ.szClassSort)
+  IF ~ERRORCODE()
+     J = RECORDS(PropertyQ)
+     LOOP I = 1 TO J
+        GET(PropertyQ,I)
+        IF PropertyQ.lClassId = ClassQ.lClassId
+           IF PropertyQ.bPrivate = TRUE OR PropertyQ.bModule = TRUE
+              CYCLE
+           ELSE
+              PropertyQueue.szPropertyName = PropertyQ.szPropertyName
+              PropertyQueue.wIcon = 2
+              PropertyQueue.lStyle = 0
+              PropertyQueue.szDataType = PropertyQ.szDataType
+              PropertyQueue.szSortName = PropertyQ.szPropertySort
+              ADD(PropertyQueue)
+           END
+        END
+     END
+  END
+  SORT(PropertyQueue,+PropertyQueue.szSortName)
+  EXIT
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 3600
+PROPERTY:END
+LoadDefaultTokens   ROUTINE
+  Token.szName = '%CLASSNAME'
+  Token.szValue &= szClassName
+  Token.szPrompt = 'Class Name:'
+  Token.szDefault = ''
+  Token.PromptFeq = ?szClassName:Prompt
+  Token.EntryFeq = ?szClassName
+  Token.bFree = FALSE
+  ADD(Token,+Token.szName)
+
+  Token.szName = '%BASECLASS'
+  Token.szValue &= szParentClassName
+  Token.szPrompt = 'Base Class:'
+  Token.szDefault = ''
+  Token.PromptFeq = ?szParentClass:Prompt
+  Token.EntryFeq = ?szParentClassName
+  Token.bFree = FALSE
+  ADD(Token,+Token.szName)
+
+  Token.szName = '%CATEGORY'
+  Token.szValue &= szCategory
+  Token.szPrompt = 'Category:'
+  Token.szDefault = ''
+  Token.PromptFeq = ?szCategory:Prompt
+  Token.EntryFeq = ?szCategory
+  Token.bFree = FALSE
+  ADD(Token,+Token.szName)
+
+  Token.szName = '%INCFILENAME'
+  Token.szValue &= IncFileName
+  Token.szPrompt = 'inc Filename:'
+  Token.szDefault = ''
+  Token.PromptFeq = ?IncFileName:Prompt
+  Token.EntryFeq = ?IncFileName
+  Token.bFree = FALSE
+  ADD(Token,+Token.szName)
+
+  Token.szName = '%CLWFILENAME'
+  Token.szValue &= ClwFileName
+  Token.szPrompt = 'clw Filename:'
+  Token.szDefault = ''
+  Token.PromptFeq = ?ClwFileName:Prompt
+  Token.EntryFeq = ?ClwFileName
+  Token.bFree = FALSE
+  ADD(Token,+Token.szName)
+
+  Token.szName = '%DATE'
+  Token.szValue &= GenerationDate
+  Token.szPrompt = 'Generation Date:'
+  Token.szDefault = ''
+  Token.PromptFeq = 0
+  Token.EntryFeq = 0
+  Token.bFree = FALSE
+  ADD(Token,+Token.szName)
+
+  Token.szName = '%TIME'
+  Token.szValue &= GenerationTime
+  Token.szPrompt = 'Generation Time:'
+  Token.szDefault = ''
+  Token.PromptFeq = 0
+  Token.EntryFeq = 0
+  Token.bFree = FALSE
+  ADD(Token,+Token.szName)
+
+  Token.szName = '%METHODS'
+  Token.szValue &= NULL
+  Token.szPrompt = 'Base Class Methods:'
+  Token.szDefault = ''
+  Token.PromptFeq = ?Methods:Prompt
+  Token.EntryFeq = ?Methods
+  Token.bFree = FALSE
+  ADD(Token,+Token.szName)
+
+  Token.szName = '%INTERFACES'
+  Token.szValue &= NULL
+  Token.szPrompt = 'Implemented Interfaces:'
+  Token.szDefault = ''
+  Token.PromptFeq = ?Interfaces:Prompt
+  Token.EntryFeq = ?Interfaces
+  Token.bFree = FALSE
+  ADD(Token,+Token.szName)
+
+  !add tokens
+  Token.szName = '%METHODNAME'
+  Token.szValue &= szMethodName
+  Token.szPrompt = 'Method Name:'
+  Token.szDefault = ''
+  Token.PromptFeq = 0
+  Token.EntryFeq = 0
+  Token.bFree = FALSE
+  ADD(Token,+Token.szName)
+
+  Token.szName = '%PROTOTYPE'
+  Token.szValue &= szPrototype
+  Token.szPrompt = 'Prototype:'
+  Token.szDefault = ''
+  Token.PromptFeq = 0
+  Token.EntryFeq = 0
+  Token.bFree = FALSE
+  ADD(Token,+Token.szName)
+
+  Token.szName = '%RETURNTYPE'
+  Token.szValue &= szReturnType
+  Token.szPrompt = 'Return Type:'
+  Token.szDefault = ''
+  Token.PromptFeq = 0
+  Token.EntryFeq = 0
+  Token.bFree = FALSE
+  ADD(Token,+Token.szName)
+
+  EXIT
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 4000
+PROPERTY:END
+InitializeTemplates ROUTINE
+  !The IncTemplate queue should be filled from a user defined text file
+  !============================================================================
+  DO LoadIncTemplate
+
+  !The ClwTemplate queue should be filled from a user defined text file
+  !============================================================================
+  DO LoadClwTemplate
+  EXIT
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 4000
+PROPERTY:END
+LoadIncTemplate ROUTINE
+  pTemplate &= incTemplate
+  szAsciiFileName = incTemplateQ.szPath
+  IF szAsciiFileName = ''
+     szAsciiFileName = 'incTemplate.txt'
+     INIMgr.Fetch('Options','incTemplate',szAsciiFileName)
+  END
+  INIMgr.Update('Options','incTemplate',szAsciiFileName)
+  DO LoadTemplate
+  EXIT
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 4000
+PROPERTY:END
+LoadClwTemplate ROUTINE
+  pTemplate &= clwTemplate
+  szAsciiFileName = clwTemplateQ.szPath
+  IF szAsciiFileName = ''
+     szAsciiFileName = 'clwTemplate.txt'
+     INIMgr.Fetch('Options','clwTemplate',szAsciiFileName)
+  END
+  INIMgr.Update('Options','clwTemplate',szAsciiFileName)
+  DO LoadTemplate
+  EXIT
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 4000
+PROPERTY:END
+LoadTemplate ROUTINE
+  OPEN(SourceFile)
+  IF ERRORCODE()
+     MESSAGE('Template File (' & szAsciiFileName & ')',ERROR(),ICON:EXCLAMATION)
+  ELSE
+     SET(SourceFile)
+     LOOP
+        NEXT(SourceFile)
+        IF ERRORCODE()
+           BREAK
+        ELSE
+           IF UPPER(SourceFile.sText[1 : 7]) = '#PROMPT'
+              DO ParseToken
+           ELSIF UPPER(SourceFile.sText[1 : 7]) = '#PREFIX'
+              DO SetupPrefix
+           ELSE
+              pTemplate.szText = CLIP(SourceFile.sText)
+              ADD(pTemplate)
+           END
+        END
+     END
+     CLOSE(SourceFile)
+  END
+  EXIT
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 4000
+PROPERTY:END
+SetupPrefix  ROUTINE
+  LOOP
+     NEXT(SourceFile)
+     IF ERRORCODE()
+        BREAK
+     ELSE
+        IF UPPER(SourceFile.sText[1 : 10]) = '#ENDPREFIX'
+           BREAK
+        ELSE
+           PreTemplate.szText = CLIP(SourceFile.sText)
+           ADD(PreTemplate)
+        END
+     END
+  END
+  EXIT
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 4000
+PROPERTY:END
+ParseToken ROUTINE
+  DATA
+pStart  LONG,AUTO
+pEnd    LONG,AUTO
+szText  CSTRING(1025)
+
+  CODE
+  !process prompt
+  CLEAR(Token)
+  szText = CLIP(SourceFile.sText)
+  IF srcParsePrompt(szText,Token) = Level:Benign
+     DO AddToken
+  END
+  EXIT
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 4000
+PROPERTY:END
+AddToken   ROUTINE
+  DATA
+sz  &CSTRING
+lp  &REAL
+I   LONG,AUTO
+J   LONG,AUTO
+szScope LIKE(Token.szScope)
+
+  CODE
+  GET(Token,+Token.szName)
+  IF ERRORCODE()
+     !Create tab if necessary
+     !=================================================================
+     IF Current.Tab = 0
+        Current.Tab = CREATE(0,CREATE:TAB,?Sheet1)
+        TabQueue.Feq = Current.Tab
+        ADD(TabQueue)
+        Current.Tab{PROP:Text} = 'User ' & RECORDS(TabQueue) & ' ...'
+        SETFONT(Current.Tab,glo:Typeface,glo:FontSize,glo:FontColor,glo:FontStyle,0)
+        UNHIDE(Current.Tab)
+     END
+
+     IF Token.szType <> 'RADIO' AND Current.Option <> 0
+        Current.xPos -= 4
+        Current.Option = 0
+     END
+
+     CASE Token.szType
+     OF 'ENTRY' OROF 'DROP' OROF 'SPIN' OROF 'TEXT'
+        !Create the prompt
+        !=================================================================
+        Token.PromptFeq = CREATE(0,CREATE:PROMPT,Current.Tab)
+        Token.PromptFeq{PROP:Text} = Token.szPrompt
+        Token.PromptFeq{PROP:TRN} = TRUE
+        SETFONT(Token.PromptFeq,glo:Typeface,glo:FontSize,glo:FontColor,glo:FontStyle,0)
+        DO SetPromptPosition
+        Current.yPos += Token.PromptFeq{PROP:Height}
+     END
+
+     !Create the entry field
+     !=================================================================
+     CASE Token.szType
+     OF 'CHECK'
+        Token.EntryFeq = CREATE(0,CREATE:CHECK,Current.Tab)
+        Token.EntryFeq{PROP:Text} = Token.szPrompt
+        Token.nValue &= NEW(REAL)
+      ASSERT(~Token.nValue &= NULL)
+        Token.nValue = Token.szDefault
+        lp &= Token.nValue
+        Token.EntryFeq{PROP:Use} = lp
+        SETFONT(Token.EntryFeq,glo:Typeface,glo:FontSize,glo:FontColor,glo:FontStyle,0)
+        DO SetControlPosition
+        Current.yPos += Token.EntryFeq{PROP:Height} + 4
+
+     OF 'DROP'
+        Token.EntryFeq = CREATE(0,CREATE:DROPLIST,Current.Tab)
+        Token.szValue &= NEW(CSTRING(256))
+      ASSERT(~Token.szValue &= NULL)
+        IF Token.szDefault = ''
+           Token.szDefault = SUB(Token.szScope,1,INSTRING('|',Token.szScope)-1)
+        END
+        Token.szValue = Token.szDefault
+        sz &= Token.szValue
+        Token.EntryFeq{PROP:Use} = sz
+        Token.EntryFeq{PROP:Drop} = 10
+        Token.EntryFeq{PROP:Text} = '@S254'
+        szScope = Token.szScope
+        Token.EntryFeq{PROP:From} = szScope
+        Token.EntryFeq{PROP:VScroll} = TRUE
+        Token.EntryFeq{PROP:Background} = COLOR:WHITE
+        Token.EntryFeq{PROP:Format} = '80L(2)@s254@'
+        Token.EntryFeq{PROP:Selected} = 1
+        SETFONT(Token.EntryFeq,glo:Typeface,glo:FontSize,glo:FontColor,glo:FontStyle,0)
+        DO SetControlPosition
+        Current.yPos += Token.EntryFeq{PROP:Height} + 4
+
+     OF 'ENTRY'
+        Token.EntryFeq = CREATE(0,CREATE:ENTRY,Current.Tab)
+        Token.EntryFeq{PROP:Text} = Token.szPicture
+        Token.EntryFeq{PROP:Background} = COLOR:WHITE
+        Token.szValue &= NEW(CSTRING(256))
+      ASSERT(~Token.szValue &= NULL)
+        Token.szValue = Token.szDefault
+        sz &= Token.szValue
+        Token.EntryFeq{PROP:Use} = sz
+        SETFONT(Token.EntryFeq,glo:Typeface,glo:FontSize,glo:FontColor,glo:FontStyle,0)
+        DO SetControlPosition
+        Current.yPos += Token.EntryFeq{PROP:Height} + 4
+
+     OF 'OPTION'
+        Token.EntryFeq = CREATE(0,CREATE:OPTION,Current.Tab)
+        Current.Option = Token.EntryFeq
+        Token.EntryFeq{PROP:Boxed} = TRUE
+        Token.EntryFeq{PROP:Text} = Token.szPrompt
+        IF Token.bChoice = TRUE
+           Token.nValue &= NEW(REAL)
+         ASSERT(~Token.nValue &= NULL)
+           Token.nValue = Token.szDefault
+           lp &= Token.nValue
+           Token.EntryFeq{PROP:Use} = lp
+        ELSE
+           Token.szValue &= NEW(CSTRING(256))
+         ASSERT(~Token.szValue &= NULL)
+           Token.szValue = Token.szDefault
+           sz &= Token.szValue
+           Token.EntryFeq{PROP:Use} = sz
+        END
+        SETFONT(Token.EntryFeq,glo:Typeface,glo:FontSize,glo:FontColor,glo:FontStyle,0)
+        DO SetControlPosition
+        Current.yPos += 10
+        Current.xPos += 4
+
+     OF 'RADIO'
+        Token.EntryFeq = CREATE(0,CREATE:RADIO,Current.Option)
+        Token.EntryFeq{PROP:Text} = Token.szPrompt
+        IF Token.szRadioValue
+           Token.EntryFeq{PROP:Value} = Token.szRadioValue
+        END
+        SETFONT(Token.EntryFeq,glo:Typeface,glo:FontSize,glo:FontColor,glo:FontStyle,0)
+        DO SetControlPosition
+        Current.yPos += Token.EntryFeq{PROP:Height} + 4
+
+     OF 'SPIN'
+        Token.EntryFeq = CREATE(0,CREATE:SPIN,Current.Tab)
+        Token.EntryFeq{PROP:Text} = Token.szPicture
+        Token.EntryFeq{PROP:Background} = COLOR:WHITE
+        IF Token.low
+           Token.EntryFeq{PROP:Range,1} = Token.low
+        ELSE
+           Token.EntryFeq{PROP:Range,1} = -2147483648
+        END
+        IF Token.high
+           Token.EntryFeq{PROP:Range,2} = Token.high
+        ELSE
+           Token.EntryFeq{PROP:Range,2} = 2147483647
+        END
+        Token.EntryFeq{PROP:Step} = 1
+        IF Token.step
+           Token.EntryFeq{PROP:Step} = Token.step
+        END
+        Token.EntryFeq{PROP:Right} = TRUE
+        Token.nValue &= NEW(REAL)
+      ASSERT(~Token.nValue &= NULL)
+        Token.nValue = Token.szDefault
+        lp &= Token.nValue
+        Token.EntryFeq{PROP:Use} = lp
+        SETFONT(Token.EntryFeq,glo:Typeface,glo:FontSize,glo:FontColor,glo:FontStyle,0)
+        DO SetControlPosition
+        Current.yPos += Token.EntryFeq{PROP:Height} + 4
+
+     OF 'TEXT'
+        Token.EntryFeq = CREATE(0,CREATE:TEXT,Current.Tab)
+        Token.EntryFeq{PROP:Text} = Token.szPicture
+        Token.EntryFeq{PROP:Background} = COLOR:WHITE
+        Token.EntryFeq{PROP:HScroll} = TRUE
+        Token.EntryFeq{PROP:VScroll} = TRUE
+        Token.szValue &= NEW(CSTRING(256))
+      ASSERT(~Token.szValue &= NULL)
+        Token.szValue = Token.szDefault
+        sz &= Token.szValue
+        Token.EntryFeq{PROP:Use} = sz
+        SETFONT(Token.EntryFeq,glo:Typeface,glo:FontSize,glo:FontColor,glo:FontStyle,0)
+        DO SetControlPosition
+        Current.yPos += Token.EntryFeq{PROP:Height} + 4
+     END
+
+     IF Current.yPos > 126 !150
+        Current.xPos = 8
+        Current.yPos = 20
+        Current.Tab = 0
+     END
+
+     !add token to queue
+     !=================================================================
+     Token.bFree = TRUE
+     ADD(Token,+Token.szName)
+
+     !unhide the controls
+     !=================================================================
+     IF Token.PromptFeq
+        UNHIDE(Token.PromptFeq)
+     END
+     IF Token.EntryFeq
+        UNHIDE(Token.EntryFeq)
+     END
+  END
+  EXIT
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 4000
+PROPERTY:END
+SetPromptPosition  ROUTINE
+  SETPOSITION(Token.PromptFeq,Current.xPos,Current.yPos,,)
+  IF Token.prompt_xPos
+     Current.xPos = Token.prompt_xPos
+     Token.PromptFeq{PROP:xPos} = Current.xPos
+     !SETPOSITION(Token.PromptFeq,Current.xPos,,,)
+  END
+  IF Token.prompt_yPos
+     Current.yPos = Token.prompt_yPos
+     Token.PromptFeq{PROP:yPos} = Current.yPos
+     !SETPOSITION(Token.PromptFeq,,Current.yPos,,)
+  END
+  IF Token.prompt_width
+     Current.width = Token.prompt_width
+     IF (Current.xPos + Current.width) > 168
+        Current.width = (168 - Current.xPos)
+     END
+     Token.PromptFeq{PROP:width} = Current.width
+     !SETPOSITION(Token.PromptFeq,,,Current.width,)
+  END
+  IF Token.prompt_height
+     Current.height = Token.prompt_height
+     IF (Current.yPos + Current.height) > 136
+        Current.height = (136 - Current.yPos)
+     END
+     Token.PromptFeq{PROP:height} = Current.height
+     !SETPOSITION(Token.PromptFeq,,,,Current.height)
+  END
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 4000
+PROPERTY:END
+SetControlPosition  ROUTINE
+  SETPOSITION(Token.EntryFeq,Current.xPos,Current.yPos,,)
+  IF Token.xPos
+     Current.xPos = Token.xPos
+     Token.EntryFeq{PROP:xPos} = Current.xPos
+     !SETPOSITION(Token.EntryFeq,Current.xPos,,,)
+  END
+
+  IF Token.yPos
+     Current.yPos = Token.yPos
+     Token.EntryFeq{PROP:yPos} = Current.yPos
+     !SETPOSITION(Token.EntryFeq,,Current.yPos,,)
+  END
+  IF Token.width
+     Current.width = Token.width
+     IF (Current.xPos + Current.width) > 168
+        Current.width = (168 - Current.xPos)
+     END
+     Token.EntryFeq{PROP:width} = Current.width
+     !SETPOSITION(Token.EntryFeq,,,Current.width,)
+  END
+  IF Token.height
+     Current.height = Token.height
+     IF (Current.yPos + Current.height) > 136
+        Current.height = (136 - Current.yPos)
+     END
+     Token.EntryFeq{PROP:height} = Current.height
+     !SETPOSITION(Token.EntryFeq,,,,Current.height)
+  END
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 4000
+PROPERTY:END
+Finish  ROUTINE
+  DATA
+I           LONG,AUTO
+J           LONG,AUTO
+ModulePath  CSTRING(256)
+ModuleName  CSTRING(256)
+
+
+  CODE
+  UPDATE()
+
+  !write the inc file
+  !====================================================================
+  bProcessingInc = TRUE
+  pTemplate &= IncTemplate
+  IF INSTRING('\',IncFileName)
+     szAsciiFileName = IncFileName
+  ELSE
+     szAsciiFileName = glo:szCurrentDir & '\' & IncFileName
+  END
+  DO WriteFile
+
+  !write the clw file
+  !====================================================================
+  bProcessingInc = FALSE
+  pTemplate &= ClwTemplate
+  IF INSTRING('\',ClwFileName)
+     szAsciiFileName = ClwFileName
+  ELSE
+     szAsciiFileName = glo:szCurrentDir & '\' & ClwFileName
+  END
+  DO WriteFile
+
+  !add/update the module
+  !====================================================================
+  IF INSTRING('\',IncFileName)
+     J = LEN(CLIP(IncFileName))
+     LOOP I = J TO 1 BY -1
+        IF IncFileName[I] = '\'
+           BREAK
+        END
+     END
+     ModulePath = UPPER(IncFileName[1 : I])
+     ModuleName = UPPER(IncFileName[I+1 : J])
+  ELSE
+     ModulePath = UPPER(glo:szCurrentDir)
+     ModuleName = UPPER(IncFileName)
+  END
+  IF ModulePath[LEN(ModulePath)] <> '\'
+     ModulePath = ModulePath & '\'
+  END
+
+  SORT(ModuleQ,+ModuleQ.szModulePath,+ModuleQ.szModuleName)
+  ModuleQ.szModulePath = ModulePath
+  ModuleQ.szModuleName = ModuleName
+  GET(ModuleQ,+ModuleQ.szModulePath,+ModuleQ.szModuleName)
+  IF ERRORCODE()
+     SORT(ModuleQ,+ModuleQ.lModuleId)
+     GET(ModuleQ,RECORDS(ModuleQ))
+     ModuleQ.szModulePath = ModulePath
+     ModuleQ.szModuleName = ModuleName
+     ModuleQ.lModuleId += 1
+     ModuleQ.lDate = 0
+     ModuleQ.lTime = 0
+     ADD(ModuleQ,+ModuleQ.lModuleId)
+  ELSE
+     ModuleQ:lDate = 0
+     ModuleQ:lTime = 0
+     PUT(ModuleQ)
+  END
+
+  ClassNameQ.szClassName = szClassName
+  RetVal = Level:Benign
+  EXIT
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 4000
+PROPERTY:END
+WriteFile   ROUTINE
+  DATA
+I           LONG,AUTO
+J           LONG,AUTO
+K           LONG,AUTO
+N           LONG,AUTO
+P           LONG,AUTO
+pToken      LONG,AUTO
+pLastToken  LONG,AUTO
+szNumber    CSTRING(33)
+bResult     LONG,AUTO
+
+  CODE
+  IF EXISTS(szAsciiFilename)
+     bResult = MESSAGE(szAsciiFilename & ' already exists.|Are you sure you want to overwrite this file?','Add Class Wizard',ICON:QUESTION,BUTTON:YES+BUTTON:NO,BUTTON:NO)
+  ELSE
+     bResult = BUTTON:YES
+  END
+  IF bResult = BUTTON:YES
+     GenerationDate = FORMAT(TODAY(),@D17)
+     GenerationTime = FORMAT(CLOCK(),@T3)
+     pLastToken = RECORDS(Token)
+     CREATE(SourceFile)
+     IF ~ERRORCODE()
+        OPEN(SourceFile)
+        J = RECORDS(pTemplate)
+        LOOP I = 1 TO J
+          GET(pTemplate,I)
+          SourceFile.sText = pTemplate.szText
+
+          !Is this the CLASS string?
+          !===============================================================
+          K = INSTRING(' CLASS,',UPPER(SourceFile.sText),1)
+          IF K
+             K += 5
+             !add parent class if selected
+             !============================================================
+             IF szParentClassName <> ''
+                SourceFile.sText = SourceFile.sText[1 : K] & '(%BASECLASS)' & SourceFile.sText[K+1 : LEN(SourceFile.sText)]
+                K += 12
+             END
+             !add interfaces selected
+             !============================================================
+             K += 1
+             N = RECORDS(InterfaceQueue)
+             LOOP P = N TO 1 BY -1
+                GET(InterfaceQueue,P)
+                IF InterfaceQueue.wIcon = 1
+                   SourceFile.sText = SourceFile.sText[1 : K] & 'IMPLEMENTS(' & InterfaceQueue.szClassName & '),' & SourceFile.sText[K+1 : LEN(SourceFile.sText)]
+                END
+             END
+          END
+
+          IF SUB(UPPER(pTemplate.szText),1,11) = '%INTERFACES'
+             DO AddInterfaces
+          ELSIF SUB(UPPER(pTemplate.szText),1,8) = '%METHODS'
+             Indent = SUB(pTemplate.szText,9,LEN(pTemplate.szText))
+             DO AddMethods
+          ELSIF SUB(UPPER(pTemplate.szText),1,11) = '%PROPERTIES'
+             Indent = SUB(pTemplate.szText,12,LEN(pTemplate.szText))
+             DO AddPropertyMethods
+          ELSE
+             K = INSTRING('%',pTemplate.szText)
+             IF K
+                LOOP pToken = 1 TO pLastToken
+                   GET(Token,pToken)
+                   IF ~Token.szValue &= NULL
+                      SourceFile.sText = srcReplaceString(SourceFile.sText,Token.szName,Token.szValue)
+                   ELSE
+                      IF Token.szPicture
+                         szNumber = FORMAT(Token.nValue,Token.szPicture)
+                         SourceFile.sText = srcReplaceString(SourceFile.sText,Token.szName,szNumber)
+                      ELSE
+                         SourceFile.sText = srcReplaceString(SourceFile.sText,Token.szName,Token.nValue)
+                      END
+                   END
+                   IF ~INSTRING('%',SourceFile.sText)
+                      BREAK
+                   END
+                END
+             END
+             ADD(SourceFile)
+          END
+        END
+        CLOSE(SourceFile)
+     ELSE
+        MESSAGE('Error Creating ' & szAsciiFileName,ERROR(),ICON:HAND)
+     END
+  END
+  EXIT
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 4000
+PROPERTY:END
+AddMethods  ROUTINE
+  DATA
+I           LONG,AUTO
+J           LONG,AUTO
+K           LONG,AUTO
+M           LONG,AUTO
+N           LONG,AUTO
+Delimiter   STRING(1)
+ReturnType  CSTRING(32)
+szParam     CSTRING(1025)
+
+  CODE
+
+  !Generate Base Class derived methods
+  !====================================================================
+  J = RECORDS(BaseMethodQ)
+  LOOP I = 1 TO J
+     GET(BaseMethodQ,I)
+     IF BaseMethodQ.wIcon = 1
+        IF pTemplate &= ClwTemplate
+           SourceFile.sText = ''
+           ADD(SourceFile)
+
+           DO InsertMethodPrefix
+
+           ReturnType = srcGetReturnType(BaseMethodQ.szMethod)
+           DO ChangeAttributesToComments
+           SourceFile.sText = szClassName & '.' & BaseMethodQ.szMethod
+           ADD(SourceFile)
+           SourceFile.sText = ''
+           ADD(SourceFile)
+
+           IF ReturnType
+              CASE ReturnType
+              OF 'STRING'   |
+              OROF 'CSTRING'
+                 SourceFile.sText = 'ReturnValue ' & ReturnType & '(32)'
+              ELSE
+                 SourceFile.sText = 'ReturnValue ' & ReturnType
+              END
+              ADD(SourceFile)
+           END
+
+           SourceFile.sText = ''
+           ADD(SourceFile)
+           SourceFile.sText = '  CODE'
+           ADD(SourceFile)
+           SourceFile.sText = ''
+           ADD(SourceFile)
+
+           !get parameter block
+           !===========================================================
+           M = INSTRING('(',BaseMethodQ.szMethod)
+           IF M
+              N = INSTRING(')',BaseMethodQ.szMethod)
+              IF N
+                 szParam = BaseMethodQ.szMethod[M : N]
+              ELSE
+            ASSERT(N > 0)
+              END
+           ELSE
+             szParam = '()'
+           END
+
+           !find label separator
+           !===========================================================
+           K = INSTRING(' ',BaseMethodQ.szMethod)
+           IF K
+              K -= 1
+           END
+           IF ~K
+              K = LEN(BaseMethodQ.szMethod)
+           END
+
+           IF ReturnType
+              SourceFile.sText = '  ReturnValue = PARENT.' & BaseMethodQ.szMethod[1 : K] & srcGetParameters(szParam)
+              ADD(SourceFile)
+              SourceFile.sText = ''
+              ADD(SourceFile)
+              SourceFile.sText = '  RETURN ReturnValue'
+              ADD(SourceFile)
+           ELSE
+              SourceFile.sText = '  PARENT.' & BaseMethodQ.szMethod[1 : K] & srcGetParameters(szParam)
+              ADD(SourceFile)
+              SourceFile.sText = ''
+              ADD(SourceFile)
+              SourceFile.sText = '  RETURN'
+              ADD(SourceFile)
+           END
+           SourceFile.sText = ''
+           ADD(SourceFile)
+
+        ELSE
+           K = INSTRING(' ',BaseMethodQ.szMethod)
+           IF K
+              IF K < Indent+1
+                 BaseMethodQ.szMethod = SUB(BaseMethodQ.szMethod[1 : K] & ALL(' ',Indent),1,Indent) & |
+                                        BaseMethodQ.szMethod[K : LEN(BaseMethodQ.szMethod)]
+              END
+           END
+           SourceFile.sText = BaseMethodQ.szMethod
+           ADD(SourceFile)
+        END
+     END
+  END
+
+  !Generate Interface Callbacks
+  !====================================================================
+  IF bGenerateInterfaceCallbacks = TRUE
+     DO AddInterfaceCallbacks
+  END
+
+
+  EXIT
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 4000
+PROPERTY:END
+AddPropertyMethods  ROUTINE
+  DATA
+I               LONG,AUTO
+J               LONG,AUTO
+K               LONG,AUTO
+szDataType      CSTRING(64)
+szGetMethodName CSTRING(64)
+szSetMethodName CSTRING(64)
+
+  CODE
+
+  !Generate Property Accessor methods
+  !====================================================================
+  J = RECORDS(PropertyQueue)
+  LOOP I = 1 TO J
+     GET(PropertyQueue,I)
+     IF PropertyQueue.wIcon = 1
+
+        K = INSTRING('(',PropertyQueue.szDataType)
+        IF K
+           szDataType = PropertyQueue.szDataType[1 : K-1]
+        ELSE
+           szDataType = PropertyQueue.szDataType
+        END
+        szGetMethodName = 'get_' & PropertyQueue.szPropertyName
+        szSetMethodName = 'set_' & PropertyQueue.szPropertyName
+        K = LEN(szGetMethodName)
+        IF K < Indent+1
+           szGetMethodName = SUB(szGetMethodName[1 : K] & ALL(' ',Indent),1,Indent)
+           szSetMethodName = SUB(szSetMethodName[1 : K] & ALL(' ',Indent),1,Indent)
+        END
+
+
+        IF pTemplate &= ClwTemplate
+           SourceFile.sText = szClassName & '.' & CLIP(szGetMethodName) & ' PROCEDURE(),' & szDataType
+           ADD(SourceFile)
+           SourceFile.sText = '  CODE'
+           ADD(SourceFile)
+           SourceFile.sText = '  RETURN(SELF.' & PropertyQueue.szPropertyName & ')'
+           ADD(SourceFile)
+           SourceFile.sText = ''
+           ADD(SourceFile)
+           SourceFile.sText = szClassName & '.' & CLIP(szSetMethodName) & ' PROCEDURE(' & szDataType & ' newValue),' & szDataType
+           ADD(SourceFile)
+           SourceFile.sText = 'oldValue LIKE(' & PropertyQueue.szPropertyName & ')'
+           ADD(SourceFile)
+           SourceFile.sText = '  CODE'
+           ADD(SourceFile)
+           SourceFile.sText = '  oldValue = SELF.get_' & PropertyQueue.szPropertyName & '()'
+           ADD(SourceFile)
+           SourceFile.sText = '  SELF.' & PropertyQueue.szPropertyName & ' = newValue'
+           ADD(SourceFile)
+           SourceFile.sText = '  RETURN(oldValue)'
+           ADD(SourceFile)
+           SourceFile.sText = ''
+           ADD(SourceFile)
+        ELSE
+           SourceFile.sText = szGetMethodName & ' PROCEDURE(),' & szDataType
+           ADD(SourceFile)
+           SourceFile.sText = szSetMethodName & ' PROCEDURE(' & szDataType & ' newValue),' & szDataType
+           ADD(SourceFile)
+        END
+
+     END
+  END
+  EXIT
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 4000
+PROPERTY:END
+InsertMethodPrefix  ROUTINE
+  DATA
+I           LONG,AUTO
+J           LONG,AUTO
+K           LONG,AUTO
+pToken      LONG,AUTO
+pLastToken  LONG,AUTO
+szNumber    CSTRING(33),AUTO
+
+  CODE
+
+  K = INSTRING(' ',BaseMethodQ.szMethod)
+  IF K
+     szMethodName = szClassName & '.' & BaseMethodQ.szMethod[1 : K]
+  ELSE
+     szMethodName = szClassName & '.' & BaseMethodQ.szMethod
+  END
+  szPrototype  = srcGetPrototype(BaseMethodQ.szMethod)
+  szReturnType = srcGetReturnType(BaseMethodQ.szMethod)
+
+  pLastToken = RECORDS(Token)
+  J = RECORDS(PreTemplate)
+
+  LOOP I = 1 TO J
+    GET(PreTemplate,I)
+    SourceFile.sText = PreTemplate.szText
+    K = INSTRING('%',PreTemplate.szText)
+    IF K
+       LOOP pToken = 1 TO pLastToken
+          GET(Token,pToken)
+          IF ~Token.szValue &= NULL
+             SourceFile.sText = srcReplaceString(SourceFile.sText,Token.szName,Token.szValue)
+          ELSE
+             IF Token.szPicture
+                szNumber = FORMAT(Token.nValue,Token.szPicture)
+                SourceFile.sText = srcReplaceString(SourceFile.sText,Token.szName,szNumber)
+             ELSE
+                SourceFile.sText = srcReplaceString(SourceFile.sText,Token.szName,Token.nValue)
+             END
+          END
+          IF ~INSTRING('%',SourceFile.sText)
+             BREAK
+          END
+       END
+    END
+    ADD(SourceFile)
+  END
+
+  EXIT
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 4000
+PROPERTY:END
+AddInterfaces   ROUTINE
+  DATA
+I           LONG,AUTO
+J           LONG,AUTO
+K           LONG,AUTO
+lSourceLine LONG,AUTO
+szLineText  CSTRING(1025)
+szParamText CSTRING(1025)
+ReturnType  CSTRING(32)
+
+  CODE
+  !Generate Interface Callbacks
+  !====================================================================
+  !IF bGenerateInterfaceCallbacks = TRUE
+  !   DO AddInterfaceCallbacks
+  !END
+
+  !Generate Interface Methods
+  !====================================================================
+  J = RECORDS(InterfaceQueue)
+  LOOP I = 1 TO J
+     GET(InterfaceQueue,I)
+     IF InterfaceQueue.wIcon = 1
+        ClassQ.szClassSort = InterfaceQueue.szSortName
+        GET(ClassQ,+ClassQ.szClassSort)
+        IF ~ERRORCODE()
+           J = RECORDS(MethodQ)
+           LOOP I = 1 TO J
+              GET(MethodQ,I)
+              IF MethodQ.lClassId = ClassQ.lClassId
+                 IF MethodQ.bPrivate = TRUE OR MethodQ.bModule = TRUE
+                    CYCLE
+                 ELSE
+                    SourceFile.sText = ''
+                    ADD(SourceFile)
+                    lSourceLine = srcGetSourceLine(ClassQ.lIncludeId,MethodQ.szMethodName,MethodQ.szPrototype,szLineText)
+
+                    BaseMethodQ.szMethod = ClassQ.szClassName & '.' & szLineText
+                    DO InsertMethodPrefix
+
+                    BaseMethodQ.szMethod = szLineText
+                    ReturnType = srcGetReturnType(BaseMethodQ.szMethod)
+                    DO ChangeAttributesToComments
+                    szLineText = BaseMethodQ.szMethod
+                    SourceFile.sText = szClassName & '.' & ClassQ.szClassName & '.' & szLineText
+                    ADD(SourceFile)
+                    SourceFile.sText = ''
+                    ADD(SourceFile)
+
+                    IF ReturnType
+                       CASE ReturnType
+                       OF 'STRING'   |
+                       OROF 'CSTRING'
+                          SourceFile.sText = 'ReturnValue ' & ReturnType & '(32)'
+                       ELSE
+                          SourceFile.sText = 'ReturnValue ' & ReturnType
+                       END
+                       ADD(SourceFile)
+                       SourceFile.sText = ''
+                       ADD(SourceFile)
+                    END
+
+                    SourceFile.sText = '  CODE'
+                    ADD(SourceFile)
+                    SourceFile.sText = ''
+                    ADD(SourceFile)
+
+                    IF ReturnType
+                       IF bGenerateInterfaceCallbacks = TRUE
+                          SourceFile.sText = '  ReturnValue = SELF.' & MethodQ.szMethodName & srcGetParameters(MethodQ.szPrototype)
+                          ADD(SourceFile)
+                          SourceFile.sText = ''
+                          ADD(SourceFile)
+                       END
+                       SourceFile.sText = '  RETURN ReturnValue'
+                       ADD(SourceFile)
+                    ELSE
+                       IF bGenerateInterfaceCallbacks = TRUE
+                          lSourceLine = srcGetSourceLine(ClassQ.lModuleId,MethodQ.szMethodName,MethodQ.szPrototype,szParamText)
+                          SourceFile.sText = '  SELF.' & MethodQ.szMethodName & srcGetParameters(MethodQ.szPrototype)
+                          ADD(SourceFile)
+                          SourceFile.sText = ''
+                          ADD(SourceFile)
+                       END
+                       SourceFile.sText = '  RETURN'
+                       ADD(SourceFile)
+                    END
+
+                    SourceFile.sText = ''
+                    ADD(SourceFile)
+                 END
+              END
+           END
+        END
+     END
+  END
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 4000
+PROPERTY:END
+AddInterfaceCallbacks   ROUTINE
+  DATA
+I           LONG,AUTO
+J           LONG,AUTO
+K           LONG,AUTO
+lSourceLine LONG,AUTO
+szLineText  CSTRING(1025)
+ReturnType  CSTRING(32)
+
+  CODE
+  J = RECORDS(InterfaceQueue)
+  LOOP I = 1 TO J
+     GET(InterfaceQueue,I)
+     IF InterfaceQueue.wIcon = 1
+        ClassQ.szClassSort = InterfaceQueue.szSortName
+        GET(ClassQ,+ClassQ.szClassSort)
+        IF ~ERRORCODE()
+           J = RECORDS(MethodQ)
+           LOOP I = 1 TO J
+              GET(MethodQ,I)
+              IF MethodQ.lClassId = ClassQ.lClassId
+                 IF MethodQ.bPrivate = TRUE OR MethodQ.bModule = TRUE
+                    CYCLE
+                 ELSE
+                    lSourceLine = srcGetSourceLine(ClassQ.lIncludeId,MethodQ.szMethodName,MethodQ.szPrototype,szLineText)
+
+                    IF bProcessingInc = TRUE
+                       K = INSTRING(' ',szLineText)
+                       IF K
+                          IF K < Indent+1
+                             szLineText = SUB(szLineText[1 : K] & ALL(' ',Indent),1,Indent) & |
+                                          szLineText[K : LEN(szLineText)]
+                          END
+                       END
+                       SourceFile.sText = szLineText
+                       ADD(SourceFile)
+                    ELSE
+                       SourceFile.sText = ''
+                       ADD(SourceFile)
+                       lSourceLine = srcGetSourceLine(ClassQ.lIncludeId,MethodQ.szMethodName,MethodQ.szPrototype,szLineText)
+                       BaseMethodQ.szMethod = szLineText
+
+                       DO InsertMethodPrefix
+
+                       ReturnType = srcGetReturnType(BaseMethodQ.szMethod)
+                       DO ChangeAttributesToComments
+                       szLineText = BaseMethodQ.szMethod
+                       SourceFile.sText = szClassName & '.' & szLineText
+                       ADD(SourceFile)
+                       SourceFile.sText = ''
+                       ADD(SourceFile)
+
+                       IF ReturnType
+                          CASE ReturnType
+                          OF 'STRING'   |
+                          OROF 'CSTRING'
+                             SourceFile.sText = 'ReturnValue ' & ReturnType & '(32)'
+                          ELSE
+                             SourceFile.sText = 'ReturnValue ' & ReturnType
+                          END
+                          ADD(SourceFile)
+                          SourceFile.sText = ''
+                          ADD(SourceFile)
+                       END
+
+                       SourceFile.sText = '  CODE'
+                       ADD(SourceFile)
+                       SourceFile.sText = ''
+                       ADD(SourceFile)
+
+                       IF ReturnType
+                          SourceFile.sText = '  RETURN ReturnValue'
+                       ELSE
+                          SourceFile.sText = '  RETURN'
+                       END
+
+                       ADD(SourceFile)
+                       SourceFile.sText = ''
+                       ADD(SourceFile)
+                    END
+                 END
+              END
+           END
+        END
+     END
+  END
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 4000
+PROPERTY:END
+ChangeAttributesToComments  ROUTINE
+  DATA
+K           LONG,AUTO
+Delimiter   STRING(1)
+
+  CODE
+  K = INSTRING('PROCEDURE(',BaseMethodQ.szMethod,1)
+  IF K
+     Delimiter = ')'
+  ELSE
+     K = INSTRING('PROCEDURE,',BaseMethodQ.szMethod,1)
+     IF K
+        Delimiter = ','
+     ELSE
+        K = INSTRING('FUNCTION(',BaseMethodQ.szMethod,1)
+        IF K
+           Delimiter = ')'
+        ELSE
+           K = INSTRING('FUNCTION,',BaseMethodQ.szMethod,1)
+           IF K
+              Delimiter = ','
+           END
+        END
+     END
+  END
+
+  IF K
+     LOOP K = 1 TO LEN(BaseMethodQ.szMethod)
+        IF BaseMethodQ.szMethod[K] = Delimiter
+           CASE Delimiter
+           OF ')'
+              IF CLIP(BaseMethodQ.szMethod[K+1 : LEN(BaseMethodQ.szMethod)]) <> ''
+                 BaseMethodQ.szMethod = BaseMethodQ.szMethod[1 : K] & '!' & BaseMethodQ.szMethod[K+1 : LEN(BaseMethodQ.szMethod)]
+              END
+           OF ','
+              IF CLIP(BaseMethodQ.szMethod[K : LEN(BaseMethodQ.szMethod)]) <> ''
+                 BaseMethodQ.szMethod = BaseMethodQ.szMethod[1 : K-1] & '!' & BaseMethodQ.szMethod[K : LEN(BaseMethodQ.szMethod)]
+              END
+           END
+           BREAK
+        END
+     END
+  END
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 4000
+PROPERTY:END
+PopupMenu   ROUTINE
+ DATA
+PopupString STRING(16),AUTO
+I           LONG,AUTO
+J           LONG,AUTO
+K           LONG,AUTO
+
+ CODE
+ !Remove Popup Manager Menu Options
+ PopupMgr.DeleteItem('CheckAll')
+ PopupMgr.DeleteItem('UncheckAll')
+
+ !Set Popup Manager Menu Options
+ PopupMgr.AddItem('&Check All','CheckAll')
+ PopupMgr.AddItem('&Uncheck All','UncheckAll')
+
+ PopupString = PopupMgr.Ask()
+
+ CASE PopupString
+   OF 'CheckAll'
+      J = RECORDS(BaseMethodQ)
+      K = POINTER(BaseMethodQ)
+      LOOP I = 1 TO J
+         GET(BaseMethodQ,I)
+         BaseMethodQ.wIcon = 1
+         BaseMethodQ.lStyle = 1
+         PUT(BaseMethodQ)
+      END
+      GET(BaseMethodQ,K)
+      DISPLAY(?Methods)
+   OF 'UncheckAll'
+      J = RECORDS(BaseMethodQ)
+      K = POINTER(BaseMethodQ)
+      LOOP I = 1 TO J
+         GET(BaseMethodQ,I)
+         BaseMethodQ.wIcon = 2
+         BaseMethodQ.lStyle = 0
+         PUT(BaseMethodQ)
+      END
+      GET(BaseMethodQ,K)
+      DISPLAY(?Methods)
+ END
+ EXIT
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 4000
+PROPERTY:END
+EditSource  ROUTINE
+  DATA
+I               LONG,AUTO
+J               LONG,AUTO
+lSearchLine     LONG(1)
+szCommandLine   CSTRING(256)
+
+  CODE
+  szCommandline = 'Notepad.exe ' & q.szPath
+  IF glo:szEditorCommand
+     szCommandLine = glo:szEditorCommand
+     I = INSTRING('.EXE ',UPPER(szCommandLine),1)
+     IF I
+        szCommandLine = SHORTPATH(szCommandLine[1 : I+3]) & szCommandLine[I+4 : LEN(szCommandLine)]
+     END
+     !look for filename parameter token
+     I = INSTRING('%1',szCommandLine,1)
+     IF I
+        szCommandLine = SUB(szCommandLine,1,I-1) & |
+                        q.szPath & |
+                        SUB(szCommandLine,I+2,LEN(szCommandLine)-(I+1))
+     END
+     !look for line number parameter token
+     I = INSTRING('%2',szCommandLine,1)
+     IF I
+        szCommandLine = SUB(szCommandLine,1,I-1) & |
+                        lSearchLine & |
+                        SUB(szCommandLine,I+2,LEN(szCommandLine)-(I+1))
+     END
+  END
+  RUN(szCommandLine)
+  IF RUNCODE() = -4   !Failed to execute
+    CASE MESSAGE('An error occurred trying to execute the following command:||' & szCommandLine & |
+            '||Do you want to use Notepad?',ERROR(),ICON:EXCLAMATION, |
+            BUTTON:YES+BUTTON:NO,BUTTON:YES)
+    OF BUTTON:YES
+       RUN('Notepad.exe ' & q.szPath)
+    END
+  END
+  EXIT
+[END]
+EMBED %DataSection
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 50
+PROPERTY:END
+!region Notices
+! ================================================================================
+! Notice : Copyright (C) 2017, Devuna
+!          Distributed under LGPLv3 (http://www.gnu.org/licenses/lgpl.html)
+!
+!    This file is part of Devuna-ClassViewer (https://github.com/Devuna/Devuna-ClassViewer)
+!
+!    Devuna-ClassViewer is free software: you can redistribute it and/or modify
+!    it under the terms of the GNU General Public License as published by
+!    the Free Software Foundation, either version 3 of the License, or
+!    (at your option) any later version.
+!
+!    Devuna-ClassViewer is distributed in the hope that it will be useful,
+!    but WITHOUT ANY WARRANTY; without even the implied warranty of
+!    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+!    GNU General Public License for more details.
+!
+!    You should have received a copy of the GNU General Public License
+!    along with Devuna-ClassViewer.  If not, see <http://www.gnu.org/licenses/>.
+! ================================================================================
+!endregion Notices
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 3000
+PROPERTY:END
+Template    QUEUE,TYPE
+szText        CSTRING(1024)
+            END
+PreTemplate QUEUE(Template),PRE(PreTemplate)
+            END
+IncTemplate QUEUE(Template),PRE(IncTemplate)
+Mark          BYTE
+            END
+ClwTemplate QUEUE(Template),PRE(ClwTemplate)
+            END
+pTemplate   &Template
+q           &TEMPLATEQTYPE
+
+szMethodName  CSTRING(256)
+szPrototype   CSTRING(256)
+szReturnType  CSTRING(33)
+
+Current     GROUP
+Tab           LONG
+XPos          LONG(8)
+YPos          LONG(20)
+Width         LONG(0)
+Height        LONG(0)
+Option        LONG(0)
+            END
+
+Indent      BYTE
+
+TabQueue    QUEUE,PRE(TabQueue)
+Feq           LONG
+            END
+
+Token       QUEUE(TOKENQUEUETYPE),PRE(Token)
+            END
+[END]
+[END]
+[ADDITION]
+NAME KCR KCR_ChangeWindowStyle
+[INSTANCE]
+INSTANCE 8
+[PROMPTS]
+%TplName DEFAULT  ('KCR_ChangeWindowStyle (Devuna)')
+%TplDescription DEFAULT  ('Change Window Style')
+%RemoveIcon LONG  (1)
+%OverrideDefaultIcon LONG  (0)
+%Icon DEFAULT  ('')
+%DisableMinimizeBox LONG  (0)
+%EnableSystemMenuBox LONG  (1)
+%IncludeQuestionMark LONG  (0)
+%TransparentWindow LONG  (0)
+[ADDITION]
+NAME ABC cwHHProc
+[INSTANCE]
+INSTANCE 2
+OWNER 5
+[PROMPTS]
+%cwHHFileName DEFAULT  ('')
+%cwHHContextURL DEFAULT  ('')
+%cwHHAltTrapKey DEFAULT  ('')
+[ADDITION]
+NAME KCR KCR_SetWindowHelp
+[INSTANCE]
+INSTANCE 1
+OWNER 4
+[PROMPTS]
+%TplName DEFAULT  ('KCR_SetWindowHelp (Devuna)')
+%TplDescription DEFAULT  ('Set Window Help Property')
+[ADDITION]
+NAME ABC CloseCurrentWindow
+[INSTANCE]
+INSTANCE 3
+[ADDITION]
+NAME ABC DOSFileLookup
+[INSTANCE]
+INSTANCE 5
+[PROMPTS]
+%ClassItem UNIQUE DEFAULT  ('Default')
+%DefaultBaseClassType DEPEND %ClassItem DEFAULT TIMES 1
+WHEN  ('Default') ('SelectFileClass')
+
+%ActualDefaultBaseClassType DEPEND %ClassItem DEFAULT TIMES 1
+WHEN  ('Default') ('')
+
+%ClassLines DEPEND %ClassItem MULTI DEFAULT TIMES 0
+
+%DOSFileDialogHeader DEFAULT  ('Include Filename')
+%DOSFileField FIELD  (IncFileName)
+%DOSInitialDirectory DEFAULT  ('')
+%DOSInitialFilename DEFAULT  ('')
+%ReturnToOriginalDir LONG  (1)
+%AllowLongFilenames LONG  (1)
+%DOSFileDialogType DEFAULT  ('Open')
+%AllowNoError LONG  (1)
+%AllowMultiSelect LONG  (0)
+%ActionsToTake DEFAULT  ('')
+%DOSVariableMask LONG  (0)
+%DOSMaskVariable DEFAULT  ('')
+%DOSMaskDesc DEFAULT  ('Include Files')
+%DOSMask DEFAULT  ('*.inc')
+%DOSMoreMasks MULTI LONG  ()
+%DOSMoreMaskDesc DEPEND %DOSMoreMasks DEFAULT TIMES 0
+
+%DOSMoreMask DEPEND %DOSMoreMasks DEFAULT TIMES 0
+
+%RedisplayWindow LONG  (1)
+%UpdateFields MULTI LONG  ()
+%UpdateFeq DEPEND %UpdateFields DEFAULT TIMES 0
+
+%GlobalObject DEPEND %ClassItem DEFAULT TIMES 1
+WHEN  ('Default') ('NO')
+
+%ThisObjectName DEPEND %ClassItem DEFAULT TIMES 1
+WHEN  ('Default') ('IncFileLookup')
+
+%UseDefaultABCBaseClass DEPEND %ClassItem LONG TIMES 1
+WHEN  ('Default') (1)
+
+%UseABCBaseClass DEPEND %ClassItem LONG TIMES 1
+WHEN  ('Default') (1)
+
+%ABCBaseClass DEPEND %ClassItem DEFAULT TIMES 1
+WHEN  ('Default') ('ADOProcCommCalled')
+
+%ExtBaseClass DEPEND %ClassItem DEFAULT TIMES 0
+
+%BaseClassIncludeFile DEPEND %ClassItem DEFAULT TIMES 0
+
+%DeriveFromBaseClass DEPEND %ClassItem LONG TIMES 1
+WHEN  ('Default') (0)
+
+%NewMethods DEPEND %ClassItem MULTI LONG TIMES 0
+
+%NewMethodName DEPEND %NewMethods DEFAULT TIMES 0
+
+%NewMethodPrototype DEPEND %NewMethods DEFAULT TIMES 0
+
+%NewClassPropertyItems DEPEND %ClassItem MULTI LONG TIMES 0
+
+%NewClassProperty DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataType DEPEND %NewClassPropertyItems DEFAULT TIMES 1
+WHEN  ('Default')TIMES 0
+
+%NewClassOtherType DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataIsRef DEPEND %NewClassPropertyItems LONG TIMES 0
+
+%NewClassDataSize DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim1 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim2 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim3 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim4 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%ClassMethods DEPEND %ClassItem MULTI LONG TIMES 0
+
+%ClassMethodName DEPEND %ClassMethods DEFAULT TIMES 0
+
+%ClassMethodPrototype DEPEND %ClassMethods DEFAULT TIMES 0
+
+%ClassPropertyItems DEPEND %ClassItem MULTI LONG TIMES 0
+
+%ClassProperty DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataType DEPEND %ClassPropertyItems DEFAULT TIMES 1
+WHEN  ('Default')TIMES 0
+
+%ClassOtherType DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataIsRef DEPEND %ClassPropertyItems LONG TIMES 0
+
+%ClassDataSize DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim1 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim2 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim3 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim4 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%AssignToImageControl LONG  (0)
+%ImageControl DEFAULT  ('')
+%ImageResize LONG  (1)
+%DefaultOnCancel LONG  (0)
+[INSTANCE]
+INSTANCE 6
+[PROMPTS]
+%ClassItem UNIQUE DEFAULT  ('Default')
+%DefaultBaseClassType DEPEND %ClassItem DEFAULT TIMES 1
+WHEN  ('Default') ('SelectFileClass')
+
+%ActualDefaultBaseClassType DEPEND %ClassItem DEFAULT TIMES 1
+WHEN  ('Default') ('')
+
+%ClassLines DEPEND %ClassItem MULTI DEFAULT TIMES 0
+
+%DOSFileDialogHeader DEFAULT  ('Clarion Source Filename')
+%DOSFileField FIELD  (ClwFileName)
+%DOSInitialDirectory DEFAULT  ('')
+%DOSInitialFilename DEFAULT  ('')
+%ReturnToOriginalDir LONG  (1)
+%AllowLongFilenames LONG  (1)
+%DOSFileDialogType DEFAULT  ('Open')
+%AllowNoError LONG  (1)
+%AllowMultiSelect LONG  (0)
+%ActionsToTake DEFAULT  ('')
+%DOSVariableMask LONG  (0)
+%DOSMaskVariable DEFAULT  ('')
+%DOSMaskDesc DEFAULT  ('Clarion Source Files')
+%DOSMask DEFAULT  ('*.clw')
+%DOSMoreMasks MULTI LONG  ()
+%DOSMoreMaskDesc DEPEND %DOSMoreMasks DEFAULT TIMES 0
+
+%DOSMoreMask DEPEND %DOSMoreMasks DEFAULT TIMES 0
+
+%RedisplayWindow LONG  (1)
+%UpdateFields MULTI LONG  ()
+%UpdateFeq DEPEND %UpdateFields DEFAULT TIMES 0
+
+%GlobalObject DEPEND %ClassItem DEFAULT TIMES 1
+WHEN  ('Default') ('NO')
+
+%ThisObjectName DEPEND %ClassItem DEFAULT TIMES 1
+WHEN  ('Default') ('ClwFileLookup')
+
+%UseDefaultABCBaseClass DEPEND %ClassItem LONG TIMES 1
+WHEN  ('Default') (1)
+
+%UseABCBaseClass DEPEND %ClassItem LONG TIMES 1
+WHEN  ('Default') (1)
+
+%ABCBaseClass DEPEND %ClassItem DEFAULT TIMES 1
+WHEN  ('Default') ('ADOProcCommCalled')
+
+%ExtBaseClass DEPEND %ClassItem DEFAULT TIMES 0
+
+%BaseClassIncludeFile DEPEND %ClassItem DEFAULT TIMES 0
+
+%DeriveFromBaseClass DEPEND %ClassItem LONG TIMES 1
+WHEN  ('Default') (0)
+
+%NewMethods DEPEND %ClassItem MULTI LONG TIMES 0
+
+%NewMethodName DEPEND %NewMethods DEFAULT TIMES 0
+
+%NewMethodPrototype DEPEND %NewMethods DEFAULT TIMES 0
+
+%NewClassPropertyItems DEPEND %ClassItem MULTI LONG TIMES 0
+
+%NewClassProperty DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataType DEPEND %NewClassPropertyItems DEFAULT TIMES 1
+WHEN  ('Default')TIMES 0
+
+%NewClassOtherType DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataIsRef DEPEND %NewClassPropertyItems LONG TIMES 0
+
+%NewClassDataSize DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim1 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim2 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim3 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim4 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%ClassMethods DEPEND %ClassItem MULTI LONG TIMES 0
+
+%ClassMethodName DEPEND %ClassMethods DEFAULT TIMES 0
+
+%ClassMethodPrototype DEPEND %ClassMethods DEFAULT TIMES 0
+
+%ClassPropertyItems DEPEND %ClassItem MULTI LONG TIMES 0
+
+%ClassProperty DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataType DEPEND %ClassPropertyItems DEFAULT TIMES 1
+WHEN  ('Default')TIMES 0
+
+%ClassOtherType DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataIsRef DEPEND %ClassPropertyItems LONG TIMES 0
+
+%ClassDataSize DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim1 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim2 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim3 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim4 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%AssignToImageControl LONG  (0)
+%ImageControl DEFAULT  ('')
+%ImageResize LONG  (1)
+%DefaultOnCancel LONG  (0)
+[ADDITION]
+NAME KCR KCR_ToolTips
+[INSTANCE]
+INSTANCE 4
+[PROMPTS]
+%TplName DEFAULT  ('KCR_ToolTips (Devuna)')
+%TplDescription DEFAULT  ('ToolTips Extension')
+%DontApply LONG  (0)
+%UseBalloonTips LONG  (1)
+%ApplyAsRegularTip LONG  (1)
+%ToolTipControls MULTI LONG  ()
+%ToolTipControl DEPEND %ToolTipControls DEFAULT TIMES 0
+
+%MultiLineTip DEPEND %ToolTipControls LONG TIMES 0
+
+%ToolTipTextOption DEPEND %ToolTipControls DEFAULT TIMES 0
+
+%TTLocalVariable DEPEND %ToolTipControls DEFAULT TIMES 0
+
+%TTGlobalVariable DEPEND %ToolTipControls DEFAULT TIMES 0
+
+%TTText DEPEND %ToolTipControls DEFAULT TIMES 0
+
+%ControlGetsFocus DEPEND %ToolTipControls LONG TIMES 0
+
+%ToolTipFeq DEPEND %ToolTipControls DEFAULT TIMES 0
+
+%ToolTipTextColour LONG  (8388608)
+%SetDelayTime LONG  (0)
+%AutopopDelay DEFAULT  ('5000')
+%InitialDelay DEFAULT  ('2000')
+%ReshowDelay DEFAULT  ('100')
+%SetBackgroundColour LONG  (0)
+%ToolTipBkColour LONG  (12648447)
+[ADDITION]
+NAME ClassViewer OptionalToolTips
+[INSTANCE]
+INSTANCE 7
+PARENT 4
+[PROMPTS]
+%TplName DEFAULT  ('OptionalToolTips (ABC)')
+%TplDescription DEFAULT  ('Optional ToolTips Extension')
+%ConditionalGlobalVariable DEFAULT  ('glo:bShowTips')
+%ToolTipDelayTime DEFAULT  ('1000')
+[CALLS]
+srcGetParameters
+srcGetPrototype
+srcGetReturnType
+srcGetSourceLine
+srcParsePrompt
+srcReplaceString
+[WINDOW]
+Window  WINDOW('Add Class Wizard'),AT(,,176,164),FONT(,,COLOR:Black,,CHARSET:ANSI),DOUBLE, |
+          TILED,CENTER,GRAY,PALETTE(256),WALLPAPER('WALLPAPER.GIF')
+          SHEET,AT(4,4,169,139),USE(?Sheet1),JOIN,COLOR(COLOR:BTNFACE),#ORIG(?Sheet1)
+            TAB('Templates'),USE(?Templates:Tab),#ORIG(?Tab1)
+              BUTTON('&Next'),AT(73,146,48,14),USE(?NextButton),TIP('Define the class g' & |
+                'eneration parameters.'),#ORIG(?Button5)
+              PROMPT('.inc Template:'),AT(8,20),USE(?incTemplateName:Prompt),TRN,#ORIG(?Prompt7)
+              LIST,AT(8,30,148,10),USE(incTemplateName),VSCROLL,COLOR(COLOR:White),DROP(10), |
+                FORMAT('90L(2)@s60@'),FROM(incTemplateQ),TIP('Select the template to be' & |
+                ' used for<0DH,0AH>creating the class include (inc) file.'),#FIELDS(incTemplateQ), |
+                #ORIG(?List3)
+              BUTTON('...'),AT(158,30,10,10),USE(?EditIncTemplate:Button),SKIP,TIP('Edit the s' & |
+                'elected inc Template.'),#ORIG(?Button6)
+              PROMPT('.clw Template:'),AT(8,44),USE(?clwTemplateName:Prompt),TRN,#ORIG(?Prompt8)
+              LIST,AT(8,54,148,10),USE(clwTemplateName),VSCROLL,COLOR(COLOR:White),DROP(10), |
+                FORMAT('90L(2)@s60@'),FROM(clwTemplateQ),TIP('Select the template to be' & |
+                ' used for<0DH,0AH>creating the class source (clw) file.'),#FIELDS(clwTemplateQ), |
+                #ORIG(?List4)
+              BUTTON('...'),AT(158,54,10,10),USE(?EditClwTemplate:Button),SKIP,TIP('Edit the s' & |
+                'elected clw Template.'),#ORIG(?EditIncTemplate:Button)
+              PROMPT('Select the template files to be used in creating the class includ' & |
+                'e (inc) and source (clw) files.'),AT(8,68,160,20),USE(?Templates:Prompt), |
+                TRN,#ORIG(?Prompt10)
+            END
+            TAB('General'),USE(?General:Tab),HIDE,#ORIG(?Tab2)
+              PROMPT('C&ategory:'),AT(8,20),USE(?szCategory:Prompt),TRN,#ORIG(?Prompt5)
+              COMBO(@s63),AT(8,30,160,10),USE(szCategory),VSCROLL,COLOR(COLOR:White),DROP(10, |
+                160),FORMAT('252L(2)@s63@?'),FROM(CategoryQueue),TIP('Enter the Class C' & |
+                'ategory/Template Family<0DH,0AH>or select an existing category from the list.'), |
+                #FIELDS(CategoryQ:szCategory),#ORIG(?List2)
+              PROMPT('&Class Name:'),AT(8,44),USE(?szClassName:Prompt),TRN,#ORIG(?szClassName:Prompt)
+              ENTRY(@s63),AT(8,54,160,10),USE(szClassName),COLOR(COLOR:White),REQ,TIP('Enter the ' & |
+                'Name of your class.')
+              PROMPT('&Base Class:'),AT(8,68),USE(?szParentClass:Prompt),TRN,#ORIG(?szParentClass:Prompt)
+              LIST,AT(8,78,160,10),USE(szParentClassName),VSCROLL,COLOR(COLOR:White),DROP(10, |
+                160),FORMAT('252L(2)@s63@'),FROM(ClassQueue),TIP('If your class is deri' & |
+                'ved from another class,<0DH,0AH>select the Base  Class from the drop list.'), |
+                #FIELDS(ClassQueue:szClassName),#ORIG(?List1)
+              PROMPT('.i&nc File:'),AT(8,92),USE(?IncFileName:Prompt),TRN,#LINK(?IncFileName), |
+                #ORIG(?IncFileName:Prompt)
+              ENTRY(@s255),AT(8,102,146,10),USE(IncFileName),COLOR(COLOR:White),REQ,TIP('Select the' & |
+                ' filename for the <0DH,0AH>generated include (inc) file.'),#LINK(?IncFileName:Prompt), |
+                #ORIG(IncFileName)
+              BUTTON('...'),AT(158,102,10,10),USE(?LookupFile),SKIP,#ORIG(?LookupFile),#SEQ(5)
+              PROMPT('.cl&w File:'),AT(8,116),USE(?ClwFileName:Prompt),TRN,#LINK(?ClwFileName), |
+                #ORIG(?ClwFileName:Prompt)
+              ENTRY(@s255),AT(8,126,146,10),USE(ClwFileName),COLOR(COLOR:White),REQ,TIP('Select the' & |
+                ' filename for the <0DH,0AH>generated source (clw) file.'),#LINK(?ClwFileName:Prompt), |
+                #ORIG(ClwFileName)
+              BUTTON('...'),AT(158,126,10,10),USE(?LookupClwFile),SKIP,#ORIG(?LookupFile), |
+                #SEQ(6)
+            END
+            TAB('Methods'),USE(?Methods:Tab),HIDE,#ORIG(?Tab3)
+              PROMPT('Select the base class methods that will be implemented by the class.'), |
+                AT(8,20,160,20),USE(?Methods:Prompt),TRN,#ORIG(?Prompt7)
+              LIST,AT(8,40,160,98),USE(?Methods),HVSCROLL,ALRT(MouseRight),ALRT(MouseLeft), |
+                COLOR(COLOR:White),FORMAT('252L(2)IY@s63@'),FROM(BaseMethodQ),TIP('Select the' & |
+                ' Base Class methods that you<0DH,0AH>want to derive in your class.<0DH>' & |
+                '<0AH>Right Click for popup menu.'),#FIELDS(BaseMethodQ:szMethod),#ORIG(?List2)
+            END
+            TAB('Properties'),USE(?Properties:Tab),HIDE
+              PROMPT('Select the properties for which you want accessor methods created.'), |
+                AT(8,20,160,20),USE(?Properties:Prompt),TRN
+              LIST,AT(8,40,160,98),USE(?Properties),HVSCROLL,ALRT(MouseLeft),COLOR(COLOR:White), |
+                FORMAT('252L(2)IY@s63@'),FROM(PropertyQueue),TIP('Select the Properties' & |
+                ' for which you want<0DH,0AH>accessor methods added to your class.')
+            END
+            TAB('Interfaces'),USE(?Interfaces:Tab),HIDE,#ORIG(?Tab4)
+              PROMPT('Select the interfaces that will be implemented by the class.'),AT(8, |
+                20,160,20),USE(?Interfaces:Prompt),TRN,#ORIG(?Prompt6)
+              LIST,AT(8,40,160,88),USE(?Interfaces),HVSCROLL,ALRT(MouseLeft),COLOR(COLOR:White), |
+                FORMAT('252L(2)IY@s63@'),FROM(InterfaceQueue),TIP('Select the Interface' & |
+                's that will be<0DH,0AH>implemented by your class.'),#FIELDS(InterfaceQueue:szClassName), |
+                #ORIG(?List2)
+              CHECK(' &Generate Interface Callbacks'),AT(8,130),USE(bGenerateInterfaceCallbacks), |
+                TIP('Check this option to have ClassViewer<0DH,0AH>generate Interface C' & |
+                'allback methods.'),#ORIG(bGenerateInterfaceCallbacks)
+            END
+          END
+          BUTTON('&Finish'),AT(73,146,48,14),USE(?OkButton),HIDE,TIP('Generate the clas' & |
+            's include (inc) and source(clw) files.  <0DH,0AH>Note:  Existing files wil' & |
+            'l be overwritten.')
+          BUTTON('Cancel'),AT(125,146,48,14),USE(?CancelButton),TIP('Close the Add Clas' & |
+            's Wiz ard <0DH,0AH>and return to the main screen.')
+        END
+
+[END]

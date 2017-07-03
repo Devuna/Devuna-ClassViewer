@@ -1,0 +1,140 @@
+[MODULE]
+[COMMON]
+FROM ABC GENERATED
+[EMBED]
+EMBED %StartOfModule
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 1300
+PROPERTY:END
+!region Notices
+! ================================================================================
+! Notice : Copyright (C) 2017, Devuna
+!          Distributed under LGPLv3 (http://www.gnu.org/licenses/lgpl.html)
+!
+!    This file is part of Devuna-ClassViewer (https://github.com/Devuna/Devuna-ClassViewer)
+!
+!    Devuna-ClassViewer is free software: you can redistribute it and/or modify
+!    it under the terms of the GNU General Public License as published by
+!    the Free Software Foundation, either version 3 of the License, or
+!    (at your option) any later version.
+!
+!    Devuna-ClassViewer is distributed in the hope that it will be useful,
+!    but WITHOUT ANY WARRANTY; without even the implied warranty of
+!    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+!    GNU General Public License for more details.
+!
+!    You should have received a copy of the GNU General Public License
+!    along with Devuna-ClassViewer.  If not, see <http://www.gnu.org/licenses/>.
+! ================================================================================
+!endregion Notices
+[END]
+[END]
+[PROCEDURE]
+NAME srcGetPrototypeAttr
+PROTOTYPE '(STRING sAttribute, STRING sString),STRING'
+PARAMETERS '(STRING sAttribute, STRING sString) !,STRING'
+[COMMON]
+DESCRIPTION 'extract prototype attribute from passed string'
+FROM ABC Source
+MODIFIED '2004/12/14' '10:41:34'
+[PROMPTS]
+%GenerateOpenClose LONG  (0)
+%GenerateSaveRestore LONG  (0)
+[EMBED]
+EMBED %DataSection
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 50
+PROPERTY:END
+!region Notices
+! ================================================================================
+! Notice : Copyright (C) 2017, Devuna
+!          Distributed under LGPLv3 (http://www.gnu.org/licenses/lgpl.html)
+!
+!    This file is part of Devuna-ClassViewer (https://github.com/Devuna/Devuna-ClassViewer)
+!
+!    Devuna-ClassViewer is free software: you can redistribute it and/or modify
+!    it under the terms of the GNU General Public License as published by
+!    the Free Software Foundation, either version 3 of the License, or
+!    (at your option) any later version.
+!
+!    Devuna-ClassViewer is distributed in the hope that it will be useful,
+!    but WITHOUT ANY WARRANTY; without even the implied warranty of
+!    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+!    GNU General Public License for more details.
+!
+!    You should have received a copy of the GNU General Public License
+!    along with Devuna-ClassViewer.  If not, see <http://www.gnu.org/licenses/>.
+! ================================================================================
+!endregion Notices
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 5000
+PROPERTY:END
+I           LONG,AUTO
+J           LONG,AUTO
+szReturn    CSTRING(1024)
+[END]
+EMBED %ProcessedCode
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 5000
+PROPERTY:END
+  CASE(sAttribute)
+    OF 'DLL'
+       I = INSTRING(',DLL(',sString,1,1)
+       IF I
+          I += 5
+          J = INSTRING(')',sString,1,I)-1
+          szReturn = sString[I : J]
+       ELSE
+          szReturn = ''
+       END
+    OF 'NAME'
+       I = INSTRING(',NAME(''',sString,1,1)
+       IF I
+          I += 7
+          J = INSTRING('''',sString,1,I)-1
+          szReturn = sString[I : J]
+       ELSE
+          szReturn = ''
+       END
+    OF 'CALLCONV'
+       IF INSTRING(',PASCAL,',sString,1,1) OR (SUB(CLIP(sString),-7,7) = ',PASCAL')
+          szReturn = 'PASCAL'
+       ELSIF INSTRING(',C,',sString,1,1) OR (SUB(CLIP(sString),-2,2) = ',C')
+          szReturn = 'C'
+       ELSE
+          szReturn = ''
+       END
+    OF 'RETURN'
+       szReturn = CLIP(sString)
+       szReturn = srcGetReturnType(szReturn)
+  END
+  RETURN(szReturn)
+[END]
+[END]
+[ADDITION]
+NAME ABC cwHHProc
+[INSTANCE]
+INSTANCE 2
+OWNER 5
+[PROMPTS]
+%cwHHFileName DEFAULT  ('')
+%cwHHContextURL DEFAULT  ('')
+%cwHHAltTrapKey DEFAULT  ('')
+[ADDITION]
+NAME KCR KCR_SetWindowHelp
+[INSTANCE]
+INSTANCE 1
+OWNER 4
+[PROMPTS]
+%TplName DEFAULT  ('KCR_SetWindowHelp (Devuna)')
+%TplDescription DEFAULT  ('Set Window Help Property')
+[CALLS]
+srcGetReturnType
+[END]

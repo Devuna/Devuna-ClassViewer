@@ -1,0 +1,546 @@
+<!--
+! ================================================================================
+! Notice : Copyright (C) 2017, Devuna
+!          Distributed under LGPLv3 (http://www.gnu.org/licenses/lgpl.html)
+!
+!    This file is part of Devuna-ClassViewer (https://github.com/Devuna/Devuna-ClassViewer)
+!
+!    Devuna-ClassViewer is free software: you can redistribute it and/or modify
+!    it under the terms of the GNU General Public License as published by
+!    the Free Software Foundation, either version 3 of the License, or
+!    (at your option) any later version.
+!
+!    Devuna-ClassViewer is distributed in the hope that it will be useful,
+!    but WITHOUT ANY WARRANTY; without even the implied warranty of
+!    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+!    GNU General Public License for more details.
+!
+!    You should have received a copy of the GNU General Public License
+!    along with Devuna-ClassViewer.  If not, see <http://www.gnu.org/licenses/>.
+! ================================================================================
+-->
+<html><head><title>Wrapper Generator Templates</title>
+<meta name="GENERATOR" content="Forehtml Pro 5.0">
+<link rel="stylesheet" type="text/css" href="ClassViewer.css">
+
+
+<body>
+
+<table width="100%"><tr>
+<td align="left" width="33%"><a href="Contents.htm"><img src="home.gif" align="bottom" alt="Contents"></a></td>
+<td align="center" width="33%"></td>
+<td align="right" width="33%"></td>
+</tr></table><hr>
+
+<p class="BannerBase">
+Wrapper Generator Templates</p><hr>
+<p class="Base">
+The ClassViewer Wrapper Generator uses template files to generate a class wrapper template (tpl).  The
+file is generated based on templates, simple text files that provide the basic framework for the output.
+Special tokens inside the template files are replaced by the wrapper generator.  The process is very similar
+to, but different from, writing Clarion templates.  The preferred extension for template files is simply
+.txt or, if you like, .tpv (for viewer template).  However, you can use any extension you desire.</p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+<b><span  style="font-size: 12pt ; font-family: Times New Roman,sans-serif; ">Wrapper Generator Tokens</span></b></p>
+<p class="Base">
+There are several template tokens (non case sensitive) that can be used in the wrapper generator template
+files:</p>
+<p class="Base">
+&nbsp;</p><table cellpadding="2">
+<tr><td width="192">
+<p class="Base">
+{classname}</p></td><td width="192">
+<p class="Base">
+This token is replaced by the Class selected by the user.</p></td></tr>
+<tr><td width="192">
+<p class="Base">
+{CATEGORY}</p></td><td width="192">
+<p class="Base">
+This token is replaced by the  Class Category (Template Family) specified in the !ABCIncludeFile comment
+used to identify ABC classes.</p></td></tr>
+<tr><td width="192">
+<p class="Base">
+{ADDclassGROUP}</p></td><td width="192">
+<p class="Base">
+In order to use the shipping clarion templates it is necessary fo the IDE to 'know' about the class file.
+This is done whenever the IDE refreshes the Application Builder Classes.  To use classes outside of the
+default /libsrc folder, it is necessary to inform the ide about the class.  Placing this token in a wrapper
+generator template causes a template GROUP named %AddClass to be generated.</p></td></tr></table>
+
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+<b><span  style="font-size: 12pt ; font-family: Times New Roman,sans-serif; ">Sample Wrapper Generator
+Template </span></b>(tplWizard.txt shipped with ClassViewer)</p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#! =======================================================================================</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#! Copyright 1994 - 2014 by Devuna</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#! ALL rightS RESERVED          </span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#! =======================================================================================</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#TEMPLATE({ClassName},'{ClassName} Class Template'),FAMILY('ABC')</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#INCLUDE('ABOOP.TPW')</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#!</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#!</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#! =======================================================================================</span></p>
+<p class="Base">
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#! =======================================================================================</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#!</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#PREPARE</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;#CALL(%ReadABCFiles)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;#CALL(%AddClass)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;#IF(~%ThisInstance)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;#IF(%ActiveTemplateInstance)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#SET(%ThisInstance,%ActiveTemplateInstance)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#SET(%TemplateIsLocal,%True)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;#ELSE</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#SET(%ThisInstance,%GetNewGlobalInstance())</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#SET(%TemplateIsLocal,%False)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;#ENDIF</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;#ENDIF</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;#CALL(%SetClassDefaults, '{ClassName}',
+'{ClassName}:' &amp; %ThisInstance, '{ClassName}')</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#ENDPREPARE</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#!</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#!</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#BUTTON('{ClassName} Class Behavior'), AT(10, , 180)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;#INSERT(%OOPPrompts)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;#SHEET, HSCROLL</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;#TAB('General')</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#PROMPT('Generate
+{ClassName} Class Code and Includes',CHECK),%GenerateClassCode,DEFAULT(%True),AT(10)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#BOXED,HIDE</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#PROMPT('Global
+Class Instance:',@S4),%ThisInstance,AT(,,40,),REQ</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#PROMPT('Template
+is Local',CHECK),%TemplateIsLocal,AT(10)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#ENDBOXED</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;#ENDTAB</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;#TAB('Classes'),WHERE(%ActiveTemplateInstance)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#WITH(%ClassItem,
+'{ClassName}')</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#INSERT(%ClassPrompts)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#ENDWITH</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;#ENDTAB</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;#TAB('Classes'),WHERE(~%ActiveTemplateInstance)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#WITH(%ClassItem,
+'{ClassName}')</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#INSERT(%GlobalClassPrompts)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#ENDWITH</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;#ENDTAB</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;#ENDSHEET</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#ENDBUTTON</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#!</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#!</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#ATSTART</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;#CALL(%ReadABCFiles)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;#CALL(%AddClass)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;#IF(~%ThisInstance)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;#IF(%ActiveTemplateInstance)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#SET(%ThisInstance,%ActiveTemplateInstance)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;#ELSE</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#SET(%ThisInstance,%GetNewGlobalInstance())</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;#ENDIF</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;#ENDIF</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;#CALL(%SetClassDefaults, '{ClassName}',
+'{ClassName}:' &amp; %ThisInstance, '{ClassName}')</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;#FIX(%ClassItem, '{ClassName}')</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;#DECLARE(%TemplateInstance)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#ENDAT</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#!</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#!</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#AT(%GatherObjects),WHERE(%GenerateClassCode = %True)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#CALL(%AddObjectList, '{ClassName}')</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#ENDAT</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#!</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#!</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#AT(%BeforeGenerateApplication),WHERE(%GenerateClassCode
+= %True)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#CALL(%AddCategory,'{Category}')</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#CALL(%SetCategoryLocation,'{Category}','{Category}')</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#ENDAT</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#!</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#!</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#AT(%{ClassName}MethodCodeSection, %ThisInstance),
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;#CALL(%GenerateParentCall)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#ENDAT</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#!</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#!</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#AT(%AfterDctDestruction),WHERE(%GenerateClassCode
+= %True AND ~%ActiveTemplateInstance)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#INDENT(-2)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;#SET(%TemplateInstance,%ThisInstance)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;#CALL(%SetClassItem, '{ClassName}')</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;#CALL(%GenerateClassVirtuals, '{ClassName}',
+'Global Objects|Wrapped Classes|' &amp; %ThisObjectName, '%{ClassName}Virtuals({ClassName})', %True)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#ENDAT</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#!</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#!</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#AT(%GlobalData),WHERE(%GenerateClassCode = %True
+AND ~%ActiveTemplateInstance)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#INSERT(%GenerateClass, '{ClassName}', '{ClassName}')</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#ENDAT</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#!</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#!</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#AT(%LocalProcedures),WHERE(%GenerateClassCode =
+%True AND %ActiveTemplateInstance AND %TemplateIsLocal)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#INDENT(-2)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;#SET(%TemplateInstance,%ActiveTemplateInstance)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;#CALL(%SetClassItem, '{ClassName}')</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;#CALL(%GenerateClassVirtuals, '{ClassName}',
+'Local Objects|Wrapped Classes|' &amp; %ThisObjectName, '%{ClassName}Virtuals({ClassName})', %False)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#ENDAT</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#!</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#!</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#AT(%LocalDataClasses),WHERE(%GenerateClassCode =
+%True AND %ActiveTemplateInstance AND %TemplateIsLocal)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#INSERT(%GenerateClass, '{ClassName}', '{ClassName}')</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#ENDAT</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#!</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#!</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#! =======================================================================================</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#! %GetApplicationGlobalInstanceCount</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#! =======================================================================================</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#GROUP(%GetNewGlobalInstance)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;#DECLARE(%NewInstance)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;#SET(%NewInstance,0)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;#FOR(%ApplicationTemplate)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;#FIX(%ApplicationTemplate,%ApplicationTemplate)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;#FOR(%ApplicationTemplateInstance)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#SET(%NewInstance,%NewInstance+1)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;#ENDFOR</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;#ENDFOR</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;#SET(%NewInstance,%NewInstance+1)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;#RETURN('G' &amp; %NewInstance)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#!</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#!</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#! =======================================================================================</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#! %{ClassName}Virtuals</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#! =======================================================================================</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#GROUP(%{ClassName}Virtuals, %TreeText, %DataText,
+%CodeText)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#EMBED(%{ClassName}MethodDataSection, '{ClassName}
+Method Data Section'), %TemplateInstance, %pClassMethod, %pClassMethodPrototype, LABEL, DATA, PREPARE(,
+%FixClassName(%FixBaseClassToUse('{ClassName}'))), trEE(%TreeText &amp; %DataText)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;#?CODE</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;#EMBED(%{ClassName}MethodCodeSection,
+'{ClassName} Method Executable Code Section'), %TemplateInstance, %pClassMethod, %pClassMethodPrototype,
+PREPARE(, %FixClassName(%FixBaseClassToUse('{ClassName}'))), trEE(%TreeText &amp; %CodeText)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#!</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#!</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#! =======================================================================================</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#! %GenerateClassVirtuals</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#! =======================================================================================</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#GROUP(%GenerateClassVirtuals, %WhichClassItem, %EmbedTreeText,
+%VirtualGroup, %GlobalObject = %False),AUTO</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;#CALL(%SetClassItem, %WhichClassItem)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;#EQUATE(%BaseClass, %BaseClassToUse())</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;#IF(%BaseClass)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;#EQUATE(%Indent, %OutputIndent)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;#CALL(%FixClassName, %BaseClass)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;#FOR(%pClassMethod)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#FOR(%pClassMethodPrototype),
+WHERE(~%pClassMethodPrivate AND ~%pClassMethodFinal AND (UPPER(%pClassMethod) = 'DEStrUCT' OR UPPER(%pClassMethod)
+= 'CONStrUCT' OR %pClassMethodExtends OR %pClassMethodVirtual))</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#SET(%IncludePrototype,%False)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#SET(%ByteCount,%BytesOutput)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#SUSPEND(ParentCall)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#?%NULL</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#?%ThisObjectName.%pClassMethod %(%MakeImplementationPrototype())</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#?%NULL</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#IF(%pClassMethodReturnType)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+#IF(SLICE(%pClassMethodReturnType, 1, 1) = '*')</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+#SET(%OOPConstruct, '&amp;' &amp; SLICE(%pClassMethodReturnType, 2, LEN(%pClassMethodReturnType)))</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+#ELSE</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+#SET(%OOPConstruct, CHOOSE(UPPER(%pClassMethodReturnType)='StrING','ANY',%pClassMethodReturnType&amp;',AUTO'))</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+#ENDIF</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+#CALL(%MakeDeclr,22,%OOPConstruct,'ReturnValue',%OOPConstruct)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#?%OOPConstruct</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#?%NULL</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#ENDIF</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#INDENT(-%Indent)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#INVOKE(%VirtualGroup, %GetTreeTextToClass(%EmbedTreeText,
+%BaseClass) &amp; %GetObjectEmbedPrototype(), %GetDataText(), %GetCodeText())</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#INDENT(%Indent)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#IF(%pClassMethodReturnType)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;#?RETURN ReturnValue</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#ENDIF</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#?%NULL</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#RESUME</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#IF(%ByteCount
+&lt;&gt; %BytesOutput)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+#SET(%OOPConstruct,%MakeDeclarationPrototype())</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+#CALL(%MakeDeclr, 24, %OOPConstruct, %pClassMethod, %OOPConstruct, 'Method added to host embed code')</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+#ADD(%ClassLines,%OOPConstruct)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#ENDIF</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#ENDFOR</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;#ENDFOR</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;#IF(%DeriveFromBaseClass)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#FOR(%NewMethods)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">%ThisObjectName.%NewMethodName %(%MethodDeclaration(%NewMethodPrototype))</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#SUSPEND</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#?%NULL</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+#IF(%GlobalObject)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#EMBED(%NewMethodDataSection,'New Class Method Data
+Section'),%TemplateInstance,%ClassItem,%NewMethods,LABEL,DATA,trEE(%GetTreeTextToClass(%EmbedTreeText,
+%BaseClass) &amp; %GetNewMethodText(%NewMethodName, %NewMethodPrototype) &amp; %GetDataText()),WHERE(%GlobalObject
+= %True)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+#ELSE</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#EMBED(%NewMethodDataSection,'New Class Method Data
+Section'),%ActiveTemplateInstance,%ClassItem,%NewMethods,LABEL,DATA,trEE(%GetTreeTextToClass(%EmbedTreeText,
+%BaseClass) &amp; %GetnewMethodText(%NewMethodName, %NewMethodPrototype) &amp; %GetDataText()),WHERE(%GlobalObject
+= %False)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+#ENDIF</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#RESUME</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#?%NULL</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;CODE</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#SUSPEND</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+#IF(%GlobalObject)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;#EMBED(%NewMethodCodeSection,'New Class
+Method Code Section'),%TemplateInstance,%ClassItem,%NewMethods,trEE(%GetTreeTextToClass(%EmbedTreeText,
+%BaseClass) &amp; %GetNewMethodText(%NewMethodName, %NewMethodPrototype) &amp; %GetCodeText()),WHERE(%GlobalObject
+= %True)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+#ELSE</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;#EMBED(%NewMethodCodeSection,'New Class
+Method Code Section'),%ActiveTemplateInstance,%ClassItem,%NewMethods,trEE(%GetTreeTextToClass(%EmbedTreeText,
+%BaseClass) &amp; %GetNewMethodText(%NewMethodName, %NewMethodPrototype) &amp; %GetCodeText()),WHERE(%GlobalObject
+= %False)</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+#ENDIF</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#?%NULL</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#?%NULL</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#RESUME</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#ENDFOR</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;&nbsp;&nbsp;#ENDIF</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">&nbsp;&nbsp;#ENDIF</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#!</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">#!</span></p>
+<p class="Base">
+<span  style="font-family: Courier New,sans-serif; ">{ADDclassGROUP}</span></p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+<span  style="font-size: 8pt ; ">Copyright © 2017 Devuna</span></p>
+<p class="Base">
+<span  style="font-size: 8pt ; ">All rights reserved.</span></p>
+</body></html>

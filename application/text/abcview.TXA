@@ -1,0 +1,1667 @@
+[PROGRAM]
+[COMMON]
+FROM ABC ABC
+MODIFIED '2017/07/02' ' 9:05:06'
+[DATA]
+[SCREENCONTROLS]
+! PROMPT('glo : Version:'),USE(?glo:Version:Prompt)
+! ENTRY(@s13),USE(glo:Version)
+[REPORTCONTROLS]
+! STRING(@s13),USE(glo:Version)
+glo:Version              CSTRING(14)
+!!> GUID('f8380b8d-8e14-475f-bca0-3f7e40e5c157'),INITIAL('2017.07.03<0,0,0>'),PROMPT('glo : Version:'),HEADER('glo : Version'),PICTURE(@s13),TYPEMODE(INS)
+[SCREENCONTROLS]
+! ENTRY(@n-14),USE(glo:hwnd_main)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(glo:hwnd_main)
+glo:hwnd_main            LONG
+!!> GUID('097d3d06-f182-4074-bb23-c6f7b7a2b7a0'),PICTURE(@n-14)
+[SCREENCONTROLS]
+! ENTRY(@n-14),USE(glo:lMainThread)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(glo:lMainThread)
+glo:lMainThread          LONG
+!!> GUID('ff860db0-a9f8-42b6-aed4-4678c777c9f2'),PICTURE(@n-14)
+[SCREENCONTROLS]
+! ENTRY(@n-14),USE(glo:lLoadingThread)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(glo:lLoadingThread)
+glo:lLoadingThread       LONG
+!!> GUID('40a0198d-9e03-4d6c-8eb8-77f36b79084a'),PICTURE(@n-14)
+[SCREENCONTROLS]
+! PROMPT('glo : b Refresh All:'),USE(?glo:bRefreshAll:Prompt)
+! ENTRY(@n3),USE(glo:bRefreshAll)
+[REPORTCONTROLS]
+! STRING(@n3),USE(glo:bRefreshAll)
+glo:bRefreshAll          BYTE
+!!> GUID('ea653094-5a3f-46cf-b9cd-ad795c190ec4'),PROMPT('glo : b Refresh All:'),HEADER('glo : b Refresh All'),PICTURE(@n3)
+[SCREENCONTROLS]
+! PROMPT('sz Ini Filename:'),USE(?szIniFilename:Prompt)
+! TEXT,USE(szIniFilename)
+[REPORTCONTROLS]
+! TEXT,USE(szIniFilename)
+szIniFilename            CSTRING(256)
+!!> GUID('6baee79d-575a-4a8a-a85b-d73647589fa5'),PROMPT('sz Ini Filename:'),HEADER('sz Ini Filename'),PICTURE(@s255)
+[SCREENCONTROLS]
+! TEXT,USE(szRoot)
+[REPORTCONTROLS]
+! TEXT,USE(szRoot)
+szRoot                   CSTRING(256),THREAD,AUTO
+!!> GUID('1b5ebd5b-5944-4d1a-9276-e65191fa9ba0'),PICTURE(@s255)
+[SCREENCONTROLS]
+! TEXT,USE(szShared)
+[REPORTCONTROLS]
+! TEXT,USE(szShared)
+szShared                 CSTRING(256),THREAD,AUTO
+!!> GUID('d82bf465-fd88-4e5a-9fa3-34907f665b28'),PROMPT('sz Root:'),HEADER('sz Root'),PICTURE(@s255)
+[SCREENCONTROLS]
+! TEXT,USE(szAsciiFilename)
+[REPORTCONTROLS]
+! TEXT,USE(szAsciiFilename)
+szAsciiFilename          CSTRING(256),THREAD,AUTO
+!!> GUID('3daffca9-1d2c-45d9-825f-6b1c3c021745'),PICTURE(@s255)
+[SCREENCONTROLS]
+! TEXT,USE(glo:szRedFilePath)
+[REPORTCONTROLS]
+! TEXT,USE(glo:szRedFilePath)
+glo:szRedFilePath        CSTRING(256),THREAD,AUTO
+!!> GUID('0bed6336-c0d0-4e5d-bd18-fd2a63b239cd'),PICTURE(@s255)
+[SCREENCONTROLS]
+! TEXT,USE(glo:szCurrentDir)
+[REPORTCONTROLS]
+! TEXT,USE(glo:szCurrentDir)
+glo:szCurrentDir         CSTRING(256),THREAD,AUTO
+!!> GUID('8ce5195d-7d64-4ea3-8f63-7687f74b11b7'),PROMPT('glo : sz Current Dir:'),HEADER('glo : sz Current Dir'),PICTURE(@s255)
+[SCREENCONTROLS]
+! PROMPT('glo : b Current View:'),USE(?glo:bCurrentView:Prompt)
+! ENTRY(@n3),USE(glo:bCurrentView)
+[REPORTCONTROLS]
+! STRING(@n3),USE(glo:bCurrentView)
+glo:bCurrentView         BYTE
+!!> GUID('29c17f6f-8741-4dab-9286-802f1bd21042'),INITIAL('1'),PROMPT('glo : b Current View:'),HEADER('glo : b Current View'),PICTURE(@n3)
+[SCREENCONTROLS]
+! ENTRY(@n-14),USE(glo:lModuleColor)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(glo:lModuleColor)
+glo:lModuleColor         LONG
+!!> GUID('544800a9-b274-46e3-823b-208bcd6133cd'),PICTURE(@n-14)
+[SCREENCONTROLS]
+! PROMPT('glo : l Private Color:'),USE(?glo:lPrivateColor:Prompt)
+! ENTRY(@n-14),USE(glo:lPrivateColor),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(glo:lPrivateColor),RIGHT(1)
+glo:lPrivateColor        LONG
+!!> GUID('fc084f5a-4b78-477b-bf5a-5933ecdfc641'),INITIAL('COLOR:RED'),PROMPT('glo : l Private Color:'),HEADER('glo : l Private Color'),PICTURE(@n-14),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! PROMPT('glo : l Protected Color:'),USE(?glo:lProtectedColor:Prompt)
+! ENTRY(@n-14),USE(glo:lProtectedColor),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(glo:lProtectedColor),RIGHT(1)
+glo:lProtectedColor      LONG
+!!> GUID('84f89d24-ad3c-4545-b949-96a507dda5e6'),INITIAL('COLOR:MAROON'),PROMPT('glo : l Protected Color:'),HEADER('glo : l Protected Color'),PICTURE(@n-14),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! PROMPT('glo : l Virtual Color:'),USE(?glo:lVirtualColor:Prompt)
+! ENTRY(@n-14),USE(glo:lVirtualColor),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(glo:lVirtualColor),RIGHT(1)
+glo:lVirtualColor        LONG
+!!> GUID('c8210ffb-e627-4cd9-921b-3d235d52dc6a'),INITIAL('COLOR:FUSCHIA'),PROMPT('glo : l Virtual Color:'),HEADER('glo : l Virtual Color'),PICTURE(@n-14),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! PROMPT('glo : l Selected Back:'),USE(?glo:lSelectedBack:Prompt)
+! ENTRY(@n-14),USE(glo:lSelectedBack),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(glo:lSelectedBack),RIGHT(1)
+glo:lSelectedBack        LONG
+!!> GUID('97519976-f46e-4fe5-8b95-e877cc91a7f0'),INITIAL('COLOR:NAVY'),PROMPT('glo : l Selected Back:'),HEADER('glo : l Selected Back'),PICTURE(@n-14),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! ENTRY(@n-14),USE(glo:lSelectedFore)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(glo:lSelectedFore)
+glo:lSelectedFore        LONG
+!!> GUID('f080b589-1c1a-4458-908d-a309ca800b98'),PICTURE(@n-14)
+[SCREENCONTROLS]
+! PROMPT('&Note Color:'),USE(?glo:lNoteColor:Prompt)
+! ENTRY(@n-14),USE(glo:lNoteColor),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(glo:lNoteColor),RIGHT(1)
+glo:lNoteColor           LONG
+!!> GUID('86d5f557-5119-4b95-8689-f215f184b77a'),PROMPT('&Note Color:'),HEADER('Note Color'),PICTURE(@n-14),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! PROMPT('glo : l Highlight Color 1:'),USE(?glo:lHighlightColor1:Prompt)
+! ENTRY(@n-14),USE(glo:lHighlightColor1),RIGHT(1),MSG('used by AsciiViewer to highlight the initial source line we jumped to'),TIP('used by AsciiViewer to highlight the initial source line we jumped to')
+[REPORTCONTROLS]
+! STRING(@n-14),USE(glo:lHighlightColor1),RIGHT(1)
+glo:lHighlightColor1     LONG !used by AsciiViewer to highlight the initial source line we jumped to
+!!> GUID('adad6d75-34ba-4641-92f0-ebc5ae5ce359'),PROMPT('glo : l Highlight Color 1:'),HEADER('glo : l Highlight Color 1'),MESSAGE('used by AsciiViewer to highlight the initial source line we jumped to'),TOOLTIP('used by AsciiViewer to highlight the initial source line we jumped to'),PICTURE(@n-14),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! PROMPT('glo : l Highlight Color 2:'),USE(?glo:lHighlightColor2:Prompt)
+! ENTRY(@n-14),USE(glo:lHighlightColor2),RIGHT(1),MSG('used by AsciiViewer to highlight othe calls to same method'),TIP('used by AsciiViewer to highlight othe calls to same method')
+[REPORTCONTROLS]
+! STRING(@n-14),USE(glo:lHighlightColor2),RIGHT(1)
+glo:lHighlightColor2     LONG !used by AsciiViewer to highlight othe calls to same method
+!!> GUID('7ed28b05-8289-4e00-9533-e341d3835adf'),PROMPT('glo : l Highlight Color 2:'),HEADER('glo : l Highlight Color 2'),MESSAGE('used by AsciiViewer to highlight othe calls to same method'),TOOLTIP('used by AsciiViewer to highlight othe calls to same method'),PICTURE(@n-14),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! PROMPT('&Hyperlink Color:'),USE(?glo:lHyperlinkColor:Prompt)
+! ENTRY(@n-14),USE(glo:lHyperlinkColor),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(glo:lHyperlinkColor),RIGHT(1)
+glo:lHyperlinkColor      LONG
+!!> GUID('2f658245-5e95-4f00-8d80-27b1d2bff41c'),PROMPT('&Hyperlink Color:'),HEADER('Hyperlink Color'),PICTURE(@n-14),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! OPTION('Clarion Version'),AT(,,50,60),USE(glo:bClarionVersion),BOXED
+! RADIO('Clarion 5'),USE(?glo:bClarionVersion:Radio1)
+! RADIO('Clarion 5  Enterprise Edition'),USE(?glo:bClarionVersion:Radio2)
+! RADIO('Clarion 5.5'),USE(?glo:bClarionVersion:Radio3)
+! RADIO('Clarion 5.5  Enterprise Edition<129,129>'),USE(?glo:bClarionVersion:Radio4)
+! END
+[REPORTCONTROLS]
+! STRING(@n3),USE(glo:bClarionVersion)
+glo:bClarionVersion      BYTE
+!!> GUID('63e4d942-26e3-4b6d-9231-b0460761ee91'),VALID(INLIST('Clarion 5|Clarion 5  Enterprise Edition|Clarion 5.5|Clarion 5.5  Enterprise Edition<081H,081H>')),INITIAL('2'),PROMPT('Clarion Version:'),HEADER('Clarion Version'),PICTURE(@n3)
+[SCREENCONTROLS]
+! OPTION('glo : b ABCO nly'),AT(,,50,36),USE(glo:bABCOnly),BOXED,MSG('1=ABC, 2=NonABC, 3=Both'),TIP('1=ABC, 2=NonABC, 3=Both')
+! RADIO('All Classes'),USE(?glo:bABCOnly:Radio1),VALUE('0')
+! RADIO('ABC Classes'),USE(?glo:bABCOnly:Radio2),VALUE('1')
+! END
+[REPORTCONTROLS]
+! STRING(@n3),USE(glo:bABCOnly)
+glo:bABCOnly             BYTE
+!!> GUID('c3e91217-0039-4df6-9cfa-be2fe0cb950d'),VALID(NOCHECKS('All Classes|ABC Classes')),INITIAL('TRUE'),PROMPT('glo : b ABCO nly:'),HEADER('glo : b ABCO nly'),MESSAGE('1=ABC, 2=NonABC, 3=Both'),TOOLTIP('1=ABC, 2=NonABC, 3=Both'),PICTURE(@n3),VALUES('0|1')
+[SCREENCONTROLS]
+! ENTRY(@n3),USE(glo:bShowModule)
+[REPORTCONTROLS]
+! STRING(@n3),USE(glo:bShowModule)
+glo:bShowModule          BYTE
+!!> GUID('d5460314-0b40-48f1-94bb-912392fafb16'),PICTURE(@n3)
+[SCREENCONTROLS]
+! CHECK('Show &Private Attributes'),USE(glo:bShowPrivate)
+[REPORTCONTROLS]
+! CHECK('Show &Private Attributes'),USE(glo:bShowPrivate)
+glo:bShowPrivate         BYTE
+!!> GUID('c62be1a3-e90e-4918-9878-9aa096b8ebf7'),VALID(BOOLEAN),PROMPT('Show &Private Attributes:'),HEADER('glo : b Show Private'),PICTURE(@n1)
+[SCREENCONTROLS]
+! CHECK('Show P&rotected Attributes'),USE(glo:bShowProtected)
+[REPORTCONTROLS]
+! CHECK('Show P&rotected Attributes'),USE(glo:bShowProtected)
+glo:bShowProtected       BYTE
+!!> GUID('d5973289-26e1-4fac-8b66-9cfcdbf1b5cb'),VALID(BOOLEAN),PROMPT('Show P&rotected Attributes:'),HEADER('glo : b Show Protected'),PICTURE(@n1)
+[SCREENCONTROLS]
+! CHECK('Show Tips'),USE(glo:bShowTips)
+[REPORTCONTROLS]
+! CHECK('Show Tips'),USE(glo:bShowTips)
+glo:bShowTips            BYTE
+!!> GUID('13e90d5e-23f7-4258-8bc0-2009a7dc4500'),VALID(BOOLEAN),INITIAL('1'),PROMPT('Show Tips:'),HEADER('Show Tips'),PICTURE(@n3)
+[SCREENCONTROLS]
+! PROMPT('O&paque Check Box:'),USE(?glo:bOpaqueCheckBox:Prompt)
+! ENTRY(@n3),USE(glo:bOpaqueCheckBox),TIP('Use opaque check boxes.<13,10>Check this option if you are using XP Manifest files<13,10>a' &|
+!   'nd the check boxes look like big black squares.')
+[REPORTCONTROLS]
+! STRING(@n3),USE(glo:bOpaqueCheckBox)
+glo:bOpaqueCheckBox      BYTE
+!!> GUID('954cecc3-0f90-450a-928b-beba5adf46bd'),PROMPT('O&paque Check Box:'),HEADER('Opaque Check Box'),TOOLTIP('Use opaque check boxes.<0DH,0AH>Check this option if you are using XP Manifest files<0DH,0AH>and the check boxes look like big black squares.'),PICTURE(@n3)
+[SCREENCONTROLS]
+! PROMPT('glo : b Force Edit:'),USE(?glo:bForceEdit:Prompt)
+! ENTRY(@n3),USE(glo:bForceEdit)
+[REPORTCONTROLS]
+! STRING(@n3),USE(glo:bForceEdit)
+glo:bForceEdit           BYTE
+!!> GUID('4535f432-fea4-4517-ac1a-ac02c5811298'),PROMPT('glo : b Force Edit:'),HEADER('glo : b Force Edit'),PICTURE(@n3)
+[SCREENCONTROLS]
+! PROMPT('glo : b Use Association:'),USE(?glo:bUseAssociation:Prompt)
+! ENTRY(@n3),USE(glo:bUseAssociation)
+[REPORTCONTROLS]
+! STRING(@n3),USE(glo:bUseAssociation)
+glo:bUseAssociation      BYTE
+!!> GUID('c8e7f26f-122f-4b82-93dd-6faf33a1919c'),PROMPT('glo : b Use Association:'),HEADER('glo : b Use Association'),PICTURE(@n3)
+[SCREENCONTROLS]
+! PROMPT('&Editor Command:'),USE(?glo:szEditorCommand:Prompt)
+! TEXT,USE(glo:szEditorCommand),MSG('File Editor Command Line'),TIP('File Editor Command Line')
+[REPORTCONTROLS]
+! TEXT,USE(glo:szEditorCommand)
+glo:szEditorCommand      CSTRING(256) !File Editor Command Line
+!!> GUID('09edb17b-373f-4000-b8ed-59bff28d3eca'),PROMPT('&Editor Command:'),HEADER('Editor Command'),MESSAGE('File Editor Command Line'),TOOLTIP('File Editor Command Line'),PICTURE(@s255)
+[SCREENCONTROLS]
+! PROMPT('Background:'),USE(?glo:Background:Prompt)
+! LIST,USE(glo:Background),DROP(5),FROM('Color|#1|Wallpaper|#2|None|#3')
+[REPORTCONTROLS]
+! STRING(@n3),USE(glo:Background)
+glo:Background           BYTE
+!!> GUID('374b4461-56eb-4b16-bc1d-23497d2caa83'),VALID(NOCHECKS('Color|Wallpaper|None')),INITIAL('2'),PROMPT('Background:'),HEADER('Background'),PICTURE(@n3),VALUES('1|2|3')
+[SCREENCONTROLS]
+! PROMPT('glo : Color 1:'),USE(?glo:Color1:Prompt)
+! ENTRY(@n-14),USE(glo:Color1),RIGHT(1),MSG('Background Color 1'),TIP('Background Color 1')
+[REPORTCONTROLS]
+! STRING(@n-14),USE(glo:Color1),RIGHT(1)
+glo:Color1               LONG !Background Color 1
+!!> GUID('e214208f-0933-4812-8c59-79d0664f9cfd'),PROMPT('glo : Color 1:'),HEADER('glo : Color 1'),MESSAGE('Background Color 1'),TOOLTIP('Background Color 1'),PICTURE(@n-14),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! PROMPT('glo : Color 2:'),USE(?glo:Color2:Prompt)
+! ENTRY(@n-14),USE(glo:Color2),RIGHT(1),MSG('Background Color 2'),TIP('Background Color 2')
+[REPORTCONTROLS]
+! STRING(@n-14),USE(glo:Color2),RIGHT(1)
+glo:Color2               LONG !Background Color 2
+!!> GUID('46551c9c-6388-4d9d-8e6c-0851448a91c7'),PROMPT('glo : Color 2:'),HEADER('glo : Color 2'),MESSAGE('Background Color 2'),TOOLTIP('Background Color 2'),PICTURE(@n-14),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! PROMPT('Wallpaper 1:'),USE(?glo:szWallpaper1:Prompt)
+! ENTRY(@s255),USE(glo:szWallpaper1)
+[REPORTCONTROLS]
+! TEXT,USE(glo:szWallpaper1)
+glo:szWallpaper1         CSTRING(256)
+!!> GUID('78334130-5231-4593-8afc-fe554974e38b'),PROMPT('Wallpaper 1:'),HEADER('Wallpaper 1'),PICTURE(@s255)
+[SCREENCONTROLS]
+! PROMPT('Wallpaper 2:'),USE(?glo:szWallpaper2:Prompt)
+! ENTRY(@s255),USE(glo:szWallpaper2)
+[REPORTCONTROLS]
+! TEXT,USE(glo:szWallpaper2)
+glo:szWallpaper2         CSTRING(256)
+!!> GUID('38791e7b-18ad-4dba-a7d0-8452dd6f7335'),PROMPT('Wallpaper 2:'),HEADER('Wallpaper 2'),PICTURE(@s255)
+[SCREENCONTROLS]
+! CHECK('glo : Tiled 1'),USE(glo:Tiled1)
+[REPORTCONTROLS]
+! CHECK('glo : Tiled 1'),USE(glo:Tiled1)
+glo:Tiled1               BYTE
+!!> GUID('9aa0d9ab-f2e3-41cd-bba5-65be7f391827'),VALID(BOOLEAN),PROMPT('glo : Tiled 1:'),HEADER('glo : Tiled 1'),PICTURE(@n3)
+[SCREENCONTROLS]
+! CHECK('glo : Tiled 2'),USE(glo:Tiled2)
+[REPORTCONTROLS]
+! CHECK('glo : Tiled 2'),USE(glo:Tiled2)
+glo:Tiled2               BYTE
+!!> GUID('62d0acbf-3d62-4138-b808-4242d4918e6a'),VALID(BOOLEAN),PROMPT('glo : Tiled 2:'),HEADER('glo : Tiled 2'),PICTURE(@n3)
+[SCREENCONTROLS]
+! ENTRY(@s31),USE(glo:Typeface)
+[REPORTCONTROLS]
+! STRING(@s31),USE(glo:Typeface)
+glo:Typeface             STRING(31)
+!!> GUID('2de71de3-a913-4fe5-bb00-f7180b829841'),PICTURE(@s31)
+[SCREENCONTROLS]
+! ENTRY(@n-14),USE(glo:FontSize)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(glo:FontSize)
+glo:FontSize             LONG
+!!> GUID('a1ba647c-68e9-431f-9247-a5407c5c9846'),PICTURE(@n-14)
+[SCREENCONTROLS]
+! ENTRY(@n-14),USE(glo:FontColor)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(glo:FontColor)
+glo:FontColor            LONG
+!!> GUID('5f138f40-27f0-4114-beec-5888b4304639'),PICTURE(@n-14)
+[SCREENCONTROLS]
+! ENTRY(@n-14),USE(glo:FontStyle)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(glo:FontStyle)
+glo:FontStyle            LONG
+!!> GUID('40ab1c3f-de04-43b7-a2f4-0a3200c4da63'),PICTURE(@n-14)
+[SCREENCONTROLS]
+! PROMPT('glo : l Line Num:'),USE(?glo:lLineNum:Prompt)
+! ENTRY(@n-14),USE(glo:lLineNum),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(glo:lLineNum),RIGHT(1)
+glo:lLineNum             LONG
+!!> GUID('2c57edbc-2475-45ab-bfec-035fa71f5432'),PROMPT('glo : l Line Num:'),HEADER('glo : l Line Num'),PICTURE(@n-14),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! ENTRY(@s63),USE(glo:szCategory)
+[REPORTCONTROLS]
+! STRING(@s63),USE(glo:szCategory)
+glo:szCategory           CSTRING(64)
+!!> GUID('30affad7-224f-4e38-9541-69a6de4c383e'),PICTURE(@s63)
+[SCREENCONTROLS]
+! PROMPT('glo : sz Category Choice:'),USE(?glo:szCategoryChoice:Prompt)
+! ENTRY(@s63),USE(glo:szCategoryChoice)
+[REPORTCONTROLS]
+! STRING(@s63),USE(glo:szCategoryChoice)
+glo:szCategoryChoice     CSTRING(64)
+!!> GUID('a600202a-36f8-4cdf-b64c-4707185a8787'),PROMPT('glo : sz Category Choice:'),HEADER('glo : sz Category Choice'),PICTURE(@s63)
+[SCREENCONTROLS]
+! PROMPT('glo : Category Drop Count:'),USE(?glo:CategoryDropCount:Prompt)
+! ENTRY(@n3),USE(glo:CategoryDropCount)
+[REPORTCONTROLS]
+! STRING(@n3),USE(glo:CategoryDropCount)
+glo:CategoryDropCount    BYTE
+!!> GUID('334f3771-ad51-4498-aa6b-ef82e55f002a'),INITIAL('10'),PROMPT('glo : Category Drop Count:'),HEADER('glo : Category Drop Count'),PICTURE(@n3),TYPEMODE(INS)
+[SCREENCONTROLS]
+! ENTRY(@n3),USE(glo:bDetailLevel),TIP('Select Detail Level')
+[REPORTCONTROLS]
+! STRING(@n3),USE(glo:bDetailLevel)
+glo:bDetailLevel         BYTE
+!!> GUID('e6a2d6fa-790d-4194-aa05-06b880733347'),TOOLTIP('Select Detail Level'),PICTURE(@n3)
+[SCREENCONTROLS]
+! PROMPT('glo : sz Parent Class Name:'),USE(?glo:szParentClassName:Prompt)
+! ENTRY(@s63),USE(glo:szParentClassName)
+[REPORTCONTROLS]
+! STRING(@s63),USE(glo:szParentClassName)
+glo:szParentClassName    CSTRING(64)
+!!> GUID('959a0020-8215-462a-82d0-771c43854565'),PROMPT('glo : sz Parent Class Name:'),HEADER('glo : sz Parent Class Name'),PICTURE(@s63)
+[SCREENCONTROLS]
+! CHECK(' Auto Expand'),USE(glo:bAutoExpand),MSG('Automatically expand the selected object.'),TIP('Automatically expand the selected object.')
+[REPORTCONTROLS]
+! CHECK(' Auto Expand'),USE(glo:bAutoExpand)
+glo:bAutoExpand          BYTE !Automatically expand the selected object.
+!!> GUID('cf47de99-b8b2-4f4b-a23e-77ea2ac803b0'),VALID(BOOLEAN),PROMPT(' Auto Expand'),HEADER('Auto Expand'),MESSAGE('Automatically expand the selected object.'),TOOLTIP('Automatically expand the selected object.'),PICTURE(@n3)
+[SCREENCONTROLS]
+! PROMPT('glo : s Current Cursor:'),USE(?glo:sCurrentCursor:Prompt)
+! ENTRY(@s4),USE(glo:sCurrentCursor)
+[REPORTCONTROLS]
+! STRING(@s4),USE(glo:sCurrentCursor)
+glo:sCurrentCursor       STRING(4)
+!!> GUID('b75572b8-589b-48db-9503-e41d64a34f38'),PROMPT('glo : s Current Cursor:'),HEADER('glo : s Current Cursor'),PICTURE(@s4)
+[SCREENCONTROLS]
+! PROMPT('glo : b Use HTMLH elp:'),USE(?glo:bUseHTMLHelp:Prompt)
+! ENTRY(@n3),USE(glo:bUseHTMLHelp)
+[REPORTCONTROLS]
+! STRING(@n3),USE(glo:bUseHTMLHelp)
+glo:bUseHTMLHelp         BYTE
+!!> GUID('426ee2db-83a2-4c54-9720-f161763216c4'),PROMPT('glo : b Use HTMLH elp:'),HEADER('glo : b Use HTMLH elp'),PICTURE(@n3)
+[SCREENCONTROLS]
+! PROMPT('XML Style Sheet:'),USE(?glo:szXmlStyleSheet:Prompt)
+! TEXT,USE(glo:szXmlStyleSheet)
+[REPORTCONTROLS]
+! TEXT,USE(glo:szXmlStyleSheet)
+glo:szXmlStyleSheet      CSTRING(256)
+!!> GUID('e8b53372-a8ec-475a-a1e5-dba4bada55f1'),PROMPT('XML Style Sheet:'),HEADER('XML Style Sheet'),PICTURE(@s255)
+[SCREENCONTROLS]
+! ENTRY(@s20),USE(glo:ViewerStyles)
+[REPORTCONTROLS]
+! STRING(@s20),USE(glo:ViewerStyles)
+glo:ViewerStyles         LIKE(COLORGROUPTYPE)
+!!> GUID('ca38a4af-a3f8-4098-b9c5-cc0af564bc0d'),PICTURE(@s20)
+[SCREENCONTROLS]
+! PROMPT('glo : b Enum Sort:'),USE(?glo:bEnumSort:Prompt)
+! ENTRY(@n3),USE(glo:bEnumSort),MSG('0 = Alphabetical,  1 = Canonical'),TIP('0 = Alphabetical,  1 = Canonical')
+[REPORTCONTROLS]
+! STRING(@n3),USE(glo:bEnumSort)
+glo:bEnumSort            BYTE !0 = Alphabetical,  1 = Canonical
+!!> GUID('0de37bd7-a830-4244-a902-914238df7157'),PROMPT('glo : b Enum Sort:'),HEADER('glo : b Enum Sort'),MESSAGE('0 = Alphabetical,  1 = Canonical'),TOOLTIP('0 = Alphabetical,  1 = Canonical'),PICTURE(@n3)
+[SCREENCONTROLS]
+! CHECK(' Show Sparse Trees'),USE(glo:bShowSparseTrees),MSG('Show direct lineage if set otherwise show the whole family'),TIP('Show direct lineage in tree if set <13,10>otherwise show the whole family')
+[REPORTCONTROLS]
+! CHECK(' Show Sparse Trees'),USE(glo:bShowSparseTrees)
+glo:bShowSparseTrees     BYTE !Show direcet lineage if set otherwise show the whole family
+!!> GUID('62390a10-cadf-4c66-b47f-c0db0fdc70d7'),VALID(BOOLEAN),PROMPT(' Show Sparse Trees:'),HEADER(' Show Sparse Trees'),MESSAGE('Show direct lineage if set otherwise show the whole family'),TOOLTIP('Show direct lineage in tree if set <0DH,0AH>otherwise show the whole family'),PICTURE(@n3)
+[SCREENCONTROLS]
+! ENTRY(@n3),USE(glo:bMaxMRU)
+[REPORTCONTROLS]
+! STRING(@n3),USE(glo:bMaxMRU)
+glo:bMaxMRU              BYTE
+!!> GUID('b986ef2b-8bce-4e30-821d-31b22be9a86f'),PROMPT('glo : b Max MRU:'),HEADER('glo : b Max MRU'),PICTURE(@n3)
+[SCREENCONTROLS]
+! PROMPT('glo : Layout:'),USE(?glo:Layout:Prompt)
+! ENTRY(@n3),USE(glo:Layout)
+[REPORTCONTROLS]
+! STRING(@n3),USE(glo:Layout)
+glo:Layout               BYTE
+!!> GUID('40bc69e9-9d0e-4731-b2e9-b3c25eb51ec0'),PROMPT('glo : Layout:'),HEADER('glo : Layout'),PICTURE(@n3)
+[SCREENCONTROLS]
+! ENTRY(@s255),USE(ExtraModuleQ)
+[REPORTCONTROLS]
+! STRING(@s255),USE(ExtraModuleQ)
+ExtraModuleQ             QUEUE,PRE(ExtraQ) !Queue of Module Names
+!!> GUID('4f5b4c7c-fa27-4a60-b626-5b3f40fad78c'),PICTURE(@s255)
+[SCREENCONTROLS]
+! ENTRY(@s63),USE(ExtraQ:szModuleName)
+[REPORTCONTROLS]
+! STRING(@s63),USE(ExtraQ:szModuleName)
+szModuleName               CSTRING(64)
+!!> GUID('284734f4-1235-4407-b2ba-f6f2187abbdb'),PICTURE(@s63)
+[SCREENCONTROLS]
+! TEXT,USE(ExtraQ:szModulePath)
+[REPORTCONTROLS]
+! TEXT,USE(ExtraQ:szModulePath)
+szModulePath               CSTRING(256)
+!!> GUID('b65c3632-7157-4b84-9b51-b0670a6a7d04'),PICTURE(@s255)
+[SCREENCONTROLS]
+! PROMPT('b Clarion Version:'),USE(?ExtraQ:bClarionVersion:Prompt)
+! ENTRY(@n3),USE(ExtraQ:bClarionVersion)
+[REPORTCONTROLS]
+! STRING(@n3),USE(ExtraQ:bClarionVersion)
+bClarionVersion            BYTE
+!!> GUID('212a7414-0d47-4a94-82a8-d85ec7f21ed5'),PROMPT('b Clarion Version:'),HEADER('b Clarion Version'),PICTURE(@n3)
+                         END
+!!> GUID('b641d621-3f9a-4f89-b7a8-ad59c6e5c7ce')
+[SCREENCONTROLS]
+! PROMPT('Module Q:'),USE(?ModuleQ:Prompt)
+! ENTRY(@s1),USE(ModuleQ),MSG('Queue of Module Names'),TIP('Queue of Module Names')
+[REPORTCONTROLS]
+! STRING(@s1),USE(ModuleQ)
+ModuleQ                  QUEUE,PRE(ModuleQ) !Queue of Module Names
+!!> GUID('872c80eb-a9c8-44b9-9ef7-9f37d3b231c1'),PROMPT('Module Q:'),HEADER('Module Q'),MESSAGE('Queue of Module Names'),TOOLTIP('Queue of Module Names'),PICTURE(@s1)
+[SCREENCONTROLS]
+! TEXT,USE(ModuleQ:szModulePath)
+[REPORTCONTROLS]
+! TEXT,USE(ModuleQ:szModulePath)
+szModulePath               CSTRING(256)
+!!> GUID('02709983-7e9c-41fa-a0b2-90aa3e01accc'),PICTURE(@s255)
+[SCREENCONTROLS]
+! ENTRY(@s63),USE(ModuleQ:szModuleName)
+[REPORTCONTROLS]
+! STRING(@s63),USE(ModuleQ:szModuleName)
+szModuleName               CSTRING(64)
+!!> GUID('ea566ceb-3cd5-4c2f-8675-a4641ce18e3f'),PICTURE(@s63)
+[SCREENCONTROLS]
+! ENTRY(@n-14),USE(ModuleQ:lModuleId)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(ModuleQ:lModuleId)
+lModuleId                  LONG
+!!> GUID('8b93ab7b-45e5-4f83-a392-f66ebd25961f'),PICTURE(@n-14)
+[SCREENCONTROLS]
+! PROMPT('l Date:'),USE(?ModuleQ:lDate:Prompt)
+! ENTRY(@n-14),USE(ModuleQ:lDate),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(ModuleQ:lDate),RIGHT(1)
+lDate                      LONG
+!!> GUID('296b770e-2c4d-40ac-89b1-7e19e3710ee5'),PROMPT('l Date:'),HEADER('l Date'),PICTURE(@n-14),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! PROMPT('l Time:'),USE(?ModuleQ:lTime:Prompt)
+! ENTRY(@n-14),USE(ModuleQ:lTime),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(ModuleQ:lTime),RIGHT(1)
+lTime                      LONG
+!!> GUID('e4b03a75-4971-47bf-9da1-b69f3893c88b'),PROMPT('l Time:'),HEADER('l Time'),PICTURE(@n-14),JUSTIFY(RIGHT,1)
+                         END
+!!> GUID('1455be97-f036-49b0-ab65-e730375efab6')
+[SCREENCONTROLS]
+! ENTRY(@s255),USE(ClassQ)
+[REPORTCONTROLS]
+! STRING(@s255),USE(ClassQ)
+ClassQ                   QUEUE,PRE(ClassQ)
+!!> GUID('a303fac0-e3bd-46e1-949c-ed2036b7f08a'),PICTURE(@s255)
+[SCREENCONTROLS]
+! ENTRY(@s63),USE(ClassQ:szClassName)
+[REPORTCONTROLS]
+! STRING(@s63),USE(ClassQ:szClassName)
+szClassName                CSTRING(64)
+!!> GUID('215a99a1-5bce-479a-8ccd-b30ac621a8a9'),PICTURE(@s63)
+[SCREENCONTROLS]
+! ENTRY(@s63),USE(ClassQ:szParentClassName)
+[REPORTCONTROLS]
+! STRING(@s63),USE(ClassQ:szParentClassName)
+szParentClassName          CSTRING(64)
+!!> GUID('42b07782-431f-41a4-a069-2e9d8776d945'),PICTURE(@s63)
+[SCREENCONTROLS]
+! ENTRY(@n-14),USE(ClassQ:lIncludeId)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(ClassQ:lIncludeId)
+lIncludeId                 LONG
+!!> GUID('aa336530-f270-4448-925d-98a7d70fc0f5'),PROMPT('l Include Id:'),HEADER('l Include Id'),PICTURE(@n-14)
+[SCREENCONTROLS]
+! ENTRY(@n-14),USE(ClassQ:lModuleId)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(ClassQ:lModuleId)
+lModuleId                  LONG
+!!> GUID('f6f1e37a-c7bb-47e5-a944-6b27098e5186'),PROMPT('l Module Id:'),HEADER('l Module Id'),PICTURE(@n-14)
+[SCREENCONTROLS]
+! PROMPT('b Is ABC:'),USE(?ClassQ:bIsABC:Prompt)
+! ENTRY(@n3),USE(ClassQ:bIsABC)
+[REPORTCONTROLS]
+! STRING(@n3),USE(ClassQ:bIsABC)
+bIsABC                     BYTE
+!!> GUID('dcb1002d-7c25-478c-b1a8-07b7592d3f3d'),PROMPT('b Is ABC:'),HEADER('b Is ABC'),PICTURE(@n3)
+[SCREENCONTROLS]
+! PROMPT('l Line Num:'),USE(?ClassQ:lLineNum:Prompt)
+! ENTRY(@n-14),USE(ClassQ:lLineNum),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(ClassQ:lLineNum),RIGHT(1)
+lLineNum                   LONG
+!!> GUID('e959fdac-064f-4007-84d6-431d597995be'),PROMPT('l Line Num:'),HEADER('l Line Num'),PICTURE(@n-14),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! ENTRY(@n-14),USE(ClassQ:lClassID)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(ClassQ:lClassID)
+lClassID                   LONG
+!!> GUID('9a581c23-e80c-449b-8957-d133c62fa478'),PICTURE(@n-14)
+[SCREENCONTROLS]
+! ENTRY(@s63),USE(ClassQ:szParentClassSort)
+[REPORTCONTROLS]
+! STRING(@s63),USE(ClassQ:szParentClassSort)
+szParentClassSort          CSTRING(64)
+!!> GUID('6286a091-bd2d-4981-9ef8-87d9a105e230'),PICTURE(@s63)
+[SCREENCONTROLS]
+! ENTRY(@s63),USE(ClassQ:szClassSort)
+[REPORTCONTROLS]
+! STRING(@s63),USE(ClassQ:szClassSort)
+szClassSort                CSTRING(64)
+!!> GUID('fdf86b9b-dd98-45f2-abd6-085de7e397d7'),PICTURE(@s63)
+[SCREENCONTROLS]
+! PROMPT('b Private:'),USE(?ClassQ:bPrivate:Prompt)
+! ENTRY(@n3),USE(ClassQ:bPrivate)
+[REPORTCONTROLS]
+! STRING(@n3),USE(ClassQ:bPrivate)
+bPrivate                   BYTE
+!!> GUID('f77c0c6e-a6d2-4a79-8683-f278529194e0'),PROMPT('b Private:'),HEADER('b Private'),PICTURE(@n3)
+[SCREENCONTROLS]
+! PROMPT('b Interface:'),USE(?ClassQ:bInterface:Prompt)
+! ENTRY(@n3),USE(ClassQ:bInterface),MSG('True if an Interface Definition'),TIP('True if an Interface Definition')
+[REPORTCONTROLS]
+! STRING(@n3),USE(ClassQ:bInterface)
+bInterface                 BYTE !True if an Interface Definition
+!!> GUID('98b505c6-b539-436f-b77b-e288c365025e'),PROMPT('b Interface:'),HEADER('b Interface'),MESSAGE('True if an Interface Definition'),TOOLTIP('True if an Interface Definition'),PICTURE(@n3)
+[SCREENCONTROLS]
+! PROMPT('b Modified:'),USE(?ClassQ:bModified:Prompt)
+! ENTRY(@n3),USE(ClassQ:bModified)
+[REPORTCONTROLS]
+! STRING(@n3),USE(ClassQ:bModified)
+bModified                  BYTE
+!!> GUID('ea1500b9-c971-482c-b948-ae84cbcc7fa2'),PROMPT('b Modified:'),HEADER('b Modified'),PICTURE(@n3)
+                         END
+!!> GUID('ba3a91bf-ec81-40d7-8782-c0811d39cc12')
+[SCREENCONTROLS]
+! PROMPT('Class Name Q:'),USE(?ClassNameQ:Prompt)
+! ENTRY(@s132),USE(ClassNameQ)
+[REPORTCONTROLS]
+! STRING(@s132),USE(ClassNameQ)
+ClassNameQ               QUEUE,PRE(ClassNameQ)
+!!> GUID('efa03023-13ed-4a22-8b71-d7756d19b919'),PROMPT('Class Name Q:'),HEADER('Class Name Q'),PICTURE(@s132)
+[SCREENCONTROLS]
+! PROMPT('sz Class Name:'),USE(?ClassNameQ:szClassName:Prompt)
+! ENTRY(@s63),USE(ClassNameQ:szClassName)
+[REPORTCONTROLS]
+! STRING(@s63),USE(ClassNameQ:szClassName)
+szClassName                CSTRING(64)
+!!> GUID('4d75287a-02ef-456c-891b-d6c9db9b6d41'),PROMPT('sz Class Name:'),HEADER('sz Class Name'),PICTURE(@s63)
+[SCREENCONTROLS]
+! PROMPT('l Style:'),USE(?ClassNameQ:lStyle:Prompt)
+! ENTRY(@n-14),USE(ClassNameQ:lStyle),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(ClassNameQ:lStyle),RIGHT(1)
+lStyle                     LONG
+!!> GUID('3579422c-a8ed-453a-a7bd-fa4e40dd7bc6'),PROMPT('l Style:'),HEADER('l Style'),PICTURE(@n-14),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! PROMPT('sz Sort Name:'),USE(?ClassNameQ:szSortName:Prompt)
+! ENTRY(@s63),USE(ClassNameQ:szSortName)
+[REPORTCONTROLS]
+! STRING(@s63),USE(ClassNameQ:szSortName)
+szSortName                 CSTRING(64)
+!!> GUID('a57041f2-7ab6-4e58-84df-e18bacce5867'),PROMPT('sz Sort Name:'),HEADER('sz Sort Name'),PICTURE(@s63)
+                         END
+!!> GUID('fec4b9f0-f6d3-4dad-9b64-ca0a9110cc11')
+[SCREENCONTROLS]
+! ENTRY(@s70),USE(PropertyQ)
+[REPORTCONTROLS]
+! STRING(@s70),USE(PropertyQ)
+PropertyQ                QUEUE,PRE(PropertyQ)
+!!> GUID('eafe0b56-c49d-4ac4-a8c8-5fff34c460ba'),PICTURE(@s70)
+[SCREENCONTROLS]
+! ENTRY(@s63),USE(PropertyQ:szPropertyName)
+[REPORTCONTROLS]
+! STRING(@s63),USE(PropertyQ:szPropertyName)
+szPropertyName             CSTRING(64)
+!!> GUID('35df6d4c-b159-40df-97e8-809646e99f6c'),PICTURE(@s63)
+[SCREENCONTROLS]
+! ENTRY(@s63),USE(PropertyQ:szDataType)
+[REPORTCONTROLS]
+! STRING(@s63),USE(PropertyQ:szDataType)
+szDataType                 CSTRING(64)
+!!> GUID('12b10a9f-75e6-4bbd-902c-b2f1464af4ea'),PICTURE(@s63)
+[SCREENCONTROLS]
+! ENTRY(@n3),USE(PropertyQ:bPrivate)
+[REPORTCONTROLS]
+! STRING(@n3),USE(PropertyQ:bPrivate)
+bPrivate                   BYTE
+!!> GUID('103de215-e834-4d37-aebd-de300bcd5359'),PICTURE(@n3)
+[SCREENCONTROLS]
+! ENTRY(@n3),USE(PropertyQ:bProtected)
+[REPORTCONTROLS]
+! STRING(@n3),USE(PropertyQ:bProtected)
+bProtected                 BYTE
+!!> GUID('fdd2f2b2-4a17-4cf8-ad33-6f3ab8c6793b'),PICTURE(@n3)
+[SCREENCONTROLS]
+! PROMPT('l Line Num:'),USE(?PropertyQ:lLineNum:Prompt)
+! ENTRY(@n-14),USE(PropertyQ:lLineNum),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(PropertyQ:lLineNum),RIGHT(1)
+lLineNum                   LONG
+!!> GUID('8e040248-0789-4653-a6e1-9f152e4f2d9e'),PROMPT('l Line Num:'),HEADER('l Line Num'),PICTURE(@n-14),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! ENTRY(@n-14),USE(PropertyQ:lClassID)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(PropertyQ:lClassID)
+lClassID                   LONG
+!!> GUID('3b4994ae-6a3f-4f5b-b150-e951cdb067de'),PICTURE(@n-14)
+[SCREENCONTROLS]
+! ENTRY(@s63),USE(PropertyQ:szPropertySort)
+[REPORTCONTROLS]
+! STRING(@s63),USE(PropertyQ:szPropertySort)
+szPropertySort             CSTRING(64)
+!!> GUID('5e547f66-4e44-4c2d-b0e0-ca4b4259810e'),PICTURE(@s63)
+[SCREENCONTROLS]
+! PROMPT('b Module:'),USE(?PropertyQ:bModule:Prompt)
+! ENTRY(@n3),USE(PropertyQ:bModule),MSG('Private to module'),TIP('Private to module')
+[REPORTCONTROLS]
+! STRING(@n3),USE(PropertyQ:bModule)
+bModule                    BYTE !Private to module
+!!> GUID('001b7f81-6091-4738-8d22-1f411c71f9bc'),PROMPT('b Module:'),HEADER('b Module'),MESSAGE('Private to module'),TOOLTIP('Private to module'),PICTURE(@n3)
+                         END
+!!> GUID('e4ef7d5f-c062-4514-8d0f-cb65790deb11')
+[SCREENCONTROLS]
+! ENTRY(@s71),USE(MethodQ)
+[REPORTCONTROLS]
+! STRING(@s71),USE(MethodQ)
+MethodQ                  QUEUE,PRE(MethodQ)
+!!> GUID('3b2f6eb6-e3c0-4f5f-87f1-b43062a55689'),PICTURE(@s71)
+[SCREENCONTROLS]
+! ENTRY(@s63),USE(MethodQ:szMethodName)
+[REPORTCONTROLS]
+! STRING(@s63),USE(MethodQ:szMethodName)
+szMethodName               CSTRING(64)
+!!> GUID('6757923d-f08b-496a-957c-2c690f660810'),PICTURE(@s63)
+[SCREENCONTROLS]
+! TEXT,USE(MethodQ:szPrototype)
+[REPORTCONTROLS]
+! TEXT,USE(MethodQ:szPrototype)
+szPrototype                CSTRING(256)
+!!> GUID('d26d2b8c-f366-4aaa-b18d-25be3fc6c250'),PICTURE(@s255)
+[SCREENCONTROLS]
+! ENTRY(@n3),USE(MethodQ:bPrivate)
+[REPORTCONTROLS]
+! STRING(@n3),USE(MethodQ:bPrivate)
+bPrivate                   BYTE
+!!> GUID('ba6ddd94-8f40-48c4-a807-1d6aefc4aa6b'),PICTURE(@n3)
+[SCREENCONTROLS]
+! ENTRY(@n3),USE(MethodQ:bProtected)
+[REPORTCONTROLS]
+! STRING(@n3),USE(MethodQ:bProtected)
+bProtected                 BYTE
+!!> GUID('fbad976e-b4ae-47db-b5be-49f894f066f0'),PICTURE(@n3)
+[SCREENCONTROLS]
+! ENTRY(@n3),USE(MethodQ:bVirtual)
+[REPORTCONTROLS]
+! STRING(@n3),USE(MethodQ:bVirtual)
+bVirtual                   BYTE
+!!> GUID('2c35fefd-8b85-45aa-964a-c93cbc377877'),PICTURE(@n3)
+[SCREENCONTROLS]
+! PROMPT('l Line Num:'),USE(?MethodQ:lLineNum:Prompt)
+! ENTRY(@n-14),USE(MethodQ:lLineNum),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(MethodQ:lLineNum),RIGHT(1)
+lLineNum                   LONG
+!!> GUID('d6e7c60f-6e9b-47e2-8c91-42af3710605d'),PROMPT('l Line Num:'),HEADER('l Line Num'),PICTURE(@n-14),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! PROMPT('l Source Line:'),USE(?MethodQ:lSourceLine:Prompt)
+! ENTRY(@n-14),USE(MethodQ:lSourceLine),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(MethodQ:lSourceLine),RIGHT(1)
+lSourceLine                LONG
+!!> GUID('ad65866c-f373-4dbf-b9ec-9de97e8c8c43'),PROMPT('l Source Line:'),HEADER('l Source Line'),PICTURE(@n-14),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! ENTRY(@n-14),USE(MethodQ:lClassID)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(MethodQ:lClassID)
+lClassID                   LONG
+!!> GUID('89b463d2-89aa-4a57-96dc-4710a2f6a7c9'),PICTURE(@n-14)
+[SCREENCONTROLS]
+! ENTRY(@s63),USE(MethodQ:szMethodSort)
+[REPORTCONTROLS]
+! STRING(@s63),USE(MethodQ:szMethodSort)
+szMethodSort               CSTRING(64)
+!!> GUID('fbb04682-e36d-4875-86cb-c7aa9e3ea0a6'),PICTURE(@s63)
+[SCREENCONTROLS]
+! PROMPT('b Module:'),USE(?MethodQ:bModule:Prompt)
+! ENTRY(@n3),USE(MethodQ:bModule),MSG('Private to Module'),TIP('Private to Module')
+[REPORTCONTROLS]
+! STRING(@n3),USE(MethodQ:bModule)
+bModule                    BYTE !Private to Module
+!!> GUID('0be9f191-2ce5-4536-83c2-5b4de69ea74e'),PROMPT('b Module:'),HEADER('b Module'),MESSAGE('Private to Module'),TOOLTIP('Private to Module'),PICTURE(@n3)
+[SCREENCONTROLS]
+! ENTRY(@n3),USE(MethodQ:bExtends)
+[REPORTCONTROLS]
+! STRING(@n3),USE(MethodQ:bExtends)
+bExtends                   BYTE
+!!> GUID('eec707c3-7555-429d-a1b8-7e4d89d68413'),PICTURE(@n3)
+[SCREENCONTROLS]
+! ENTRY(@n3),USE(MethodQ:bFinal)
+[REPORTCONTROLS]
+! STRING(@n3),USE(MethodQ:bFinal)
+bFinal                     BYTE
+!!> GUID('fc32eba5-7b1d-4a7b-8684-0956f4da3708'),PICTURE(@n3)
+[SCREENCONTROLS]
+! ENTRY(@n3),USE(MethodQ:bProc)
+[REPORTCONTROLS]
+! STRING(@n3),USE(MethodQ:bProc)
+bProc                      BYTE
+!!> GUID('3b1a24e2-cfba-4288-9ffc-16f9f694fbf0'),PICTURE(@n3)
+[SCREENCONTROLS]
+! ENTRY(@s31),USE(MethodQ:szDLL)
+[REPORTCONTROLS]
+! STRING(@s31),USE(MethodQ:szDLL)
+szDLL                      CSTRING(32)
+!!> GUID('9a45af15-b196-4895-8426-98aea544cd33'),PICTURE(@s31)
+[SCREENCONTROLS]
+! ENTRY(@s63),USE(MethodQ:szExtName)
+[REPORTCONTROLS]
+! STRING(@s63),USE(MethodQ:szExtName)
+szExtName                  CSTRING(64)
+!!> GUID('7ded32df-94e7-4a22-b02b-e0dcc1dcbb09'),PICTURE(@s63)
+[SCREENCONTROLS]
+! ENTRY(@s6),USE(MethodQ:szCallConv)
+[REPORTCONTROLS]
+! STRING(@s6),USE(MethodQ:szCallConv)
+szCallConv                 CSTRING(7)
+!!> GUID('96222232-c4c8-4a31-9d5c-c29b97d5ae67'),PICTURE(@s6)
+[SCREENCONTROLS]
+! ENTRY(@s63),USE(MethodQ:szReturnType)
+[REPORTCONTROLS]
+! STRING(@s63),USE(MethodQ:szReturnType)
+szReturnType               CSTRING(64)
+!!> GUID('667b8ca4-0f68-49d2-bad2-c26b1b9027c1'),PICTURE(@s63)
+                         END
+!!> GUID('4952d5ae-634b-4813-acf6-4aa5b46f19d2')
+[SCREENCONTROLS]
+! PROMPT('Struct Name Q:'),USE(?StructNameQ:Prompt)
+! ENTRY(@s64),USE(StructNameQ),MSG('Structure Names Q'),TIP('Structure Names Q')
+[REPORTCONTROLS]
+! STRING(@s64),USE(StructNameQ)
+StructNameQ              QUEUE,PRE() !Structure Names Q
+!!> GUID('24450b6c-36eb-4751-9be2-09e90bdd0d59'),PROMPT('Struct Name Q:'),HEADER('Struct Name Q'),MESSAGE('Structure Names Q'),TOOLTIP('Structure Names Q'),PICTURE(@s64)
+[SCREENCONTROLS]
+! PROMPT('sz Structure Name:'),USE(?szStructureName:Prompt)
+! ENTRY(@s63),USE(szStructureName),MSG('name of group or queue'),TIP('name of group or queue')
+[REPORTCONTROLS]
+! STRING(@s63),USE(szStructureName)
+szStructureName            CSTRING(64) !name of group or queue
+!!> GUID('c6f9f497-59d4-444c-9dbe-10972335190f'),PROMPT('sz Structure Name:'),HEADER('sz Structure Name'),MESSAGE('name of group or queue'),TOOLTIP('name of group or queue'),PICTURE(@s63)
+[SCREENCONTROLS]
+! ENTRY(@s63),USE(szStructureSort)
+[REPORTCONTROLS]
+! STRING(@s63),USE(szStructureSort)
+szStructureSort            CSTRING(64) !name of group or queue
+!!> GUID('2ef2cf3a-223b-4949-be31-3b9d8d9c263f'),PICTURE(@s63)
+                         END
+!!> GUID('5b5c1762-2a3a-42fd-b424-346e3202bfae')
+[SCREENCONTROLS]
+! ENTRY(@s200),USE(StructureQ)
+[REPORTCONTROLS]
+! STRING(@s200),USE(StructureQ)
+StructureQ               QUEUE,PRE(StructureQ)
+!!> GUID('f20ce256-4650-41a2-8aa7-0da1e777c9f6'),PICTURE(@s200)
+[SCREENCONTROLS]
+! ENTRY(@s63),USE(StructureQ:szStructureName)
+[REPORTCONTROLS]
+! STRING(@s63),USE(StructureQ:szStructureName)
+szStructureName            CSTRING(64) !name of group or queue
+!!> GUID('a35e9db5-98b3-4c27-b46d-ba02f3eb007b'),PICTURE(@s63)
+[SCREENCONTROLS]
+! ENTRY(@s63),USE(StructureQ:szDataLabel)
+[REPORTCONTROLS]
+! STRING(@s63),USE(StructureQ:szDataLabel)
+szDataLabel                CSTRING(64) !element label
+!!> GUID('4595f1de-01c6-4263-b316-c43bbca85b2f'),PICTURE(@s63)
+[SCREENCONTROLS]
+! ENTRY(@s63),USE(StructureQ:szDataType)
+[REPORTCONTROLS]
+! STRING(@s63),USE(StructureQ:szDataType)
+szDataType                 CSTRING(64) !element data type
+!!> GUID('fd38928a-397c-4da8-b366-1faf7c6135a0'),PICTURE(@s63)
+[SCREENCONTROLS]
+! ENTRY(@n-14),USE(StructureQ:lModuleId)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(StructureQ:lModuleId)
+lModuleId                  LONG
+!!> GUID('4d673f06-ed99-4623-bf26-4bc494db2b4a'),PROMPT('l Module Id:'),HEADER('l Module Id'),PICTURE(@n-14)
+[SCREENCONTROLS]
+! ENTRY(@n-14),USE(StructureQ:lLineNum)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(StructureQ:lLineNum)
+lLineNum                   LONG
+!!> GUID('2a01ff61-d1e5-43d4-b947-5f82c80d267e'),PICTURE(@n-14)
+[SCREENCONTROLS]
+! ENTRY(@s63),USE(StructureQ:szStructureSort)
+[REPORTCONTROLS]
+! STRING(@s63),USE(StructureQ:szStructureSort)
+szStructureSort            CSTRING(64) !name of group or queue
+!!> GUID('1d554b00-10e1-424f-a03e-4f1963b148ce'),PICTURE(@s63)
+[SCREENCONTROLS]
+! PROMPT('b Private:'),USE(?StructureQ:bPrivate:Prompt)
+! ENTRY(@n3),USE(StructureQ:bPrivate)
+[REPORTCONTROLS]
+! STRING(@n3),USE(StructureQ:bPrivate)
+bPrivate                   BYTE
+!!> GUID('cd322454-94c1-44a0-888b-cda3a062c90f'),PROMPT('b Private:'),HEADER('b Private'),PICTURE(@n3)
+                         END
+!!> GUID('aa773449-9413-4aad-9d84-eb69e8a6e836')
+[SCREENCONTROLS]
+! ENTRY(@s64),USE(EnumNameQ)
+[REPORTCONTROLS]
+! STRING(@s64),USE(EnumNameQ)
+EnumNameQ                QUEUE,PRE() !enumeration data structure Names Q
+!!> GUID('12cbafdb-a90f-4148-aa69-eafa350f9486'),PICTURE(@s64)
+[SCREENCONTROLS]
+! ENTRY(@s63),USE(szEnumName)
+[REPORTCONTROLS]
+! STRING(@s63),USE(szEnumName)
+szEnumName                 CSTRING(64) !label of enumeration data structure
+!!> GUID('92723a8a-bb5d-4769-a7f3-49cf3e58e820'),PICTURE(@s63)
+[SCREENCONTROLS]
+! ENTRY(@s63),USE(szEnumSort)
+[REPORTCONTROLS]
+! STRING(@s63),USE(szEnumSort)
+szEnumSort                 CSTRING(64) !label of enumeration data structure
+!!> GUID('d07e1cf9-2e70-46e6-a6cd-3ecc1277e3c2'),PICTURE(@s63)
+                         END
+!!> GUID('ee6d79ae-d3ec-494f-965c-ff327c32e66e')
+[SCREENCONTROLS]
+! ENTRY(@s76),USE(EnumQ)
+[REPORTCONTROLS]
+! STRING(@s76),USE(EnumQ)
+EnumQ                    QUEUE,PRE(EnumQ)
+!!> GUID('e7f4abf8-187c-4a05-9857-2d7be4907161'),PICTURE(@s76)
+[SCREENCONTROLS]
+! PROMPT('sz Enum Name:'),USE(?EnumQ:szEnumName:Prompt)
+! ENTRY(@s63),USE(EnumQ:szEnumName)
+[REPORTCONTROLS]
+! STRING(@s63),USE(EnumQ:szEnumName)
+szEnumName                 CSTRING(64)
+!!> GUID('e9a2e902-608d-43e3-8b80-77bd4fd22c0c'),PROMPT('sz Enum Name:'),HEADER('sz Enum Name'),PICTURE(@s63)
+[SCREENCONTROLS]
+! ENTRY(@s63),USE(EnumQ:szEnumPrefix)
+[REPORTCONTROLS]
+! STRING(@s63),USE(EnumQ:szEnumPrefix)
+szEnumPrefix               CSTRING(64) !equate prefix
+!!> GUID('d25d8386-561d-418d-a90e-25f49e7c09ee'),PICTURE(@s63)
+[SCREENCONTROLS]
+! ENTRY(@s63),USE(EnumQ:szEnumLabel)
+[REPORTCONTROLS]
+! STRING(@s63),USE(EnumQ:szEnumLabel)
+szEnumLabel                CSTRING(64) !equate label
+!!> GUID('2d594540-3dc6-45b9-bc0d-a1e3986c1209'),PICTURE(@s63)
+[SCREENCONTROLS]
+! TEXT,USE(EnumQ:szEnumValue)
+[REPORTCONTROLS]
+! TEXT,USE(EnumQ:szEnumValue)
+szEnumValue                CSTRING(256) !equate value
+!!> GUID('13b9c30a-9894-4a58-b3e4-dc2a307eba51'),PICTURE(@s255)
+[SCREENCONTROLS]
+! ENTRY(@n-14),USE(EnumQ:lModuleId)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(EnumQ:lModuleId)
+lModuleId                  LONG
+!!> GUID('65f4c7dd-5856-43a4-8cb0-2b0f098e10c8'),PROMPT('l Module Id:'),HEADER('l Module Id'),PICTURE(@n-14)
+[SCREENCONTROLS]
+! ENTRY(@n-14),USE(EnumQ:lLineNum)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(EnumQ:lLineNum)
+lLineNum                   LONG
+!!> GUID('4278c7fe-03c9-4de3-8886-0e6a1d70ce98'),PICTURE(@n-14)
+[SCREENCONTROLS]
+! ENTRY(@s63),USE(EnumQ:szEnumSort)
+[REPORTCONTROLS]
+! STRING(@s63),USE(EnumQ:szEnumSort)
+szEnumSort                 CSTRING(64)
+!!> GUID('da9bc4b4-c316-44a1-b871-b93597acef20'),PICTURE(@s63)
+[SCREENCONTROLS]
+! PROMPT('b Is Hex Value:'),USE(?EnumQ:bIsHexValue:Prompt)
+! ENTRY(@n3),USE(EnumQ:bIsHexValue),MSG('Value is displayed as hexadecimal'),TIP('Value is displayed as hexadecimal')
+[REPORTCONTROLS]
+! STRING(@n3),USE(EnumQ:bIsHexValue)
+bIsHexValue                BYTE !Value is displayed as hexadecimal
+!!> GUID('86697f7f-cb49-4d1a-a424-bdc08e0102ff'),PROMPT('b Is Hex Value:'),HEADER('b Is Hex Value'),MESSAGE('Value is displayed as hexadecimal'),TOOLTIP('Value is displayed as hexadecimal'),PICTURE(@n3)
+[SCREENCONTROLS]
+! PROMPT('b Private:'),USE(?EnumQ:bPrivate:Prompt)
+! ENTRY(@n3),USE(EnumQ:bPrivate)
+[REPORTCONTROLS]
+! STRING(@n3),USE(EnumQ:bPrivate)
+bPrivate                   BYTE
+!!> GUID('57d1cef6-24c1-491c-b2d6-bb3e8579d6f7'),PROMPT('b Private:'),HEADER('b Private'),PICTURE(@n3)
+[SCREENCONTROLS]
+! PROMPT('b Is Equate:'),USE(?EnumQ:bIsEquate:Prompt)
+! ENTRY(@n3),USE(EnumQ:bIsEquate)
+[REPORTCONTROLS]
+! STRING(@n3),USE(EnumQ:bIsEquate)
+bIsEquate                  BYTE
+!!> GUID('09646a7d-16db-4533-af89-1703c77428ea'),PROMPT('b Is Equate:'),HEADER('b Is Equate'),PICTURE(@n3)
+                         END
+!!> GUID('0662cc24-099e-44c1-ba8e-aa0256168b6f')
+[SCREENCONTROLS]
+! ENTRY(@s255),USE(TreeQ)
+[REPORTCONTROLS]
+! STRING(@s255),USE(TreeQ)
+TreeQ                    QUEUE,PRE(TreeQ) !Queue declaration
+!!> GUID('47a1bdca-73ae-4a16-a639-78b097ee6fc7'),PICTURE(@s255)
+[SCREENCONTROLS]
+! PROMPT(''),USE(?TreeQ:sNote:Prompt)
+! ENTRY(@s1),USE(TreeQ:sNote)
+[REPORTCONTROLS]
+! STRING(@s1),USE(TreeQ:sNote)
+sNote                      STRING(1)
+!!> GUID('4d6ff111-8971-4765-a51e-665ba74c7d2f'),PICTURE(@s1)
+[SCREENCONTROLS]
+! PROMPT(''),USE(?TreeQ:wNoteIcon:Prompt)
+! ENTRY(@n-7),USE(TreeQ:wNoteIcon),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@n-7),USE(TreeQ:wNoteIcon),RIGHT(1)
+wNoteIcon                  SHORT
+!!> GUID('fd50922c-672d-426e-ab02-6fcae970449e'),PICTURE(@n-7),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! PROMPT('sz Note Tip:'),USE(?TreeQ:szNoteTip:Prompt)
+! TEXT,USE(TreeQ:szNoteTip)
+[REPORTCONTROLS]
+! TEXT,USE(TreeQ:szNoteTip)
+szNoteTip                  CSTRING(256)
+!!> GUID('a1baefac-709f-4e70-a6f0-257237443b2d'),PROMPT('sz Note Tip:'),HEADER('sz Note Tip'),PICTURE(@s255)
+[SCREENCONTROLS]
+! TEXT,USE(TreeQ:szText)
+[REPORTCONTROLS]
+! TEXT,USE(TreeQ:szText)
+szText                     CSTRING(384)
+!!> GUID('2022cd56-2956-40fc-b3d9-f256ec740c59'),PICTURE(@s255)
+[SCREENCONTROLS]
+! ENTRY(@n-7),USE(TreeQ:wIcon)
+[REPORTCONTROLS]
+! STRING(@n-7),USE(TreeQ:wIcon)
+wIcon                      SHORT !Entry's icon ID
+!!> GUID('09cdbfbb-4f86-4354-891a-982a3e34e841'),PICTURE(@n-7)
+[SCREENCONTROLS]
+! ENTRY(@n-14),USE(TreeQ:lLevel)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(TreeQ:lLevel)
+lLevel                     LONG !Tree Level
+!!> GUID('18f6261a-ca7b-430a-8009-c4f8da001819'),PICTURE(@n-14)
+[SCREENCONTROLS]
+! ENTRY(@n-14),USE(TreeQ:lStyle)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(TreeQ:lStyle)
+lStyle                     LONG
+!!> GUID('20016f82-2dbe-427f-a157-9914b114fde1'),PICTURE(@n-14)
+[SCREENCONTROLS]
+! PROMPT('sz Tip Text:'),USE(?TreeQ:szTipText:Prompt)
+! TEXT,USE(TreeQ:szTipText)
+[REPORTCONTROLS]
+! TEXT,USE(TreeQ:szTipText)
+szTipText                  CSTRING(256)
+!!> GUID('d3c2bcaa-e91a-4f3a-8f1f-81be17dd14f6'),PROMPT('sz Tip Text:'),HEADER('sz Tip Text'),PICTURE(@s255)
+[SCREENCONTROLS]
+! PROMPT('sz Search:'),USE(?TreeQ:szSearch:Prompt)
+! ENTRY(@s63),USE(TreeQ:szSearch)
+[REPORTCONTROLS]
+! STRING(@s63),USE(TreeQ:szSearch)
+szSearch                   CSTRING(64)
+!!> GUID('3d235837-9985-4b9f-8e05-b460ed86f912'),PROMPT('sz Search:'),HEADER('sz Search'),PICTURE(@s63)
+[SCREENCONTROLS]
+! PROMPT('sz Class Name:'),USE(?TreeQ:szClassName:Prompt)
+! ENTRY(@s63),USE(TreeQ:szClassName)
+[REPORTCONTROLS]
+! STRING(@s63),USE(TreeQ:szClassName)
+szClassName                CSTRING(64)
+!!> GUID('1ae57c07-cba4-44af-a8d1-ee15dcefd702'),PROMPT('sz Class Name:'),HEADER('sz Class Name'),PICTURE(@s63)
+[SCREENCONTROLS]
+! PROMPT('sz Context String:'),USE(?TreeQ:szContextString:Prompt)
+! TEXT,USE(TreeQ:szContextString)
+[REPORTCONTROLS]
+! TEXT,USE(TreeQ:szContextString)
+szContextString            CSTRING(256)
+!!> GUID('c98f5621-6485-4fa4-be51-de813bbaf3f3'),PROMPT('sz Context String:'),HEADER('sz Context String'),PICTURE(@s255)
+[SCREENCONTROLS]
+! PROMPT('sz Help File:'),USE(?TreeQ:szHelpFile:Prompt)
+! TEXT,USE(TreeQ:szHelpFile)
+[REPORTCONTROLS]
+! TEXT,USE(TreeQ:szHelpFile)
+szHelpFile                 CSTRING(256)
+!!> GUID('5c95023c-2e2f-4bb1-be1e-e6c1ba8f9b78'),PROMPT('sz Help File:'),HEADER('sz Help File'),PICTURE(@s255)
+[SCREENCONTROLS]
+! PROMPT('l Line Num:'),USE(?TreeQ:lLineNum:Prompt)
+! ENTRY(@n-14),USE(TreeQ:lLineNum),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(TreeQ:lLineNum),RIGHT(1)
+lLineNum                   LONG
+!!> GUID('8058e263-2a85-4985-8cc9-a34422a93532'),PROMPT('l Line Num:'),HEADER('l Line Num'),PICTURE(@n-14),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! PROMPT('l Source Line:'),USE(?TreeQ:lSourceLine:Prompt)
+! ENTRY(@n-14),USE(TreeQ:lSourceLine),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(TreeQ:lSourceLine),RIGHT(1)
+lSourceLine                LONG
+!!> GUID('dfdf73d1-1bd9-420f-b8c2-5680173c00b9'),PROMPT('l Source Line:'),HEADER('l Source Line'),PICTURE(@n-14),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! ENTRY(@n-14),USE(TreeQ:lIncludeId)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(TreeQ:lIncludeId)
+lIncludeId                 LONG
+!!> GUID('00cded19-979a-432c-8c73-f94862116f24'),PROMPT('l Include Id:'),HEADER('l Include Id'),PICTURE(@n-14)
+[SCREENCONTROLS]
+! ENTRY(@n-14),USE(TreeQ:lModuleId)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(TreeQ:lModuleId)
+lModuleId                  LONG
+!!> GUID('5c2029f8-744a-40a4-8850-3cdaf8630b65'),PROMPT('l Module Id:'),HEADER('l Module Id'),PICTURE(@n-14)
+[SCREENCONTROLS]
+! PROMPT('l Occurrance Line:'),USE(?TreeQ:lOccurranceLine:Prompt)
+! ENTRY(@n-14),USE(TreeQ:lOccurranceLine),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(TreeQ:lOccurranceLine),RIGHT(1)
+lOccurranceLine            LONG
+!!> GUID('151fc524-ef06-4517-9a62-eff9f6560d38'),PROMPT('l Occurrance Line:'),HEADER('l Occurrance Line'),PICTURE(@n-14),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! PROMPT('sz Prototype:'),USE(?TreeQ:szPrototype:Prompt)
+! TEXT,USE(TreeQ:szPrototype)
+[REPORTCONTROLS]
+! TEXT,USE(TreeQ:szPrototype)
+szPrototype                CSTRING(256)
+!!> GUID('a51f546c-fb3f-444d-9761-0ca159038843'),PROMPT('sz Prototype:'),HEADER('sz Prototype'),PICTURE(@s255)
+                         END
+!!> GUID('5f510bbc-9704-497c-92e9-70c8e85018e7')
+[SCREENCONTROLS]
+! ENTRY(@s132),USE(CallQ)
+[REPORTCONTROLS]
+! STRING(@s132),USE(CallQ)
+CallQ                    QUEUE,PRE(CallQ)
+!!> GUID('933c91a5-8944-44ec-bd7a-ffd0fef71ed1'),PICTURE(@s132)
+[SCREENCONTROLS]
+! ENTRY(@s63),USE(CallQ:szCallingMethod)
+[REPORTCONTROLS]
+! STRING(@s63),USE(CallQ:szCallingMethod)
+szCallingMethod            CSTRING(64)
+!!> GUID('16232cb1-e40c-4ae8-bd07-7eb20350e55c'),PICTURE(@s63)
+[SCREENCONTROLS]
+! ENTRY(@s63),USE(CallQ:szCalledMethod)
+[REPORTCONTROLS]
+! STRING(@s63),USE(CallQ:szCalledMethod)
+szCalledMethod             CSTRING(64)
+!!> GUID('94db8235-ad0a-4e25-916b-9952954d981d'),PICTURE(@s63)
+[SCREENCONTROLS]
+! PROMPT('l Line Num:'),USE(?CallQ:lLineNum:Prompt)
+! ENTRY(@n-14),USE(CallQ:lLineNum),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(CallQ:lLineNum),RIGHT(1)
+lLineNum                   LONG
+!!> GUID('d0894813-7d12-4245-9be7-dec04c84f8e8'),PROMPT('l Line Num:'),HEADER('l Line Num'),PICTURE(@n-14),JUSTIFY(RIGHT,1)
+                         END
+!!> GUID('30307c62-74cb-444b-897e-c31e79f3ab02')
+[SCREENCONTROLS]
+! PROMPT('Call Name Q:'),USE(?CallNameQ:Prompt)
+! ENTRY(@s137),USE(CallNameQ)
+[REPORTCONTROLS]
+! STRING(@s137),USE(CallNameQ)
+CallNameQ                QUEUE,PRE(CallNameQ)
+!!> GUID('c361a2a3-e688-4ddf-8b0e-9b8cbfd3725b'),PROMPT('Call Name Q:'),HEADER('Call Name Q'),PICTURE(@s137)
+[SCREENCONTROLS]
+! PROMPT('sz Call Name:'),USE(?CallNameQ:szCallName:Prompt)
+! ENTRY(@s63),USE(CallNameQ:szCallName)
+[REPORTCONTROLS]
+! STRING(@s63),USE(CallNameQ:szCallName)
+szCallName                 CSTRING(64)
+!!> GUID('9f5a4411-4f93-4a1f-8662-b6f70fea3a33'),PROMPT('sz Call Name:'),HEADER('sz Call Name'),PICTURE(@s63)
+[SCREENCONTROLS]
+! PROMPT('l Level:'),USE(?CallNameQ:lLevel:Prompt)
+! ENTRY(@n-14),USE(CallNameQ:lLevel),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(CallNameQ:lLevel),RIGHT(1)
+lLevel                     LONG
+!!> GUID('09be7083-c4d6-41f0-957e-3265f1d0ef6a'),PROMPT('l Level:'),HEADER('l Level'),PICTURE(@n-14),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! PROMPT('l Style:'),USE(?CallNameQ:lStyle:Prompt)
+! ENTRY(@n-14),USE(CallNameQ:lStyle),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(CallNameQ:lStyle),RIGHT(1)
+lStyle                     LONG
+!!> GUID('bea626c3-f589-4ce0-a6d7-b3b274b98546'),PROMPT('l Style:'),HEADER('l Style'),PICTURE(@n-14),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! PROMPT('sz Sort Name:'),USE(?CallNameQ:szSortName:Prompt)
+! ENTRY(@s63),USE(CallNameQ:szSortName)
+[REPORTCONTROLS]
+! STRING(@s63),USE(CallNameQ:szSortName)
+szSortName                 CSTRING(64)
+!!> GUID('6b4102e7-666d-4ee9-9250-c8b3a54b8ba4'),PROMPT('sz Sort Name:'),HEADER('sz Sort Name'),PICTURE(@s63)
+[SCREENCONTROLS]
+! PROMPT('b Expanded Above:'),USE(?CallNameQ:bExpandedAbove:Prompt)
+! ENTRY(@n3),USE(CallNameQ:bExpandedAbove)
+[REPORTCONTROLS]
+! STRING(@n3),USE(CallNameQ:bExpandedAbove)
+bExpandedAbove             BYTE
+!!> GUID('401d3cdc-62ed-4760-87ab-e91a1d4ba9bc'),PROMPT('b Expanded Above:'),HEADER('b Expanded Above'),PICTURE(@n3)
+                         END
+!!> GUID('cbf854d7-b3f7-491b-a5a8-a94ed13192be')
+[SCREENCONTROLS]
+! PROMPT('sz Class Sort:'),USE(?szClassSort:Prompt)
+! ENTRY(@s127),USE(szClassSort)
+[REPORTCONTROLS]
+! STRING(@s127),USE(szClassSort)
+szClassSort              CSTRING(128)
+!!> GUID('eec85d92-a8b6-442b-83bf-38c4e21379e0'),PROMPT('sz Class Sort:'),HEADER('sz Class Sort'),PICTURE(@s127)
+[SCREENCONTROLS]
+! ENTRY(@s128),USE(EquateQ)
+[REPORTCONTROLS]
+! STRING(@s128),USE(EquateQ)
+EquateQ                  QUEUE,PRE(EquateQ)
+!!> GUID('45cc5134-502d-4873-ae68-238560106cc8'),PICTURE(@s128)
+[SCREENCONTROLS]
+! ENTRY(@s63),USE(EquateQ:szLabel)
+[REPORTCONTROLS]
+! STRING(@s63),USE(EquateQ:szLabel)
+szLabel                    CSTRING(64)
+!!> GUID('261d6527-7ebe-48b5-98be-75c2901a0dbf'),PICTURE(@s63)
+[SCREENCONTROLS]
+! PROMPT('sz Value:'),USE(?EquateQ:szValue:Prompt)
+! TEXT,USE(EquateQ:szValue)
+[REPORTCONTROLS]
+! TEXT,USE(EquateQ:szValue)
+szValue                    CSTRING(256)
+!!> GUID('a2a0ae36-3389-488f-9473-44d089a09068'),PROMPT('sz Value:'),HEADER('sz Value'),PICTURE(@s255)
+[SCREENCONTROLS]
+! ENTRY(@n-14),USE(EquateQ:lModuleId)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(EquateQ:lModuleId)
+lModuleId                  LONG
+!!> GUID('8a6025c5-e7a6-4792-bc6f-ecc42ddd441f'),PICTURE(@n-14)
+[SCREENCONTROLS]
+! ENTRY(@n13),USE(EquateQ:lLineNum)
+[REPORTCONTROLS]
+! STRING(@n13),USE(EquateQ:lLineNum)
+lLineNum                   ULONG
+!!> GUID('ed2c2665-8992-4bf8-a89b-421a09f187e6'),PICTURE(@n13)
+[SCREENCONTROLS]
+! PROMPT('b Is Hex Value:'),USE(?EquateQ:bIsHexValue:Prompt)
+! ENTRY(@n3),USE(EquateQ:bIsHexValue)
+[REPORTCONTROLS]
+! STRING(@n3),USE(EquateQ:bIsHexValue)
+bIsHexValue                BYTE
+!!> GUID('7033eb9d-935d-49cc-bca7-0ca6730760d3'),PROMPT('b Is Hex Value:'),HEADER('b Is Hex Value'),PICTURE(@n3)
+                         END
+!!> GUID('2bd65dfc-acb9-4e9b-89ee-4935c81d7305')
+[SCREENCONTROLS]
+! PROMPT('Note Q:'),USE(?NoteQ:Prompt)
+! ENTRY(@s255),USE(NoteQ),MSG('User Notes'),TIP('User Notes')
+[REPORTCONTROLS]
+! STRING(@s255),USE(NoteQ)
+NoteQ                    QUEUE,PRE(NoteQ) !User Notes
+!!> GUID('1923f8db-c53a-4828-b0b0-921abee8a260'),PROMPT('Note Q:'),HEADER('Note Q'),MESSAGE('User Notes'),TOOLTIP('User Notes'),PICTURE(@s255)
+[SCREENCONTROLS]
+! PROMPT('b Clarion Version:'),USE(?NoteQ:bClarionVersion:Prompt)
+! ENTRY(@n3),USE(NoteQ:bClarionVersion)
+[REPORTCONTROLS]
+! STRING(@n3),USE(NoteQ:bClarionVersion)
+bClarionVersion            BYTE
+!!> GUID('e744f02f-4c73-4911-9a16-ac3fee714fd3'),PROMPT('b Clarion Version:'),HEADER('b Clarion Version'),PICTURE(@n3)
+[SCREENCONTROLS]
+! PROMPT('sz Lookup:'),USE(?NoteQ:szLookup:Prompt)
+! TEXT,USE(NoteQ:szLookup)
+[REPORTCONTROLS]
+! TEXT,USE(NoteQ:szLookup)
+szLookup                   CSTRING(384)
+!!> GUID('6d5d56a0-ef16-445b-a153-46dd0a9d957b'),PROMPT('sz Lookup:'),HEADER('sz Lookup'),PICTURE(@s255)
+[SCREENCONTROLS]
+! PROMPT('sz Note:'),USE(?NoteQ:szNote:Prompt)
+! TEXT,USE(NoteQ:szNote)
+[REPORTCONTROLS]
+! TEXT,USE(NoteQ:szNote)
+szNote                     CSTRING(2048)
+!!> GUID('3119ee2b-bb80-4349-9ae4-ea7f13adb61b'),PROMPT('sz Note:'),HEADER('sz Note'),PICTURE(@s255)
+                         END
+!!> GUID('6906ab0e-09f9-43c3-9b38-1edc81657fd6')
+[SCREENCONTROLS]
+! PROMPT('Category Q:'),USE(?CategoryQ:Prompt)
+! ENTRY(@s129),USE(CategoryQ),MSG('Class Category Queue'),TIP('Class Category Queue')
+[REPORTCONTROLS]
+! STRING(@s129),USE(CategoryQ)
+CategoryQ                QUEUE,PRE(CategoryQ) !Class Category Queue
+!!> GUID('e82e8d01-1f50-49a5-852d-de2b63381350'),PROMPT('Category Q:'),HEADER('Category Q'),MESSAGE('Class Category Queue'),TOOLTIP('Class Category Queue'),PICTURE(@s129)
+[SCREENCONTROLS]
+! PROMPT('sz Class Name:'),USE(?CategoryQ:szClassName:Prompt)
+! ENTRY(@s63),USE(CategoryQ:szClassName)
+[REPORTCONTROLS]
+! STRING(@s63),USE(CategoryQ:szClassName)
+szClassName                CSTRING(64)
+!!> GUID('8fe567ca-557c-46b7-afd3-cc616a0f70b2'),PROMPT('sz Class Name:'),HEADER('sz Class Name'),PICTURE(@s63)
+[SCREENCONTROLS]
+! PROMPT('Category:'),USE(?CategoryQ:szCategory:Prompt),TRN
+! ENTRY(@s63),USE(CategoryQ:szCategory)
+[REPORTCONTROLS]
+! STRING(@s63),USE(CategoryQ:szCategory)
+szCategory                 CSTRING(64)
+!!> GUID('f6afbe43-f7b1-4412-baa1-782150020e56'),PROMPT('Category:'),HEADER('Category'),PICTURE(@s63)
+[SCREENCONTROLS]
+! PROMPT('Detail Level:'),USE(?CategoryQ:bDetailLevel:Prompt),TRN
+! SPIN(@n3),USE(CategoryQ:bDetailLevel),TRN,STEP(1)
+[REPORTCONTROLS]
+! STRING(@n3),USE(CategoryQ:bDetailLevel)
+bDetailLevel               BYTE
+!!> GUID('7c79d182-5180-4f13-a249-df93edc561c4'),PROMPT('Detail Level:'),HEADER('Detail Level'),PICTURE(@n3)
+                         END
+!!> GUID('579845e5-5568-45a9-8939-b285c644cdc0')
+[SCREENCONTROLS]
+! ENTRY(@s64),USE(OldClassQ)
+[REPORTCONTROLS]
+! STRING(@s64),USE(OldClassQ)
+OldClassQ                QUEUE,PRE(OldClassQ)
+!!> GUID('cf4ccdc1-8b65-4140-b9e6-cd5a1787d096'),PICTURE(@s64)
+[SCREENCONTROLS]
+! ENTRY(@s63),USE(OldClassQ:szClassName)
+[REPORTCONTROLS]
+! STRING(@s63),USE(OldClassQ:szClassName)
+szClassName                CSTRING(64)
+!!> GUID('f65bc07e-760f-444d-9cad-81b0d6de88a8'),PICTURE(@s63)
+                         END
+!!> GUID('1e9b6720-acfd-4586-a77d-f5420b658801')
+[SCREENCONTROLS]
+! ENTRY(@s255),USE(OldMethodQ)
+[REPORTCONTROLS]
+! STRING(@s255),USE(OldMethodQ)
+OldMethodQ               QUEUE,PRE(OldMethodQ)
+!!> GUID('a8c4b2ee-50ad-41bd-9d69-af93a3709908'),PICTURE(@s255)
+[SCREENCONTROLS]
+! ENTRY(@s63),USE(OldMethodQ:szClassName)
+[REPORTCONTROLS]
+! STRING(@s63),USE(OldMethodQ:szClassName)
+szClassName                CSTRING(64)
+!!> GUID('178202dd-e7de-4699-bbf9-3b4f0a837dfc'),PICTURE(@s63)
+[SCREENCONTROLS]
+! ENTRY(@s63),USE(OldMethodQ:szMethodName)
+[REPORTCONTROLS]
+! STRING(@s63),USE(OldMethodQ:szMethodName)
+szMethodName               CSTRING(64)
+!!> GUID('eebba0c8-319c-4a23-8bb3-3bfe196d58ef'),PICTURE(@s63)
+[SCREENCONTROLS]
+! TEXT,USE(OldMethodQ:szPrototype)
+[REPORTCONTROLS]
+! TEXT,USE(OldMethodQ:szPrototype)
+szPrototype                CSTRING(256)
+!!> GUID('15cd7f35-7c4a-4deb-9860-237fce666691'),PICTURE(@s255)
+                         END
+!!> GUID('32adc1a0-2917-4ebd-b6de-dfa870cb2310')
+[SCREENCONTROLS]
+! ENTRY(@s255),USE(OldPropertyQ)
+[REPORTCONTROLS]
+! STRING(@s255),USE(OldPropertyQ)
+OldPropertyQ             QUEUE,PRE(OldPropertyQ)
+!!> GUID('ad1e2f30-2f13-49ee-9d71-dfb5ef653eee'),PICTURE(@s255)
+[SCREENCONTROLS]
+! ENTRY(@s63),USE(OldPropertyQ:szClassName)
+[REPORTCONTROLS]
+! STRING(@s63),USE(OldPropertyQ:szClassName)
+szClassName                CSTRING(64)
+!!> GUID('510dfc75-9177-4643-9d7b-1866481f26e7'),PICTURE(@s63)
+[SCREENCONTROLS]
+! ENTRY(@s63),USE(OldPropertyQ:szPropertyName)
+[REPORTCONTROLS]
+! STRING(@s63),USE(OldPropertyQ:szPropertyName)
+szPropertyName             CSTRING(64)
+!!> GUID('37b1a45e-6075-4574-8095-f40f9960fcd1'),PICTURE(@s63)
+[SCREENCONTROLS]
+! TEXT,USE(OldPropertyQ:szPrototype)
+[REPORTCONTROLS]
+! TEXT,USE(OldPropertyQ:szPrototype)
+szPrototype                CSTRING(256)
+!!> GUID('02b02ce7-3650-4ee1-b6db-569f185162a2'),PICTURE(@s255)
+                         END
+!!> GUID('217c70a7-ace5-41c1-b423-031d26fe62d5')
+[SCREENCONTROLS]
+! ENTRY(@s1),USE(incTemplateQ)
+[REPORTCONTROLS]
+! STRING(@s1),USE(incTemplateQ)
+incTemplateQ             QUEUE(TEMPLATEQTYPE),PRE(incTemplateQ)
+!!> GUID('3e3e2b1a-fe2d-4392-becf-2965312ec7ff'),PICTURE(@s1)
+                         END
+!!> GUID('81c486b2-dac7-4cf6-9cb6-050cb87bfec0')
+[SCREENCONTROLS]
+! ENTRY(@s1),USE(clwTemplateQ)
+[REPORTCONTROLS]
+! STRING(@s1),USE(clwTemplateQ)
+clwTemplateQ             QUEUE(TEMPLATEQTYPE),PRE(clwTemplateQ)
+!!> GUID('cd90841e-434d-482d-b25f-91a807a7479d'),PICTURE(@s1)
+                         END
+!!> GUID('b221aa97-8f7f-4dd9-83e9-a05459e955d5')
+[SCREENCONTROLS]
+! ENTRY(@s1),USE(tplTemplateQ)
+[REPORTCONTROLS]
+! STRING(@s1),USE(tplTemplateQ)
+tplTemplateQ             QUEUE(TEMPLATEQTYPE),PRE(tplTemplateQ)
+!!> GUID('5157e20e-6abb-420e-9bc9-3f23036da803'),PICTURE(@s1)
+                         END
+!!> GUID('b47557d6-2ee4-4205-b54d-7f7c260b521d')
+[SCREENCONTROLS]
+! ENTRY(@s1),USE(FavoritesQ)
+[REPORTCONTROLS]
+! STRING(@s1),USE(FavoritesQ)
+FavoritesQ               QUEUE(FAVORITESQTYPE),PRE(FavoritesQ)
+!!> GUID('b4760aa0-2433-4cbe-8e63-404978949862'),PICTURE(@s1)
+                         END
+!!> GUID('199d7542-218a-4f3e-b63d-f7733eb040c8')
+[SCREENCONTROLS]
+! ENTRY(@s20),USE(RedirectionQueue)
+[REPORTCONTROLS]
+! STRING(@s20),USE(RedirectionQueue)
+RedirectionQueue         QUEUE,PRE(RedirectionQueue)
+!!> GUID('4ea59d6d-23fa-45c6-a918-576dbcfd3100'),PROMPT('Redirection Queue:'),HEADER('Redirection Queue'),PICTURE(@s255)
+[SCREENCONTROLS]
+! ENTRY(@s32),USE(RedirectionQueue:Token)
+[REPORTCONTROLS]
+! STRING(@s32),USE(RedirectionQueue:Token)
+Token                      CSTRING(33)
+!!> GUID('2d87ebe0-e9f0-410d-b61d-63f82288c7d9'),PROMPT('Token:'),HEADER('Token'),PICTURE(@s32)
+[SCREENCONTROLS]
+! TEXT,USE(RedirectionQueue:Path)
+[REPORTCONTROLS]
+! TEXT,USE(RedirectionQueue:Path)
+Path                       CSTRING(256)
+!!> GUID('7750737e-cca8-4c92-b582-40c22440d069'),PROMPT('Path:'),HEADER('Path'),PICTURE(@s255)
+                         END
+!!> GUID('b65e6798-fbff-4998-bda9-69cdd08b4044')
+Glo:iQErrorMessageText   STRING(128)
+!!> GUID('bc34d542-5c75-4bf8-b197-a68d41a43c6a')
+[EMBED]
+EMBED %BeforeGlobalIncludes
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 3500
+PROPERTY:END
+!region Notices
+! ================================================================================
+! Notice : Copyright (C) 2017, Devuna
+!          Distributed under LGPLv3 (http://www.gnu.org/licenses/lgpl.html)
+!
+!    This file is part of Devuna-ClassViewer (https://github.com/Devuna/Devuna-ClassViewer)
+!
+!    Devuna-ClassViewer is free software: you can redistribute it and/or modify
+!    it under the terms of the GNU General Public License as published by
+!    the Free Software Foundation, either version 3 of the License, or
+!    (at your option) any later version.
+!
+!    Devuna-ClassViewer is distributed in the hope that it will be useful,
+!    but WITHOUT ANY WARRANTY; without even the implied warranty of
+!    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+!    GNU General Public License for more details.
+!
+!    You should have received a copy of the GNU General Public License
+!    along with Devuna-ClassViewer.  If not, see <http://www.gnu.org/licenses/>.
+! ================================================================================
+!endregion Notices
+[END]
+EMBED %AfterGlobalIncludes
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 4000
+PROPERTY:END
+   INCLUDE('kcrAsciiFileClass.inc'),ONCE
+   INCLUDE('XMLClass.inc'),ONCE
+   INCLUDE('CSciViewer.inc'),ONCE
+
+TreeStyles            ITEMIZE(1),PRE(STYLE)
+NORMAL                  EQUATE
+PRIVATE                 EQUATE
+PROTECTED               EQUATE
+MODULE                  EQUATE
+VIRTUAL                 EQUATE
+NORMAL_NEW              EQUATE
+PRIVATE_NEW             EQUATE
+PROTECTED_NEW           EQUATE
+MODULE_NEW              EQUATE
+VIRTUAL_NEW             EQUATE
+NORMAL_HYPERLINK        EQUATE  !Hyperlink's need to remain consecutive
+PRIVATE_HYPERLINK       EQUATE  !
+PROTECTED_HYPERLINK     EQUATE  !
+MODULE_HYPERLINK        EQUATE  !
+NORMAL_NEW_HYPERLINK    EQUATE  !
+PRIVATE_NEW_HYPERLINK   EQUATE  !
+PROTECTED_NEW_HYPERLINK EQUATE  !
+MODULE_NEW_HYPERLINK    EQUATE  !Hyperlink's need to remain consecutive
+                      END
+
+TreeIcons         ITEMIZE(1),PRE(ICON)
+CLASS               EQUATE
+NEWCLASS            EQUATE
+INTERFACEFOLDER     EQUATE
+NEWINTERFACEFOLDER  EQUATE
+PROPERTYFOLDER      EQUATE
+METHODFOLDER        EQUATE
+STRUCTUREFOLDER     EQUATE
+EQUATEFOLDER        EQUATE
+INTERFACE           EQUATE
+PROPERTY            EQUATE
+METHOD              EQUATE
+STRUCTURE           EQUATE
+EQUATE              EQUATE
+ENUMFOLDER          EQUATE
+NOTE                EQUATE
+                  END
+CONTRACTIONLEVEL  EQUATE(ICON:PROPERTYFOLDER)
+
+TreeViews         ITEMIZE(1),PRE(VIEW)
+CLASSES             EQUATE
+STRUCTURES          EQUATE
+EQUATES             EQUATE
+CALLS               EQUATE
+INTERFACES          EQUATE
+                  END
+
+ClarionVersions   ITEMIZE(1)
+CWVERSION_C2        EQUATE
+CWVERSION_C4        EQUATE
+CWVERSION_C5        EQUATE
+CWVERSION_C5EE      EQUATE
+CWVERSION_C55       EQUATE
+CWVERSION_C55EE     EQUATE
+CWVERSION_C60       EQUATE
+CWVERSION_C60EE     EQUATE
+CWVERSION_C70       EQUATE
+CWVERSION_C80       EQUATE
+CWVERSION_C90       EQUATE
+CWVERSION_C100      EQUATE
+                  END
+
+Msg:DeleteNote    EQUATE(50)
+Msg:SaveNote      EQUATE(51)
+Msg:QueryRefresh  EQUATE(52)
+
+SEARCHQTYPE       QUEUE,TYPE
+szPath               CSTRING(1024)
+                  END
+
+MODULEQTYPE       QUEUE,TYPE
+szModuleName        CSTRING(64)
+szModulePath        CSTRING(256)
+bClarionVersion     BYTE
+                  END
+
+THREADQTYPE       QUEUE,TYPE
+lThreadId           LONG
+                  END
+
+CATEGORYQUEUETYPE QUEUE,TYPE
+szCategory          CSTRING(64)
+                  END
+
+TREEQUEUETYPE     QUEUE,TYPE !Tree Queue Type
+sNote                STRING(1)
+wNoteIcon            SHORT
+szText               CSTRING(384)
+wIcon                SHORT
+lLevel               LONG
+lStyle               LONG
+szTipText            CSTRING(256)
+szSearch             CSTRING(64)
+szClassName          CSTRING(64)
+szContextString      CSTRING(256)
+szHelpFile           CSTRING(256)
+lLineNum             LONG
+lSourceLine          LONG
+lIncludeId           LONG
+lModuleId            LONG
+lOccurranceLine      LONG
+                   END
+
+TEMPLATEQTYPE      QUEUE,TYPE
+szName               CSTRING(61)
+szPath               CSTRING(256)
+                   END
+
+FAVORITESQTYPE     QUEUE,TYPE
+szName               CSTRING(61)
+szPath               CSTRING(256)
+SequenceNo           BYTE
+MenuFeq              LONG
+                   END
+
+TOKENQUEUETYPE  QUEUE,TYPE
+szPrompt            CSTRING(61)
+szType              CSTRING(21)
+szPicture           CSTRING(21)
+szName              CSTRING(61)
+szDefault           CSTRING(256)
+szRadioValue        CSTRING(256)
+szScope             CSTRING(256)
+low                 CSTRING(21)
+high                CSTRING(21)
+step                CSTRING(21)
+bChoice             BYTE
+xPos                LONG
+yPos                LONG
+width               LONG
+height              LONG
+prompt_xPos         LONG
+prompt_yPos         LONG
+prompt_width        LONG
+prompt_height       LONG
+szValue             &CSTRING
+nValue              &REAL
+PromptFeq           LONG
+EntryFeq            LONG
+bFree               BYTE
+                END
+
+CURSOR:VSPLITBAR    EQUATE('<0FFH,02H,08H,7FH>')
+
+NORMAL_PRIORITY_CLASS   EQUATE(00000020h)
+IDLE_PRIORITY_CLASS     EQUATE(00000040h)
+HIGH_PRIORITY_CLASS     EQUATE(00000080h)
+REALTIME_PRIORITY_CLASS EQUATE(00000100h)
+
+FLOODFILLSURFACE    EQUATE(1)
+
+MIM_MAXHEIGHT       EQUATE(000000001h)
+MIM_BACKGROUND      EQUATE(000000002h)
+MIM_HELPID          EQUATE(000000004h)
+MIM_MENUDATA        EQUATE(000000008h)
+MIM_STYLE           EQUATE(000000010h)
+MIM_APPLYTOSUBMENUS EQUATE(080000000h)
+
+DI_MASK             EQUATE(00001)
+DI_IMAGE            EQUATE(00002)
+DI_NORMAL           EQUATE(00003)
+DI_COMPAT           EQUATE(00004)
+DI_DEFAULTSIZE      EQUATE(00008)
+[END]
+EMBED %AfterFileDeclarations
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 4000
+PROPERTY:END
+SourceFile          FILE,DRIVER('ASCII'),NAME(szAsciiFilename),PRE(ASC),CREATE,THREAD
+Record                RECORD
+sText                   STRING(1024)
+                      END
+                    END
+
+
+[END]
+EMBED %GlobalData
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 4000
+PROPERTY:END
+FileNameQ            QUEUE,PRE(FNQ),THREAD  !queue of source files we have scanned
+sFileName              STRING(FILE:MaxFilePath)
+                     END
+
+SourceLineQ          QUEUE,PRE(SLQ),THREAD  !queue of source files we have scanned
+sFileName              STRING(FILE:MaxFilePath)
+sMethodName            STRING(256)
+sMethodPrototype       STRING(256)
+lSourceLine            LONG
+szLineText             CSTRING(1025)
+                     END
+
+LineCommentQ          QUEUE,PRE(LCQ),THREAD  !queue of source files we have scanned
+sFileName              STRING(FILE:MaxFilePath)
+lSourceLine            LONG
+szComment              CSTRING(1025)
+                     END
+
+DotEndQ              QUEUE,PRE(DEQ),THREAD  !queue of source files we have scanned
+sFileName              STRING(FILE:MaxFilePath)
+lSourceLine            LONG
+                     END
+
+ClassHierarchyQueueType QUEUE,TYPE
+szClassName                 LIKE(ClassNameQ.szClassName)
+                        END
+
+ClassHierarchyQueue  QUEUE(ClassHierarchyQueueType),PRE(CHQ)
+                     END
+
+RedirectionQueueType    QUEUE,TYPE
+Token                      CSTRING(33)
+Path                       CSTRING(File:MaxFilePath+1)
+                        END
+
+ClarionVersionQueueType QUEUE,TYPE
+VersionName                STRING(100)
+Path                       CSTRING(File:MaxFilePath+1)
+IsWindowsVersion           CSTRING(6)
+IniFile                    CSTRING(81)
+Libsrc                     CSTRING(1024)
+RedFile                    CSTRING(81)
+SupportsInclude            CSTRING(6)
+RedirectionMacros          &RedirectionQueueType
+Root                       CSTRING(File:MaxFilePath+1)
+RedDir                     CSTRING(File:MaxFilePath+1)
+                        END
+glo:VersionQ            QUEUE(ClarionVersionQueueType),PRE(VQ)
+                        END
+glo:StructureQCopy      QUEUE(StructureQ),PRE(SQC)
+                        END
+[END]
+EMBED %GlobalMap
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 4000
+PROPERTY:END
+INCLUDE('CWUTIL.INC'),ONCE
+MODULE('CLIB')
+  strtoul(*CSTRING s,*ULONG endptr,SIGNED base),ULONG,RAW,NAME('_strtoul'),PROC
+  ultoa(ULONG num,*CSTRING s,SIGNED radix),ULONG,RAW,NAME('_ultoa'),PROC
+END
+MODULE('win32.lib')
+   CreateMutex (<*LONG>,BOOL,<*CSTRING>),HANDLE,RAW, |
+                PASCAL,NAME('CreateMutexA'),PROC
+   CreateSemaphore(<*SECURITY_ATTRIBUTES lpSemaphoreAttributes>, |
+                   LONG lInitialCount, |
+                   LONG lMaximumCount, |
+                   *CSTRING lpName),   |
+                   LONG,RAW,PASCAL,NAME('CreateSemaphoreA')
+   FindWindow(<*CSTRING lpClassName>, |
+             *CSTRING lpWindowName),|
+             UNSIGNED,PASCAL,RAW,NAME('FindWindowA')
+   IsIconic(UNSIGNED),BOOL,PASCAL
+   CreateBrushIndirect(*LOGBRUSH),UNSIGNED,PASCAL,RAW
+   ExtFloodFill(UNSIGNED, SIGNED, SIGNED, ULONG, UNSIGNED),BOOL,PASCAL,PROC
+   FrameRect(HDC, *RECT, UNSIGNED),SIGNED,PASCAL,RAW,PROC
+   OffsetRect(*RECT, SIGNED, SIGNED),PASCAL,RAW
+
+   GetMenuInfo(UNSIGNED hMenu, *MENUINFO lpmi),BOOL,RAW,PASCAL,PROC
+   SetMenuInfo(UNSIGNED hMenu, *MENUINFO lpmi),BOOL,RAW,PASCAL,PROC
+   CreatePatternBrush(UNSIGNED hBitmap),UNSIGNED,PASCAL
+   FindResource(Unsigned hModule,  | ! Handle to the module whose executable file contains the resource
+                Long lpName,       | ! Specifies the name of the resource
+                Long lpType        | ! Specifies the resource type
+                ),Unsigned,Pascal,Raw,Name('FindResourceA')
+   LoadResource(Unsigned hModule,  | ! Handle to the resource to be locked
+                Long hResInfo      |
+               ),Unsigned,Pascal,Raw ! If the loaded resource is locked, the return value is a pointer to the first byte of the resource; otherwise, it is NULL.
+   LockResource(Unsigned hResData),Long,Pascal
+END
+MODULE('shell32.lib')
+   FindExecutable(*CSTRING lpFile, *CSTRING lpDirectory, *CSTRING lpResult),ULONG,RAW,PROC,PASCAL,NAME('FindExecutableA')
+   ExtractIconEx(*CSTRING lpszFile, LONG nIconIndex, LONG phIconLarge, LONG phIconSmall, LONG nIcons),LONG,RAW,PROC,PASCAL,NAME('ExtractIconExA')
+END
+MODULE('User32.lib')
+   DestroyIcon(LONG hIcon),LONG,PROC,PASCAL
+   DrawIconEx(LONG hdc, LONG xLeft, LONG yTop, LONG hIcon, LONG cxWidth, LONG cyWidth, LONG istepIfAniCur, LONG hbrFlickerFreeDraw, LONG diFlags),LONG,PROC,PASCAL
+END
+MODULE('shlwapi.lib')
+  PathCompactPathEx(*CSTRING pszOut, *CSTRING pszSrc, UNSIGNED cchMax, DWORD dwFlags),BOOL,RAW,PROC,PASCAL,NAME('PathCompactPathExA')
+END
+[END]
+[END]
+[END]

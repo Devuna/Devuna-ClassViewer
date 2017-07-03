@@ -1,0 +1,18 @@
+#! =======================================================================================
+#! Copyright 2017 by Devuna
+#! Distributed under LGPLv3 (http://www.gnu.org/licenses/lgpl.html)
+#! =======================================================================================
+#TEMPLATE({ClassName},'{ClassName} Class Template'),FAMILY('ABC')
+#INCLUDE('ABOOP.TPW')
+#!
+#!
+#! =======================================================================================
+#EXTENSION(Add_{ClassName},'Add_{ClassName} Extension')
+#! =======================================================================================
+#!
+#ATSTART
+  #CALL(%AddClass)
+#ENDAT
+#!
+#!
+{ADDCLASSGROUP}

@@ -1,0 +1,826 @@
+<!--
+! ================================================================================
+! Notice : Copyright (C) 2017, Devuna
+!          Distributed under LGPLv3 (http://www.gnu.org/licenses/lgpl.html)
+!
+!    This file is part of Devuna-ClassViewer (https://github.com/Devuna/Devuna-ClassViewer)
+!
+!    Devuna-ClassViewer is free software: you can redistribute it and/or modify
+!    it under the terms of the GNU General Public License as published by
+!    the Free Software Foundation, either version 3 of the License, or
+!    (at your option) any later version.
+!
+!    Devuna-ClassViewer is distributed in the hope that it will be useful,
+!    but WITHOUT ANY WARRANTY; without even the implied warranty of
+!    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+!    GNU General Public License for more details.
+!
+!    You should have received a copy of the GNU General Public License
+!    along with Devuna-ClassViewer.  If not, see <http://www.gnu.org/licenses/>.
+! ================================================================================
+-->
+<html><head><title>Main Window</title>
+<meta name="GENERATOR" content="Forehtml Pro 5.0">
+<link rel="stylesheet" type="text/css" href="ClassViewer.css">
+
+
+<body>
+
+<table width="100%"><tr>
+<td align="left" width="33%"><a href="Contents.htm"><img src="\images\home.gif" align="bottom" alt="Contents"></a></td>
+<td align="center" width="33%"></td>
+<td align="right" width="33%"><a href="About_Class_Viewer.htm"><img src="\images\prev.gif" align="bottom" alt="About Class Viewer"></a>
+<a href="Ascii_File_Viewer.htm"><img src="\images\next.gif" align="bottom" alt="Ascii File Viewer"></a></td>
+</tr></table><hr>
+
+<p class="BannerBase">
+Main Window</p><hr>
+<p class="Base">
+The Main Window is the most common point of interaction with the user.  It is comprised of several components
+which are detailed below in the order of their placement on the screen.</p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+Main Window Components</h4>
+<H5>
+<a href="#Window_Caption">Window Caption</a></H5>
+<H5>
+<a href="#Main_Menu">Main Menu</a></H5>
+<H5>
+<a href="#Main_Toolbar">Main Toolbar</a></H5>
+<H5>
+<a href="#Object_Filter_Toolbar">Object Filter Toolbar</a></H5>
+<H5>
+<a href="#Tree_Filter_Toolbar">Tree Filter Toolbar</a></H5>
+<H5>
+<a href="#Hyperlink_Toolbar">Hyperlink Toolbar</a></H5>
+<H5>
+<a href="#Object_List">Object List</a></H5>
+<H5>
+<a href="#Locator">Locator Display</a></H5>
+<H5>
+<a href="#Tree_View">Tree View</a></H5>
+<H5>
+<a href="#Popup_Menu">Popup Menu</a></H5>
+<H5>
+<a href="#Source_View">Source View</a></H5>
+<H5>
+<a href="#Splitter_Bar">Splitter Bar</a></H5>
+<H5>
+<a href="#Exit_Button">Exit Button</a></H5>
+<H5>
+&nbsp;</H5>
+<p class="Base">
+&nbsp;</p>
+<h4>
+<a name="Window_Caption"></a>Window Caption</h4>
+<p class="Base">
+<img src="\images\main_window.jpg" alt="\images\main_window.jpg" width="644" height="23" align="baseline"></p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+The window caption displays the Clarion Version you are working with, the name of the program &quot;Class
+Viewer&quot;, and the current Object Type that is being viewed in brackets.</p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+<a name="Main_Menu"></a>Main Menu</h4>
+<p class="Base">
+<img src="\images\MAINMENU.jpg" alt="\images\MAINMENU.jpg" width="642" height="22" align="baseline" USEmap="#MAINMENU">
+<map name="MAINMENU">
+<area shape="rect" coords="0,2,30,20" href="Main_Window.htm#File_Menu">
+<area shape="rect" coords="33,2,63,20" href="Main_Window.htm#Tree_Menu">
+<area shape="rect" coords="66,2,96,20" href="Main_Window.htm#View_Menu">
+<area shape="rect" coords="101,2,131,20" href="Main_Window.htm#Tools_Menu">
+<area shape="rect" coords="136,2,166,20" href="Main_Window.htm#Help_Menu"></map></p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+The main menu provides a common access point for all the functionality in the program.  It consists of
+five sub-menus.</p>
+<p class="Base">
+&nbsp;</p>
+<H5>
+<a name="File_Menu"></a>File Menu</H5>
+<p class="Indent1">
+<img src="\images\FileMenu.jpg" alt="\images\FileMenu.jpg" width="111" height="117" align="baseline"></p>
+<p class="Base">
+&nbsp;</p>
+<H6>
+Clarion Versions</H6>
+<H6>
+The list of available Clarion versions is created by examining the win.ini file.  This is where you select
+the version of Clarion you want to work with.  The first time you select a particular Clarion version,
+the software will scan the source files and create a database for that version of Clarion.</H6>
+<H6>
+&nbsp;</H6>
+<H6>
+<img src="\images\note21.jpg" alt="\images\note21.jpg" width="51" height="27" align="left">The
+databases are created in the folder from which the Class Viewer was launched.  For this reason, it is
+a good idea to always run the Class Viewer program from the same folder (unless of course, you want to
+maintain several different databases).  The location of the databases can be overridden by specifying
+the datafile path as the first command line parameter when launching the abcview.exe.  </H6>
+<H6>
+&nbsp;</H6>
+<H6>
+The databases are actually memory dumps of the queues used by the program.  They are stored in a binary
+format (not TPS files) which is loaded and saved by the program as necessary.  It is therefore not possible
+to provide direct access to the database which is why we have the &quot;<a href="#XML_Export">XML Export</a>&quot;
+menu option.</H6>
+<H6>
+&nbsp;</H6>
+<H6>
+Exit</H6>
+<H6>
+Choose this option to exit the program.</H6>
+<H6>
+&nbsp;</H6>
+<p class="Base">
+&nbsp;</p>
+<H5>
+<a name="Tree_Menu"></a>Tree Menu</H5>
+<p class="Indent1">
+<img src="\images\main_window1.jpg" alt="\images\main_window1.jpg" width="227" height="86" align="baseline"></p>
+<p class="Indent1">
+&nbsp;</p>
+<H6>
+<img src="\images\expand.jpg" alt="\images\expand.jpg" align="left"><a name="Expand_All"></a>Expand
+All</H6>
+<H6>
+Select this option or press CtrL+GREY PLUS key to expand all tree nodes.</H6>
+<H6>
+&nbsp;</H6>
+<H6>
+<img src="\images\Contract.jpg" alt="\images\Contract.jpg" width="16" height="16" align="left"><a name="Contract_All"></a>Contract
+All</H6>
+<H6>
+Select this option or press CtrL+GREY MINUS key to contract all tree nodes.</H6>
+<H6>
+&nbsp;</H6>
+<H6>
+Expand Branch</H6>
+<H6>
+Select this option or press GREY PLUS key to expand the currently selected tree node.</H6>
+<H6>
+&nbsp;</H6>
+<H6>
+Contract Branch</H6>
+<H6>
+Select this option or press GREY MINUS key to contract the currently selected tree node.</H6>
+<H6>
+&nbsp;</H6>
+<H6>
+&nbsp;</H6>
+<H5>
+<a name="View_Menu"></a>View Menu</H5>
+<p class="Indent1">
+<img src="\images\ViewMenu.jpg" alt="\images\ViewMenu.jpg" width="188" height="158" align="baseline"></p>
+<p class="Indent1">
+&nbsp;</p>
+<p class="Indent1">
+The first section of the View Menu allows you to select the type of object to be displayed on the Object
+List.  The selection for the Object Type currently being viewed is disabled in the menu (Equates in the
+above screen shot).  Your choices and their associated hot keys are as follows:</p>
+<H6>
+&nbsp;</H6>
+<H6>
+<a name="Classes"></a><img src="\images\Class.jpg" alt="\images\Class.jpg" width="16" height="16" align="left">Classes</H6>
+<H6>
+Select this option or press CtrL+L to view classes and their properties, methods, interfaces, and derived
+classes.</H6>
+<H6>
+&nbsp;</H6>
+<H6>
+<img src="\images\intrFace.jpg" alt="\images\intrFace.jpg" width="21" height="21" align="left"><a name="Interfaces"></a>Interfaces</H6>
+<H6>
+Select this option or press CtrL+I to view the interface declarations.</H6>
+<H6>
+&nbsp;</H6>
+<H6>
+<a name="Call_Tree"></a><img src="\images\Tree.jpg" alt="\images\Tree.jpg" width="16" height="16" align="left">Call
+Tree</H6>
+<H6>
+Select this option or press CtrL+T to view the method call tree.  This view provides a summary of methods
+called.  </H6>
+<H6>
+&nbsp;</H6><table cellpadding="2">
+<tr><td width="54">
+<H6>
+&nbsp;</H6></td><td width="54">
+<H6>
+<img src="\images\note21.jpg" alt="\images\note21.jpg" width="51" height="27" align="left">&nbsp;</H6></td><td width="603">
+<p class="Base">
+<i>The program does not have the ability to distinguish between overridden methods.</i></p></td></tr></table>
+
+<H6>
+&nbsp;</H6>
+<H6>
+&nbsp;</H6>
+<H6>
+<a name="Structures"></a><img src="\images\StrucTyp.jpg" alt="\images\StrucTyp.jpg" width="16" height="16" align="left">Structures</H6>
+<H6>
+Select this option or press CtrL+U to view GROUP and QUEUE type declarations.</H6>
+<H6>
+&nbsp;</H6>
+<H6>
+<img src="\images\efolder.jpg" alt="\images\efolder.jpg" width="16" height="16" align="left"><a name="Equates"></a>Equates</H6>
+<H6>
+Select this option or press CtrL+E to view EQUATES and ITEMIZE declarations.</H6>
+<H6>
+&nbsp;</H6>
+<H6>
+&nbsp;</H6>
+<p class="Indent1">
+The second section of the View Menu allows you to perform common activities on the item currently highlighted
+in the Tree View.</p>
+<H6>
+&nbsp;</H6>
+<H6>
+<img src="\images\Data.jpg" alt="\images\Data.jpg" width="16" height="16" align="left"><a name="Definition"></a>Definition</H6>
+<H6>
+Select this option or press CtrL+ENTER to view the definition of the item currently highlighted in the
+Tree View.</H6>
+<H6>
+&nbsp;</H6>
+<H6>
+<img src="\images\Help.jpg" alt="\images\Help.jpg" align="left"><a name="Help"></a>Help</H6>
+<H6>
+Select this option or press CtrL+H to view the Clarion Help file documentation for the item currently
+highlighted in the Tree View.</H6>
+<H6>
+&nbsp;</H6>
+<H6>
+<img src="\images\Note.jpg" alt="\images\Note.jpg" width="21" height="21" align="left"><a name="Notes"></a>Notes</H6>
+<H6>
+Select this option or press CtrL+N to View or Add a Note to the item currently highlighted in the Tree
+View.</H6>
+<H6>
+&nbsp;</H6>
+<H6>
+&nbsp;</H6>
+<H5>
+<a name="Tools_Menu"></a>Tools Menu</H5>
+<p class="Indent1">
+<img src="\images\toolsmenu1.jpg" alt="\images\toolsmenu1.jpg" width="208" height="186" align="baseline"></p>
+<p class="Indent1">
+&nbsp;</p>
+<H6>
+<a name="Options"></a><img src="\images\Options.jpg" alt="\images\Options.jpg" width="16" height="16" align="left">Options...</H6>
+<H6>
+Select this option or press CtrL+O to access the Edit Options dialog.  This dialog allows you to configure
+many aspects of the program including default actions, additional files to be scanned, color preferences,
+and editor options.  Please see the <a href="Edit_Options.htm">Edit Options</a> help topic for a more
+detailed explanation.</H6>
+<H6>
+&nbsp;</H6>
+<H6>
+<img src="\images\Refresh.jpg" alt="\images\Refresh.jpg" width="16" height="16" align="left"><a name="Refresh_Tree"></a>Refresh
+Tree</H6>
+<H6>
+Select this option or press CtrL+R or F5 to access the <a href="Scan_Options.htm">Scan Options</a> dialog.
+This dialog allows you to configure the scanning process.  You can choose to scan all files or use the
+program's <i>Smart-Scan</i> technology to scan only the files that have been modified since they were
+last scanned.  Pressing <b><span  style=" font-variant: small-caps ;">ctrl+</span></b><b><span  style=" font-variant: small-caps ;">f</span></b><b><span  style="font-size: 8pt ;  font-variant: small-caps ;">5</span></b>
+forces the program to skip the Scan Options dialog and perform a <i>Smart-Scan.</i></H6>
+<H6>
+&nbsp;</H6>
+<H6>
+<img src="\images\addClassWizard.jpg" alt="\images\addClassWizard.jpg" width="16" height="16" align="baseline">
+Add Class Wizard</H6>
+<H6>
+Select this option or press CtrL+W to access the <a href="Add_Class_Wizard.htm">Add Class Wizard</a> dialog.
+This dialog assists in creating derived classes based on user definable templates and options.</H6>
+<H6>
+&nbsp;</H6>
+<H6>
+<img src="\images\browseDatabase.jpg" alt="\images\browseDatabase.jpg" width="16" height="16" align="baseline">
+Browse Database</H6>
+<H6>
+Select this option or press CtrL+B to access the <a href="Browse_Database.htm">Browse Database</a> window.
+This window provides a structured view of the underlying data tables used by ClassViewer.</H6>
+<H6>
+&nbsp;</H6>
+<H6>
+<img src="\images\Statistics.jpg" alt="\images\Statistics.jpg" width="16" height="16" align="baseline">
+Statistics</H6>
+<H6>
+Select this option or press CtrL+S to view summary statistical information regarding the data objects
+stored in the ClassViewer database.  Press the OK button to close the window.</H6>
+<H6>
+&nbsp;</H6>
+<H6>
+<img src="\images\StatisticsWindow.jpg" alt="\images\StatisticsWindow.jpg" width="178" height="213" align="baseline"></H6>
+<H6>
+&nbsp;</H6>
+<H6>
+Favorites</H6>
+<H6>
+Select this option to expand the list of favorites.  This menu list is defined by the user in the <a href="Favorites_Menu.htm">Edit
+Favorites</a> dialog.  Use this list to provide easy access to your favorite programs, documents, web
+sites, etc.  The favorites menu uses Windows associations to do its work, so anything that opens properly
+when you double-click on it in the Windows File Explorer should work on the menu.</H6>
+<H6>
+&nbsp;</H6>
+<H6>
+<img src="\images\Favorites1.jpg" alt="\images\Favorites1.jpg" width="122" height="91" align="baseline"></H6>
+<H6>
+&nbsp;</H6>
+<H6>
+Find Notes</H6>
+<H6>
+Select this option or press CtrL+F to access the <a href="Find_Notes.htm">Find Notes</a> dialog.  This
+dialog displays a list of all notes in your database allowing you to easily find and review or update
+the existing notes in your database.</H6>
+<H6>
+&nbsp;</H6>
+<H6>
+Clear History</H6>
+<H6>
+Select this option to or press CtrL+Y to clear the Hyperlink History list.  For more information about
+the Hyperlink feature, please see the <a href="#Hyperlink_Toolbar">Hyperlink Toolbar</a> topic.</H6>
+<H6>
+&nbsp;</H6>
+<H6>
+<a name="XML_Export"></a>XML Export</H6>
+<H6>
+Choose this option to display the XML Export menu.</H6>
+<H6>
+&nbsp;</H6>
+<H6>
+<img src="\images\xmlMenu.jpg" alt="\images\xmlMenu.jpg" width="125" height="40" align="baseline"></H6>
+<H6>
+&nbsp;</H6>
+<H6 style="font-size: 10pt ; margin: 0pt  0pt  1px  1.1243in ; font-family: segoe ui semilight,sans-serif; ">
+<b><span  style="font-family: Times New Roman,sans-serif; ">Database to XML</span></b></H6>
+<H6 style="font-size: 10pt ; margin: 0pt  0pt  1px  1.1243in ; font-family: segoe ui semilight,sans-serif; ">
+Choose this option to export the data queues used by the program.  The <a href="Export_Database_To_XML.htm">Export
+Database To XML</a> dialog is displayed to allow the user to select which queues to export and the names
+of the files to be used.</H6>
+<H6 style="font-size: 10pt ; margin: 0pt  0pt  1px  1.1243in ; font-family: segoe ui semilight,sans-serif; ">
+&nbsp;</H6>
+<H6 style="font-size: 10pt ; margin: 0pt  0pt  1px  1.1243in ; font-family: segoe ui semilight,sans-serif; ">
+<b><span  style="font-family: Times New Roman,sans-serif; ">Tree to XML</span></b></H6>
+<H6 style="font-size: 10pt ; margin: 0pt  0pt  1px  1.1243in ; font-family: segoe ui semilight,sans-serif; ">
+Choose this option to export the currently displayed tree to XML format.  A file dialog is displayed to
+allow the user to select the XML filename.</H6>
+<H6>
+&nbsp;</H6>
+<p class="Base">
+&nbsp;</p>
+<H5>
+<a name="Help_Menu"></a>Help Menu</H5>
+<p class="Indent1">
+<img src="\images\main_window2.jpg" alt="\images\main_window2.jpg" width="161" height="112" align="baseline"></p>
+<p class="Indent1">
+&nbsp;</p>
+<H6>
+Contents</H6>
+<H6>
+Opens the help file to the Contents page.</H6>
+<H6>
+&nbsp;</H6>
+<H6>
+Search for Help On...</H6>
+<H6>
+Opens the help file to the Help Topics index.</H6>
+<H6>
+&nbsp;</H6>
+<H6>
+How to Use Help</H6>
+<H6>
+Provides assistance in using the Help features of the program.</H6>
+<H6>
+&nbsp;</H6>
+<H6>
+About Class Viewer</H6>
+<H6>
+Provides information about the program version and copyright as well as a link to our main web pages.</H6>
+<H6>
+&nbsp;</H6>
+<H6>
+Just the FAQs</H6>
+<H6>
+Provides a link to our Class Viewer FAQ page (note: you need to be connected to the internet).  You should
+check here for answers to Frequently Asked Questions and the latest product information.</H6>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+<a name="Main_Toolbar"></a>Main Toolbar</h4>
+<p class="Base">
+<img src="\images\MAINTOOLBAR1.jpg" alt="\images\MAINTOOLBAR1.jpg" width="644" height="28" align="baseline" USEmap="#MAINTOOLBAR">
+<map name="MAINTOOLBAR">
+<area shape="rect" coords="12,2,35,25" href="Main_Window.htm#Expand_All">
+<area shape="rect" coords="40,2,63,25" href="Main_Window.htm#Contract_All">
+<area shape="rect" coords="74,2,96,25" href="Main_Window.htm#Classes">
+<area shape="rect" coords="102,2,125,25" href="Main_Window.htm#Interfaces">
+<area shape="rect" coords="129,2,152,25" href="Main_Window.htm#Call_Tree">
+<area shape="rect" coords="157,2,180,25" href="Main_Window.htm#Structures">
+<area shape="rect" coords="186,2,209,25" href="Main_Window.htm#Equates">
+<area shape="rect" coords="220,2,243,25" href="Main_Window.htm#Structures">
+<area shape="rect" coords="248,2,271,25" href="Main_Window.htm#Help">
+<area shape="rect" coords="278,2,299,25" href="Main_Window.htm#Notes">
+<area shape="rect" coords="310,2,333,25" href="Main_Window.htm#Options">
+<area shape="rect" coords="338,2,361,25" href="Main_Window.htm#Refresh_Tree">
+<area shape="rect" coords="366,2,389,25" href="Add_Class_Wizard.htm">
+<area shape="rect" coords="394,2,417,25" href="Browse_Database.htm"></map></p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+The Main Toolbar provides buttons for most common activities.  The button for the currently selected Object
+Type is latched and disabled.  Click on a button above to find out more about its function.</p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+<a name="Favorites_Toolbar"></a>Favorites Toolbar</h4>
+<p class="Base">
+<img src="\images\FavoriteTools.jpg" alt="\images\FavoriteTools.jpg" width="102" height="28" align="baseline"></p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+The Favorites Toolbar is dynamically created from the items you have selected in the <a href="Favorites_Menu.htm">Favorites
+Menu</a> list.  The program uses icon [0] from the executable file, if specified.  If the list entry is
+a document the program uses icon [0] from the program specified in the windows associations.  The program
+will only place buttons on the toolbar if there is physical space between the <a href="#Main_Toolbar">Main
+Toolbar</a> and the <a href="#Hyperlink_Toolbar">Hyperlink Toolbar</a>.</p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+<a name="Object_Filter_Toolbar"></a>Object Filter Toolbar</h4>
+<p class="Base">
+<img src="\images\OBJECTFILTER.jpg" alt="\images\OBJECTFILTER.jpg" width="215" height="26" align="baseline" USEmap="#OBJECTFILTER">
+<map name="OBJECTFILTER">
+<area shape="rect" coords="79,2,211,23" href="Main_Window.htm#Category_Filter"></map></p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+The Object Filter Tools allow you to filter the contents of the <a href="#Object_List">Object List</a>
+depending on the type of Object you are currently viewing.</p>
+<p class="Base">
+&nbsp;</p>
+<H5>
+<a name="Category_Filter"></a>Category Filter</H5>
+<p class="Indent1">
+The Category Filter is available when viewing Class or Call Tree object types.  The category is extracted
+from the <b>!ABCIncludeFile(Category)</b> comment line that identifies ABC Classes.  For Non-ABC Classes
+the program also recognizes a <b>!Category(Category)</b> comment line.  The category for a class can also
+be set via the <a href="Class_Properties.htm">Class Properties</a> dialog.</p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+<a name="Tree_Filter_Toolbar"></a>Tree Filter Toolbar</h4>
+<p class="Base">
+<img src="\images\TreeFilterToolbar.jpg" alt="\images\TreeFilterToolbar.jpg" width="373" height="27" align="baseline"></p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+The Tree Filter Tools allow you to filter the contents of the <a href="#Tree_View">Tree View</a> depending
+on the type of Object you are currently viewing.</p>
+<p class="Base">
+&nbsp;</p>
+<H5>
+Detail Level Filter</H5>
+<p class="Indent1">
+The detail level filter is available when viewing the Class object type and allows you to fine tune how
+much detail is presented in the tree view.  Most classes are assigned a detail level of 1 when they are
+initially scanned.  There are some basic classes [<a href="javascript:ShowPopup('Basic_Class_List.htm', 0, 490, 109)">see
+list</a>] that are assigned detail level 0.  This was done to allow the program to present a simple view
+to the beginner while providing a feature for advanced users that permits fine tuning of the amount of
+detail presented in the tree view.  This feature would be particularly useful in controlling the presentation
+of derived classes.  The class detail level is maintained by the <a href="Class_Properties.htm">Class
+Properties</a> dialog.</p>
+<p class="Indent1">
+&nbsp;</p>
+<H5>
+Protected Attribute Filter</H5>
+<p class="Indent1">
+The PROTECTED attribute filter is available when viewing Class and Call Tree object types.  When checked,
+properties and methods of the class that have the PROTECTED attribute are included in the tree view and
+are colored according to the preferences defined by the <a href="Edit_Options.htm">Edit Options</a> dialog.
+When unchecked, properties and methods of the class that have the PROTECTED attribute are excluded in
+the tree view.  </p>
+<p class="Indent1">
+&nbsp;</p>
+<H5>
+Private Attribute Filter</H5>
+<p class="Indent1">
+The PRIVATE attribute filter is available when viewing Class, Call Tree, Structure, and Equate object
+types.  When checked, properties, methods, structures and equates that have the PRIVATE attribute are
+included in the tree view and are colored according to the preferences defined by the <a href="Edit_Options.htm">Edit
+Options</a> dialog.  When unchecked, properties and methods of the class that have the PRIVATE attribute
+are excluded in the tree view.  </p>
+<p class="Base">
+&nbsp;</p>
+<H5>
+Module Attribute Filter</H5>
+<p class="Indent1">
+The MODULE attribute filter is available when viewing the Class or Call Tree.  When checked, properties
+and methods that are declared locally in the class definition module (normally the class.clw file) are
+included in the tree and are colored according to the preferences defined by the <a href="Edit_Options.htm">Edit
+Options</a> dialog.  When unchecked, properties and methods of the class that are defined inside the class
+definition module are excluded from the tree view.</p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+<a name="Hyperlink_Toolbar"></a>Hyperlink Toolbar</h4>
+<p class="Base">
+<img src="\images\HyperlinkToolbar.jpg" alt="\images\HyperlinkToolbar.jpg" width="103" height="26" align="left">&nbsp;</p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+The Hyperlink toolbar contains four buttons: the hyperlink button, back and forward navigation buttons
+and a Hyperlink History drop list to allow random navigation to previously hyperlinked references.  A
+hyperlink is a quick way to navigate to a <a href="javascript:ShowPopup('referenced_object.htm', 0, 364, 80)">referenced
+object</a>.  Referenced objects are shown with an underline font in the tree view and can be easily hyperlinked
+to by double clicking on the reference in the tree view.</p>
+<p class="Base">
+&nbsp;</p>
+<H5>
+<img src="\images\redo.jpg" alt="\images\redo.jpg" width="16" height="16" align="left">Hyperlink</H5>
+<p class="Indent1">
+The hyperlink button is enabled when a referenced object is selected in the tree view.  Press the button
+to shift focus to the referenced object.</p>
+<p class="Indent1">
+&nbsp;</p>
+<H5>
+<img src="\images\LeftXP.jpg" alt="\images\LeftXP.jpg" width="21" height="21" align="left">Back</H5>
+<p class="Indent1">
+The back button allows you to navigate backward through the hyperlink history list.</p>
+<p class="Indent1">
+&nbsp;</p>
+<H5>
+<img src="\images\rightXP.jpg" alt="\images\rightXP.jpg" align="left">Forward</H5>
+<p class="Indent1">
+The forward button allows you to navigate forward through the hyperlink history list.</p>
+<p class="Indent1">
+&nbsp;</p>
+<H5>
+<img src="\images\DROPDOWN.jpg" alt="\images\DROPDOWN.jpg" align="left">Hyperlink History</H5>
+<p class="Indent1">
+Click the hyperlink history button and a drop-down list of hyperlinked references is displayed.  Select
+a reference from the list to bring it into focus.</p>
+<p class="Indent1">
+&nbsp;</p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+<a name="Object_List"></a>Object List</h4><table cellpadding="2">
+<tr><td width="192">
+<p class="Base">
+<img src="\images\ObjectList.jpg" alt="\images\ObjectList.jpg" width="230" height="355" align="baseline"></p></td><td COLspan="2">
+<p class="Base">
+The Object List is used to select the item of interest from the list of available choices.  When viewing
+Class, Interface, or Call Tree object types, the list box header will contain the currently selected Class
+Filter.</p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+The <a name="Class_Filter"></a>Class Filter is available when viewing Class, Interface, or Call Tree object
+types.  When you click on the Object List Header, a dropdown list appears with the following choices:</p>
+<p class="Indent1">
+&nbsp;</p>
+<H5 style="font-size: 10pt ; font-weight: bold; margin: 6pt  0pt  1px  27pt ; ">
+All Classes</H5>
+<p class="Indent1">
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Choose this selection to disable Class Type filtering.</p>
+<H5 style="font-size: 10pt ; font-weight: bold; margin: 6pt  0pt  1px  27pt ; ">
+ABC Classes</H5>
+<p class="Indent1">
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Choose this selection to view only <a href="javascript:ShowPopup('ABC_Classes.htm', 0, 376, 82)">ABC
+Classes</a></p>
+<H5 style="font-size: 10pt ; font-weight: bold; margin: 6pt  0pt  1px  27pt ; ">
+Non-ABC Classes</H5>
+<p class="Indent1">
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Choose this selection to view only <a href="javascript:ShowPopup('Non-ABC_Classes.htm', 0, 388, 86)">Non-ABC
+Classes</a></p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+Selecting an item in the Object List usually causes the focus of the Tree View to change to the selected
+item.</p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+Right Click on the list to display Object List popup menu.  There are two choices on this menu, the <a href="Add_Class_Wizard.htm">Add
+Class Wizard</a> and the <a href="Wrapper_Generator.htm">Wrapper Generator</a>.</p></td></tr></table>
+
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+When viewing the Call Tree object type the format of the Object List changes to a tree with the Classes
+as root level nodes.  Selecting a root level node will not cause a change in the Tree View.  You must
+expand the Class in the list and select a class method before the Tree View changes.</p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+The Object List is supported by an incremental <a href="#Locator">locator</a> feature.  Just start typing
+the class name to quickly locate it in the list.</p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+<a name="Locator"></a>Locator Display</h4>
+<p class="Base">
+<img src="\images\Locator.jpg" alt="\images\Locator.jpg" width="204" height="37" align="left">&nbsp;</p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+When active, the Locator icon and text are displayed directly below the Object List.  To clear the locator
+just click on the Object List or press the up or down keys.</p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+<a name="Tree_View"></a>Tree View</h4><table cellpadding="2">
+<tr><td COLspan="2">
+<p class="Base">
+<img src="\images\TreeView.jpg" alt="\images\TreeView.jpg" width="396" height="354" align="baseline"></p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+Right Click on the Tree View to display the <a href="#Popup_Menu">Popup Menu</a>.</p></td><td width="192">
+<p class="Base">
+The Tree View provides a hierarchical view of the attributes of the item selected in the Object List.</p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+The first column of the listbox will display the note icon <img src="\images\Note.jpg" alt="\images\Note.jpg" width="21" height="21" align="baseline">
+if a note has been attached to that list item.  Double Click to view.</p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+The second column provides a tree view of properties, methods, interfaces, derived classes, structure
+components, and equates.  The list items are color coded depending on their attributes and according to
+the color scheme defined by the user in the <a href="Edit_Options.htm">Edit Options</a> dialog.</p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+The mouse double click action is also defined by the user in the <a href="Edit_Options.htm">Edit Options</a>
+dialog.  The action can be configured to invoke the ascii viewer or the selected editor.  If the user
+double clicks on a hyperlinked item (shown with underline font) then the focus of the tree view is shifted
+to the hyperlinked item.</p></td></tr></table>
+
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+The ToolTip for the selected item shows the module name and line number where the item is declared.</p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+<img src="\images\tip.jpg" alt="\images\tip.jpg" width="51" height="27" align="left">If a
+note icon is visible, holding the mouse over the icon will cause the first 255 characters of the note
+to be displayed as a tooltip.</p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+<span  style="font-size: 10pt ; ">Once you have scanned classes for earlier versions of Clarion, the program
+can identify classes that did not exist in the prior version. The 'new' classes are highlighted in bold
+font and have a slightly different icon.</span></p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+<a name="Popup_Menu"></a>Popup Menu</h4><table cellpadding="2">
+<tr><td width="192">
+<p class="Base">
+<img src="\images\popupMenu1.jpg" alt="\images\popupMenu1.jpg" width="210" height="386" align="baseline"></p></td><td COLspan="2">
+<p class="Base">
+The image to the left shows an 'idealized' popup menu.  Not all menu choices will always be available.
+The content of the menu is dependent upon the selected item when the menu is invoked.  The actions taken
+when a menu selection is made are described below.</p>
+<p class="Base">
+&nbsp;</p>
+<H5 style="font-size: 10pt ; font-weight: bold; margin: 6pt  0pt  1px  27pt ; ">
+Declaration</H5>
+<H6>
+View the item declaration in the AsciiFile Viewer.</H6>
+<H5 style="font-size: 10pt ; font-weight: bold; margin: 6pt  0pt  1px  27pt ; ">
+Definition</H5>
+<H6>
+View the item definition in the AsciiFile Viewer.</H6>
+<H5 style="font-size: 10pt ; font-weight: bold; margin: 6pt  0pt  1px  27pt ; ">
+Source</H5>
+<H6>
+View the item where it is used in the AsciiFile Viewer.</H6>
+<H5 style="font-size: 10pt ; font-weight: bold; margin: 6pt  0pt  1px  27pt ; ">
+Callers</H5>
+<H6>
+View a list of methods that call the selected method.</H6>
+<H5 style="font-size: 10pt ; font-weight: bold; margin: 6pt  0pt  1px  27pt ; ">
+Edit Submenu</H5>
+<H6>
+The edit submenu allows the user to invoke the editor from the popup menu to edit the available source
+files.</H6>
+<H5 style="font-size: 10pt ; font-weight: bold; margin: 6pt  0pt  1px  27pt ; ">
+Help</H5>
+<H6>
+View the Clarion Help for the selected item.</H6>
+<H5 style="font-size: 10pt ; font-weight: bold; margin: 6pt  0pt  1px  27pt ; ">
+Notes</H5>
+<H6>
+View the <a href="View_Notes.htm">Notes</a> attached to the selected item.</H6>
+<H5 style="font-size: 10pt ; font-weight: bold; margin: 6pt  0pt  1px  27pt ; ">
+Properties</H5>
+<H6>
+Edit the <a href="Class_Properties.htm">Class Properties</a></H6>
+<H5 style="font-size: 10pt ; font-weight: bold; margin: 6pt  0pt  1px  27pt ; ">
+Hyperlink</H5>
+<H6>
+Hyperlink to the object referenced by the selected item.</H6>
+<H5 style="font-size: 10pt ; font-weight: bold; margin: 6pt  0pt  1px  27pt ; ">
+View Submenu</H5>
+<H6>
+The view submenu allows the user to select a different object type for the Object List.  See the <a href="#View_Menu">View
+Menu</a> or <a href="Edit_Options.htm#SparseTrees">Show Sparse Tree</a> topics for more information.</H6></td></tr>
+<tr><td width="192">
+<p class="Base">
+&nbsp;</p></td><td COLspan="2">
+<p class="Base">
+&nbsp;</p></td></tr></table>
+
+<h4>
+<a name="Source_View"></a>Source View</h4>
+<p class="Base">
+<img src="\images\SourceView.jpg" alt="\images\SourceView.jpg" width="402" height="150" align="baseline"></p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+The Source View provides an ascii viewer for the item selected in the tree view.  The program picks the
+file that the user would most likely want to view.  As the user navigates the Tree View, the Source View
+changes to show the selected item in it's source context.  The ascii viewer on the main window uses the
+scintilla open source editor control to provide color syntax viewing of the file.  The styles used by
+this control can be set in the <a href="Edit_Options.htm">Edit Options</a> dialog on the Viewer Tab.
+Viewer functions can be accessed from a <a href="Ascii_File_Viewer.htm#afvPopupMenu">popup menu</a>.
+Right-click on the viewer display to get the menu to appear.</p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+<a name="Legend"></a>Legend</h4>
+<p class="Base">
+<img src="\images\legend.jpg" alt="\images\legend.jpg" width="376" height="32" align="baseline"></p>
+<p class="Base">
+<img src="\images\legend2.jpg" alt="\images\legend2.jpg" width="214" height="32" align="baseline"></p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+The legend appears below the Object List and Tree View panels.  Pictured above are the various legend
+components.  Not all legend components are visible at the same time; the legend is context sensitive.
+Colors for the Virtual, Protected, Private, and Module attributes can be set by the user in the <a href="Edit_Options.htm">Edit
+Options</a> dialog.</p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+<a name="Splitter_Bar"></a>Splitter Bar</h4><table cellpadding="2">
+<tr><td width="192">
+<p class="Base">
+<img src="\images\SplitterBar.jpg" alt="\images\SplitterBar.jpg" width="29" height="117" align="baseline"></p></td><td COLspan="2">
+<p class="Base">
+The splitter bar is located between the Object List and the Tree View.  When the mouse is over the splitter
+bar, the cursor changes to an EW Sizing Cursor <img src="\images\EWSize.jpg" alt="\images\EWSize.jpg" width="21" height="17" align="baseline">.
+Press the left mouse button while the sizing cursor is active and the Splitter Bar will turn blue.  Keep
+the left button pressed and move the mouse left or right ro resize the Object List and Tree View panels.</p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+There is also a splitter bar between the Tree View and Source View panels to allow the user to resize
+the Tree View and Source View panels.</p></td></tr></table>
+
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+<a name="Exit_Button"></a>Exit Button</h4>
+<p class="Base">
+<img src="\images\ExitButton.jpg" alt="\images\ExitButton.jpg" width="93" height="31" align="left">&nbsp;</p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+Press the exit button to exit the software.</p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+<span  style="font-size: 8pt ; ">Copyright © 2017 Devuna</span></p>
+<p class="Base">
+<span  style="font-size: 8pt ; ">All rights reserved.</span></p>

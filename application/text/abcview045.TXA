@@ -1,0 +1,655 @@
+[MODULE]
+[COMMON]
+FROM ABC GENERATED
+[EMBED]
+EMBED %StartOfModule
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 1300
+PROPERTY:END
+!region Notices
+! ================================================================================
+! Notice : Copyright (C) 2017, Devuna
+!          Distributed under LGPLv3 (http://www.gnu.org/licenses/lgpl.html)
+!
+!    This file is part of Devuna-ClassViewer (https://github.com/Devuna/Devuna-ClassViewer)
+!
+!    Devuna-ClassViewer is free software: you can redistribute it and/or modify
+!    it under the terms of the GNU General Public License as published by
+!    the Free Software Foundation, either version 3 of the License, or
+!    (at your option) any later version.
+!
+!    Devuna-ClassViewer is distributed in the hope that it will be useful,
+!    but WITHOUT ANY WARRANTY; without even the implied warranty of
+!    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+!    GNU General Public License for more details.
+!
+!    You should have received a copy of the GNU General Public License
+!    along with Devuna-ClassViewer.  If not, see <http://www.gnu.org/licenses/>.
+! ================================================================================
+!endregion Notices
+[END]
+[END]
+[PROCEDURE]
+NAME srcExportTreeToXML
+[COMMON]
+FROM ABC Source
+MODIFIED '2017/07/02' ' 9:37:33'
+[PROMPTS]
+%GenerateOpenClose LONG  (0)
+%GenerateSaveRestore LONG  (0)
+[EMBED]
+EMBED %DataSection
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 50
+PROPERTY:END
+!region Notices
+! ================================================================================
+! Notice : Copyright (C) 2017, Devuna
+!          Distributed under LGPLv3 (http://www.gnu.org/licenses/lgpl.html)
+!
+!    This file is part of Devuna-ClassViewer (https://github.com/Devuna/Devuna-ClassViewer)
+!
+!    Devuna-ClassViewer is free software: you can redistribute it and/or modify
+!    it under the terms of the GNU General Public License as published by
+!    the Free Software Foundation, either version 3 of the License, or
+!    (at your option) any later version.
+!
+!    Devuna-ClassViewer is distributed in the hope that it will be useful,
+!    but WITHOUT ANY WARRANTY; without even the implied warranty of
+!    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+!    GNU General Public License for more details.
+!
+!    You should have received a copy of the GNU General Public License
+!    along with Devuna-ClassViewer.  If not, see <http://www.gnu.org/licenses/>.
+! ================================================================================
+!endregion Notices
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 1300
+PROPERTY:END
+szIndent        CSTRING(256),AUTO
+XMLFilename     CSTRING(256),STATIC,AUTO
+XMLFile         FILE,DRIVER('ASCII'),NAME(XMLFilename),PRE(XML),THREAD,CREATE
+Record            RECORD
+Buffer              STRING(4000)
+                  END
+                END
+XMLFileQueue    QUEUE,PRE(afq)
+Record            LIKE(XMLFile.Record)
+Level             LONG
+                END
+[END]
+EMBED %ProcedureRoutines
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 3500
+PROPERTY:END
+ExportToXML ROUTINE
+!---------------------------------------------------------------------------
+  DATA
+I               LONG,AUTO
+J               LONG,AUTO
+pAmp            LONG,AUTO
+
+  CODE
+  SORT(ModuleQ,+ModuleQ.lModuleId)
+  SORT(ClassQ,+ClassQ.szClassSort)
+  SORT(PropertyQ,+PropertyQ.szPropertySort)
+  SORT(MethodQ,+MethodQ.lClassID,+MethodQ.szMethodName,+MethodQ.szPrototype)
+  SORT(StructureQ,+StructureQ.lModuleId,+StructureQ.szStructureSort,+StructureQ.szDataLabel)
+
+  CREATE(XMLFile)
+  OPEN(XMLFile)
+
+  ! write the header
+  XMLFile.Record = '<<?xml version="1.0" encoding="ISO-8859-1"?>'
+  ADD(XMLFile)
+
+  IF glo:szXmlStyleSheet <> ''
+     XMLFile.Record = '<<?xml-stylesheet type="text/xsl" href="' & glo:szXmlStyleSheet & '"?>'
+     ADD(XMLFile)
+  END
+
+  XMLFile.Record = '<<!DOCTYPE abcview PUBLIC "-//devuna.com//abcview DTD//EN" "http://www.devuna.com/abcview.dtd">'
+  ADD(XMLFile)
+  XMLFile.Record = '<<abcview>'
+  ADD(XMLFile)
+
+  ! dump the tree
+  J = RECORDS(TreeQ)
+  LOOP I = 1 TO J
+     GET(TreeQ,I)
+
+     !adjust indentation
+     IF ABS(TreeQ.lLevel) = 1
+        szIndent = ''
+     ELSE
+        szIndent = SUB(ALL(' '),1,(ABS(TreeQ.lLevel)-1)*3)
+     END
+
+     !look for and replace special characters
+     TreeQ.szText = srcNormalizeString(TreeQ.szText)
+
+     !write the ascii text
+     CASE glo:bCurrentView
+     OF VIEW:CLASSES
+        DO ProcessClassView
+     OF VIEW:INTERFACES
+        DO ProcessInterfaceView
+     OF VIEW:CALLS
+        IF I = 1
+           !create root document
+           XMLFile.Record = '<<methods>'
+           ADD(XMLFile)
+           XMLFileQueue.Record = '<</methods>'
+           XMLFileQueue.Level = 0
+           ADD(XMLFileQueue,0)
+        END
+        DO ProcessCallTreeView
+
+     OF VIEW:STRUCTURES
+        IF I = 1
+           !create root document (tree may contain multiple definitions)
+           XMLFile.Record = '<<structures>'
+           ADD(XMLFile)
+           XMLFileQueue.Record = '<</structures>'
+           XMLFileQueue.Level = 1
+           ADD(XMLFileQueue,1)
+        END
+        DO ProcessStructureView
+     OF VIEW:EQUATES
+        DO ProcessEquatesView
+     END
+  END
+  J = RECORDS(XMLFileQueue)
+  LOOP I = 1 TO J
+     GET(XMLFileQueue,I)
+     XMLFile.Record = XMLFileQueue.Record
+     ADD(XMLFile)
+  END
+  XMLFile.Record = '<</abcview>'
+  ADD(XMLFile)
+  FREE(XMLFileQueue)
+  CLOSE(XMLFile)
+  EXIT
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 3500
+PROPERTY:END
+ProcessClassView    ROUTINE
+  DATA
+szObject    CSTRING(33)
+
+  CODE
+  CASE TreeQ:wIcon
+    OF   ICON:CLASS             |
+    OROF ICON:NEWCLASS          |
+    OROF ICON:INTERFACEFOLDER   |
+    OROF ICON:NEWINTERFACEFOLDER
+       LOOP WHILE RECORDS(XMLFileQueue) > 1
+          GET(XMLFileQueue,1)
+          IF XMLFileQueue.Level >= ABS(TreeQ.lLevel)
+             XMLFile.Record = XMLFileQueue.Record
+             ADD(XMLFile)
+             DELETE(XMLFileQueue)
+          ELSE
+             BREAK
+          END
+       END
+
+       CASE TreeQ:wIcon
+       OF   ICON:CLASS     |
+       OROF ICON:NEWCLASS
+          ClassQ.szClassSort = UPPER(TreeQ.szClassName)
+          GET(ClassQ,+ClassQ.szClassSort)
+          IF ERRORCODE()
+             ClassQ.szParentClassName = ''
+          END
+          IF ClassQ.szParentClassName
+             XMLFile.Record = szIndent & |
+                             '<<class name="' & TreeQ.szClassName & |
+                             '" parentname="' & ClassQ.szParentClassName & '">'
+          ELSE
+             XMLFile.Record = szIndent & '<<class name="' & TreeQ.szClassName & '">'
+          END
+          ADD(XMLFile)
+          XMLFileQueue.Record = szIndent & '<</class>'
+          XMLFileQueue.Level = ABS(TreeQ.lLevel)
+          ADD(XMLFileQueue,1)
+
+
+       OF   ICON:INTERFACEFOLDER    |
+       OROF ICON:NEWINTERFACEFOLDER
+          IF TreeQ.szSearch = ''
+             XMLFile.Record = szIndent & '<<' & LOWER(TreeQ.szText) & '>'
+             ADD(XMLFile)
+             XMLFileQueue.Record = szIndent & '<</' & LOWER(TreeQ.szText) & '>'
+             XMLFileQueue.Level = ABS(TreeQ.lLevel)
+             ADD(XMLFileQueue,1)
+          ELSE
+             ClassQ.szClassSort = UPPER(TreeQ.szText)
+             GET(ClassQ,+ClassQ.szClassSort)
+             IF ERRORCODE()
+                ClassQ.szParentClassName = ''
+             END
+             IF ClassQ.szParentClassName
+                XMLFile.Record = szIndent & |
+                                '<<interface name="' & TreeQ.szText & |
+                                '" parentname="' & ClassQ.szParentClassName & '">'
+             ELSE
+                XMLFile.Record = szIndent & '<<interface name="' & TreeQ.szText & '">'
+             END
+             ADD(XMLFile)
+             XMLFileQueue.Record = szIndent & '<</interface>'
+             XMLFileQueue.Level = ABS(TreeQ.lLevel)
+             ADD(XMLFileQueue,1)
+          END
+       END
+
+
+    OF ICON:PROPERTYFOLDER      |
+    OROF ICON:METHODFOLDER
+       LOOP WHILE RECORDS(XMLFileQueue) > 1
+          GET(XMLFileQueue,1)
+          IF XMLFileQueue.Level >= ABS(TreeQ.lLevel)
+             XMLFile.Record = XMLFileQueue.Record
+             ADD(XMLFile)
+             DELETE(XMLFileQueue)
+          ELSE
+             BREAK
+          END
+       END
+       XMLFile.Record = szIndent & '<<' & LOWER(TreeQ.szText) & '>'
+       ADD(XMLFile)
+       XMLFileQueue.Record = szIndent & '<</' & LOWER(TreeQ.szText) & '>'
+       XMLFileQueue.Level = ABS(TreeQ.lLevel)
+       ADD(XMLFileQueue,1)
+  ELSE
+      DO ProcessCommonElements
+  END
+  EXIT
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 3500
+PROPERTY:END
+ProcessInterfaceView    ROUTINE
+  CASE TreeQ:wIcon
+    OF   ICON:INTERFACE          |
+    OROF ICON:INTERFACEFOLDER    |
+    OROF ICON:NEWINTERFACEFOLDER
+       LOOP WHILE RECORDS(XMLFileQueue) > 1
+          GET(XMLFileQueue,1)
+          IF XMLFileQueue.Level >= ABS(TreeQ.lLevel)
+             XMLFile.Record = XMLFileQueue.Record
+             ADD(XMLFile)
+             DELETE(XMLFileQueue)
+          ELSE
+             BREAK
+          END
+       END
+
+       ClassQ.szClassSort = UPPER(TreeQ.szClassName)
+       GET(ClassQ,+ClassQ.szClassSort)
+       IF ERRORCODE()
+          ClassQ.szParentClassName = ''
+       END
+       IF ClassQ.szParentClassName
+          XMLFile.Record = szIndent & |
+                          '<<interface name="' & TreeQ.szClassName & |
+                          '" parentname="' & ClassQ.szParentClassName & '">'
+       ELSE
+          XMLFile.Record = szIndent & '<<interface name="' & TreeQ.szClassName & '">'
+       END
+       ADD(XMLFile)
+       XMLFileQueue.Record = szIndent & '<</interface>'
+       XMLFileQueue.Level = ABS(TreeQ.lLevel)
+       ADD(XMLFileQueue,1)
+  ELSE
+      DO ProcessCommonElements
+  END
+  EXIT
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 3500
+PROPERTY:END
+ProcessCallTreeView    ROUTINE
+  DATA
+I                   LONG
+J                   LONG
+K                   LONG
+ThisLevel           LONG
+NextLevel           LONG
+ptrToken            LONG
+szDefinitionModule  CSTRING(256)
+szRootModule        CSTRING(256),AUTO
+
+  CODE
+  ThisLevel = ABS(TreeQ.lLevel)
+  J = RECORDS(TreeQ)
+  I = POINTER(TreeQ)
+  IF I < J
+     GET(TreeQ,I+1)
+     NextLevel = ABS(TreeQ.lLevel)
+     GET(TreeQ,I)
+  ELSE
+     NextLevel = 0
+  END
+
+  J = POINTER(TreeQ)
+  K = ABS(TreeQ.lLevel)
+  LOOP I = J TO 1 BY -1
+    GET(TreeQ,I)
+    IF ABS(TreeQ.lLevel) < K
+       BREAK
+    END
+  END
+  ModuleQ.lModuleId = TreeQ.lModuleId
+  GET(ModuleQ,+ModuleQ.lModuleId)
+  ASSERT(~ERRORCODE())
+  IF ERRORCODE()
+     szRootModule = ''
+  ELSE
+     szRootModule = CLIP(ModuleQ.szModulePath & ModuleQ.szModuleName)
+  END
+  GET(TreeQ,J)
+
+  CASE TreeQ:wIcon
+    OF ICON:METHOD
+       IF TreeQ.lModuleId = 0
+          szDefinitionModule = ''
+       ELSE
+          ModuleQ.lModuleId = TreeQ.lModuleId
+          GET(ModuleQ,+ModuleQ.lModuleId)
+          ASSERT(~ERRORCODE())
+          IF ERRORCODE()
+             szDefinitionModule = ''
+          ELSE
+             szDefinitionModule = CLIP(ModuleQ.szModulePath & ModuleQ.szModuleName)
+          END
+       END
+       ModuleQ.lModuleId = TreeQ.lIncludeId
+       GET(ModuleQ,+ModuleQ.lModuleId)
+       ClassQ.szClassSort = UPPER(TreeQ.szClassName)
+       GET(ClassQ,+ClassQ.szClassSort)
+       MethodQ.lClassID = ClassQ.lClassId
+       MethodQ.szMethodName = TreeQ:szText
+       MethodQ.szPrototype = TreeQ.szPrototype
+       GET(MethodQ,+MethodQ.lClassID,+MethodQ.szMethodName,+MethodQ.szPrototype)
+
+       XMLFile.Record = szIndent & '<<method'                       & |
+                        ' name="' & MethodQ.szMethodName & '"'      & |
+                        ' prototype="' & srcNormalizeString(MethodQ.szPrototype) & '"'  & |
+                        ' private="' & CHOOSE(MethodQ.bPrivate=TRUE,'TRUE','FALSE') & '"'       & |
+                        ' protected="' & CHOOSE(MethodQ.bProtected=TRUE,'TRUE','FALSE') & '"'   & |
+                        ' virtual="' & CHOOSE(MethodQ.bVirtual=TRUE,'TRUE','FALSE') & '"'       & |
+                        ' declarationmodule="' & CLIP(ModuleQ.szModulePath & ModuleQ.szModuleName) & '"'    & |
+                        ' declarationlinenumber="' & MethodQ.lLineNum & '"'
+
+       IF MethodQ.lSourceLine
+          XMLFile.Record = CLIP(XMLFile.Record) & |
+                        ' definitionmodule="' & szDefinitionModule & '"'    & |
+                        ' definitionlinenumber="' & MethodQ.lSourceLine & '"'
+       END
+
+       IF TreeQ.lOccurranceLine
+          XMLFile.Record = CLIP(XMLFile.Record) & |
+                        ' sourcemodule="' & szRootModule & '"'    & |
+                        ' sourcelinenumber="' & TreeQ.lOccurranceLine & '"'
+       END
+
+       IF NextLevel > ThisLevel
+          XMLFile.Record = CLIP(XMLFile.Record) & '>'
+          ADD(XMLFile)
+          XMLFileQueue.Record = szIndent & '<</method>'
+          XMLFileQueue.Level = ABS(TreeQ.lLevel)
+          ADD(XMLFileQueue,1)
+       ELSE
+          XMLFile.Record = CLIP(XMLFile.Record) & '>' & MethodQ.szMethodName & '<</method>'
+          ADD(XMLFile)
+          GET(XMLFileQueue,1)
+          IF ~ERRORCODE()
+             LOOP WHILE XMLFileQueue.Level >= NextLevel
+                XMLFile.Record = XMLFileQueue.Record
+                ADD(XMLFile)
+                DELETE(XMLFileQueue)
+                GET(XMLFileQueue,1)
+                IF ERRORCODE()
+                   BREAK
+                END
+             END
+          END
+       END
+
+
+    OF   ICON:INTERFACE          |
+    OROF ICON:INTERFACEFOLDER    |
+    OROF ICON:NEWINTERFACEFOLDER
+  END
+  EXIT
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 3500
+PROPERTY:END
+ProcessStructureView    ROUTINE
+  CASE TreeQ:wIcon
+    OF ICON:STRUCTUREFOLDER
+       LOOP WHILE RECORDS(XMLFileQueue) > 1
+          GET(XMLFileQueue,1)
+          IF XMLFileQueue.Level >= ABS(TreeQ.lLevel)
+             XMLFile.Record = XMLFileQueue.Record
+             ADD(XMLFile)
+             DELETE(XMLFileQueue)
+          ELSE
+             BREAK
+          END
+       END
+
+       ModuleQ.lModuleId = TreeQ.lModuleId
+       GET(ModuleQ,+ModuleQ.lModuleId)
+       ClassQ.szClassSort = UPPER(TreeQ.szClassName)
+       GET(ClassQ,+ClassQ.szClassSort)
+       IF ERRORCODE()
+          ClassQ.szParentClassName = ''
+       END
+       XMLFile.Record = szIndent & |
+                        '<<structure name="' & TreeQ.szClassName & '"'      & |
+                        ' private="' & CHOOSE(StructureQ.bPrivate=TRUE,'TRUE','FALSE') & '"'                & |
+                        ' declarationmodule="' & CLIP(ModuleQ:szModulePath & ModuleQ:szModuleName) & '"'    & |
+                        ' declarationlinenumber="' & TreeQ.lLineNum & '"'   & |
+                        '>'
+       ADD(XMLFile)
+       XMLFileQueue.Record = szIndent & '<</structure>'
+       XMLFileQueue.Level = ABS(TreeQ.lLevel)
+       ADD(XMLFileQueue,1)
+  ELSE
+      DO ProcessCommonElements
+  END
+  EXIT
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 3500
+PROPERTY:END
+ProcessEquatesView  ROUTINE
+  CASE TreeQ:wIcon
+    OF ICON:EQUATEFOLDER       |
+  OROF ICON:ENUMFOLDER
+       LOOP WHILE RECORDS(XMLFileQueue) > 1
+          GET(XMLFileQueue,1)
+          IF XMLFileQueue.Level >= ABS(TreeQ.lLevel)
+             XMLFile.Record = XMLFileQueue.Record
+             ADD(XMLFile)
+             DELETE(XMLFileQueue)
+          ELSE
+             BREAK
+          END
+       END
+
+       IF TreeQ.szClassName = '*EQUATES*'
+          XMLFile.Record = szIndent & |
+                           '<<enumeration name="' & TreeQ.szText & '"'  & |
+                           '>'
+       ELSE
+          ModuleQ.lModuleId = TreeQ.lModuleId
+          GET(ModuleQ,+ModuleQ.lModuleId)
+          ClassQ.szClassSort = UPPER(TreeQ.szClassName)
+          GET(ClassQ,+ClassQ.szClassSort)
+          IF ERRORCODE()
+             ClassQ.szParentClassName = ''
+          END
+          XMLFile.Record = szIndent & |
+                           '<<enumeration name="' & TreeQ.szClassName & '"'    & |
+                           ' declarationmodule="' & CLIP(ModuleQ:szModulePath & ModuleQ:szModuleName) & '"'    & |
+                           ' declarationlinenumber="' & TreeQ.lLineNum & '"'   & |
+                           '>'
+       END
+       ADD(XMLFile)
+       XMLFileQueue.Record = szIndent & '<</enumeration>'
+       XMLFileQueue.Level = ABS(TreeQ.lLevel)
+       ADD(XMLFileQueue,1)
+  ELSE
+      DO ProcessCommonElements
+  END
+  EXIT
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 3500
+PROPERTY:END
+ProcessCommonElements  ROUTINE
+  DATA
+ptrToken            LONG
+szDefinitionModule  CSTRING(256)
+
+  CODE
+  CASE TreeQ:wIcon
+    OF ICON:INTERFACE
+       XMLFile.Record = szIndent & '<<interface name="' & TreeQ.szText & '">' & TreeQ.szSearch & '<</interface>'
+       ADD(XMLFile)
+
+    OF ICON:PROPERTY
+       ptrToken = INSTRING(' - ',TreeQ.szText,1)
+       IF ptrToken
+          TreeQ.szText = TreeQ.szText[ptrToken+3 : LEN(TreeQ.szText)]
+       END
+       ModuleQ.lModuleId = TreeQ.lIncludeId
+       GET(ModuleQ,+ModuleQ.lModuleId)
+       PropertyQ.szPropertySort = UPPER(TreeQ:szSearch)
+       GET(PropertyQ,+PropertyQ.szPropertySort)
+
+       XMLFile.Record = szIndent & '<<property'             & |
+                        ' name="' & PropertyQ.szPropertyName & '"'   & |
+                        ' datatype="' & srcNormalizeString(PropertyQ.szDataType) & '"'   & |
+                        ' private="' & CHOOSE(PropertyQ.bPrivate=TRUE,'TRUE','FALSE') & '"'   & |
+                        ' protected="' & CHOOSE(PropertyQ.bProtected=TRUE,'TRUE','FALSE') & '"'   & |
+                        ' declarationmodule="' & CLIP(ModuleQ:szModulePath & ModuleQ:szModuleName) & '"'   & |
+                        ' declarationlinenumber="' & TreeQ.lLineNum & '"'   & |
+                        '>' & PropertyQ.szPropertyName & '<</property>'
+       ADD(XMLFile)
+
+    OF ICON:METHOD
+       IF TreeQ.lModuleId = 0
+          szDefinitionModule = ''
+       ELSE
+          ModuleQ.lModuleId = TreeQ.lModuleId
+          GET(ModuleQ,+ModuleQ.lModuleId)
+          ASSERT(~ERRORCODE())
+          IF ERRORCODE()
+             szDefinitionModule = ''
+          ELSE
+             szDefinitionModule = CLIP(ModuleQ.szModulePath & ModuleQ.szModuleName)
+          END
+       END
+       ModuleQ.lModuleId = TreeQ.lIncludeId
+       GET(ModuleQ,+ModuleQ.lModuleId)
+       ClassQ.szClassSort = UPPER(TreeQ.szClassName)
+       GET(ClassQ,+ClassQ.szClassSort)
+       MethodQ.lClassID = ClassQ.lClassID
+       ptrToken = INSTRING(' ',TreeQ:szText)
+       MethodQ.szMethodName = TreeQ:szText[1 : ptrToken-1]
+       MethodQ.szPrototype = TreeQ.szText[ptrToken+1 : LEN(TreeQ.szText)]
+       GET(MethodQ,+MethodQ.lClassID,+MethodQ.szMethodName,+MethodQ.szPrototype)
+       XMLFile.Record = szIndent & '<<method'                       & |
+                        ' name="' & MethodQ.szMethodName & '"'      & |
+                        ' prototype="' & srcNormalizeString(MethodQ.szPrototype) & '"'  & |
+                        ' private="' & CHOOSE(MethodQ.bPrivate=TRUE,'TRUE','FALSE') & '"'       & |
+                        ' protected="' & CHOOSE(MethodQ.bProtected=TRUE,'TRUE','FALSE') & '"'   & |
+                        ' virtual="' & CHOOSE(MethodQ.bVirtual=TRUE,'TRUE','FALSE') & '"'       & |
+                        ' declarationmodule="' & CLIP(ModuleQ.szModulePath & ModuleQ.szModuleName) & '"'    & |
+                        ' declarationlinenumber="' & MethodQ.lLineNum & '"'
+       IF MethodQ.lSourceLine
+          XMLFile.Record = CLIP(XMLFile.Record) & |
+                        ' definitionmodule="' & szDefinitionModule & '"'    & |
+                        ' definitionlinenumber="' & MethodQ.lSourceLine & '"'
+       END
+       XMLFile.Record = CLIP(XMLFile.Record) & '>' & MethodQ.szMethodName & '<</method>'
+       ADD(XMLFile)
+
+    OF ICON:STRUCTURE
+       ModuleQ.lModuleId = TreeQ.lModuleId
+       GET(ModuleQ,+ModuleQ.lModuleId)
+       StructureQ.lModuleId = TreeQ.lModuleId
+       StructureQ.szStructureSort = UPPER(TreeQ.szClassName)
+       StructureQ.szDataLabel = TreeQ.szContextString
+       GET(StructureQ,+StructureQ.lModuleId,+StructureQ.szStructureSort,+StructureQ.szDataLabel)
+       XMLFile.Record = szIndent & '<<property'                             & |
+                        ' name="' & StructureQ.szDataLabel & '"'            & |
+                        ' datatype="' & srcNormalizeString(StructureQ.szDataType) & '"'         & |
+                        ' private="' & CHOOSE(StructureQ.bPrivate=TRUE,'TRUE','FALSE') & '"'                & |
+                        ' declarationmodule="' & CLIP(ModuleQ:szModulePath & ModuleQ:szModuleName) & '"'    & |
+                        ' declarationlinenumber="' & TreeQ.lLineNum & '"'   & |
+                        '>' & StructureQ.szDataLabel & '<</property>'
+       ADD(XMLFile)
+
+    OF ICON:EQUATE
+       ptrToken = INSTRING(' = ',TreeQ.szText,1)
+       ModuleQ.lModuleId = TreeQ.lModuleId
+       GET(ModuleQ,+ModuleQ.lModuleId)
+
+       XMLFile.Record = szIndent & '<<equate'                               & |
+                        ' name="' & TreeQ.szText[1 : ptrToken-1] & '"'      & |
+                        ' value="' & srcNormalizeString(TreeQ.szText[ptrToken+3 : LEN(TreeQ.szText)]) & '"' & |
+                        ' declarationmodule="' & CLIP(ModuleQ:szModulePath & ModuleQ:szModuleName) & '"'    & |
+                        ' declarationlinenumber="' & TreeQ.lLineNum & '"'   & |
+                        '>' & TreeQ.szContextString & '<</equate>'
+
+       ADD(XMLFile)
+  END
+  EXIT
+[END]
+EMBED %ProcessedCode
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 5000
+PROPERTY:END
+  XMLFilename = 'ABCVIEW.XML'
+  IF FILEDIALOG('Select XML File',XMLFileName,'XML Files (*.XML)|*.XML|All Files (*.*)|*.*',FILE:Save+FILE:KeepDir+FILE:LongName+FILE:NoError)
+     DO ExportToXML
+  END
+  RETURN
+[END]
+[END]
+[ADDITION]
+NAME ABC cwHHProc
+[INSTANCE]
+INSTANCE 2
+OWNER 5
+[PROMPTS]
+%cwHHFileName DEFAULT  ('')
+%cwHHContextURL DEFAULT  ('')
+%cwHHAltTrapKey DEFAULT  ('')
+[ADDITION]
+NAME KCR KCR_SetWindowHelp
+[INSTANCE]
+INSTANCE 1
+OWNER 4
+[PROMPTS]
+%TplName DEFAULT  ('KCR_SetWindowHelp (Devuna)')
+%TplDescription DEFAULT  ('Set Window Help Property')
+[CALLS]
+srcNormalizeString
+[END]

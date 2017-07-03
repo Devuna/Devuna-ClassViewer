@@ -1,0 +1,215 @@
+[MODULE]
+[COMMON]
+FROM ABC GENERATED
+[EMBED]
+EMBED %StartOfModule
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 1300
+PROPERTY:END
+!region Notices
+! ================================================================================
+! Notice : Copyright (C) 2017, Devuna
+!          Distributed under LGPLv3 (http://www.gnu.org/licenses/lgpl.html)
+!
+!    This file is part of Devuna-ClassViewer (https://github.com/Devuna/Devuna-ClassViewer)
+!
+!    Devuna-ClassViewer is free software: you can redistribute it and/or modify
+!    it under the terms of the GNU General Public License as published by
+!    the Free Software Foundation, either version 3 of the License, or
+!    (at your option) any later version.
+!
+!    Devuna-ClassViewer is distributed in the hope that it will be useful,
+!    but WITHOUT ANY WARRANTY; without even the implied warranty of
+!    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+!    GNU General Public License for more details.
+!
+!    You should have received a copy of the GNU General Public License
+!    along with Devuna-ClassViewer.  If not, see <http://www.gnu.org/licenses/>.
+! ================================================================================
+!endregion Notices
+[END]
+[END]
+[PROCEDURE]
+NAME srcGetReturnType
+PROTOTYPE '(*CSTRING sz),STRING'
+PARAMETERS '(sz)'
+[COMMON]
+DESCRIPTION 'Get Procedure Return Type'
+FROM ABC Source
+MODIFIED '2004/12/14' ' 0:15:55'
+[PROMPTS]
+%GenerateOpenClose LONG  (0)
+%GenerateSaveRestore LONG  (0)
+[EMBED]
+EMBED %DataSection
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 50
+PROPERTY:END
+!region Notices
+! ================================================================================
+! Notice : Copyright (C) 2017, Devuna
+!          Distributed under LGPLv3 (http://www.gnu.org/licenses/lgpl.html)
+!
+!    This file is part of Devuna-ClassViewer (https://github.com/Devuna/Devuna-ClassViewer)
+!
+!    Devuna-ClassViewer is free software: you can redistribute it and/or modify
+!    it under the terms of the GNU General Public License as published by
+!    the Free Software Foundation, either version 3 of the License, or
+!    (at your option) any later version.
+!
+!    Devuna-ClassViewer is distributed in the hope that it will be useful,
+!    but WITHOUT ANY WARRANTY; without even the implied warranty of
+!    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+!    GNU General Public License for more details.
+!
+!    You should have received a copy of the GNU General Public License
+!    along with Devuna-ClassViewer.  If not, see <http://www.gnu.org/licenses/>.
+! ================================================================================
+!endregion Notices
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 50
+PROPERTY:END
+K               LONG,AUTO
+Delimiter       STRING(1)
+szWork          CSTRING(1024)
+szAttributes    CSTRING(1024)
+szReturnValue   CSTRING(64)
+szKeyword       CSTRING(32)
+[END]
+EMBED %ProcessedCode
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 4000
+PROPERTY:END
+  szWork = sz
+  K = INSTRING('PROCEDURE(',szWork,1)
+  IF K
+     Delimiter = ')'
+  ELSE
+     K = INSTRING('PROCEDURE,',szWork,1)
+     IF K
+        Delimiter = ','
+     ELSE
+        K = INSTRING('FUNCTION(',szWork,1)
+        IF K
+           Delimiter = ')'
+        ELSE
+           K = INSTRING('FUNCTION,',szWork,1)
+           IF K
+              Delimiter = ','
+           END
+        END
+     END
+  END
+
+  IF K
+     szAttributes = ''
+     LOOP K = 1 TO LEN(szWork)
+        IF szWork[K] = Delimiter
+           CASE Delimiter
+           OF ')'
+              IF CLIP(szWork[K+1 : LEN(szWork)]) <> ''
+                 szAttributes = UPPER(szWork[K+1 : LEN(szWork)])
+              END
+           OF ','
+              IF CLIP(szWork[K : LEN(szWork)]) <> ''
+                 szAttributes = UPPER(szWork[K : LEN(szWork)])
+              END
+           END
+           BREAK
+        END
+     END
+     IF szAttributes <> ''
+        szKeyWord = 'DERIVED'
+        DO RemoveKeyWord
+        szKeyWord = 'REPLACE'
+        DO RemoveKeyWord
+        szKeyWord = 'PROTECTED'
+        DO RemoveKeyWord
+        szKeyWord = 'PROC'
+        DO RemoveKeyWord
+        szKeyWord = 'VIRTUAL'
+        DO RemoveKeyWord
+        szKeyWord = 'PRIVATE'
+        DO RemoveKeyWord
+        DO RemoveCommas
+        szReturnValue = CLIP(LEFT(szAttributes))
+     ELSE
+        szReturnValue = ''
+     END
+  ELSE
+     szReturnValue = ''
+  END
+  RETURN szReturnValue
+[END]
+EMBED %ProcedureRoutines
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 3500
+PROPERTY:END
+RemoveKeyWord   ROUTINE
+  DATA
+I   LONG,AUTO
+J   LONG,AUTO
+N   LONG,AUTO
+
+  CODE
+  IF INSTRING(szKeyword,szAttributes,1)
+    I = LEN(szKeyword)
+    J = LEN(szAttributes)
+    N = INSTRING(szKeyword,szAttributes,1)
+    IF N+I <= J
+       szAttributes = szAttributes[1 : N-1] & szAttributes[N+I : J]
+    ELSE
+       szAttributes = szAttributes[1 : N-1]
+    END
+  END
+  EXIT
+
+RemoveCommas    ROUTINE
+  DATA
+I       LONG,AUTO
+J       LONG,AUTO
+N       LONG,AUTO
+szWork  CSTRING(64)
+
+  CODE
+  szWork = CLIP(LEFT(szAttributes))
+  J = LEN(szWork)
+  N = 0
+  LOOP I = 1 TO J
+     IF szWork[I] = ','
+        CYCLE
+     ELSE
+        N += 1
+        szAttributes[N] = szWork[I]
+     END
+  END
+  szAttributes[N+1] = '<0>'
+[END]
+[END]
+[ADDITION]
+NAME ABC cwHHProc
+[INSTANCE]
+INSTANCE 2
+OWNER 5
+[PROMPTS]
+%cwHHFileName DEFAULT  ('')
+%cwHHContextURL DEFAULT  ('')
+%cwHHAltTrapKey DEFAULT  ('')
+[ADDITION]
+NAME KCR KCR_SetWindowHelp
+[INSTANCE]
+INSTANCE 1
+OWNER 4
+[PROMPTS]
+%TplName DEFAULT  ('KCR_SetWindowHelp (Devuna)')
+%TplDescription DEFAULT  ('Set Window Help Property')
+[END]

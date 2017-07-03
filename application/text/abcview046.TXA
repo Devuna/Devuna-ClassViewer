@@ -1,0 +1,847 @@
+[MODULE]
+[COMMON]
+FROM ABC GENERATED
+[EMBED]
+EMBED %StartOfModule
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 1300
+PROPERTY:END
+!region Notices
+! ================================================================================
+! Notice : Copyright (C) 2017, Devuna
+!          Distributed under LGPLv3 (http://www.gnu.org/licenses/lgpl.html)
+!
+!    This file is part of Devuna-ClassViewer (https://github.com/Devuna/Devuna-ClassViewer)
+!
+!    Devuna-ClassViewer is free software: you can redistribute it and/or modify
+!    it under the terms of the GNU General Public License as published by
+!    the Free Software Foundation, either version 3 of the License, or
+!    (at your option) any later version.
+!
+!    Devuna-ClassViewer is distributed in the hope that it will be useful,
+!    but WITHOUT ANY WARRANTY; without even the implied warranty of
+!    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+!    GNU General Public License for more details.
+!
+!    You should have received a copy of the GNU General Public License
+!    along with Devuna-ClassViewer.  If not, see <http://www.gnu.org/licenses/>.
+! ================================================================================
+!endregion Notices
+[END]
+[END]
+[PROCEDURE]
+NAME winFindNotes
+PROTOTYPE '(),LONG'
+[COMMON]
+DESCRIPTION 'Display The Note Queue'
+FROM ABC Window
+MODIFIED '2017/07/02' ' 9:48:10'
+[DATA]
+[SCREENCONTROLS]
+! PROMPT('Synchronize:'),USE(?bSynchronize:Prompt)
+! ENTRY(@n3),USE(bSynchronize)
+[REPORTCONTROLS]
+! STRING(@n3),USE(bSynchronize)
+bSynchronize             BYTE
+!!> GUID('e25ef34b-f52b-455a-b602-e0709ff29af7'),PROMPT('Synchronize:'),HEADER('Synchronize'),PICTURE(@n3)
+[PROMPTS]
+%ClassItem UNIQUE DEFAULT  ('Default', 'WindowToolbar')
+%DefaultBaseClassType DEPEND %ClassItem DEFAULT TIMES 2
+WHEN  ('Default') ('WindowManager')
+WHEN  ('WindowToolbar') ('ToolbarClass')
+
+%ActualDefaultBaseClassType DEPEND %ClassItem DEFAULT TIMES 2
+WHEN  ('Default') ('')
+WHEN  ('WindowToolbar') ('')
+
+%ClassLines DEPEND %ClassItem MULTI DEFAULT TIMES 1
+WHEN  ('Default') ('Init {19}PROCEDURE(),BYTE,PROC,DERIVED', 'Kill {19}PROCEDURE(),BYTE,PROC,DERIVED', |
+  'Open {19}PROCEDURE(),DERIVED', 'TakeFieldEvent {9}PROCEDURE(),BYTE,PROC,DERIVED', |
+  'TakeWindowEvent        PROCEDURE(),BYTE,PROC,DERIVED')
+
+%ReturnValue FIELD  (bSynchronize)
+%WindowOperationMode DEFAULT  ('Use WINDOW setting')
+%INISaveWindow LONG  (0)
+%ProcedureDisableEnhanceFocus LONG  (0)
+%ProcedureUseEnterInsteadTabOverride LONG  (0)
+%WindowUseEnterInsteadTab LONG  (1)
+%ProcedureUseEnterInsteadTabExcludeG LONG  (1)
+%WindowUseEnterInsteadTabExclude MULTI DEFAULT  ()
+%GlobalObject DEPEND %ClassItem DEFAULT TIMES 2
+WHEN  ('Default') ('NO')
+WHEN  ('WindowToolbar') ('NO')
+
+%ThisObjectName DEPEND %ClassItem DEFAULT TIMES 2
+WHEN  ('Default') ('ThisWindow')
+WHEN  ('WindowToolbar') ('Toolbar')
+
+%UseDefaultABCBaseClass DEPEND %ClassItem LONG TIMES 2
+WHEN  ('Default') (1)
+WHEN  ('WindowToolbar') (1)
+
+%UseABCBaseClass DEPEND %ClassItem LONG TIMES 2
+WHEN  ('Default') (1)
+WHEN  ('WindowToolbar') (1)
+
+%ABCBaseClass DEPEND %ClassItem DEFAULT TIMES 2
+WHEN  ('Default') ('ADOProcCommCalled')
+WHEN  ('WindowToolbar') ('ADOProcCommCalled')
+
+%ExtBaseClass DEPEND %ClassItem DEFAULT TIMES 0
+
+%BaseClassIncludeFile DEPEND %ClassItem DEFAULT TIMES 0
+
+%DeriveFromBaseClass DEPEND %ClassItem LONG TIMES 2
+WHEN  ('Default') (0)
+WHEN  ('WindowToolbar') (0)
+
+%NewMethods DEPEND %ClassItem MULTI LONG TIMES 0
+
+%NewMethodName DEPEND %NewMethods DEFAULT TIMES 0
+
+%NewMethodPrototype DEPEND %NewMethods DEFAULT TIMES 0
+
+%NewClassPropertyItems DEPEND %ClassItem MULTI LONG TIMES 0
+
+%NewClassProperty DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataType DEPEND %NewClassPropertyItems DEFAULT TIMES 1
+WHEN  ('WindowToolbar')TIMES 0
+
+%NewClassOtherType DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataIsRef DEPEND %NewClassPropertyItems LONG TIMES 0
+
+%NewClassDataSize DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim1 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim2 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim3 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim4 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%ClassMethods DEPEND %ClassItem MULTI LONG TIMES 0
+
+%ClassMethodName DEPEND %ClassMethods DEFAULT TIMES 0
+
+%ClassMethodPrototype DEPEND %ClassMethods DEFAULT TIMES 0
+
+%ClassPropertyItems DEPEND %ClassItem MULTI LONG TIMES 0
+
+%ClassProperty DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataType DEPEND %ClassPropertyItems DEFAULT TIMES 1
+WHEN  ('WindowToolbar')TIMES 0
+
+%ClassOtherType DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataIsRef DEPEND %ClassPropertyItems LONG TIMES 0
+
+%ClassDataSize DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim1 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim2 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim3 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim4 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%WindowStyles MULTI LONG  ()
+%WindowStyleFontName DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontNameVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontNameIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleFontSize DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontSizeVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontSizeIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleFontStyle DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontStyleVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontStyleIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleFontColor DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontCharSet DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleForegroundNormal DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleForegroundNormalVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleForegroundNormalIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleBackgroundNormal DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleBackgroundNormalVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleBackgroundNormalIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleForegroundSelected DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleForegroundSelectedVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleForegroundSelectedIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleBackgroundSelected DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleBackgroundSelectedVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleBackgroundSelectedIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStylePicture DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStylePictureVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStylePictureIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleOtherListboxes MULTI DEFAULT  ()
+%ProcedureAutoBindFields MULTI LONG  ()
+%ProcedureAutoBindField DEPEND %ProcedureAutoBindFields DEFAULT TIMES 0
+
+%ProcedureAutoBindFieldTPL DEPEND %ProcedureAutoBindFields DEFAULT TIMES 0
+
+%ProcedureAutoBindProcedures MULTI LONG  ()
+%ProcedureAutoBindProcedure DEPEND %ProcedureAutoBindProcedures DEFAULT TIMES 0
+
+%ProcedureAutoBindProcedureTPL DEPEND %ProcedureAutoBindProcedures DEFAULT TIMES 0
+
+%ProcedureUserBindFields MULTI LONG  ()
+%ProcedureUserBindField DEPEND %ProcedureUserBindFields FIELD TIMES 0
+
+%ProcedureAutoBindFieldIgnore DEPEND %ProcedureAutoBindFields LONG TIMES 0
+
+%ProcedureUserBindProcedures MULTI LONG  ()
+%ProcedureUserBindProcedure DEPEND %ProcedureUserBindProcedures PROCEDURE TIMES 0
+
+%ProcedureAutoBindProcedureIgnore DEPEND %ProcedureAutoBindProcedures LONG TIMES 0
+
+%ProcedureUserBindExpressions MULTI LONG  ()
+%ProcedureUserBindExpressionName DEPEND %ProcedureUserBindExpressions DEFAULT TIMES 0
+
+%ProcedureUserBindExpression DEPEND %ProcedureUserBindExpressions DEFAULT TIMES 0
+
+%ButtonAction DEPEND %Control DEFAULT TIMES 4
+WHEN  ('') ('No Special Action')
+WHEN  ('?Close') ('No Special Action')
+WHEN  ('?List') ('No Special Action')
+WHEN  ('?SizeGrip') ('No Special Action')
+
+%ButtonRunName DEPEND %Control DEFAULT TIMES 1
+WHEN  ('?Close') ('')
+
+%ButtonRunParameters DEPEND %Control DEFAULT TIMES 1
+WHEN  ('?Close') ('')
+
+%ButtonProcedure DEPEND %Control PROCEDURE TIMES 1
+WHEN  ('?Close') ()
+
+%ButtonThread DEPEND %Control LONG TIMES 1
+WHEN  ('?Close') (0)
+
+%ButtonThreadStack DEPEND %Control DEFAULT TIMES 4
+WHEN  ('') ('25000')
+WHEN  ('?Close') ('25000')
+WHEN  ('?List') ('25000')
+WHEN  ('?SizeGrip') ('25000')
+
+%ButtonParameters DEPEND %Control DEFAULT TIMES 1
+WHEN  ('?Close') ('')
+
+%ButtonReturnValueAssignment DEPEND %Control FIELD TIMES 1
+WHEN  ('?Close') ()
+
+%ButtonReturnValueReferenceAssign DEPEND %Control LONG TIMES 1
+WHEN  ('?Close') (0)
+
+%ButtonRequest DEPEND %Control DEFAULT TIMES 4
+WHEN  ('') ('None')
+WHEN  ('?Close') ('None')
+WHEN  ('?List') ('None')
+WHEN  ('?SizeGrip') ('None')
+
+%ButtonThreadParameters DEPEND %Control DEFAULT TIMES 1
+WHEN  ('?Close') ('')
+
+%ButtonThreadReturnValueAssignment DEPEND %Control FIELD TIMES 1
+WHEN  ('?Close') ()
+
+%PreLookupKey DEPEND %Control KEY TIMES 0
+
+%PreLookupField DEPEND %Control COMPONENT TIMES 0
+
+%PreLookupProcedure DEPEND %Control PROCEDURE TIMES 0
+
+%PreLookupProcedureParameters DEPEND %Control DEFAULT TIMES 0
+
+%PostLookupKey DEPEND %Control KEY TIMES 0
+
+%PostLookupField DEPEND %Control COMPONENT TIMES 0
+
+%PostLookupProcedure DEPEND %Control PROCEDURE TIMES 0
+
+%PostLookupProcedureParameters DEPEND %Control DEFAULT TIMES 0
+
+%PostLookupDuringValidate DEPEND %Control LONG TIMES 4
+WHEN  ('') (1)
+WHEN  ('?Close') (1)
+WHEN  ('?List') (1)
+WHEN  ('?SizeGrip') (1)
+
+%LookupAssign DEPEND %Control MULTI LONG TIMES 0
+
+%MoreField DEPEND %LookupAssign DEFAULT TIMES 0
+
+%MoreTarget DEPEND %LookupAssign FIELD TIMES 0
+
+%ForceWindowRefresh DEPEND %Control LONG TIMES 0
+
+%CheckedAssigns DEPEND %Control MULTI LONG TIMES 0
+
+%CheckedAssignVariable DEPEND %CheckedAssigns FIELD TIMES 0
+
+%CheckedAssignValue DEPEND %CheckedAssigns DEFAULT TIMES 0
+
+%CheckedHides DEPEND %Control MULTI LONG TIMES 0
+
+%CheckedControl DEPEND %CheckedHides DEFAULT TIMES 0
+
+%CheckedControlAction DEPEND %CheckedHides DEFAULT TIMES 4
+WHEN  ('')TIMES 0
+WHEN  ('?Close')TIMES 0
+WHEN  ('?List')TIMES 0
+WHEN  ('?SizeGrip')TIMES 0
+
+%CheckedEnables DEPEND %Control MULTI LONG TIMES 0
+
+%CheckedControl1 DEPEND %CheckedEnables DEFAULT TIMES 0
+
+%CheckedControl1Action DEPEND %CheckedEnables DEFAULT TIMES 4
+WHEN  ('')TIMES 0
+WHEN  ('?Close')TIMES 0
+WHEN  ('?List')TIMES 0
+WHEN  ('?SizeGrip')TIMES 0
+
+%UncheckedAssigns DEPEND %Control MULTI LONG TIMES 0
+
+%UncheckedAssignVariable DEPEND %UncheckedAssigns FIELD TIMES 0
+
+%UncheckedAssignValue DEPEND %UncheckedAssigns DEFAULT TIMES 0
+
+%UnCheckedHides DEPEND %Control MULTI LONG TIMES 0
+
+%UnCheckedControl DEPEND %UnCheckedHides DEFAULT TIMES 0
+
+%UnCheckedControlAction DEPEND %UnCheckedHides DEFAULT TIMES 4
+WHEN  ('')TIMES 0
+WHEN  ('?Close')TIMES 0
+WHEN  ('?List')TIMES 0
+WHEN  ('?SizeGrip')TIMES 0
+
+%UnCheckedEnables DEPEND %Control MULTI LONG TIMES 0
+
+%UnCheckedControl1 DEPEND %UnCheckedEnables DEFAULT TIMES 0
+
+%UnCheckedControl1Action DEPEND %UnCheckedEnables DEFAULT TIMES 4
+WHEN  ('')TIMES 0
+WHEN  ('?Close')TIMES 0
+WHEN  ('?List')TIMES 0
+WHEN  ('?SizeGrip')TIMES 0
+
+%ProcedureAutoBindFieldsIgnored MULTI LONG  ()
+%ProcedureAutoBindFieldIgnored DEPEND %ProcedureAutoBindFieldsIgnored DEFAULT TIMES 0
+
+%ProcedureAutoBindProceduresIgnored MULTI LONG  ()
+%ProcedureAutoBindProcedureIgnored DEPEND %ProcedureAutoBindProceduresIgnored DEFAULT TIMES 0
+
+%ProcedureAutoBindValidToAddField LONG  (0)
+%ProcedureUseEnterInsteadTabExcludeListCombo LONG  (0)
+%ProcedureUseEnterInsteadTabDisableNextTabStop LONG  (0)
+%ProcedureUseEnterInsteadTabEnableNextTabStop LONG  (0)
+%ExtUITabIcon DEPEND %Control DEFAULT TIMES 0
+
+%ExtUITabStyleOverrideGlobal DEPEND %Control LONG TIMES 0
+
+%ExtUITabStyle DEPEND %Control DEFAULT TIMES 1
+WHEN  ('') ('Default')
+
+%CheckedDisables DEPEND %Control MULTI LONG TIMES 0
+
+%CheckedDisableControl DEPEND %CheckedDisables DEFAULT TIMES 0
+
+%CheckedDisableControlAction DEPEND %CheckedDisables DEFAULT TIMES 1
+WHEN  ('')TIMES 0
+
+%UnCheckedDisables DEPEND %Control MULTI LONG TIMES 0
+
+%UnCheckedDisableControl DEPEND %UnCheckedDisables DEFAULT TIMES 0
+
+%UnCheckedDisableControlAction DEPEND %UnCheckedDisables DEFAULT TIMES 1
+WHEN  ('')TIMES 0
+
+%ProcedureOneInstance LONG  (0)
+%FieldGradientColorType DEPEND %Control DEFAULT TIMES 1
+WHEN  ('') ('Off')
+
+%FieldGradientColorTypeVariable DEPEND %Control DEFAULT TIMES 1
+WHEN  ('') ('')
+
+%FieldGradientColorTypeIsVariable DEPEND %Control LONG TIMES 1
+WHEN  ('') (0)
+
+%FieldGradientColorFrom DEPEND %Control LONG TIMES 1
+WHEN  ('') (-1)
+
+%FieldGradientColorFromVariable DEPEND %Control DEFAULT TIMES 0
+
+%FieldGradientColorFromIsVariable DEPEND %Control LONG TIMES 1
+WHEN  ('') (0)
+
+%FieldGradientColorTo DEPEND %Control LONG TIMES 1
+WHEN  ('') (-1)
+
+%FieldGradientColorToVariable DEPEND %Control DEFAULT TIMES 0
+
+%FieldGradientColorToIsVariable DEPEND %Control LONG TIMES 1
+WHEN  ('') (0)
+
+%PreserveVarsLoc MULTI LONG  ()
+%PreserveVarLoc DEPEND %PreserveVarsLoc DEFAULT TIMES 0
+
+%ActiveImageEnable DEPEND %Control LONG TIMES 0
+
+%AIObjectName DEPEND %Control DEFAULT TIMES 2
+WHEN  ('') ('AIBtn0')
+WHEN  ('?SizeGrip') ('AIBtn3')
+
+%AIEnableMimicControl DEPEND %Control LONG TIMES 2
+WHEN  ('') (1)
+WHEN  ('?SizeGrip') (1)
+
+%AIMimicControl DEPEND %Control DEFAULT TIMES 2
+WHEN  ('') ('?List')
+WHEN  ('?SizeGrip') ('?List')
+
+%AIImgRound DEPEND %Control LONG TIMES 0
+
+%AIOverrideImg DEPEND %Control DEFAULT TIMES 0
+
+%AIOverrideImgVariable DEPEND %Control DEFAULT TIMES 0
+
+%AIOverrideImgIsVariable DEPEND %Control LONG TIMES 2
+WHEN  ('') (0)
+WHEN  ('?SizeGrip') (0)
+
+%AIDisableImg DEPEND %Control DEFAULT TIMES 0
+
+%AIDisableImgVariable DEPEND %Control DEFAULT TIMES 0
+
+%AIDisableImgIsVariable DEPEND %Control LONG TIMES 2
+WHEN  ('') (0)
+WHEN  ('?SizeGrip') (0)
+
+%AIHotImg DEPEND %Control DEFAULT TIMES 0
+
+%AIHotImgVariable DEPEND %Control DEFAULT TIMES 0
+
+%AIHotImgIsVariable DEPEND %Control LONG TIMES 2
+WHEN  ('') (0)
+WHEN  ('?SizeGrip') (0)
+
+%AIPressedImg DEPEND %Control DEFAULT TIMES 0
+
+%AIPressedImgVariable DEPEND %Control DEFAULT TIMES 0
+
+%AIPressedImgIsVariable DEPEND %Control LONG TIMES 2
+WHEN  ('') (0)
+WHEN  ('?SizeGrip') (0)
+
+[EMBED]
+EMBED %DataSection
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 50
+PROPERTY:END
+!region Notices
+! ================================================================================
+! Notice : Copyright (C) 2017, Devuna
+!          Distributed under LGPLv3 (http://www.gnu.org/licenses/lgpl.html)
+!
+!    This file is part of Devuna-ClassViewer (https://github.com/Devuna/Devuna-ClassViewer)
+!
+!    Devuna-ClassViewer is free software: you can redistribute it and/or modify
+!    it under the terms of the GNU General Public License as published by
+!    the Free Software Foundation, either version 3 of the License, or
+!    (at your option) any later version.
+!
+!    Devuna-ClassViewer is distributed in the hope that it will be useful,
+!    but WITHOUT ANY WARRANTY; without even the implied warranty of
+!    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+!    GNU General Public License for more details.
+!
+!    You should have received a copy of the GNU General Public License
+!    along with Devuna-ClassViewer.  If not, see <http://www.gnu.org/licenses/>.
+! ================================================================================
+!endregion Notices
+[END]
+EMBED %ControlEventHandling
+[INSTANCES]
+WHEN '?List'
+[INSTANCES]
+WHEN 'AlertKey'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 5000
+PROPERTY:END
+CASE KEYCODE()
+OF MouseLeft2
+   GET(NoteQ,CHOICE(?List))
+   winViewNote(NoteQ:bClarionVersion,NoteQ:szLookup)
+END
+[END]
+[END]
+[END]
+EMBED %WindowManagerMethodCodeSection
+[INSTANCES]
+WHEN 'Init'
+[INSTANCES]
+WHEN '(),BYTE'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 8001
+PROPERTY:END
+CASE glo:Background
+OF 1  !Color
+   window{PROP:Wallpaper} = ''
+   window{PROP:Color} = glo:Color2
+OF 2  !Wallpaper
+   window{PROP:Wallpaper} = glo:szWallpaper2
+   window{PROP:Tiled} = glo:Tiled2
+   window{PROP:Color} = COLOR:NONE
+OF 3  !None
+   window{PROP:Wallpaper} = ''
+   window{PROP:Color} = COLOR:NONE
+END
+J = LASTFIELD()
+LOOP I = 1 TO J
+   SETFONT(I,glo:Typeface,glo:FontSize,glo:FontColor,glo:FontStyle,0)
+END
+
+GET(NoteQ,1)
+?List{PROP:Selected} = 1
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 9101
+PROPERTY:END
+Resizer.Resize()
+IF glo:bUseHTMLHelp
+   IF oHH &= NULL
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 9700
+PROPERTY:END
+   ELSE
+      oHH.SetHelpFile( 'ABCVIEW.CHM' )
+      oHH.SetTopic('Find_Notes.htm')
+   END
+END
+[END]
+[END]
+[END]
+EMBED %WindowManagerMethodDataSection
+[INSTANCES]
+WHEN 'Init'
+[INSTANCES]
+WHEN '(),BYTE'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 5000
+PROPERTY:END
+I   LONG,AUTO
+J   LONG,AUTO
+[END]
+[END]
+[END]
+EMBED %WindowEventHandling
+[INSTANCES]
+WHEN 'CloseWindow'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 4499
+PROPERTY:END
+!IF CHOICE(?List)
+   GET(NoteQ,CHOICE(?List))
+!ELSE
+!   GET(NoteQ,1)
+!END
+[END]
+[END]
+[END]
+[ADDITION]
+NAME ABC cwHHProc
+[INSTANCE]
+INSTANCE 5
+OWNER 5
+[PROMPTS]
+%cwHHFileName DEFAULT  ('')
+%cwHHContextURL DEFAULT  ('Find_Notes.htm')
+%cwHHAltTrapKey DEFAULT  ('')
+[ADDITION]
+NAME KCR KCR_ChangeWindowStyle
+[INSTANCE]
+INSTANCE 4
+[PROMPTS]
+%TplName DEFAULT  ('KCR_ChangeWindowStyle (Devuna)')
+%TplDescription DEFAULT  ('Change Window Style')
+%RemoveIcon LONG  (0)
+%OverrideDefaultIcon LONG  (0)
+%Icon DEFAULT  ('')
+%DisableMinimizeBox LONG  (1)
+%EnableSystemMenuBox LONG  (0)
+%IncludeQuestionMark LONG  (0)
+%TransparentWindow LONG  (0)
+[ADDITION]
+NAME KCR KCR_SetWindowHelp
+[INSTANCE]
+INSTANCE 1
+OWNER 4
+[PROMPTS]
+%TplName DEFAULT  ('KCR_SetWindowHelp (Devuna)')
+%TplDescription DEFAULT  ('Set Window Help Property')
+[ADDITION]
+NAME ABC CloseButton
+[INSTANCE]
+INSTANCE 2
+[ADDITION]
+NAME ABC WindowResize
+[FIELDPROMPT]
+%ResizeAnchorTop DEPEND %Control LONG TIMES 0
+
+%ResizeAnchorLeft DEPEND %Control LONG TIMES 0
+
+%ResizeAnchorRight DEPEND %Control LONG TIMES 0
+
+%ResizeAnchorBottom DEPEND %Control LONG TIMES 0
+
+%ResizeAnchorGrowTop DEPEND %Control LONG TIMES 0
+
+%ResizeAnchorGrowLeft DEPEND %Control LONG TIMES 0
+
+%ResizeAnchorGrowRight DEPEND %Control LONG TIMES 0
+
+%ResizeAnchorGrowBottom DEPEND %Control LONG TIMES 0
+
+[INSTANCE]
+INSTANCE 3
+[PROMPTS]
+%ClassItem UNIQUE DEFAULT  ('Default')
+%DefaultBaseClassType DEPEND %ClassItem DEFAULT TIMES 1
+WHEN  ('Default') ('WindowResizeClass')
+
+%ActualDefaultBaseClassType DEPEND %ClassItem DEFAULT TIMES 1
+WHEN  ('Default') ('')
+
+%ClassLines DEPEND %ClassItem MULTI DEFAULT TIMES 1
+WHEN  ('Default') ('Init {19}PROCEDURE(BYTE AppStrategy=AppStrategy:Resize,BYTE SetWindowMinSize=False,BYTE SetWindowMaxSize=False)')
+
+%AppStrategy DEFAULT  ('Don''t alter controls')
+%RestrictMinSize LONG  (1)
+%WindowMinWidth DEFAULT  ('')
+%WindowMinHeight DEFAULT  ('')
+%RestrictMaxSize LONG  (0)
+%WindowMaxWidth DEFAULT  ('')
+%WindowMaxHeight DEFAULT  ('')
+%OverrideControls MULTI LONG  (2, 3)
+%OverrideControl DEPEND %OverrideControls DEFAULT TIMES 2
+WHEN  (2) ('?Close')
+WHEN  (3) ('?SizeGrip')
+
+%DisableResize DEPEND %OverrideControls LONG TIMES 2
+WHEN  (2) (0)
+WHEN  (3) (0)
+
+%HorizResize DEPEND %OverrideControls DEFAULT TIMES 2
+WHEN  (2) ('Lock Width')
+WHEN  (3) ('Lock Width')
+
+%VertResize DEPEND %OverrideControls DEFAULT TIMES 2
+WHEN  (2) ('Lock Height')
+WHEN  (3) ('Lock Height')
+
+%HorizPositional DEPEND %OverrideControls DEFAULT TIMES 2
+WHEN  (2) ('Fix Right')
+WHEN  (3) ('Fix Right')
+
+%VertPositional DEPEND %OverrideControls DEFAULT TIMES 2
+WHEN  (2) ('Fix Bottom')
+WHEN  (3) ('Fix Bottom')
+
+%AutoFindParents DEFAULT  ('Default')
+%DeferMoves DEFAULT  ('Default')
+%GlobalObject DEPEND %ClassItem DEFAULT TIMES 1
+WHEN  ('Default') ('NO')
+
+%ThisObjectName DEPEND %ClassItem DEFAULT TIMES 1
+WHEN  ('Default') ('Resizer')
+
+%UseDefaultABCBaseClass DEPEND %ClassItem LONG TIMES 1
+WHEN  ('Default') (1)
+
+%UseABCBaseClass DEPEND %ClassItem LONG TIMES 1
+WHEN  ('Default') (1)
+
+%ABCBaseClass DEPEND %ClassItem DEFAULT TIMES 1
+WHEN  ('Default') ('ADOProcCommCalled')
+
+%ExtBaseClass DEPEND %ClassItem DEFAULT TIMES 0
+
+%BaseClassIncludeFile DEPEND %ClassItem DEFAULT TIMES 0
+
+%DeriveFromBaseClass DEPEND %ClassItem LONG TIMES 1
+WHEN  ('Default') (0)
+
+%NewMethods DEPEND %ClassItem MULTI LONG TIMES 0
+
+%NewMethodName DEPEND %NewMethods DEFAULT TIMES 0
+
+%NewMethodPrototype DEPEND %NewMethods DEFAULT TIMES 0
+
+%NewClassPropertyItems DEPEND %ClassItem MULTI LONG TIMES 0
+
+%NewClassProperty DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataType DEPEND %NewClassPropertyItems DEFAULT TIMES 1
+WHEN  ('Default')TIMES 0
+
+%NewClassOtherType DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataIsRef DEPEND %NewClassPropertyItems LONG TIMES 0
+
+%NewClassDataSize DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim1 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim2 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim3 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim4 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%ClassMethods DEPEND %ClassItem MULTI LONG TIMES 0
+
+%ClassMethodName DEPEND %ClassMethods DEFAULT TIMES 0
+
+%ClassMethodPrototype DEPEND %ClassMethods DEFAULT TIMES 0
+
+%ClassPropertyItems DEPEND %ClassItem MULTI LONG TIMES 0
+
+%ClassProperty DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataType DEPEND %ClassPropertyItems DEFAULT TIMES 1
+WHEN  ('Default')TIMES 0
+
+%ClassOtherType DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataIsRef DEPEND %ClassPropertyItems LONG TIMES 0
+
+%ClassDataSize DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim1 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim2 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim3 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim4 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+[ADDITION]
+NAME KCR KCR_ToolTips
+[INSTANCE]
+INSTANCE 6
+[PROMPTS]
+%TplName DEFAULT  ('KCR_ToolTips (Devuna)')
+%TplDescription DEFAULT  ('ToolTips Extension')
+%DontApply LONG  (0)
+%UseBalloonTips LONG  (1)
+%ApplyAsRegularTip LONG  (1)
+%ToolTipControls MULTI LONG  ()
+%ToolTipControl DEPEND %ToolTipControls DEFAULT TIMES 0
+
+%MultiLineTip DEPEND %ToolTipControls LONG TIMES 0
+
+%ToolTipTextOption DEPEND %ToolTipControls DEFAULT TIMES 0
+
+%TTLocalVariable DEPEND %ToolTipControls DEFAULT TIMES 0
+
+%TTGlobalVariable DEPEND %ToolTipControls DEFAULT TIMES 0
+
+%TTText DEPEND %ToolTipControls DEFAULT TIMES 0
+
+%ControlGetsFocus DEPEND %ToolTipControls LONG TIMES 0
+
+%ToolTipFeq DEPEND %ToolTipControls DEFAULT TIMES 0
+
+%ToolTipTextColour LONG  (8388608)
+%SetDelayTime LONG  (0)
+%AutopopDelay DEFAULT  ('5000')
+%InitialDelay DEFAULT  ('2000')
+%ReshowDelay DEFAULT  ('100')
+%SetBackgroundColour LONG  (0)
+%ToolTipBkColour LONG  (12648447)
+[ADDITION]
+NAME ClassViewer OptionalToolTips
+[INSTANCE]
+INSTANCE 7
+PARENT 6
+[PROMPTS]
+%TplName DEFAULT  ('OptionalToolTips (ABC)')
+%TplDescription DEFAULT  ('Optional ToolTips Extension')
+%ConditionalGlobalVariable DEFAULT  ('glo:bShowTips')
+%ToolTipDelayTime DEFAULT  ('1000')
+[ADDITION]
+NAME KCR KCR_SubClassWindow
+[INSTANCE]
+INSTANCE 9
+[PROMPTS]
+%TplName DEFAULT  ('KCR_SubClassWindow (Devuna)')
+%TplDescription DEFAULT  ('SubClass Window Extension')
+%SubClassOption DEFAULT  ('Control')
+%SubClassControl DEFAULT  ('?List')
+[ADDITION]
+NAME KCR KCR_PaintWindowFrame
+[INSTANCE]
+INSTANCE 10
+PARENT 9
+[PROMPTS]
+%TplName DEFAULT  ('KCR_PaintWindowFrame (Devuna)')
+%TplDescription DEFAULT  ('Paint Window Frame')
+%FrameColor LONG  (12164479)
+[CALLS]
+winViewNote
+[WINDOW]
+Window  WINDOW('Find Notes'),AT(,,318,226),RESIZE,TILED,ICON('abcview.ico'),GRAY,PALETTE(256), |
+          WALLPAPER('WALLPAPER.GIF')
+          LIST,AT(6,4,306,200),USE(?List),ALRT(MouseLeft2),COLOR(COLOR:White,COLOR:HIGHLIGHTTEXT, |
+            COLOR:HIGHLIGHT),FLAT,FORMAT('120L(2)|M~Item~S(500)@s255@#2#190L(2)|M~Note~' & |
+            'S(500)@s255@'),FROM(NoteQ),TIP('List of annotations'),#FIELDS(NoteQ:szLookup, |
+            NoteQ:szNote),#ORIG(?List1)
+          BUTTON('Cl&ose'),AT(268,208,45,14),USE(?Close),TIP('Return to the previous window'), |
+            #ORIG(?Close),#SEQ(2)
+          IMAGE('tcorner.gif'),AT(310,218),USE(?SizeGrip),#ORIG(?Image10)
+        END
+
+[END]

@@ -1,0 +1,337 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{05D75B98-2DE9-4A3F-BCDD-745097C7BCAC}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">Win32</Platform>
+    <OutputType>WinExe</OutputType>
+    <AssemblyName>abcview</AssemblyName>
+    <OutputName>abcview</OutputName>
+    <Model>Dll</Model>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <stack_size>16384</stack_size>
+    <CopyCore>True</CopyCore>
+    <ApplicationIcon>abcview.ico</ApplicationIcon>
+    <DefineConstants>_ABCDllMode_=&gt;0%3b_ABCLinkMode_=&gt;1%3b_SCIDllMode_=&gt;0%3b_SCILinkMode_=&gt;1</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <vid>full</vid>
+    <check_stack>True</check_stack>
+    <check_index>True</check_index>
+    <GenerateMap>True</GenerateMap>
+    <line_numbers>False</line_numbers>
+    <OutputPath>bin\debug</OutputPath>
+    <StartAction>Project</StartAction>
+    <StartWorkingDirectory>bin\Debug\</StartWorkingDirectory>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <vid>off</vid>
+    <check_stack>False</check_stack>
+    <check_index>False</check_index>
+    <OutputPath>bin\release</OutputPath>
+    <GenerateMap>True</GenerateMap>
+    <line_numbers>False</line_numbers>
+    <warnings>on</warnings>
+  </PropertyGroup>
+  <ItemGroup>
+    <Library Include="abcview.EXE.manifest" />
+    <Library Include="abcview.res" />
+    <Library Include="C%25V%25cpxml.lib" />
+    <Library Include="c%25V%25net.lib" />
+    <Library Include="C%25V%25xmlty.lib" />
+    <Library Include="check-black.ico" />
+    <Library Include="check-green.ico" />
+    <Library Include="Checkbox_off.ico" />
+    <Library Include="Checkbox_on.ico" />
+    <Library Include="checkno.ico" />
+    <Library Include="checkyes.ico" />
+    <Library Include="circle-help.ico" />
+    <Library Include="class.ico" />
+    <Library Include="ClearAllBookmarks.ico" />
+    <Library Include="Clsdfold.ico" />
+    <Library Include="copy.ico" />
+    <Library Include="cssearch.ico" />
+    <Library Include="cut.ico" />
+    <Library Include="cwHH%25V%25.LIB" />
+    <Library Include="data.ico" />
+    <Library Include="DELETE.ICO" />
+    <Library Include="delete16.ico" />
+    <Library Include="edit.ico" />
+    <Library Include="efolder.ico" />
+    <Library Include="efolder2.ico" />
+    <Library Include="equate.ico" />
+    <Library Include="FileSave.ico" />
+    <Library Include="filter.ico" />
+    <Library Include="find.ico" />
+    <Library Include="global.ico" />
+    <Library Include="help.ico" />
+    <Library Include="intrface.ico" />
+    <Library Include="IQXML.LIB" />
+    <Library Include="LEFTXP16.ICO" />
+    <Library Include="menu.bmp" />
+    <Library Include="method.ico" />
+    <Library Include="mfolder.ico" />
+    <Library Include="new.ico" />
+    <Library Include="newclass.ico" />
+    <Library Include="newintrface.ico" />
+    <Library Include="newnote.ico" />
+    <Library Include="NextBookmark.ico" />
+    <Library Include="nointrfc.ico" />
+    <Library Include="note.ico" />
+    <Library Include="note2.ico" />
+    <Library Include="OPENFOLD.ICO" />
+    <Library Include="paste.ico" />
+    <Library Include="pfolder.ico" />
+    <Library Include="PreviousBookmark.ico" />
+    <Library Include="property.ico" />
+    <Library Include="REDO.ICO" />
+    <Library Include="Replace.ico" />
+    <Library Include="RIGHTXP16.ICO" />
+    <Library Include="SaveAs.ico" />
+    <Library Include="search.ico" />
+    <Library Include="SendTo.ico" />
+    <Library Include="sfolder.ico" />
+    <Library Include="shlwapi.lib">
+      <CopyDllToOutputDirectory>Never</CopyDllToOutputDirectory>
+    </Library>
+    <Library Include="splith.ico" />
+    <Library Include="SplitV.ico" />
+    <Library Include="structyp.ico" />
+    <Library Include="ToggleBookmark.ico" />
+    <Library Include="Undo.ico" />
+    <Library Include="unknown.ico" />
+    <Library Include="UserOptions.ico" />
+    <Library Include="VCRDOWN.ICO" />
+    <Library Include="warning.ico" />
+    <Library Include="Win32.lib" />
+    <Compile Include="abcview.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview001.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview002.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview003.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview004.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview005.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview006.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview007.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview008.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview009.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview010.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview011.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview012.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview013.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview014.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview015.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview016.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview017.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview018.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview019.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview020.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview021.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview022.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview023.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview024.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview025.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview026.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview027.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview028.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview029.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview030.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview031.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview032.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview033.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview034.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview035.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview036.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview037.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview038.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview039.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview040.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview041.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview042.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview043.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview044.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview045.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview046.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview047.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview048.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview049.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview050.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview051.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview052.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview053.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview054.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview055.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview056.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview057.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview058.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview059.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview060.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview061.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview062.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview063.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview064.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview065.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview066.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview067.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview068.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview069.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview070.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="ABCVIEW_BC.CLW">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="abcview_BC0.CLW">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="TTUTILLIB.C">
+      <Generated>true</Generated>
+    </Compile>
+    <FileDriver Include="ASCII" />
+    <FileDriver Include="DOS" />
+    <Include Include="abcview_pragma.prj" />
+  </ItemGroup>
+  <Import Project="$(ClarionBinPath)\SoftVelocity.Build.Clarion.targets" />
+</Project>

@@ -1,0 +1,143 @@
+[MODULE]
+[COMMON]
+FROM ABC GENERATED
+[EMBED]
+EMBED %StartOfModule
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 1300
+PROPERTY:END
+!region Notices
+! ================================================================================
+! Notice : Copyright (C) 2017, Devuna
+!          Distributed under LGPLv3 (http://www.gnu.org/licenses/lgpl.html)
+!
+!    This file is part of Devuna-ClassViewer (https://github.com/Devuna/Devuna-ClassViewer)
+!
+!    Devuna-ClassViewer is free software: you can redistribute it and/or modify
+!    it under the terms of the GNU General Public License as published by
+!    the Free Software Foundation, either version 3 of the License, or
+!    (at your option) any later version.
+!
+!    Devuna-ClassViewer is distributed in the hope that it will be useful,
+!    but WITHOUT ANY WARRANTY; without even the implied warranty of
+!    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+!    GNU General Public License for more details.
+!
+!    You should have received a copy of the GNU General Public License
+!    along with Devuna-ClassViewer.  If not, see <http://www.gnu.org/licenses/>.
+! ================================================================================
+!endregion Notices
+[END]
+[END]
+[PROCEDURE]
+NAME srcFindModule
+PROTOTYPE '(*CSTRING szModulePath, *CSTRING szModuleName)'
+PARAMETERS '(*CSTRING szModulePath, *CSTRING szModuleName)'
+[COMMON]
+DESCRIPTION 'Find location of included file'
+FROM ABC Source
+MODIFIED '2017/07/02' ' 8:50:55'
+[PROMPTS]
+%GenerateOpenClose LONG  (0)
+%GenerateSaveRestore LONG  (0)
+[EMBED]
+EMBED %ProcedureRoutines
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 4000
+PROPERTY:END
+HandleRedirectionMacros ROUTINE
+  DATA
+I       LONG,AUTO
+J       LONG,AUTO
+N       LONG,AUTO
+
+  CODE
+    N = RECORDS(RedirectionQueue)
+    LOOP I = 1 TO N
+       GET(RedirectionQueue,I)
+       LOOP
+          J = INSTRING(RedirectionQueue.Token,UPPER(SearchQ.szPath),1)
+          IF J
+             SearchQ.szPath = SUB(SearchQ.szPath,1,J-1) & RedirectionQueue.Path & SUB(SearchQ.szPath,J+LEN(RedirectionQueue.Token),LEN(SearchQ.szPath)-J+LEN(RedirectionQueue.Token)-1)
+          ELSE
+             BREAK
+          END
+       END
+    END
+[END]
+EMBED %DataSection
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 50
+PROPERTY:END
+!region Notices
+! ================================================================================
+! Notice : Copyright (C) 2017, Devuna
+!          Distributed under LGPLv3 (http://www.gnu.org/licenses/lgpl.html)
+!
+!    This file is part of Devuna-ClassViewer (https://github.com/Devuna/Devuna-ClassViewer)
+!
+!    Devuna-ClassViewer is free software: you can redistribute it and/or modify
+!    it under the terms of the GNU General Public License as published by
+!    the Free Software Foundation, either version 3 of the License, or
+!    (at your option) any later version.
+!
+!    Devuna-ClassViewer is distributed in the hope that it will be useful,
+!    but WITHOUT ANY WARRANTY; without even the implied warranty of
+!    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+!    GNU General Public License for more details.
+!
+!    You should have received a copy of the GNU General Public License
+!    along with Devuna-ClassViewer.  If not, see <http://www.gnu.org/licenses/>.
+! ================================================================================
+!endregion Notices
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 3600
+PROPERTY:END
+N           LONG,AUTO
+P           LONG,AUTO
+SearchQ     QUEUE(SEARCHQTYPE),PRE(SQ)
+            END
+FileQ       QUEUE(File:queue),PRE(Q)
+            END
+[END]
+EMBED %ProcessedCode
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 5000
+PROPERTY:END
+    P = INSTRING('\',szModuleName,-1,LEN(szModuleName))
+    IF P > 0
+       szModulePath = UPPER(szModuleName[1 : P])
+       szModuleName = UPPER(szModuleName[P+1 : LEN(szModuleName)])
+    END
+    RETURN
+[END]
+[END]
+[ADDITION]
+NAME ABC cwHHProc
+[INSTANCE]
+INSTANCE 2
+OWNER 5
+[PROMPTS]
+%cwHHFileName DEFAULT  ('')
+%cwHHContextURL DEFAULT  ('')
+%cwHHAltTrapKey DEFAULT  ('')
+[ADDITION]
+NAME KCR KCR_SetWindowHelp
+[INSTANCE]
+INSTANCE 1
+OWNER 4
+[PROMPTS]
+%TplName DEFAULT  ('KCR_SetWindowHelp (Devuna)')
+%TplDescription DEFAULT  ('Set Window Help Property')
+[CALLS]
+srcGetSearchFoldersFromRedFile
+[END]

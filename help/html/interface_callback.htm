@@ -1,0 +1,41 @@
+<!--
+! ================================================================================
+! Notice : Copyright (C) 2017, Devuna
+!          Distributed under LGPLv3 (http://www.gnu.org/licenses/lgpl.html)
+!
+!    This file is part of Devuna-ClassViewer (https://github.com/Devuna/Devuna-ClassViewer)
+!
+!    Devuna-ClassViewer is free software: you can redistribute it and/or modify
+!    it under the terms of the GNU General Public License as published by
+!    the Free Software Foundation, either version 3 of the License, or
+!    (at your option) any later version.
+!
+!    Devuna-ClassViewer is distributed in the hope that it will be useful,
+!    but WITHOUT ANY WARRANTY; without even the implied warranty of
+!    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+!    GNU General Public License for more details.
+!
+!    You should have received a copy of the GNU General Public License
+!    along with Devuna-ClassViewer.  If not, see <http://www.gnu.org/licenses/>.
+! ================================================================================
+-->
+<html><head><title>interface callback</title>
+<meta name="GENERATOR" content="Forehtml Pro 5.0">
+<link rel="stylesheet" type="text/css" href="ClassViewer.css">
+
+
+<body>
+
+
+<p class="Base">
+An interface callback is an additional method placed in a class to support the actual interface method.
+The interface code simply calls back to a similarly named function in the class using a call to Self.MethodName.
+This makes coding much simpler since you don't have to refer to the interface at all inside the class
+It also makes it easier to write a class for both Legacy and ABC. When using legacy, you cannot rely on
+the WindowManager to call your methods, so you have to set up calls to i.e. TakeEvent.  If, at a later
+stage, you should feel the need to remove an interface, all you have to do is cut the interface methods
+and edit the Implements(). </p>
+<p class="Base">
+<span  style="font-size: 10pt ; ">This is a cleaner way to do things, since the Interface stubs are not
+really your methods</span><span  style="font-size: 10pt ; color: #0000ff; ">.</span></p>
+</body></html>

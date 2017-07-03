@@ -1,0 +1,205 @@
+#! =======================================================================================
+#! Copyright 2017 by Devuna
+#! Distributed under LGPLv3 (http://www.gnu.org/licenses/lgpl.html) 
+#! =======================================================================================
+#TEMPLATE({ClassName},'{ClassName} Class Template'),FAMILY('ABC')
+#INCLUDE('ABOOP.TPW')
+#!
+#!
+#! =======================================================================================
+#EXTENSION({ClassName},'Class Wrapper'),DESCRIPTION('{ClassName} Class Wrapper'),MULTI
+#! =======================================================================================
+#!
+#PREPARE
+  #CALL(%ReadABCFiles)
+  #CALL(%AddClass)
+  #IF(~%ThisInstance)
+    #IF(%ActiveTemplateInstance)
+      #SET(%ThisInstance,%ActiveTemplateInstance)
+      #SET(%TemplateIsLocal,%True)
+    #ELSE
+      #SET(%ThisInstance,%GetNewGlobalInstance())
+      #SET(%TemplateIsLocal,%False)
+    #ENDIF
+  #ENDIF
+  #CALL(%SetClassDefaults, '{ClassName}', '{ClassName}:' & %ThisInstance, '{ClassName}')
+#ENDPREPARE
+#!
+#!
+#BUTTON('{ClassName} Class Behavior'), AT(10, , 180)
+  #INSERT(%OOPPrompts)
+  #SHEET, HSCROLL
+    #TAB('General')
+      #PROMPT('Generate {ClassName} Class Code and Includes',CHECK),%GenerateClassCode,DEFAULT(%True),AT(10)
+      #BOXED,HIDE
+        #PROMPT('Global Class Instance:',@S4),%ThisInstance,AT(,,40,),REQ
+        #PROMPT('Template is Local',CHECK),%TemplateIsLocal,AT(10)
+      #ENDBOXED
+    #ENDTAB
+    #TAB('Classes'),WHERE(%ActiveTemplateInstance)
+      #WITH(%ClassItem, '{ClassName}')
+        #INSERT(%ClassPrompts)
+      #ENDWITH
+    #ENDTAB
+    #TAB('Classes'),WHERE(~%ActiveTemplateInstance)
+      #WITH(%ClassItem, '{ClassName}')
+        #INSERT(%GlobalClassPrompts)
+      #ENDWITH
+    #ENDTAB
+  #ENDSHEET
+#ENDBUTTON
+#!
+#!
+#ATSTART
+  #CALL(%ReadABCFiles)
+  #CALL(%AddClass)
+  #IF(~%ThisInstance)
+    #IF(%ActiveTemplateInstance)
+      #SET(%ThisInstance,%ActiveTemplateInstance)
+    #ELSE
+      #SET(%ThisInstance,%GetNewGlobalInstance())
+    #ENDIF
+  #ENDIF
+  #CALL(%SetClassDefaults, '{ClassName}', '{ClassName}:' & %ThisInstance, '{ClassName}')
+  #FIX(%ClassItem, '{ClassName}')
+  #DECLARE(%TemplateInstance)
+#ENDAT
+#!
+#!
+#AT(%GatherObjects),WHERE(%GenerateClassCode = %True)
+#CALL(%AddObjectList, '{ClassName}')
+#ENDAT
+#!
+#!
+#AT(%BeforeGenerateApplication),WHERE(%GenerateClassCode = %True)
+#CALL(%AddCategory,'{Category}')
+#CALL(%SetCategoryLocation,'{Category}','{Category}')
+#ENDAT
+#!
+#!
+#AT(%{ClassName}MethodCodeSection, %ThisInstance), PRIORITY(5000), DESCRIPTION('Parent Call'), WHERE(%ParentCallValid()),WHERE(%GenerateClassCode = %True)
+  #CALL(%GenerateParentCall)
+#ENDAT
+#!
+#!
+#AT(%AfterDctDestruction),WHERE(%GenerateClassCode = %True AND ~%ActiveTemplateInstance)
+#INDENT(-2)
+  #SET(%TemplateInstance,%ThisInstance)
+  #CALL(%SetClassItem, '{ClassName}')
+  #CALL(%GenerateClassVirtuals, '{ClassName}', 'Global Objects|Wrapped Classes|' & %ThisObjectName, '%{ClassName}Virtuals({ClassName})', %True)
+#ENDAT
+#!
+#!
+#AT(%GlobalData),WHERE(%GenerateClassCode = %True AND ~%ActiveTemplateInstance)
+#INSERT(%GenerateClass, '{ClassName}', '{ClassName}')
+#ENDAT
+#!
+#!
+#AT(%LocalProcedures),WHERE(%GenerateClassCode = %True AND %ActiveTemplateInstance AND %TemplateIsLocal)
+#INDENT(-2)
+  #SET(%TemplateInstance,%ActiveTemplateInstance)
+  #CALL(%SetClassItem, '{ClassName}')
+  #CALL(%GenerateClassVirtuals, '{ClassName}', 'Local Objects|Wrapped Classes|' & %ThisObjectName, '%{ClassName}Virtuals({ClassName})', %False)
+#ENDAT
+#!
+#!
+#AT(%LocalDataClasses),WHERE(%GenerateClassCode = %True AND %ActiveTemplateInstance AND %TemplateIsLocal)
+#INSERT(%GenerateClass, '{ClassName}', '{ClassName}')
+#ENDAT
+#!
+#!
+#! =======================================================================================
+#! %GetApplicationGlobalInstanceCount
+#! =======================================================================================
+#GROUP(%GetNewGlobalInstance)
+  #DECLARE(%NewInstance)
+  #SET(%NewInstance,0)
+  #FOR(%ApplicationTemplate)
+    #FIX(%ApplicationTemplate,%ApplicationTemplate)
+    #FOR(%ApplicationTemplateInstance)
+      #SET(%NewInstance,%NewInstance+1)
+    #ENDFOR
+  #ENDFOR
+  #SET(%NewInstance,%NewInstance+1)
+  #RETURN('G' & %NewInstance)
+#!
+#!
+#! =======================================================================================
+#! %{ClassName}Virtuals
+#! =======================================================================================
+#GROUP(%{ClassName}Virtuals, %TreeText, %DataText, %CodeText)
+#EMBED(%{ClassName}MethodDataSection, '{ClassName} Method Data Section'), %TemplateInstance, %pClassMethod, %pClassMethodPrototype, LABEL, DATA, PREPARE(, %FixClassName(%FixBaseClassToUse('{ClassName}'))), TREE(%TreeText & %DataText)
+  #?CODE
+  #EMBED(%{ClassName}MethodCodeSection, '{ClassName} Method Executable Code Section'), %TemplateInstance, %pClassMethod, %pClassMethodPrototype, PREPARE(, %FixClassName(%FixBaseClassToUse('{ClassName}'))), TREE(%TreeText & %CodeText)
+#!
+#!
+#! =======================================================================================
+#! %GenerateClassVirtuals
+#! =======================================================================================
+#GROUP(%GenerateClassVirtuals, %WhichClassItem, %EmbedTreeText, %VirtualGroup, %GlobalObject = %False),AUTO
+  #CALL(%SetClassItem, %WhichClassItem)
+  #EQUATE(%BaseClass, %BaseClassToUse())
+  #IF(%BaseClass)
+    #EQUATE(%Indent, %OutputIndent)
+    #CALL(%FixClassName, %BaseClass)
+    #FOR(%pClassMethod)
+      #FOR(%pClassMethodPrototype), WHERE(~%pClassMethodPrivate AND ~%pClassMethodFinal AND (UPPER(%pClassMethod) = 'DESTRUCT' OR UPPER(%pClassMethod) = 'CONSTRUCT' OR %pClassMethodExtends OR %pClassMethodVirtual))
+        #SET(%IncludePrototype,%False)
+        #SET(%ByteCount,%BytesOutput)
+        #SUSPEND(ParentCall)
+#?%NULL
+#?%ThisObjectName.%pClassMethod %(%MakeImplementationPrototype())
+#?%NULL
+        #IF(%pClassMethodReturnType)
+          #IF(SLICE(%pClassMethodReturnType, 1, 1) = '*')
+            #SET(%OOPConstruct, '&' & SLICE(%pClassMethodReturnType, 2, LEN(%pClassMethodReturnType)))
+          #ELSE
+            #SET(%OOPConstruct, CHOOSE(UPPER(%pClassMethodReturnType)='STRING','ANY',%pClassMethodReturnType&',AUTO'))
+          #ENDIF
+          #CALL(%MakeDeclr,22,%OOPConstruct,'ReturnValue',%OOPConstruct)
+#?%OOPConstruct
+#?%NULL
+        #ENDIF
+        #INDENT(-%Indent)
+#INVOKE(%VirtualGroup, %GetTreeTextToClass(%EmbedTreeText, %BaseClass) & %GetObjectEmbedPrototype(), %GetDataText(), %GetCodeText())
+        #INDENT(%Indent)
+        #IF(%pClassMethodReturnType)
+  #?RETURN ReturnValue
+        #ENDIF
+#?%NULL
+        #RESUME
+        #IF(%ByteCount <> %BytesOutput)
+          #SET(%OOPConstruct,%MakeDeclarationPrototype())
+          #CALL(%MakeDeclr, 24, %OOPConstruct, %pClassMethod, %OOPConstruct, 'Method added to host embed code')
+          #ADD(%ClassLines,%OOPConstruct)
+        #ENDIF
+      #ENDFOR
+    #ENDFOR
+    #IF(%DeriveFromBaseClass)
+      #FOR(%NewMethods)
+%ThisObjectName.%NewMethodName %(%MethodDeclaration(%NewMethodPrototype))
+        #SUSPEND
+#?%NULL
+          #IF(%GlobalObject)
+#EMBED(%NewMethodDataSection,'New Class Method Data Section'),%TemplateInstance,%ClassItem,%NewMethods,LABEL,DATA,TREE(%GetTreeTextToClass(%EmbedTreeText, %BaseClass) & %GetNewMethodText(%NewMethodName, %NewMethodPrototype) & %GetDataText()),WHERE(%GlobalObject = %True)
+          #ELSE
+#EMBED(%NewMethodDataSection,'New Class Method Data Section'),%ActiveTemplateInstance,%ClassItem,%NewMethods,LABEL,DATA,TREE(%GetTreeTextToClass(%EmbedTreeText, %BaseClass) & %GetnewMethodText(%NewMethodName, %NewMethodPrototype) & %GetDataText()),WHERE(%GlobalObject = %False)
+          #ENDIF
+        #RESUME
+#?%NULL
+  CODE
+        #SUSPEND
+          #IF(%GlobalObject)
+  #EMBED(%NewMethodCodeSection,'New Class Method Code Section'),%TemplateInstance,%ClassItem,%NewMethods,TREE(%GetTreeTextToClass(%EmbedTreeText, %BaseClass) & %GetNewMethodText(%NewMethodName, %NewMethodPrototype) & %GetCodeText()),WHERE(%GlobalObject = %True)
+          #ELSE
+  #EMBED(%NewMethodCodeSection,'New Class Method Code Section'),%ActiveTemplateInstance,%ClassItem,%NewMethods,TREE(%GetTreeTextToClass(%EmbedTreeText, %BaseClass) & %GetNewMethodText(%NewMethodName, %NewMethodPrototype) & %GetCodeText()),WHERE(%GlobalObject = %False)
+          #ENDIF
+#?%NULL
+#?%NULL
+        #RESUME
+      #ENDFOR
+    #ENDIF
+  #ENDIF
+#!
+#!
+{ADDCLASSGROUP}

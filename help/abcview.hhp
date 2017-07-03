@@ -1,0 +1,145 @@
+
+[OPTIONS]
+Binary Index=No
+Compatibility=1.1 or later
+Compiled file=abcview.chm
+Contents file=abcview.hhc
+Default Window=default
+Default topic=html\Contents.htm
+Display compile notes=No
+Display compile progress=No
+Enhanced decompilation=Yes
+Error log file=abcview.log
+Full-text search=Yes
+Index file=abcview.hhk
+Language=0x1009 English (Canada)
+Title=ClassViewer Help
+
+[WINDOWS]
+default="ClassViewer Help","abcview.hhc","abcview.hhk",,,,,,,0x2420,200,0x3006,[100,50,600,550],0xc40000,,1,1,,,0
+
+
+[FILES]
+html\ABC_Classes.htm
+html\About_Class_Viewer.htm
+html\Add_Class_Wizard.htm
+html\Additional_Files.htm
+html\Ascii_File_Viewer.htm
+html\Basic_Class_List.htm
+html\Browse_Database.htm
+html\Class_Properties.htm
+html\ClassViewer.css
+html\ClassViewer_Templates.htm
+html\Contents.htm
+html\Edit_Options.htm
+html\Export_Database_To_XML.htm
+html\Favorites_Menu.htm
+html\Find_Notes.htm
+html\interface_callback.htm
+html\Main_Window.htm
+html\Non-ABC_Classes.htm
+html\referenced_object.htm
+html\Scan_Options.htm
+html\Software_Licence.htm
+html\Template_Files.htm
+html\View_Callers.htm
+html\View_Notes.htm
+html\Wrapper_Generator.htm
+html\Wrapper_Generator_Templates.htm
+images\ACWGENERALTAB.jpg
+images\acwInterfacesTab.jpg
+images\acwMethodsTab.jpg
+images\acwTemplatesTab.jpg
+images\acwUserTab1.jpg
+images\acwUserTab2.jpg
+images\AddClassWizard.jpg
+images\AdditionalFiles.jpg
+images\APPLICATIONTAB4.jpg
+images\AsciiViewer1.jpg
+images\BrowseDatabase.jpg
+images\BrowseDatabaseClassTab.jpg
+images\BrowseDatabaseMethodTab.jpg
+images\BrowseDatabasePropertyTab.jpg
+images\Class.jpg
+images\ClassProperties.jpg
+images\closewindow.jpg
+images\COLORPREFERENCESTAB4.jpg
+images\Contract.jpg
+images\Data.jpg
+images\disnext.gif
+images\disprev.gif
+images\DROPDOWN.jpg
+images\edit.jpg
+images\EditFavorites.jpg
+images\EDITOPTIONS3.jpg
+images\EDITORTAB4.jpg
+images\EditPopupMenu.jpg
+images\efolder.jpg
+images\EWSize.jpg
+images\ExitButton.jpg
+images\expand.jpg
+images\ExportToXML.jpg
+images\Favorites1.jpg
+images\FavoriteTools.jpg
+images\FileMenu.jpg
+images\find.jpg
+images\FindNotes.jpg
+images\goto.jpg
+images\Help.jpg
+images\home.gif
+images\HyperlinkToolbar.jpg
+images\IntrFace.jpg
+images\LeftXP.jpg
+images\legend.jpg
+images\legend2.jpg
+images\listview.jpg
+images\Locator.jpg
+images\main_window.jpg
+images\main_window1.jpg
+images\main_window2.jpg
+images\main_window3.jpg
+images\MAINMENU.jpg
+images\MAINTOOLBAR1.jpg
+images\next.gif
+images\Note.jpg
+images\note21.jpg
+images\note22.jpg
+images\OBJECTFILTER.jpg
+images\ObjectList.jpg
+images\Options.jpg
+images\PopupMenu1.jpg
+images\prev.gif
+images\printer.jpg
+images\redo.jpg
+images\Refresh.jpg
+images\RIGHTXP.jpg
+images\rtarrow.jpg
+images\scancel.jpg
+images\ScanOptions.jpg
+images\sok.jpg
+images\SourceView.jpg
+images\SplitterBar.jpg
+images\Statistics.jpg
+images\StatisticsWindow.jpg
+images\StrucTyp.jpg
+images\TemplateRegistry.jpg
+images\TEMPLATESTAB3.jpg
+images\textview.jpg
+images\tip.jpg
+images\toolsmenu1.jpg
+images\Tree.jpg
+images\TreeFilterToolbar.jpg
+images\TreeView.jpg
+images\vcrback.jpg
+images\vcrfirst.jpg
+images\vcrforward.jpg
+images\vcrlast.jpg
+images\ViewCallers.jpg
+images\VIEWERTAB3.jpg
+images\ViewMenu.jpg
+images\ViewNote.jpg
+images\WrapperGenerator.jpg
+images\xmlMenu.jpg
+
+[INFOTYPES]
+

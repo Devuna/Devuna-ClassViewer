@@ -1,0 +1,682 @@
+[MODULE]
+[COMMON]
+FROM ABC GENERATED
+[EMBED]
+EMBED %StartOfModule
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 1300
+PROPERTY:END
+!region Notices
+! ================================================================================
+! Notice : Copyright (C) 2017, Devuna
+!          Distributed under LGPLv3 (http://www.gnu.org/licenses/lgpl.html)
+!
+!    This file is part of Devuna-ClassViewer (https://github.com/Devuna/Devuna-ClassViewer)
+!
+!    Devuna-ClassViewer is free software: you can redistribute it and/or modify
+!    it under the terms of the GNU General Public License as published by
+!    the Free Software Foundation, either version 3 of the License, or
+!    (at your option) any later version.
+!
+!    Devuna-ClassViewer is distributed in the hope that it will be useful,
+!    but WITHOUT ANY WARRANTY; without even the implied warranty of
+!    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+!    GNU General Public License for more details.
+!
+!    You should have received a copy of the GNU General Public License
+!    along with Devuna-ClassViewer.  If not, see <http://www.gnu.org/licenses/>.
+! ================================================================================
+!endregion Notices
+[END]
+[END]
+[PROCEDURE]
+NAME winShowStatistics
+[COMMON]
+FROM ABC Window
+MODIFIED '2008/12/22' '10:32:33'
+[DATA]
+[SCREENCONTROLS]
+! PROMPT('Modules:'),USE(?Modules:Prompt),TRN
+! STRING(@n6),USE(Modules),TRN
+[REPORTCONTROLS]
+! STRING(@n6),USE(Modules)
+Modules                  LONG
+!!> GUID('cbc6d91e-8ece-41db-ba69-8cbeef61f5c6'),PROMPT('Modules:'),HEADER('Modules'),PICTURE(@n6)
+[SCREENCONTROLS]
+! PROMPT('Classes:'),USE(?Classes:Prompt),TRN
+! STRING(@n6),USE(Classes),TRN
+[REPORTCONTROLS]
+! STRING(@n6),USE(Classes)
+Classes                  LONG
+!!> GUID('9b9cc778-f883-42c2-947b-7ae2493b1bec'),PROMPT('Classes:'),HEADER('Classes'),PICTURE(@n6)
+[SCREENCONTROLS]
+! PROMPT('Interfaces:'),USE(?Interfaces:Prompt),TRN
+! STRING(@n6),USE(Interfaces)
+[REPORTCONTROLS]
+! STRING(@n6),USE(Interfaces)
+Interfaces               LONG
+!!> GUID('d1efdf82-1e98-4d3c-a19d-35b4d86d5371'),PROMPT('Interfaces:'),HEADER('Interfaces'),PICTURE(@n6)
+[SCREENCONTROLS]
+! PROMPT('Methods:'),USE(?Methods:Prompt),TRN
+! STRING(@n13),USE(Methods),TRN
+[REPORTCONTROLS]
+! STRING(@n13),USE(Methods)
+Methods                  LONG
+!!> GUID('d4e4ebf0-ae2f-4b46-ab68-dfcdb8637c28'),PROMPT('Methods:'),HEADER('Methods'),PICTURE(@n13)
+[SCREENCONTROLS]
+! PROMPT('Structures:'),USE(?Structures:Prompt),TRN
+! STRING(@n13),USE(Structures),TRN
+[REPORTCONTROLS]
+! STRING(@n13),USE(Structures)
+Structures               LONG
+!!> GUID('209ab1d0-15b2-420a-bb7c-04fd6ae2bc8c'),PROMPT('Structures:'),HEADER('Structures'),PICTURE(@n13)
+[SCREENCONTROLS]
+! PROMPT('Equates:'),USE(?Equates:Prompt),TRN
+! STRING(@n13),USE(Equates),TRN
+[REPORTCONTROLS]
+! STRING(@n13),USE(Equates)
+Equates                  LONG
+!!> GUID('71cea5b1-88ac-4dee-9556-f61bf6abb781'),PROMPT('Equates:'),HEADER('Equates'),PICTURE(@n13)
+[PROMPTS]
+%ClassItem UNIQUE DEFAULT  ('Default', 'WindowToolbar')
+%DefaultBaseClassType DEPEND %ClassItem DEFAULT TIMES 2
+WHEN  ('Default') ('WindowManager')
+WHEN  ('WindowToolbar') ('ToolbarClass')
+
+%ActualDefaultBaseClassType DEPEND %ClassItem DEFAULT TIMES 2
+WHEN  ('Default') ('')
+WHEN  ('WindowToolbar') ('')
+
+%ClassLines DEPEND %ClassItem MULTI DEFAULT TIMES 1
+WHEN  ('Default') ('Init {19}PROCEDURE(),BYTE,PROC,DERIVED', 'Kill {19}PROCEDURE(),BYTE,PROC,DERIVED')
+
+%ReturnValue FIELD  ()
+%WindowOperationMode DEFAULT  ('Use WINDOW setting')
+%INISaveWindow LONG  (0)
+%ProcedureDisableEnhanceFocus LONG  (0)
+%ProcedureUseEnterInsteadTabOverride LONG  (0)
+%WindowUseEnterInsteadTab LONG  (1)
+%ProcedureUseEnterInsteadTabExcludeG LONG  (1)
+%WindowUseEnterInsteadTabExclude MULTI DEFAULT  ()
+%GlobalObject DEPEND %ClassItem DEFAULT TIMES 2
+WHEN  ('Default') ('NO')
+WHEN  ('WindowToolbar') ('NO')
+
+%ThisObjectName DEPEND %ClassItem DEFAULT TIMES 2
+WHEN  ('Default') ('ThisWindow')
+WHEN  ('WindowToolbar') ('Toolbar')
+
+%UseDefaultABCBaseClass DEPEND %ClassItem LONG TIMES 2
+WHEN  ('Default') (1)
+WHEN  ('WindowToolbar') (1)
+
+%UseABCBaseClass DEPEND %ClassItem LONG TIMES 2
+WHEN  ('Default') (1)
+WHEN  ('WindowToolbar') (1)
+
+%ABCBaseClass DEPEND %ClassItem DEFAULT TIMES 2
+WHEN  ('Default') ('ADOBlob')
+WHEN  ('WindowToolbar') ('ADOBlob')
+
+%ExtBaseClass DEPEND %ClassItem DEFAULT TIMES 0
+
+%BaseClassIncludeFile DEPEND %ClassItem DEFAULT TIMES 0
+
+%DeriveFromBaseClass DEPEND %ClassItem LONG TIMES 2
+WHEN  ('Default') (0)
+WHEN  ('WindowToolbar') (0)
+
+%NewMethods DEPEND %ClassItem MULTI LONG TIMES 0
+
+%NewMethodName DEPEND %NewMethods DEFAULT TIMES 0
+
+%NewMethodPrototype DEPEND %NewMethods DEFAULT TIMES 0
+
+%NewClassPropertyItems DEPEND %ClassItem MULTI LONG TIMES 0
+
+%NewClassProperty DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataType DEPEND %NewClassPropertyItems DEFAULT TIMES 1
+WHEN  ('WindowToolbar')TIMES 0
+
+%NewClassOtherType DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataIsRef DEPEND %NewClassPropertyItems LONG TIMES 0
+
+%NewClassDataSize DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim1 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim2 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim3 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim4 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%ClassMethods DEPEND %ClassItem MULTI LONG TIMES 0
+
+%ClassMethodName DEPEND %ClassMethods DEFAULT TIMES 0
+
+%ClassMethodPrototype DEPEND %ClassMethods DEFAULT TIMES 0
+
+%ClassPropertyItems DEPEND %ClassItem MULTI LONG TIMES 0
+
+%ClassProperty DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataType DEPEND %ClassPropertyItems DEFAULT TIMES 1
+WHEN  ('WindowToolbar')TIMES 0
+
+%ClassOtherType DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataIsRef DEPEND %ClassPropertyItems LONG TIMES 0
+
+%ClassDataSize DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim1 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim2 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim3 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim4 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%WindowStyles MULTI LONG  ()
+%WindowStyleFontName DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontNameVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontNameIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleFontSize DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontSizeVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontSizeIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleFontStyle DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontStyleVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontStyleIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleFontColor DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontCharSet DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleForegroundNormal DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleForegroundNormalVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleForegroundNormalIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleBackgroundNormal DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleBackgroundNormalVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleBackgroundNormalIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleForegroundSelected DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleForegroundSelectedVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleForegroundSelectedIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleBackgroundSelected DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleBackgroundSelectedVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleBackgroundSelectedIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStylePicture DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStylePictureVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStylePictureIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleOtherListboxes MULTI DEFAULT  ()
+%ProcedureAutoBindFields MULTI LONG  ()
+%ProcedureAutoBindField DEPEND %ProcedureAutoBindFields DEFAULT TIMES 0
+
+%ProcedureAutoBindFieldTPL DEPEND %ProcedureAutoBindFields DEFAULT TIMES 0
+
+%ProcedureAutoBindProcedures MULTI LONG  ()
+%ProcedureAutoBindProcedure DEPEND %ProcedureAutoBindProcedures DEFAULT TIMES 0
+
+%ProcedureAutoBindProcedureTPL DEPEND %ProcedureAutoBindProcedures DEFAULT TIMES 0
+
+%ProcedureUserBindFields MULTI LONG  ()
+%ProcedureUserBindField DEPEND %ProcedureUserBindFields FIELD TIMES 0
+
+%ProcedureAutoBindFieldIgnore DEPEND %ProcedureAutoBindFields LONG TIMES 0
+
+%ProcedureUserBindProcedures MULTI LONG  ()
+%ProcedureUserBindProcedure DEPEND %ProcedureUserBindProcedures PROCEDURE TIMES 0
+
+%ProcedureAutoBindProcedureIgnore DEPEND %ProcedureAutoBindProcedures LONG TIMES 0
+
+%ProcedureUserBindExpressions MULTI LONG  ()
+%ProcedureUserBindExpressionName DEPEND %ProcedureUserBindExpressions DEFAULT TIMES 0
+
+%ProcedureUserBindExpression DEPEND %ProcedureUserBindExpressions DEFAULT TIMES 0
+
+%ButtonAction DEPEND %Control DEFAULT TIMES 9
+WHEN  ('') ('No Special Action')
+WHEN  ('?Classes') ('No Special Action')
+WHEN  ('?Equates') ('No Special Action')
+WHEN  ('?Interfaces') ('No Special Action')
+WHEN  ('?Methods') ('No Special Action')
+WHEN  ('?Modules') ('No Special Action')
+WHEN  ('?OkButton') ('No Special Action')
+WHEN  ('?Panel1') ('No Special Action')
+WHEN  ('?Structures') ('No Special Action')
+
+%ButtonRunName DEPEND %Control DEFAULT TIMES 1
+WHEN  ('?OkButton') ('')
+
+%ButtonRunParameters DEPEND %Control DEFAULT TIMES 1
+WHEN  ('?OkButton') ('')
+
+%ButtonProcedure DEPEND %Control PROCEDURE TIMES 1
+WHEN  ('?OkButton') ()
+
+%ButtonThread DEPEND %Control LONG TIMES 1
+WHEN  ('?OkButton') (0)
+
+%ButtonThreadStack DEPEND %Control DEFAULT TIMES 9
+WHEN  ('') ('25000')
+WHEN  ('?Classes') ('25000')
+WHEN  ('?Equates') ('25000')
+WHEN  ('?Interfaces') ('25000')
+WHEN  ('?Methods') ('25000')
+WHEN  ('?Modules') ('25000')
+WHEN  ('?OkButton') ('25000')
+WHEN  ('?Panel1') ('25000')
+WHEN  ('?Structures') ('25000')
+
+%ButtonParameters DEPEND %Control DEFAULT TIMES 1
+WHEN  ('?OkButton') ('')
+
+%ButtonReturnValueAssignment DEPEND %Control FIELD TIMES 1
+WHEN  ('?OkButton') ()
+
+%ButtonReturnValueReferenceAssign DEPEND %Control LONG TIMES 1
+WHEN  ('?OkButton') (0)
+
+%ButtonRequest DEPEND %Control DEFAULT TIMES 9
+WHEN  ('') ('None')
+WHEN  ('?Classes') ('None')
+WHEN  ('?Equates') ('None')
+WHEN  ('?Interfaces') ('None')
+WHEN  ('?Methods') ('None')
+WHEN  ('?Modules') ('None')
+WHEN  ('?OkButton') ('None')
+WHEN  ('?Panel1') ('None')
+WHEN  ('?Structures') ('None')
+
+%ButtonThreadParameters DEPEND %Control DEFAULT TIMES 1
+WHEN  ('?OkButton') ('')
+
+%ButtonThreadReturnValueAssignment DEPEND %Control FIELD TIMES 1
+WHEN  ('?OkButton') ()
+
+%PreLookupKey DEPEND %Control KEY TIMES 0
+
+%PreLookupField DEPEND %Control COMPONENT TIMES 0
+
+%PreLookupProcedure DEPEND %Control PROCEDURE TIMES 0
+
+%PreLookupProcedureParameters DEPEND %Control DEFAULT TIMES 0
+
+%PostLookupKey DEPEND %Control KEY TIMES 0
+
+%PostLookupField DEPEND %Control COMPONENT TIMES 0
+
+%PostLookupProcedure DEPEND %Control PROCEDURE TIMES 0
+
+%PostLookupProcedureParameters DEPEND %Control DEFAULT TIMES 0
+
+%PostLookupDuringValidate DEPEND %Control LONG TIMES 9
+WHEN  ('') (1)
+WHEN  ('?Classes') (1)
+WHEN  ('?Equates') (1)
+WHEN  ('?Interfaces') (1)
+WHEN  ('?Methods') (1)
+WHEN  ('?Modules') (1)
+WHEN  ('?OkButton') (1)
+WHEN  ('?Panel1') (1)
+WHEN  ('?Structures') (1)
+
+%LookupAssign DEPEND %Control MULTI LONG TIMES 0
+
+%MoreTarget DEPEND %LookupAssign FIELD TIMES 0
+
+%MoreField DEPEND %LookupAssign DEFAULT TIMES 0
+
+%ForceWindowRefresh DEPEND %Control LONG TIMES 0
+
+%CheckedAssigns DEPEND %Control MULTI LONG TIMES 0
+
+%CheckedAssignVariable DEPEND %CheckedAssigns FIELD TIMES 0
+
+%CheckedAssignValue DEPEND %CheckedAssigns DEFAULT TIMES 0
+
+%CheckedHides DEPEND %Control MULTI LONG TIMES 0
+
+%CheckedControl DEPEND %CheckedHides DEFAULT TIMES 0
+
+%CheckedControlAction DEPEND %CheckedHides DEFAULT TIMES 9
+WHEN  ('')TIMES 0
+WHEN  ('?Classes')TIMES 0
+WHEN  ('?Equates')TIMES 0
+WHEN  ('?Interfaces')TIMES 0
+WHEN  ('?Methods')TIMES 0
+WHEN  ('?Modules')TIMES 0
+WHEN  ('?OkButton')TIMES 0
+WHEN  ('?Panel1')TIMES 0
+WHEN  ('?Structures')TIMES 0
+
+%CheckedEnables DEPEND %Control MULTI LONG TIMES 0
+
+%CheckedControl1 DEPEND %CheckedEnables DEFAULT TIMES 0
+
+%CheckedControl1Action DEPEND %CheckedEnables DEFAULT TIMES 9
+WHEN  ('')TIMES 0
+WHEN  ('?Classes')TIMES 0
+WHEN  ('?Equates')TIMES 0
+WHEN  ('?Interfaces')TIMES 0
+WHEN  ('?Methods')TIMES 0
+WHEN  ('?Modules')TIMES 0
+WHEN  ('?OkButton')TIMES 0
+WHEN  ('?Panel1')TIMES 0
+WHEN  ('?Structures')TIMES 0
+
+%UncheckedAssigns DEPEND %Control MULTI LONG TIMES 0
+
+%UncheckedAssignVariable DEPEND %UncheckedAssigns FIELD TIMES 0
+
+%UncheckedAssignValue DEPEND %UncheckedAssigns DEFAULT TIMES 0
+
+%UnCheckedHides DEPEND %Control MULTI LONG TIMES 0
+
+%UnCheckedControl DEPEND %UnCheckedHides DEFAULT TIMES 0
+
+%UnCheckedControlAction DEPEND %UnCheckedHides DEFAULT TIMES 9
+WHEN  ('')TIMES 0
+WHEN  ('?Classes')TIMES 0
+WHEN  ('?Equates')TIMES 0
+WHEN  ('?Interfaces')TIMES 0
+WHEN  ('?Methods')TIMES 0
+WHEN  ('?Modules')TIMES 0
+WHEN  ('?OkButton')TIMES 0
+WHEN  ('?Panel1')TIMES 0
+WHEN  ('?Structures')TIMES 0
+
+%UnCheckedEnables DEPEND %Control MULTI LONG TIMES 0
+
+%UnCheckedControl1 DEPEND %UnCheckedEnables DEFAULT TIMES 0
+
+%UnCheckedControl1Action DEPEND %UnCheckedEnables DEFAULT TIMES 9
+WHEN  ('')TIMES 0
+WHEN  ('?Classes')TIMES 0
+WHEN  ('?Equates')TIMES 0
+WHEN  ('?Interfaces')TIMES 0
+WHEN  ('?Methods')TIMES 0
+WHEN  ('?Modules')TIMES 0
+WHEN  ('?OkButton')TIMES 0
+WHEN  ('?Panel1')TIMES 0
+WHEN  ('?Structures')TIMES 0
+
+%ProcedureAutoBindFieldsIgnored MULTI LONG  ()
+%ProcedureAutoBindFieldIgnored DEPEND %ProcedureAutoBindFieldsIgnored DEFAULT TIMES 0
+
+%ProcedureAutoBindProceduresIgnored MULTI LONG  ()
+%ProcedureAutoBindProcedureIgnored DEPEND %ProcedureAutoBindProceduresIgnored DEFAULT TIMES 0
+
+%ProcedureAutoBindValidToAddField LONG  (0)
+%ProcedureUseEnterInsteadTabExcludeListCombo LONG  (0)
+%ProcedureUseEnterInsteadTabDisableNextTabStop LONG  (0)
+%ProcedureUseEnterInsteadTabEnableNextTabStop LONG  (0)
+%ExtUITabIcon DEPEND %Control DEFAULT TIMES 0
+
+%ExtUITabStyleOverrideGlobal DEPEND %Control LONG TIMES 0
+
+%ExtUITabStyle DEPEND %Control DEFAULT TIMES 1
+WHEN  ('') ('Default')
+
+%CheckedDisables DEPEND %Control MULTI LONG TIMES 0
+
+%CheckedDisableControl DEPEND %CheckedDisables DEFAULT TIMES 0
+
+%CheckedDisableControlAction DEPEND %CheckedDisables DEFAULT TIMES 1
+WHEN  ('')TIMES 0
+
+%UnCheckedDisables DEPEND %Control MULTI LONG TIMES 0
+
+%UnCheckedDisableControl DEPEND %UnCheckedDisables DEFAULT TIMES 0
+
+%UnCheckedDisableControlAction DEPEND %UnCheckedDisables DEFAULT TIMES 1
+WHEN  ('')TIMES 0
+
+%ProcedureOneInstance LONG  (0)
+%FieldGradientColorType DEPEND %Control DEFAULT TIMES 2
+WHEN  ('') ('Off')
+WHEN  ('?Panel1') ('Off')
+
+%FieldGradientColorTypeVariable DEPEND %Control DEFAULT TIMES 2
+WHEN  ('') ('')
+WHEN  ('?Panel1') ('')
+
+%FieldGradientColorTypeIsVariable DEPEND %Control LONG TIMES 2
+WHEN  ('') (0)
+WHEN  ('?Panel1') (0)
+
+%FieldGradientColorFrom DEPEND %Control LONG TIMES 2
+WHEN  ('') (-1)
+WHEN  ('?Panel1') (-1)
+
+%FieldGradientColorFromVariable DEPEND %Control DEFAULT TIMES 0
+
+%FieldGradientColorFromIsVariable DEPEND %Control LONG TIMES 2
+WHEN  ('') (0)
+WHEN  ('?Panel1') (0)
+
+%FieldGradientColorTo DEPEND %Control LONG TIMES 2
+WHEN  ('') (-1)
+WHEN  ('?Panel1') (-1)
+
+%FieldGradientColorToVariable DEPEND %Control DEFAULT TIMES 0
+
+%FieldGradientColorToIsVariable DEPEND %Control LONG TIMES 2
+WHEN  ('') (0)
+WHEN  ('?Panel1') (0)
+
+%PreserveVarsLoc MULTI LONG  ()
+%PreserveVarLoc DEPEND %PreserveVarsLoc DEFAULT TIMES 0
+
+%ActiveImageEnable DEPEND %Control LONG TIMES 0
+
+%AIObjectName DEPEND %Control DEFAULT TIMES 1
+WHEN  ('') ('AIBtn0')
+
+%AIEnableMimicControl DEPEND %Control LONG TIMES 1
+WHEN  ('') (1)
+
+%AIMimicControl DEPEND %Control DEFAULT TIMES 1
+WHEN  ('') ('?Panel1')
+
+%AIImgRound DEPEND %Control LONG TIMES 0
+
+%AIOverrideImg DEPEND %Control DEFAULT TIMES 0
+
+%AIOverrideImgVariable DEPEND %Control DEFAULT TIMES 0
+
+%AIOverrideImgIsVariable DEPEND %Control LONG TIMES 1
+WHEN  ('') (0)
+
+%AIDisableImg DEPEND %Control DEFAULT TIMES 0
+
+%AIDisableImgVariable DEPEND %Control DEFAULT TIMES 0
+
+%AIDisableImgIsVariable DEPEND %Control LONG TIMES 1
+WHEN  ('') (0)
+
+%AIHotImg DEPEND %Control DEFAULT TIMES 0
+
+%AIHotImgVariable DEPEND %Control DEFAULT TIMES 0
+
+%AIHotImgIsVariable DEPEND %Control LONG TIMES 1
+WHEN  ('') (0)
+
+%AIPressedImg DEPEND %Control DEFAULT TIMES 0
+
+%AIPressedImgVariable DEPEND %Control DEFAULT TIMES 0
+
+%AIPressedImgIsVariable DEPEND %Control LONG TIMES 1
+WHEN  ('') (0)
+
+[EMBED]
+EMBED %DataSection
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 50
+PROPERTY:END
+!region Notices
+! ================================================================================
+! Notice : Copyright (C) 2017, Devuna
+!          Distributed under LGPLv3 (http://www.gnu.org/licenses/lgpl.html)
+!
+!    This file is part of Devuna-ClassViewer (https://github.com/Devuna/Devuna-ClassViewer)
+!
+!    Devuna-ClassViewer is free software: you can redistribute it and/or modify
+!    it under the terms of the GNU General Public License as published by
+!    the Free Software Foundation, either version 3 of the License, or
+!    (at your option) any later version.
+!
+!    Devuna-ClassViewer is distributed in the hope that it will be useful,
+!    but WITHOUT ANY WARRANTY; without even the implied warranty of
+!    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+!    GNU General Public License for more details.
+!
+!    You should have received a copy of the GNU General Public License
+!    along with Devuna-ClassViewer.  If not, see <http://www.gnu.org/licenses/>.
+! ================================================================================
+!endregion Notices
+[END]
+EMBED %WindowManagerMethodCodeSection
+[INSTANCES]
+WHEN 'Init'
+[INSTANCES]
+WHEN '(),BYTE'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 7800
+PROPERTY:END
+Modules = RECORDS(ModuleQ)
+Classes = 0
+Interfaces = 0
+J = RECORDS(ClassQ)
+LOOP I = 1 TO J
+   GET(ClassQ,I)
+   IF ClassQ.bInterface = TRUE
+      Interfaces += 1
+   ELSE
+      Classes += 1
+   END
+END
+Methods = RECORDS(MethodQ)
+Structures = RECORDS(StructureQ)
+Equates = RECORDS(EnumQ)
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 8030
+PROPERTY:END
+CASE glo:Background
+OF 1  !Color
+   window{PROP:Wallpaper} = ''
+   window{PROP:Color} = glo:Color2
+OF 2  !Wallpaper
+   window{PROP:Wallpaper} = glo:szWallpaper2
+   window{PROP:Tiled} = glo:Tiled2
+   window{PROP:Color} = COLOR:NONE
+OF 3  !None
+   window{PROP:Wallpaper} = ''
+   window{PROP:Color} = COLOR:NONE
+END
+J = LASTFIELD()
+LOOP I = 1 TO J
+   SETFONT(I,glo:Typeface,glo:FontSize,glo:FontColor,glo:FontStyle,0)
+END
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 9300
+PROPERTY:END
+IF glo:bUseHTMLHelp
+   IF oHH &= NULL
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 9700
+PROPERTY:END
+   ELSE
+      oHH.SetHelpFile( 'ABCVIEW.CHM' )
+   END
+END
+[END]
+[END]
+[END]
+EMBED %WindowManagerMethodDataSection
+[INSTANCES]
+WHEN 'Init'
+[INSTANCES]
+WHEN '(),BYTE'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 5000
+PROPERTY:END
+I   LONG,AUTO
+J   LONG,AUTO
+[END]
+[END]
+[END]
+[END]
+[ADDITION]
+NAME ABC cwHHProc
+[INSTANCE]
+INSTANCE 2
+OWNER 5
+[PROMPTS]
+%cwHHFileName DEFAULT  ('')
+%cwHHContextURL DEFAULT  ('')
+%cwHHAltTrapKey DEFAULT  ('')
+[ADDITION]
+NAME KCR KCR_SetWindowHelp
+[INSTANCE]
+INSTANCE 1
+OWNER 4
+[PROMPTS]
+%TplName DEFAULT  ('KCR_SetWindowHelp (Devuna)')
+%TplDescription DEFAULT  ('Set Window Help Property')
+[WINDOW]
+Window  WINDOW('Class Viewer Statistics'),AT(,,86,94),FONT(,,COLOR:Black,,CHARSET:ANSI),DOUBLE, |
+          CENTER,GRAY,PALETTE(256)
+          PANEL,AT(4,4,78,68),USE(?Panel1),#ORIG(?Panel1)
+          PROMPT('Modules:'),AT(8,8),USE(?Modules:Prompt),TRN,#LINK(?Modules),#ORIG(?Modules:Prompt)
+          STRING(@n6),AT(48,8),USE(Modules),RIGHT,TRN,#LINK(?Modules:Prompt),#ORIG(Modules)
+          PROMPT('Classes:'),AT(8,18),USE(?Classes:Prompt),TRN,#LINK(?Classes),#ORIG(?Classes:Prompt)
+          STRING(@n6),AT(48,18),USE(Classes),RIGHT,TRN,#LINK(?Classes:Prompt),#ORIG(Classes)
+          PROMPT('Interfaces:'),AT(8,28),USE(?Interfaces:Prompt),TRN,#LINK(?Interfaces),#ORIG(?Interfaces:Prompt)
+          STRING(@n6),AT(48,28),USE(Interfaces),RIGHT,TRN,#LINK(?Interfaces:Prompt),#ORIG(Interfaces)
+          PROMPT('Methods:'),AT(8,38),USE(?Methods:Prompt),TRN,#LINK(?Methods),#ORIG(?Methods:Prompt)
+          STRING(@n6),AT(48,38),USE(Methods),RIGHT,TRN,#LINK(?Methods:Prompt),#ORIG(Methods)
+          PROMPT('Structures:'),AT(8,48),USE(?Structures:Prompt),TRN,#LINK(?Structures),#ORIG(?Structures:Prompt)
+          STRING(@n6),AT(48,48),USE(Structures),RIGHT,TRN,#LINK(?Structures:Prompt),#ORIG(Structures)
+          PROMPT('Equates:'),AT(8,58),USE(?Equates:Prompt),TRN,#LINK(?Equates),#ORIG(?Equates:Prompt)
+          STRING(@n6),AT(48,58),USE(Equates),RIGHT,TRN,#LINK(?Equates:Prompt),#ORIG(Equates)
+          BUTTON('&OK'),AT(21,76,45,14),USE(?OkButton),DEFAULT,STD(STD:Close)
+        END
+
+[END]

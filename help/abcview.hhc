@@ -1,0 +1,54 @@
+
+<HTML>
+<!-- Sitemap 1.0 -->
+<OBJECT TYPE="text/site properties">
+	<PARAM NAME="Window Styles" VALUE="0x00800025">
+	<PARAM NAME="ExWindow Styles" VALUE="0x00000000">
+</OBJECT>
+<UL>
+	<LI><OBJECT TYPE="text/sitemap">
+		<PARAM NAME="Name" VALUE="Class Viewer">
+		</OBJECT>
+	<UL>
+		<LI><OBJECT TYPE="text/sitemap">
+			<PARAM NAME="Name" VALUE="Main Window">
+			<PARAM NAME="Local" VALUE="html\Main_Window.htm">
+			</OBJECT>
+
+		<LI><OBJECT TYPE="text/sitemap">
+			<PARAM NAME="Name" VALUE="About Class Viewer">
+			<PARAM NAME="Local" VALUE="html\About_Class_Viewer.htm">
+			</OBJECT>
+
+		<LI><OBJECT TYPE="text/sitemap">
+			<PARAM NAME="Name" VALUE="Ascii File Viewer">
+			<PARAM NAME="Local" VALUE="html\Ascii_File_Viewer.htm">
+			</OBJECT>
+
+		<LI><OBJECT TYPE="text/sitemap">
+			<PARAM NAME="Name" VALUE="Edit Options">
+			<PARAM NAME="Local" VALUE="html\Edit_Options.htm">
+			</OBJECT>
+
+		<LI><OBJECT TYPE="text/sitemap">
+			<PARAM NAME="Name" VALUE="Scan Options">
+			<PARAM NAME="Local" VALUE="html\Scan_Options.htm">
+			</OBJECT>
+
+		<LI><OBJECT TYPE="text/sitemap">
+			<PARAM NAME="Name" VALUE="Add Class Wizard">
+			<PARAM NAME="Local" VALUE="html\Add_Class_Wizard.htm">
+			</OBJECT>
+
+		<LI><OBJECT TYPE="text/sitemap">
+			<PARAM NAME="Name" VALUE="ClassViewer Templates">
+			<PARAM NAME="Local" VALUE="html\ClassViewer_Templates.htm">
+			</OBJECT>
+
+		<LI><OBJECT TYPE="text/sitemap">
+			<PARAM NAME="Name" VALUE="Software Licence">
+			<PARAM NAME="Local" VALUE="html\Software_Licence.htm">
+			</OBJECT>
+		</UL>
+	</UL>
+</HTML>

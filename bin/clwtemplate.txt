@@ -1,0 +1,57 @@
+#PREFIX
+!======================================================================================
+! %MethodName %Prototype
+! purpose :   
+! inputs  :  
+! outputs :  
+! returns : %ReturnType
+!=======================================================================================
+#ENDPREFIX
+
+  MEMBER
+!=======================================================================================
+! Copyright 2017 by Devuna
+! Distributed under LGPLv3 (http://www.gnu.org/licenses/lgpl.html)  
+!=======================================================================================
+!Example class clw template
+!This Class was written by %UserName
+!Copyright %Copyright
+!Creation Date: %Date at %Time
+!=======================================================================================
+
+  INCLUDE('%IncFileName'),ONCE
+
+  MAP
+  END
+
+! ======================================================================================
+! %ClassName.Construct
+! purpose :   
+! inputs  :  
+! outputs :  
+! returns : 
+! =======================================================================================
+%ClassName.Construct PROCEDURE
+
+  CODE
+
+  RETURN
+
+! ======================================================================================
+! %ClassName.Destruct
+! purpose :   
+! inputs  :  
+! outputs :  
+! returns : 
+! =======================================================================================
+%ClassName.Destruct PROCEDURE
+
+  CODE
+
+  RETURN
+
+%Methods
+
+%Properties
+
+%Interfaces

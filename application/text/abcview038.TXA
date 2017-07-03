@@ -1,0 +1,1668 @@
+[MODULE]
+[COMMON]
+FROM ABC GENERATED
+[EMBED]
+EMBED %StartOfModule
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 1300
+PROPERTY:END
+!region Notices
+! ================================================================================
+! Notice : Copyright (C) 2017, Devuna
+!          Distributed under LGPLv3 (http://www.gnu.org/licenses/lgpl.html)
+!
+!    This file is part of Devuna-ClassViewer (https://github.com/Devuna/Devuna-ClassViewer)
+!
+!    Devuna-ClassViewer is free software: you can redistribute it and/or modify
+!    it under the terms of the GNU General Public License as published by
+!    the Free Software Foundation, either version 3 of the License, or
+!    (at your option) any later version.
+!
+!    Devuna-ClassViewer is distributed in the hope that it will be useful,
+!    but WITHOUT ANY WARRANTY; without even the implied warranty of
+!    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+!    GNU General Public License for more details.
+!
+!    You should have received a copy of the GNU General Public License
+!    along with Devuna-ClassViewer.  If not, see <http://www.gnu.org/licenses/>.
+! ================================================================================
+!endregion Notices
+[END]
+[END]
+[PROCEDURE]
+NAME winGetScanOptions
+PROTOTYPE '(BYTE ForceSmartScan=0),LONG'
+PARAMETERS '(ForceSmartScan)'
+[COMMON]
+DESCRIPTION 'Get Scan Options'
+FROM ABC Window
+MODIFIED '2017/07/02' ' 8:43:08'
+[DATA]
+[SCREENCONTROLS]
+! PROMPT('Ret Val:'),USE(?RetVal:Prompt)
+! ENTRY(@n-14),USE(RetVal),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(RetVal),RIGHT(1)
+RetVal                   LONG
+!!> GUID('ba0e5415-73f5-4f35-9a8e-b2691bac3566'),INITIAL('Level:Notify'),PROMPT('Ret Val:'),HEADER('Ret Val'),PICTURE(@n-14),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! ENTRY(@n-14),USE(I)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(I)
+I                        LONG
+!!> GUID('95f148b8-b915-45e5-b067-bf0a7d1a3d35'),PICTURE(@n-14)
+[SCREENCONTROLS]
+! ENTRY(@n-14),USE(J)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(J)
+J                        LONG
+!!> GUID('37a7666c-343b-4c43-9a6b-5176b0c4a13a'),PICTURE(@n-14)
+[SCREENCONTROLS]
+! ENTRY(@n3),USE(loc:bEquates)
+[REPORTCONTROLS]
+! STRING(@n3),USE(loc:bEquates)
+loc:bEquates             BYTE
+!!> GUID('7d84df98-ea78-4112-b282-c78d3f2b6796'),PICTURE(@n3)
+[SCREENCONTROLS]
+! ENTRY(@n3),USE(loc:bKeycodes)
+[REPORTCONTROLS]
+! STRING(@n3),USE(loc:bKeycodes)
+loc:bKeycodes            BYTE
+!!> GUID('e6a65cf3-f19c-4d0c-9829-d8f1b198ecc9'),PICTURE(@n3)
+[SCREENCONTROLS]
+! ENTRY(@n3),USE(loc:bErrors)
+[REPORTCONTROLS]
+! STRING(@n3),USE(loc:bErrors)
+loc:bErrors              BYTE
+!!> GUID('42f44592-6447-493a-baa6-30bec53c24b5'),PICTURE(@n3)
+[SCREENCONTROLS]
+! ENTRY(@n3),USE(loc:bTplEqu)
+[REPORTCONTROLS]
+! STRING(@n3),USE(loc:bTplEqu)
+loc:bTplEqu              BYTE
+!!> GUID('94e4f7b0-8a99-4e7e-b6ef-df3b46d69852'),PICTURE(@n3)
+[SCREENCONTROLS]
+! ENTRY(@n3),USE(loc:bProperty)
+[REPORTCONTROLS]
+! STRING(@n3),USE(loc:bProperty)
+loc:bProperty            BYTE
+!!> GUID('dc51eff2-0592-4786-ab79-7891148f99d9'),PICTURE(@n3)
+[SCREENCONTROLS]
+! ENTRY(@n3),USE(loc:bWinEqu)
+[REPORTCONTROLS]
+! STRING(@n3),USE(loc:bWinEqu)
+loc:bWinEqu              BYTE
+!!> GUID('986b92b7-107c-4b3c-849d-0bc18620bb22'),PICTURE(@n3)
+[SCREENCONTROLS]
+! ENTRY(@n3),USE(loc:bPrnProp)
+[REPORTCONTROLS]
+! STRING(@n3),USE(loc:bPrnProp)
+loc:bPrnProp             BYTE
+!!> GUID('f6db4b31-7a89-4b74-8848-a9115ade9da3'),PICTURE(@n3)
+[SCREENCONTROLS]
+! ENTRY(@n3),USE(loc:bWindows)
+[REPORTCONTROLS]
+! STRING(@n3),USE(loc:bWindows)
+loc:bWindows             BYTE
+!!> GUID('ab6c4cdb-600b-4960-acf4-7462ebc02b54'),PICTURE(@n3)
+[SCREENCONTROLS]
+! ENTRY(@s255),USE(Q)
+[REPORTCONTROLS]
+! STRING(@s255),USE(Q)
+Q                        QUEUE,PRE(Q) !Queue of Module Names
+!!> GUID('e329584d-6cf2-462d-bbe1-a72c0558e80f'),PICTURE(@s255)
+[SCREENCONTROLS]
+! ENTRY(@s63),USE(Q:szModuleName)
+[REPORTCONTROLS]
+! STRING(@s63),USE(Q:szModuleName)
+szModuleName               CSTRING(64)
+!!> GUID('9ae3589f-d9af-4278-83a0-3be75834fe11'),PICTURE(@s63)
+[SCREENCONTROLS]
+! TEXT,USE(Q:szModulePath)
+[REPORTCONTROLS]
+! TEXT,USE(Q:szModulePath)
+szModulePath               CSTRING(256)
+!!> GUID('387cceb6-ce09-4e24-8613-3d375bd77eec'),PICTURE(@s255)
+[SCREENCONTROLS]
+! ENTRY(@n3),USE(Q:bClarionVersion)
+[REPORTCONTROLS]
+! STRING(@n3),USE(Q:bClarionVersion)
+bClarionVersion            BYTE
+!!> GUID('d405bed8-71b2-418e-997d-ad0fd37b2e2d'),PICTURE(@n3)
+                         END
+!!> GUID('26791058-7721-446b-89c0-c9c4648d0632')
+[SCREENCONTROLS]
+! ENTRY(@s63),USE(szSection)
+[REPORTCONTROLS]
+! STRING(@s63),USE(szSection)
+szSection                CSTRING(64)
+!!> GUID('392e3c0d-15a4-4d05-adf8-724e14f9226b'),PICTURE(@s63)
+[SCREENCONTROLS]
+! PROMPT('sz Red File Name:'),USE(?szRedFileName:Prompt)
+! ENTRY(@s63),USE(szRedFileName)
+[REPORTCONTROLS]
+! STRING(@s63),USE(szRedFileName)
+szRedFileName            CSTRING(64)
+!!> GUID('da87349b-90af-495e-91b8-7e3bd1d4f0b3'),PROMPT('sz Red File Name:'),HEADER('sz Red File Name'),PICTURE(@s63)
+[SCREENCONTROLS]
+! TEXT,USE(loc:szRedFilePath)
+[REPORTCONTROLS]
+! TEXT,USE(loc:szRedFilePath)
+loc:szRedFilePath        CSTRING(256)
+!!> GUID('f57a1025-111e-4471-8537-5a0fe08faa44'),PICTURE(@s255)
+[SCREENCONTROLS]
+! TEXT,USE(loc:szCurrentDir)
+[REPORTCONTROLS]
+! TEXT,USE(loc:szCurrentDir)
+loc:szCurrentDir         CSTRING(256)
+!!> GUID('004bdc56-2b27-479c-ba67-84d34fbdb109'),PICTURE(@s255)
+[SCREENCONTROLS]
+! ENTRY(@s42),USE(loc:szCompactRedFilePath)
+[REPORTCONTROLS]
+! STRING(@s42),USE(loc:szCompactRedFilePath)
+loc:szCompactRedFilePath CSTRING(43)
+!!> GUID('9c2d2580-99c6-41bd-826a-69fbc02fc64b'),PROMPT('loc : sz Compact Red File Path:'),HEADER('loc : sz Compact Red File Path'),PICTURE(@s42)
+[SCREENCONTROLS]
+! ENTRY(@s42),USE(loc:szCompactCurrentDir)
+[REPORTCONTROLS]
+! STRING(@s42),USE(loc:szCompactCurrentDir)
+loc:szCompactCurrentDir  CSTRING(43)
+!!> GUID('37a2907a-f71a-4eee-b909-2d8bce81e77a'),PROMPT('loc : sz Compact Current Dir:'),HEADER('loc : sz Compact Current Dir'),PICTURE(@s42)
+[PROMPTS]
+%ClassItem UNIQUE DEFAULT  ('Default', 'WindowToolbar')
+%DefaultBaseClassType DEPEND %ClassItem DEFAULT TIMES 2
+WHEN  ('Default') ('WindowManager')
+WHEN  ('WindowToolbar') ('ToolbarClass')
+
+%ActualDefaultBaseClassType DEPEND %ClassItem DEFAULT TIMES 2
+WHEN  ('Default') ('')
+WHEN  ('WindowToolbar') ('')
+
+%ClassLines DEPEND %ClassItem MULTI DEFAULT TIMES 1
+WHEN  ('Default') ('Init {19}PROCEDURE(),BYTE,PROC,DERIVED', 'Kill {19}PROCEDURE(),BYTE,PROC,DERIVED', |
+  'Open {19}PROCEDURE(),DERIVED', 'TakeAccepted {11}PROCEDURE(),BYTE,PROC,DERIVED', |
+  'TakeWindowEvent        PROCEDURE(),BYTE,PROC,DERIVED')
+
+%ReturnValue FIELD  (RetVal)
+%WindowOperationMode DEFAULT  ('Use WINDOW setting')
+%INISaveWindow LONG  (0)
+%ProcedureDisableEnhanceFocus LONG  (0)
+%ProcedureUseEnterInsteadTabOverride LONG  (0)
+%WindowUseEnterInsteadTab LONG  (1)
+%ProcedureUseEnterInsteadTabExcludeG LONG  (1)
+%WindowUseEnterInsteadTabExclude MULTI DEFAULT  ()
+%GlobalObject DEPEND %ClassItem DEFAULT TIMES 2
+WHEN  ('Default') ('NO')
+WHEN  ('WindowToolbar') ('NO')
+
+%ThisObjectName DEPEND %ClassItem DEFAULT TIMES 2
+WHEN  ('Default') ('ThisWindow')
+WHEN  ('WindowToolbar') ('Toolbar')
+
+%UseDefaultABCBaseClass DEPEND %ClassItem LONG TIMES 2
+WHEN  ('Default') (1)
+WHEN  ('WindowToolbar') (1)
+
+%UseABCBaseClass DEPEND %ClassItem LONG TIMES 2
+WHEN  ('Default') (1)
+WHEN  ('WindowToolbar') (1)
+
+%ABCBaseClass DEPEND %ClassItem DEFAULT TIMES 2
+WHEN  ('Default') ('ADOProcCommCalled')
+WHEN  ('WindowToolbar') ('ADOProcCommCalled')
+
+%ExtBaseClass DEPEND %ClassItem DEFAULT TIMES 0
+
+%BaseClassIncludeFile DEPEND %ClassItem DEFAULT TIMES 0
+
+%DeriveFromBaseClass DEPEND %ClassItem LONG TIMES 2
+WHEN  ('Default') (0)
+WHEN  ('WindowToolbar') (0)
+
+%NewMethods DEPEND %ClassItem MULTI LONG TIMES 0
+
+%NewMethodName DEPEND %NewMethods DEFAULT TIMES 0
+
+%NewMethodPrototype DEPEND %NewMethods DEFAULT TIMES 0
+
+%NewClassPropertyItems DEPEND %ClassItem MULTI LONG TIMES 0
+
+%NewClassProperty DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataType DEPEND %NewClassPropertyItems DEFAULT TIMES 1
+WHEN  ('WindowToolbar')TIMES 0
+
+%NewClassOtherType DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataIsRef DEPEND %NewClassPropertyItems LONG TIMES 0
+
+%NewClassDataSize DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim1 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim2 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim3 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim4 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%ClassMethods DEPEND %ClassItem MULTI LONG TIMES 0
+
+%ClassMethodName DEPEND %ClassMethods DEFAULT TIMES 0
+
+%ClassMethodPrototype DEPEND %ClassMethods DEFAULT TIMES 0
+
+%ClassPropertyItems DEPEND %ClassItem MULTI LONG TIMES 0
+
+%ClassProperty DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataType DEPEND %ClassPropertyItems DEFAULT TIMES 1
+WHEN  ('WindowToolbar')TIMES 0
+
+%ClassOtherType DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataIsRef DEPEND %ClassPropertyItems LONG TIMES 0
+
+%ClassDataSize DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim1 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim2 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim3 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim4 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%WindowStyles MULTI LONG  ()
+%WindowStyleFontName DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontNameVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontNameIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleFontSize DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontSizeVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontSizeIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleFontStyle DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontStyleVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontStyleIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleFontColor DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontCharSet DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleForegroundNormal DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleForegroundNormalVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleForegroundNormalIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleBackgroundNormal DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleBackgroundNormalVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleBackgroundNormalIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleForegroundSelected DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleForegroundSelectedVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleForegroundSelectedIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleBackgroundSelected DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleBackgroundSelectedVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleBackgroundSelectedIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStylePicture DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStylePictureVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStylePictureIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleOtherListboxes MULTI DEFAULT  ()
+%ProcedureAutoBindFields MULTI LONG  ()
+%ProcedureAutoBindField DEPEND %ProcedureAutoBindFields DEFAULT TIMES 0
+
+%ProcedureAutoBindFieldTPL DEPEND %ProcedureAutoBindFields DEFAULT TIMES 0
+
+%ProcedureAutoBindProcedures MULTI LONG  ()
+%ProcedureAutoBindProcedure DEPEND %ProcedureAutoBindProcedures DEFAULT TIMES 0
+
+%ProcedureAutoBindProcedureTPL DEPEND %ProcedureAutoBindProcedures DEFAULT TIMES 0
+
+%ProcedureUserBindFields MULTI LONG  ()
+%ProcedureUserBindField DEPEND %ProcedureUserBindFields FIELD TIMES 0
+
+%ProcedureAutoBindFieldIgnore DEPEND %ProcedureAutoBindFields LONG TIMES 0
+
+%ProcedureUserBindProcedures MULTI LONG  ()
+%ProcedureUserBindProcedure DEPEND %ProcedureUserBindProcedures PROCEDURE TIMES 0
+
+%ProcedureAutoBindProcedureIgnore DEPEND %ProcedureAutoBindProcedures LONG TIMES 0
+
+%ProcedureUserBindExpressions MULTI LONG  ()
+%ProcedureUserBindExpressionName DEPEND %ProcedureUserBindExpressions DEFAULT TIMES 0
+
+%ProcedureUserBindExpression DEPEND %ProcedureUserBindExpressions DEFAULT TIMES 0
+
+%ButtonAction DEPEND %Control DEFAULT TIMES 11
+WHEN  ('') ('No Special Action')
+WHEN  ('?AdditionalFilesButton') ('No Special Action')
+WHEN  ('?Cancel:Button') ('No Special Action')
+WHEN  ('?LookupCurrentDir:Button') ('No Special Action')
+WHEN  ('?LookupRedPath:Button') ('No Special Action')
+WHEN  ('?OK:Button') ('No Special Action')
+WHEN  ('?ScanPanel') ('No Special Action')
+WHEN  ('?StandardEquateGroup') ('No Special Action')
+WHEN  ('?glo:bRefreshAll') ('No Special Action')
+WHEN  ('?loc:bEquates') ('No Special Action')
+WHEN  ('?loc:bWinEqu') ('No Special Action')
+
+%ButtonRunName DEPEND %Control DEFAULT TIMES 1
+WHEN  ('?OK:Button') ('')
+
+%ButtonRunParameters DEPEND %Control DEFAULT TIMES 1
+WHEN  ('?OK:Button') ('')
+
+%ButtonProcedure DEPEND %Control PROCEDURE TIMES 1
+WHEN  ('?OK:Button') ()
+
+%ButtonThread DEPEND %Control LONG TIMES 1
+WHEN  ('?OK:Button') (0)
+
+%ButtonThreadStack DEPEND %Control DEFAULT TIMES 11
+WHEN  ('') ('25000')
+WHEN  ('?AdditionalFilesButton') ('25000')
+WHEN  ('?Cancel:Button') ('25000')
+WHEN  ('?LookupCurrentDir:Button') ('25000')
+WHEN  ('?LookupRedPath:Button') ('25000')
+WHEN  ('?OK:Button') ('25000')
+WHEN  ('?ScanPanel') ('25000')
+WHEN  ('?StandardEquateGroup') ('25000')
+WHEN  ('?glo:bRefreshAll') ('25000')
+WHEN  ('?loc:bEquates') ('25000')
+WHEN  ('?loc:bWinEqu') ('25000')
+
+%ButtonParameters DEPEND %Control DEFAULT TIMES 1
+WHEN  ('?OK:Button') ('')
+
+%ButtonReturnValueAssignment DEPEND %Control FIELD TIMES 1
+WHEN  ('?OK:Button') ()
+
+%ButtonReturnValueReferenceAssign DEPEND %Control LONG TIMES 1
+WHEN  ('?OK:Button') (0)
+
+%ButtonRequest DEPEND %Control DEFAULT TIMES 11
+WHEN  ('') ('None')
+WHEN  ('?AdditionalFilesButton') ('None')
+WHEN  ('?Cancel:Button') ('None')
+WHEN  ('?LookupCurrentDir:Button') ('None')
+WHEN  ('?LookupRedPath:Button') ('None')
+WHEN  ('?OK:Button') ('None')
+WHEN  ('?ScanPanel') ('None')
+WHEN  ('?StandardEquateGroup') ('None')
+WHEN  ('?glo:bRefreshAll') ('None')
+WHEN  ('?loc:bEquates') ('None')
+WHEN  ('?loc:bWinEqu') ('None')
+
+%ButtonThreadParameters DEPEND %Control DEFAULT TIMES 1
+WHEN  ('?OK:Button') ('')
+
+%ButtonThreadReturnValueAssignment DEPEND %Control FIELD TIMES 1
+WHEN  ('?OK:Button') ()
+
+%PreLookupKey DEPEND %Control KEY TIMES 0
+
+%PreLookupField DEPEND %Control COMPONENT TIMES 0
+
+%PreLookupProcedure DEPEND %Control PROCEDURE TIMES 0
+
+%PreLookupProcedureParameters DEPEND %Control DEFAULT TIMES 0
+
+%PostLookupKey DEPEND %Control KEY TIMES 0
+
+%PostLookupField DEPEND %Control COMPONENT TIMES 0
+
+%PostLookupProcedure DEPEND %Control PROCEDURE TIMES 0
+
+%PostLookupProcedureParameters DEPEND %Control DEFAULT TIMES 0
+
+%PostLookupDuringValidate DEPEND %Control LONG TIMES 11
+WHEN  ('') (1)
+WHEN  ('?AdditionalFilesButton') (1)
+WHEN  ('?LookupRedPath:Button') (1)
+WHEN  ('?OK:Button') (1)
+WHEN  ('?ScanPanel') (1)
+WHEN  ('?StandardEquateGroup') (1)
+WHEN  ('?glo:bRefreshAll') (1)
+WHEN  ('?loc:bEquates') (1)
+WHEN  ('?loc:bWinEqu') (1)
+WHEN  ('?loc:szCompactCurrentDir') (1)
+WHEN  ('?loc:szCompactRedFilePath') (1)
+
+%LookupAssign DEPEND %Control MULTI LONG TIMES 0
+
+%MoreField DEPEND %LookupAssign DEFAULT TIMES 0
+
+%MoreTarget DEPEND %LookupAssign FIELD TIMES 0
+
+%ForceWindowRefresh DEPEND %Control LONG TIMES 0
+
+%CheckedAssigns DEPEND %Control MULTI LONG TIMES 0
+
+%CheckedAssignVariable DEPEND %CheckedAssigns FIELD TIMES 0
+
+%CheckedAssignValue DEPEND %CheckedAssigns DEFAULT TIMES 0
+
+%CheckedHides DEPEND %Control MULTI LONG TIMES 0
+
+%CheckedControl DEPEND %CheckedHides DEFAULT TIMES 0
+
+%CheckedControlAction DEPEND %CheckedHides DEFAULT TIMES 9
+WHEN  ('')TIMES 0
+WHEN  ('?AdditionalFilesButton')TIMES 0
+WHEN  ('?LookupRedPath:Button')TIMES 0
+WHEN  ('?OK:Button')TIMES 0
+WHEN  ('?ScanPanel')TIMES 0
+WHEN  ('?StandardEquateGroup')TIMES 0
+WHEN  ('?glo:bRefreshAll')TIMES 0
+WHEN  ('?loc:bEquates')TIMES 0
+WHEN  ('?loc:bWinEqu')TIMES 0
+
+%CheckedEnables DEPEND %Control MULTI LONG TIMES 0
+
+%CheckedControl1 DEPEND %CheckedEnables DEFAULT TIMES 0
+
+%CheckedControl1Action DEPEND %CheckedEnables DEFAULT TIMES 9
+WHEN  ('')TIMES 0
+WHEN  ('?AdditionalFilesButton')TIMES 0
+WHEN  ('?LookupRedPath:Button')TIMES 0
+WHEN  ('?OK:Button')TIMES 0
+WHEN  ('?ScanPanel')TIMES 0
+WHEN  ('?StandardEquateGroup')TIMES 0
+WHEN  ('?glo:bRefreshAll')TIMES 0
+WHEN  ('?loc:bEquates')TIMES 0
+WHEN  ('?loc:bWinEqu')TIMES 0
+
+%UncheckedAssigns DEPEND %Control MULTI LONG TIMES 0
+
+%UncheckedAssignVariable DEPEND %UncheckedAssigns FIELD TIMES 0
+
+%UncheckedAssignValue DEPEND %UncheckedAssigns DEFAULT TIMES 0
+
+%UnCheckedHides DEPEND %Control MULTI LONG TIMES 0
+
+%UnCheckedControl DEPEND %UnCheckedHides DEFAULT TIMES 0
+
+%UnCheckedControlAction DEPEND %UnCheckedHides DEFAULT TIMES 9
+WHEN  ('')TIMES 0
+WHEN  ('?AdditionalFilesButton')TIMES 0
+WHEN  ('?LookupRedPath:Button')TIMES 0
+WHEN  ('?OK:Button')TIMES 0
+WHEN  ('?ScanPanel')TIMES 0
+WHEN  ('?StandardEquateGroup')TIMES 0
+WHEN  ('?glo:bRefreshAll')TIMES 0
+WHEN  ('?loc:bEquates')TIMES 0
+WHEN  ('?loc:bWinEqu')TIMES 0
+
+%UnCheckedEnables DEPEND %Control MULTI LONG TIMES 0
+
+%UnCheckedControl1 DEPEND %UnCheckedEnables DEFAULT TIMES 0
+
+%UnCheckedControl1Action DEPEND %UnCheckedEnables DEFAULT TIMES 9
+WHEN  ('')TIMES 0
+WHEN  ('?AdditionalFilesButton')TIMES 0
+WHEN  ('?LookupRedPath:Button')TIMES 0
+WHEN  ('?OK:Button')TIMES 0
+WHEN  ('?ScanPanel')TIMES 0
+WHEN  ('?StandardEquateGroup')TIMES 0
+WHEN  ('?glo:bRefreshAll')TIMES 0
+WHEN  ('?loc:bEquates')TIMES 0
+WHEN  ('?loc:bWinEqu')TIMES 0
+
+%ProcedureAutoBindFieldsIgnored MULTI LONG  ()
+%ProcedureAutoBindFieldIgnored DEPEND %ProcedureAutoBindFieldsIgnored DEFAULT TIMES 0
+
+%ProcedureAutoBindProceduresIgnored MULTI LONG  ()
+%ProcedureAutoBindProcedureIgnored DEPEND %ProcedureAutoBindProceduresIgnored DEFAULT TIMES 0
+
+%ProcedureAutoBindValidToAddField LONG  (0)
+%ProcedureUseEnterInsteadTabExcludeListCombo LONG  (0)
+%ProcedureUseEnterInsteadTabDisableNextTabStop LONG  (0)
+%ProcedureUseEnterInsteadTabEnableNextTabStop LONG  (0)
+%ExtUITabIcon DEPEND %Control DEFAULT TIMES 0
+
+%ExtUITabStyleOverrideGlobal DEPEND %Control LONG TIMES 0
+
+%ExtUITabStyle DEPEND %Control DEFAULT TIMES 1
+WHEN  ('') ('Default')
+
+%CheckedDisables DEPEND %Control MULTI LONG TIMES 0
+
+%CheckedDisableControl DEPEND %CheckedDisables DEFAULT TIMES 0
+
+%CheckedDisableControlAction DEPEND %CheckedDisables DEFAULT TIMES 1
+WHEN  ('')TIMES 0
+
+%UnCheckedDisables DEPEND %Control MULTI LONG TIMES 0
+
+%UnCheckedDisableControl DEPEND %UnCheckedDisables DEFAULT TIMES 0
+
+%UnCheckedDisableControlAction DEPEND %UnCheckedDisables DEFAULT TIMES 1
+WHEN  ('')TIMES 0
+
+%ProcedureOneInstance LONG  (0)
+%FieldGradientColorType DEPEND %Control DEFAULT TIMES 2
+WHEN  ('') ('Off')
+WHEN  ('?ScanPanel') ('Off')
+
+%FieldGradientColorTypeVariable DEPEND %Control DEFAULT TIMES 2
+WHEN  ('') ('')
+WHEN  ('?ScanPanel') ('')
+
+%FieldGradientColorTypeIsVariable DEPEND %Control LONG TIMES 2
+WHEN  ('') (0)
+WHEN  ('?ScanPanel') (0)
+
+%FieldGradientColorFrom DEPEND %Control LONG TIMES 2
+WHEN  ('') (-1)
+WHEN  ('?ScanPanel') (-1)
+
+%FieldGradientColorFromVariable DEPEND %Control DEFAULT TIMES 0
+
+%FieldGradientColorFromIsVariable DEPEND %Control LONG TIMES 2
+WHEN  ('') (0)
+WHEN  ('?ScanPanel') (0)
+
+%FieldGradientColorTo DEPEND %Control LONG TIMES 2
+WHEN  ('') (-1)
+WHEN  ('?ScanPanel') (-1)
+
+%FieldGradientColorToVariable DEPEND %Control DEFAULT TIMES 0
+
+%FieldGradientColorToIsVariable DEPEND %Control LONG TIMES 2
+WHEN  ('') (0)
+WHEN  ('?ScanPanel') (0)
+
+%PreserveVarsLoc MULTI LONG  ()
+%PreserveVarLoc DEPEND %PreserveVarsLoc DEFAULT TIMES 0
+
+%ActiveImageEnable DEPEND %Control LONG TIMES 0
+
+%AIObjectName DEPEND %Control DEFAULT TIMES 1
+WHEN  ('') ('AIBtn0')
+
+%AIEnableMimicControl DEPEND %Control LONG TIMES 1
+WHEN  ('') (1)
+
+%AIMimicControl DEPEND %Control DEFAULT TIMES 1
+WHEN  ('') ('?OK:Button')
+
+%AIImgRound DEPEND %Control LONG TIMES 0
+
+%AIOverrideImg DEPEND %Control DEFAULT TIMES 0
+
+%AIOverrideImgVariable DEPEND %Control DEFAULT TIMES 0
+
+%AIOverrideImgIsVariable DEPEND %Control LONG TIMES 1
+WHEN  ('') (0)
+
+%AIDisableImg DEPEND %Control DEFAULT TIMES 0
+
+%AIDisableImgVariable DEPEND %Control DEFAULT TIMES 0
+
+%AIDisableImgIsVariable DEPEND %Control LONG TIMES 1
+WHEN  ('') (0)
+
+%AIHotImg DEPEND %Control DEFAULT TIMES 0
+
+%AIHotImgVariable DEPEND %Control DEFAULT TIMES 0
+
+%AIHotImgIsVariable DEPEND %Control LONG TIMES 1
+WHEN  ('') (0)
+
+%AIPressedImg DEPEND %Control DEFAULT TIMES 0
+
+%AIPressedImgVariable DEPEND %Control DEFAULT TIMES 0
+
+%AIPressedImgIsVariable DEPEND %Control LONG TIMES 1
+WHEN  ('') (0)
+
+[EMBED]
+EMBED %WindowManagerMethodCodeSection
+[INSTANCES]
+WHEN 'Init'
+[INSTANCES]
+WHEN '(),BYTE'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 6500
+PROPERTY:END
+CASE glo:bClarionVersion
+  OF CWVERSION_C2
+     szSection = 'Clarion 2'
+     szRedFileName = '\bin\cw20.red'
+  OF CWVERSION_C4
+     szSection = 'Clarion 4'
+     szRedFileName = '\bin\clarion4.red'
+  OF CWVERSION_C5
+     szSection = 'Clarion 5'
+     szRedFileName = '\bin\clarion5.red'
+  OF CWVERSION_C5EE
+     szSection = 'Clarion 5  Enterprise Edition'
+     szRedFileName = '\bin\clarion5.red'
+  OF CWVERSION_C55
+     szSection = 'Clarion 5.5'
+     szRedFileName = '\bin\c55pe.red'
+  OF CWVERSION_C55EE
+     szSection = 'Clarion 5.5  Enterprise Edition'
+     szRedFileName = '\bin\c55ee.red'
+  OF CWVERSION_C60
+     szSection = 'Clarion 6.0'
+     szRedFileName = '\bin\c60pe.red'
+  OF CWVERSION_C60EE
+     szSection = 'Clarion 6.0  Enterprise Edition'
+     szRedFileName = '\bin\c60ee.red'
+  OF CWVERSION_C70
+     szSection = 'Clarion 7.'
+     !get redirection file from xml file
+     IF RECORDS(glo:VersionQ) = 0
+        cc = kcr_SHGetFolderPath(0,01ah,0,0,loc:szXMLFileName)
+        loc:szXMLFileName = loc:szXMLFileName & '\SoftVelocity\Clarion\7.0\ClarionProperties.xml'
+        srcReadClarionProps(loc:szXMLFileName)
+     END
+     LOOP I = 1 TO RECORDS(glo:VersionQ)
+        GET(glo:VersionQ,I)
+        IF UPPER(SUB(glo:VersionQ.VersionName,1,LEN(szSection))) = UPPER(szSection)
+           IF SUB(glo:VersionQ.VersionName,LEN(szSection)+3,4) > loc:build AND ~INSTRING('CLARION.NET',UPPER(glo:VersionQ.Path),1)
+              loc:build = SUB(glo:VersionQ.VersionName,LEN(szSection)+3,4)
+           END
+        END
+     END
+     LOOP I = 1 TO RECORDS(glo:VersionQ)
+        GET(glo:VersionQ,I)
+        IF SUB(glo:VersionQ.VersionName,LEN(szSection)+3,4) = loc:build
+           szRedFileName = '\' & glo:VersionQ.RedFile
+           BREAK
+        END
+     END
+
+  OF CWVERSION_C80
+     szSection = 'Clarion 8.'
+     !get redirection file from xml file
+     IF RECORDS(glo:VersionQ) = 0
+        cc = kcr_SHGetFolderPath(0,01ah,0,0,loc:szXMLFileName)
+        loc:szXMLFileName = loc:szXMLFileName & '\SoftVelocity\Clarion\8.0\ClarionProperties.xml'
+        srcReadClarionProps(loc:szXMLFileName)
+     END
+     LOOP I = 1 TO RECORDS(glo:VersionQ)
+        GET(glo:VersionQ,I)
+        IF UPPER(SUB(glo:VersionQ.VersionName,1,LEN(szSection))) = UPPER(szSection)
+           IF SUB(glo:VersionQ.VersionName,LEN(szSection)+3,4) > loc:build AND ~INSTRING('CLARION.NET',UPPER(glo:VersionQ.Path),1)
+              loc:build = SUB(glo:VersionQ.VersionName,LEN(szSection)+3,4)
+           END
+        END
+     END
+     LOOP I = 1 TO RECORDS(glo:VersionQ)
+        GET(glo:VersionQ,I)
+        IF SUB(glo:VersionQ.VersionName,LEN(szSection)+3,4) = loc:build
+           szRedFileName = '\' & glo:VersionQ.RedFile
+           BREAK
+        END
+     END
+
+  OF CWVERSION_C90
+     szSection = 'Clarion 9.'
+     !get redirection file from xml file
+     IF RECORDS(glo:VersionQ) = 0
+        cc = kcr_SHGetFolderPath(0,01ah,0,0,loc:szXMLFileName)
+        loc:szXMLFileName = loc:szXMLFileName & '\SoftVelocity\Clarion\9.0\ClarionProperties.xml'
+        srcReadClarionProps(loc:szXMLFileName)
+     END
+     LOOP I = 1 TO RECORDS(glo:VersionQ)
+        GET(glo:VersionQ,I)
+        IF UPPER(SUB(glo:VersionQ.VersionName,1,LEN(szSection))) = UPPER(szSection)
+           IF SUB(glo:VersionQ.VersionName,LEN(szSection)+3,4) > loc:build AND ~INSTRING('CLARION.NET',UPPER(glo:VersionQ.Path),1)
+              loc:build = SUB(glo:VersionQ.VersionName,LEN(szSection)+3,4)
+           END
+        END
+     END
+     LOOP I = 1 TO RECORDS(glo:VersionQ)
+        GET(glo:VersionQ,I)
+        IF SUB(glo:VersionQ.VersionName,LEN(szSection)+3,4) = loc:build
+           szRedFileName = '\' & glo:VersionQ.RedFile
+           BREAK
+        END
+     END
+
+  OF CWVERSION_C100
+     szSection = 'Clarion 10.'
+     !get redirection file from xml file
+     IF RECORDS(glo:VersionQ) = 0
+        cc = kcr_SHGetFolderPath(0,01ah,0,0,loc:szXMLFileName)
+        loc:szXMLFileName = loc:szXMLFileName & '\SoftVelocity\Clarion\10.0\ClarionProperties.xml'
+        srcReadClarionProps(loc:szXMLFileName)
+     END
+     LOOP I = 1 TO RECORDS(glo:VersionQ)
+        GET(glo:VersionQ,I)
+        IF UPPER(SUB(glo:VersionQ.VersionName,1,LEN(szSection))) = UPPER(szSection)
+           IF SUB(glo:VersionQ.VersionName,LEN(szSection)+3,4) > loc:build AND ~INSTRING('CLARION.NET',UPPER(glo:VersionQ.Path),1)
+              loc:build = SUB(glo:VersionQ.VersionName,LEN(szSection)+3,4)
+           END
+        END
+     END
+     LOOP I = 1 TO RECORDS(glo:VersionQ)
+        GET(glo:VersionQ,I)
+        IF SUB(glo:VersionQ.VersionName,LEN(szSection)+3,4) = loc:build
+           szRedFileName = '\' & glo:VersionQ.RedFile
+           BREAK
+        END
+     END
+
+END
+
+!get root folder
+IF glo:bClarionVersion < CWVERSION_C70
+   szRoot = GETINI(szSection,'root')                              !get root directory
+   IF szRoot[LEN(szRoot)] = '\'
+      szRoot[LEN(szRoot)] = '<0>'                                 !remove trailing backslash
+   END
+   IF glo:szRedFilePath
+      loc:szRedFilePath = glo:szRedFilePath
+   ELSE
+      loc:szRedFilePath = szRoot & szRedFileName
+   END
+ELSE
+   szRoot = glo:VersionQ.Root
+   IF glo:szRedFilePath
+      loc:szRedFilePath = glo:szRedFilePath
+   ELSE
+      loc:szRedFilePath = glo:VersionQ.RedDir & szRedFileName
+   END
+END
+PathCompactPathEx(loc:szCompactRedFilePath, loc:szRedFilePath, SIZE(loc:szCompactRedFilePath),0)
+
+IF glo:szCurrentDir
+   loc:szCurrentDir = glo:szCurrentDir
+ELSE
+   loc:szCurrentDir = LONGPATH(PATH())
+END
+PathCompactPathEx(loc:szCompactCurrentDir, loc:szCurrentDir, SIZE(loc:szCompactCurrentDir),0)
+
+FREE(Q)
+J = RECORDS(ExtraModuleQ)
+LOOP I = 1 TO J
+  GET(ExtraModuleQ,I)
+  IF ExtraQ:bClarionVersion = glo:bClarionVersion
+     Q = ExtraModuleQ
+     ADD(Q,+Q.szModuleName,+Q.szModulePath)
+     CASE UPPER(Q.szModuleName)
+     OF 'EQUATES.CLW'
+        loc:bEquates = TRUE
+     OF 'ERRORS.CLW'
+        loc:bErrors = TRUE
+     OF 'PROPERTY.CLW'
+        loc:bProperty = TRUE
+     OF 'PRNPROP.CLW'
+        loc:bPrnProp = TRUE
+     OF 'KEYCODES.CLW'
+        loc:bKeycodes = TRUE
+     OF 'TPLEQU.CLW'
+        loc:bTplEqu = TRUE
+     OF 'WINEQU.CLW'
+        loc:bWinEqu = TRUE
+     OF 'WINDOWS.INC'
+        loc:bWindows = TRUE
+     END
+  END
+END
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 8010
+PROPERTY:END
+CASE glo:Background
+OF 1  !Color
+   window{PROP:Wallpaper} = ''
+   window{PROP:Color} = glo:Color2
+OF 2  !Wallpaper
+   window{PROP:Wallpaper} = glo:szWallpaper2
+   window{PROP:Tiled} = glo:Tiled2
+   window{PROP:Color} = COLOR:NONE
+OF 3  !None
+   window{PROP:Wallpaper} = ''
+   window{PROP:Color} = COLOR:NONE
+END
+J = LASTFIELD()
+LOOP I = 1 TO J
+   SETFONT(I,glo:Typeface,glo:FontSize,glo:FontColor,glo:FontStyle,0)
+   CASE I
+   OF ?StandardEquateGroup
+      !XPStandardEquateGroup.FontName = glo:Typeface
+      !XPStandardEquateGroup.FontSize = glo:FontSize
+   END
+END
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 9500
+PROPERTY:END
+IF glo:bClarionVersion > CWVERSION_C60EE
+   subFolder = 'win\'
+ELSE
+   subFolder = ''
+END
+
+DISABLE(?loc:bEquates,?loc:bWindows)
+LOOP I = 1 TO 8
+  CASE I
+  OF 1
+     loc:szFileName = szRoot & '\libsrc\' & subFolder & '\equates.clw'
+     IF _access(loc:szFileName,0) = 0
+        ?loc:bEquates{PROP:Disable} = FALSE
+     END
+  OF 2
+     loc:szFileName = szRoot & '\libsrc\' & subFolder & '\errors.clw'
+     IF _access(loc:szFileName,0) = 0
+        ?loc:bErrors{PROP:Disable} = FALSE
+     END
+  OF 3
+     loc:szFileName = szRoot & '\libsrc\' & subFolder & '\property.clw'
+     IF _access(loc:szFileName,0) = 0
+        ?loc:bProperty{PROP:Disable} = FALSE
+     END
+  OF 4
+     loc:szFileName = szRoot & '\libsrc\' & subFolder & '\prnprop.clw'
+     IF _access(loc:szFileName,0) = 0
+        ?loc:bPrnProp{PROP:Disable} = FALSE
+     END
+  OF 5
+     loc:szFileName = szRoot & '\libsrc\' & subFolder & '\keycodes.clw'
+     IF _access(loc:szFileName,0) = 0
+        ?loc:bKeycodes{PROP:Disable} = FALSE
+     END
+  OF 6
+     loc:szFileName = szRoot & '\libsrc\' & subFolder & '\tplequ.clw'
+     IF _access(loc:szFileName,0) = 0
+        ?loc:bTplEqu{PROP:Disable} = FALSE
+     END
+  OF 7
+     loc:szFileName = szRoot & '\libsrc\' & subFolder & '\winequ.clw'
+     IF _access(loc:szFileName,0) = 0
+        ?loc:bWinEqu{PROP:Disable} = FALSE
+     END
+  OF 8
+     loc:szFileName = szRoot & '\libsrc\' & subFolder & '\windows.inc'
+     IF _access(loc:szFileName,0) = 0
+        ?loc:bWindows{PROP:Disable} = FALSE
+     END
+  END
+END
+
+IF ForceSmartScan = TRUE
+   glo:bRefreshAll = FALSE
+   POST(EVENT:Accepted,?OK:Button)
+END
+IF glo:bUseHTMLHelp
+   IF oHH &= NULL
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 9700
+PROPERTY:END
+   ELSE
+      oHH.SetHelpFile( 'ABCVIEW.CHM' )
+      oHH.SetTopic('Scan_Options.htm')
+   END
+END  
+[END]
+[END]
+WHEN 'Kill'
+[INSTANCES]
+WHEN '(),BYTE'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 1300
+PROPERTY:END
+IF glo:bShowTips
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 3800
+PROPERTY:END
+END
+[END]
+[END]
+[END]
+EMBED %ControlEventHandling
+[INSTANCES]
+WHEN '?loc:bEquates'
+[INSTANCES]
+WHEN 'Accepted'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 6000
+PROPERTY:END
+ Q.szModuleName = CLIP(LEFT(?{PROP:Text}))
+ Q.szModulePath = szRoot & '\LIBSRC\' & subFolder
+ Q.bClarionVersion = glo:bClarionVersion
+ IF loc:bEquates
+    ADD(Q,+Q.szModuleName,+Q.szModulePath)
+ ELSE
+    GET(Q,+Q.szModuleName,+Q.szModulePath)
+    IF ~ERRORCODE()
+       DELETE(Q)
+    END
+ END
+[END]
+[END]
+WHEN '?LookupRedPath:Button'
+[INSTANCES]
+WHEN 'Accepted'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 6000
+PROPERTY:END
+ IF ~FILEDIALOG('Select Redirection File',loc:szRedFilePath,'Redrection File (*.RED)|*.RED|All Files (*.*)|*.*',File:KeepDir+File:LongName)
+    IF glo:szRedFilePath
+       loc:szRedFilePath = glo:szRedFilePath
+    ELSE
+       IF glo:bClarionVersion < CWVERSION_C70
+          loc:szRedFilePath = szRoot & szRedFileName
+       ELSE
+          loc:szRedFilePath = glo:VersionQ.RedDir & szRedFileName
+       END
+    END
+ ELSE
+    PathCompactPathEx(loc:szCompactRedFilePath, loc:szRedFilePath, SIZE(loc:szCompactRedFilePath),0)
+    DISPLAY(?loc:szCompactRedFilePath)
+ END
+[END]
+[END]
+WHEN '?LookupCurrentDir:Button'
+[INSTANCES]
+WHEN 'Accepted'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 6000
+PROPERTY:END
+ IF ~FILEDIALOG('Select Current Working Directory',loc:szCurrentDir,'All Files (*.*)|*.*',File:KeepDir+File:LongName+File:Directory)
+    IF glo:szCurrentDir
+       loc:szCurrentDir = glo:szCurrentDir
+    ELSE
+       loc:szCurrentDir = LONGPATH(PATH())
+    END
+ ELSE
+    PathCompactPathEx(loc:szCompactCurrentDir, loc:szCurrentDir, SIZE(loc:szCompactCurrentDir),0)
+    DISPLAY(?loc:szCompactCurrentDir)
+ END
+[END]
+[END]
+WHEN '?OK:Button'
+[INSTANCES]
+WHEN 'Accepted'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 6000
+PROPERTY:END
+ glo:szRedFilePath = loc:szRedFilePath
+ glo:szCurrentDir = loc:szCurrentDir
+
+ INIMgr.Update('Options','Current Directory',glo:szCurrentDir)
+ INIMgr.Update('Options','RED File Path ' & glo:bClarionVersion,glo:szRedFilePath)
+
+ FREE(ExtraModuleQ)
+ J = RECORDS(Q)
+ LOOP I = 1 TO J
+   GET(Q,I)
+   ExtraModuleQ = Q
+   ADD(ExtraModuleQ,+ExtraModuleQ.szModuleName,+ExtraModuleQ.szModulePath)
+ END
+ RetVal = Level:Benign
+ POST(EVENT:CloseWindow)
+[END]
+[END]
+WHEN '?Cancel:Button'
+[INSTANCES]
+WHEN 'Accepted'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 6000
+PROPERTY:END
+ RetVal = Level:Notify
+ POST(EVENT:CloseWindow)
+[END]
+[END]
+WHEN '?loc:bKeycodes'
+[INSTANCES]
+WHEN 'Accepted'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 6000
+PROPERTY:END
+ Q.szModuleName = CLIP(LEFT(?{PROP:Text}))
+ Q.szModulePath = szRoot & '\LIBSRC\' & subFolder
+ Q.bClarionVersion = glo:bClarionVersion
+ IF loc:bKeycodes
+    ADD(Q,+Q.szModuleName,+Q.szModulePath)
+ ELSE
+    GET(Q,+Q.szModuleName,+Q.szModulePath)
+    IF ~ERRORCODE()
+       DELETE(Q)
+    END
+ END
+[END]
+[END]
+WHEN '?loc:bErrors'
+[INSTANCES]
+WHEN 'Accepted'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 6000
+PROPERTY:END
+ Q.szModuleName = CLIP(LEFT(?{PROP:Text}))
+ Q.szModulePath = szRoot & '\LIBSRC\' & subFolder
+ Q.bClarionVersion = glo:bClarionVersion
+ IF loc:bErrors
+    ADD(Q,+Q.szModuleName,+Q.szModulePath)
+ ELSE
+    GET(Q,+Q.szModuleName,+Q.szModulePath)
+    IF ~ERRORCODE()
+       DELETE(Q)
+    END
+ END
+[END]
+[END]
+WHEN '?loc:bTplEqu'
+[INSTANCES]
+WHEN 'Accepted'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 6000
+PROPERTY:END
+ Q.szModuleName = CLIP(LEFT(?{PROP:Text}))
+ Q.szModulePath = szRoot & '\LIBSRC\' & subFolder
+ Q.bClarionVersion = glo:bClarionVersion
+ IF loc:bTplEqu
+    ADD(Q,+Q.szModuleName,+Q.szModulePath)
+ ELSE
+    GET(Q,+Q.szModuleName,+Q.szModulePath)
+    IF ~ERRORCODE()
+       DELETE(Q)
+    END
+ END
+[END]
+[END]
+WHEN '?loc:bProperty'
+[INSTANCES]
+WHEN 'Accepted'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 6000
+PROPERTY:END
+ Q.szModuleName = CLIP(LEFT(?{PROP:Text}))
+ Q.szModulePath = szRoot & '\LIBSRC\' & subFolder
+ Q.bClarionVersion = glo:bClarionVersion
+ IF loc:bProperty
+    ADD(Q,+Q.szModuleName,+Q.szModulePath)
+ ELSE
+    GET(Q,+Q.szModuleName,+Q.szModulePath)
+    IF ~ERRORCODE()
+       DELETE(Q)
+    END
+ END
+[END]
+[END]
+WHEN '?loc:bWinEqu'
+[INSTANCES]
+WHEN 'Accepted'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 6000
+PROPERTY:END
+ Q.szModuleName = CLIP(LEFT(?{PROP:Text}))
+ Q.szModulePath = szRoot & '\LIBSRC\' & subFolder
+ Q.bClarionVersion = glo:bClarionVersion
+ IF loc:bWinEqu
+    ADD(Q,+Q.szModuleName,+Q.szModulePath)
+ ELSE
+    GET(Q,+Q.szModuleName,+Q.szModulePath)
+    IF ~ERRORCODE()
+       DELETE(Q)
+    END
+ END
+[END]
+[END]
+WHEN '?loc:bPrnProp'
+[INSTANCES]
+WHEN 'Accepted'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 6000
+PROPERTY:END
+ Q.szModuleName = CLIP(LEFT(?{PROP:Text}))
+ Q.szModulePath = szRoot & '\LIBSRC\' & subFolder
+ Q.bClarionVersion = glo:bClarionVersion
+ IF loc:bPrnProp
+    ADD(Q,+Q.szModuleName,+Q.szModulePath)
+ ELSE
+    GET(Q,+Q.szModuleName,+Q.szModulePath)
+    IF ~ERRORCODE()
+       DELETE(Q)
+    END
+ END
+[END]
+[END]
+WHEN '?loc:bWindows'
+[INSTANCES]
+WHEN 'Accepted'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 6000
+PROPERTY:END
+ Q.szModuleName = CLIP(LEFT(?{PROP:Text}))
+ Q.szModulePath = szRoot & '\LIBSRC\' & subFolder
+ Q.bClarionVersion = glo:bClarionVersion
+ IF loc:bWindows
+    ADD(Q,+Q.szModuleName,+Q.szModulePath)
+ ELSE
+    GET(Q,+Q.szModuleName,+Q.szModulePath)
+    IF ~ERRORCODE()
+       DELETE(Q)
+    END
+ END
+[END]
+[END]
+WHEN '?AdditionalFilesButton'
+[INSTANCES]
+WHEN 'Accepted'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 6000
+PROPERTY:END
+ winAdditionalFiles(Q,glo:bClarionVersion)
+[END]
+[END]
+[END]
+EMBED %WindowManagerMethodDataSection
+[INSTANCES]
+WHEN 'Init'
+[INSTANCES]
+WHEN '(),BYTE'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 5000
+PROPERTY:END
+loc:build         CSTRING(5)
+loc:szFileName    CSTRING(256)
+loc:szXMLFileName CSTRING(261)
+cc                LONG
+[END]
+[END]
+[END]
+EMBED %WindowEventHandling
+[INSTANCES]
+WHEN 'PreAlertKey'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 4499
+PROPERTY:END
+IF KEYCODE() <> EscKey
+   CYCLE
+END
+[END]
+[END]
+EMBED %DataSection
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 50
+PROPERTY:END
+!region Notices
+! ================================================================================
+! Notice : Copyright (C) 2017, Devuna
+!          Distributed under LGPLv3 (http://www.gnu.org/licenses/lgpl.html)
+!
+!    This file is part of Devuna-ClassViewer (https://github.com/Devuna/Devuna-ClassViewer)
+!
+!    Devuna-ClassViewer is free software: you can redistribute it and/or modify
+!    it under the terms of the GNU General Public License as published by
+!    the Free Software Foundation, either version 3 of the License, or
+!    (at your option) any later version.
+!
+!    Devuna-ClassViewer is distributed in the hope that it will be useful,
+!    but WITHOUT ANY WARRANTY; without even the implied warranty of
+!    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+!    GNU General Public License for more details.
+!
+!    You should have received a copy of the GNU General Public License
+!    along with Devuna-ClassViewer.  If not, see <http://www.gnu.org/licenses/>.
+! ================================================================================
+!endregion Notices
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 1300
+PROPERTY:END
+subFolder            CSTRING(5)
+[END]
+[END]
+[ADDITION]
+NAME ABC cwHHProc
+[INSTANCE]
+INSTANCE 5
+OWNER 5
+[PROMPTS]
+%cwHHFileName DEFAULT  ('')
+%cwHHContextURL DEFAULT  ('Scan_Options.htm')
+%cwHHAltTrapKey DEFAULT  ('')
+[ADDITION]
+NAME KCR KCR_ChangeWindowStyle
+[INSTANCE]
+INSTANCE 4
+[PROMPTS]
+%TplName DEFAULT  ('KCR_ChangeWindowStyle (Devuna)')
+%TplDescription DEFAULT  ('Change Window Style')
+%RemoveIcon LONG  (1)
+%OverrideDefaultIcon LONG  (0)
+%Icon DEFAULT  ('')
+%DisableMinimizeBox LONG  (0)
+%EnableSystemMenuBox LONG  (1)
+%IncludeQuestionMark LONG  (0)
+%TransparentWindow LONG  (0)
+[ADDITION]
+NAME ABC WindowResize
+[FIELDPROMPT]
+%ResizeAnchorTop DEPEND %Control LONG TIMES 0
+
+%ResizeAnchorLeft DEPEND %Control LONG TIMES 0
+
+%ResizeAnchorRight DEPEND %Control LONG TIMES 0
+
+%ResizeAnchorBottom DEPEND %Control LONG TIMES 0
+
+%ResizeAnchorGrowTop DEPEND %Control LONG TIMES 0
+
+%ResizeAnchorGrowLeft DEPEND %Control LONG TIMES 0
+
+%ResizeAnchorGrowRight DEPEND %Control LONG TIMES 0
+
+%ResizeAnchorGrowBottom DEPEND %Control LONG TIMES 0
+
+[INSTANCE]
+INSTANCE 1
+[PROMPTS]
+%ClassItem UNIQUE DEFAULT  ('Default')
+%DefaultBaseClassType DEPEND %ClassItem DEFAULT TIMES 1
+WHEN  ('Default') ('WindowResizeClass')
+
+%ActualDefaultBaseClassType DEPEND %ClassItem DEFAULT TIMES 1
+WHEN  ('Default') ('')
+
+%ClassLines DEPEND %ClassItem MULTI DEFAULT TIMES 1
+WHEN  ('Default') ('Init {19}PROCEDURE(BYTE AppStrategy=AppStrategy:Resize,BYTE SetWindowMinSize=False,BYTE SetWindowMaxSize=False)')
+
+%AppStrategy DEFAULT  ('Surface')
+%RestrictMinSize LONG  (1)
+%WindowMinWidth DEFAULT  ('')
+%WindowMinHeight DEFAULT  ('')
+%RestrictMaxSize LONG  (0)
+%WindowMaxWidth DEFAULT  ('')
+%WindowMaxHeight DEFAULT  ('')
+%OverrideControls MULTI LONG  (1, 2, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, |
+  17, 18, 19, 22)
+%OverrideControl DEPEND %OverrideControls DEFAULT TIMES 18
+WHEN  (1) ('?ScanPanel')
+WHEN  (2) ('?szRedFilePath:Prompt')
+WHEN  (4) ('?LookupRedPath:Button')
+WHEN  (5) ('?szCurrentDir:Prompt')
+WHEN  (7) ('?LookupCurrentDir:Button')
+WHEN  (8) ('?OK:Button')
+WHEN  (9) ('?Cancel:Button')
+WHEN  (10) ('?ClarionGroup')
+WHEN  (11) ('?StandardEquateGroup')
+WHEN  (12) ('?loc:bEquates')
+WHEN  (13) ('?loc:bErrors')
+WHEN  (14) ('?loc:bTplEqu')
+WHEN  (15) ('?loc:bProperty')
+WHEN  (16) ('?loc:bWinEqu')
+WHEN  (17) ('?loc:bPrnProp')
+WHEN  (18) ('?loc:bWindows')
+WHEN  (19) ('?AdditionalFilesButton')
+WHEN  (22) ('?loc:bKeycodes')
+
+%DisableResize DEPEND %OverrideControls LONG TIMES 18
+WHEN  (1) (0)
+WHEN  (2) (0)
+WHEN  (4) (0)
+WHEN  (5) (0)
+WHEN  (7) (0)
+WHEN  (8) (0)
+WHEN  (9) (0)
+WHEN  (10) (0)
+WHEN  (11) (0)
+WHEN  (12) (0)
+WHEN  (13) (0)
+WHEN  (14) (0)
+WHEN  (15) (0)
+WHEN  (16) (0)
+WHEN  (17) (0)
+WHEN  (18) (0)
+WHEN  (19) (0)
+WHEN  (22) (0)
+
+%HorizResize DEPEND %OverrideControls DEFAULT TIMES 18
+WHEN  (1) ('Constant Right Border')
+WHEN  (2) ('Lock Width')
+WHEN  (4) ('Lock Width')
+WHEN  (5) ('Lock Width')
+WHEN  (7) ('Lock Width')
+WHEN  (8) ('Lock Width')
+WHEN  (9) ('Lock Width')
+WHEN  (10) ('Constant Right Border')
+WHEN  (11) ('Constant Right Border')
+WHEN  (12) ('Lock Width')
+WHEN  (13) ('Lock Width')
+WHEN  (14) ('Lock Width')
+WHEN  (15) ('Lock Width')
+WHEN  (16) ('Lock Width')
+WHEN  (17) ('Lock Width')
+WHEN  (18) ('Lock Width')
+WHEN  (19) ('Lock Width')
+WHEN  (22) ('Lock Width')
+
+%VertResize DEPEND %OverrideControls DEFAULT TIMES 18
+WHEN  (1) ('Constant Bottom Border')
+WHEN  (2) ('Lock Height')
+WHEN  (4) ('Lock Height')
+WHEN  (5) ('Lock Height')
+WHEN  (7) ('Lock Height')
+WHEN  (8) ('Lock Height')
+WHEN  (9) ('Lock Height')
+WHEN  (10) ('Constant Bottom Border')
+WHEN  (11) ('Constant Bottom Border')
+WHEN  (12) ('Lock Height')
+WHEN  (13) ('Lock Height')
+WHEN  (14) ('Lock Height')
+WHEN  (15) ('Lock Height')
+WHEN  (16) ('Lock Height')
+WHEN  (17) ('Lock Height')
+WHEN  (18) ('Lock Height')
+WHEN  (19) ('Lock Height')
+WHEN  (22) ('Lock Height')
+
+%HorizPositional DEPEND %OverrideControls DEFAULT TIMES 18
+WHEN  (1) ('Fix Left')
+WHEN  (2) ('Fix Left')
+WHEN  (4) ('Fix Right')
+WHEN  (5) ('Fix Left')
+WHEN  (7) ('Fix Right')
+WHEN  (8) ('Fix Right')
+WHEN  (9) ('Fix Right')
+WHEN  (10) ('Fix Left')
+WHEN  (11) ('Fix Left')
+WHEN  (12) ('Fix Left')
+WHEN  (13) ('Fix Left')
+WHEN  (14) ('Fix Left')
+WHEN  (15) ('Fix Left')
+WHEN  (16) ('Fix Left')
+WHEN  (17) ('Fix Left')
+WHEN  (18) ('Fix Left')
+WHEN  (19) ('Fix Left')
+WHEN  (22) ('Fix Left')
+
+%VertPositional DEPEND %OverrideControls DEFAULT TIMES 18
+WHEN  (1) ('Fix Top')
+WHEN  (2) ('Fix Top')
+WHEN  (4) ('Fix Top')
+WHEN  (5) ('Fix Top')
+WHEN  (7) ('Fix Top')
+WHEN  (8) ('Fix Bottom')
+WHEN  (9) ('Fix Bottom')
+WHEN  (10) ('Fix Top')
+WHEN  (11) ('Fix Top')
+WHEN  (12) ('Fix Top')
+WHEN  (13) ('Fix Top')
+WHEN  (14) ('Fix Top')
+WHEN  (15) ('Fix Top')
+WHEN  (16) ('Fix Top')
+WHEN  (17) ('Fix Top')
+WHEN  (18) ('Fix Top')
+WHEN  (19) ('Fix Bottom')
+WHEN  (22) ('Fix Top')
+
+%AutoFindParents DEFAULT  ('Default')
+%DeferMoves DEFAULT  ('Default')
+%GlobalObject DEPEND %ClassItem DEFAULT TIMES 1
+WHEN  ('Default') ('NO')
+
+%ThisObjectName DEPEND %ClassItem DEFAULT TIMES 1
+WHEN  ('Default') ('Resizer')
+
+%UseDefaultABCBaseClass DEPEND %ClassItem LONG TIMES 1
+WHEN  ('Default') (1)
+
+%UseABCBaseClass DEPEND %ClassItem LONG TIMES 1
+WHEN  ('Default') (1)
+
+%ABCBaseClass DEPEND %ClassItem DEFAULT TIMES 1
+WHEN  ('Default') ('ADOProcCommCalled')
+
+%ExtBaseClass DEPEND %ClassItem DEFAULT TIMES 0
+
+%BaseClassIncludeFile DEPEND %ClassItem DEFAULT TIMES 0
+
+%DeriveFromBaseClass DEPEND %ClassItem LONG TIMES 1
+WHEN  ('Default') (0)
+
+%NewMethods DEPEND %ClassItem MULTI LONG TIMES 0
+
+%NewMethodName DEPEND %NewMethods DEFAULT TIMES 0
+
+%NewMethodPrototype DEPEND %NewMethods DEFAULT TIMES 0
+
+%NewClassPropertyItems DEPEND %ClassItem MULTI LONG TIMES 0
+
+%NewClassProperty DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataType DEPEND %NewClassPropertyItems DEFAULT TIMES 1
+WHEN  ('Default')TIMES 0
+
+%NewClassOtherType DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataIsRef DEPEND %NewClassPropertyItems LONG TIMES 0
+
+%NewClassDataSize DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim1 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim2 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim3 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim4 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%ClassMethods DEPEND %ClassItem MULTI LONG TIMES 0
+
+%ClassMethodName DEPEND %ClassMethods DEFAULT TIMES 0
+
+%ClassMethodPrototype DEPEND %ClassMethods DEFAULT TIMES 0
+
+%ClassPropertyItems DEPEND %ClassItem MULTI LONG TIMES 0
+
+%ClassProperty DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataType DEPEND %ClassPropertyItems DEFAULT TIMES 1
+WHEN  ('Default')TIMES 0
+
+%ClassOtherType DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataIsRef DEPEND %ClassPropertyItems LONG TIMES 0
+
+%ClassDataSize DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim1 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim2 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim3 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim4 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+[ADDITION]
+NAME KCR KCR_ToolTips
+[INSTANCE]
+INSTANCE 2
+[PROMPTS]
+%TplName DEFAULT  ('KCR_ToolTips (Devuna)')
+%TplDescription DEFAULT  ('ToolTips Extension')
+%UseBalloonTips LONG  (1)
+%ToolTipControls MULTI LONG  (1, 2, 3, 4, 5, 6)
+%ToolTipControl DEPEND %ToolTipControls DEFAULT TIMES 6
+WHEN  (1) ('?LookupRedPath:Button')
+WHEN  (2) ('?LookupCurrentDir:Button')
+WHEN  (3) ('?OK:Button')
+WHEN  (4) ('?Cancel:Button')
+WHEN  (5) ('?AdditionalFilesButton')
+WHEN  (6) ('?glo:bRefreshAll')
+
+%MultiLineTip DEPEND %ToolTipControls LONG TIMES 6
+WHEN  (1) (0)
+WHEN  (2) (1)
+WHEN  (3) (0)
+WHEN  (4) (0)
+WHEN  (5) (0)
+WHEN  (6) (1)
+
+%ToolTipTextOption DEPEND %ToolTipControls DEFAULT TIMES 6
+WHEN  (1) ('Use Tip Text')
+WHEN  (2) ('Use Tip Text')
+WHEN  (3) ('Use Tip Text')
+WHEN  (4) ('Use Tip Text')
+WHEN  (5) ('Use Tip Text')
+WHEN  (6) ('Use Tip Text')
+
+%TTLocalVariable DEPEND %ToolTipControls DEFAULT TIMES 6
+WHEN  (1) ('RetVal')
+WHEN  (2) ('RetVal')
+WHEN  (3) ('RetVal')
+WHEN  (4) ('RetVal')
+WHEN  (5) ('RetVal')
+WHEN  (6) ('RetVal')
+
+%TTGlobalVariable DEPEND %ToolTipControls DEFAULT TIMES 6
+WHEN  (1) ('glo:hwnd_main')
+WHEN  (2) ('glo:hwnd_main')
+WHEN  (3) ('glo:hwnd_main')
+WHEN  (4) ('glo:hwnd_main')
+WHEN  (5) ('glo:hwnd_main')
+WHEN  (6) ('glo:hwnd_main')
+
+%TTText DEPEND %ToolTipControls DEFAULT TIMES 0
+
+%ControlGetsFocus DEPEND %ToolTipControls LONG TIMES 6
+WHEN  (1) (1)
+WHEN  (2) (1)
+WHEN  (3) (1)
+WHEN  (4) (1)
+WHEN  (5) (1)
+WHEN  (6) (1)
+
+%ToolTipFeq DEPEND %ToolTipControls DEFAULT TIMES 6
+WHEN  (1) ('?LookupRedPath:Button')
+WHEN  (2) ('?LookupCurrentDir:Button')
+WHEN  (3) ('?OK:Button')
+WHEN  (4) ('?Cancel:Button')
+WHEN  (5) ('?AdditionalFilesButton')
+WHEN  (6) ('?glo:bRefreshAll')
+
+%DontApply LONG  (0)
+%ApplyAsRegularTip LONG  (0)
+%ToolTipTextColour LONG  (8388608)
+%SetDelayTime LONG  (0)
+%AutopopDelay DEFAULT  ('5000')
+%InitialDelay DEFAULT  ('2000')
+%ReshowDelay DEFAULT  ('100')
+%SetBackgroundColour LONG  (0)
+%ToolTipBkColour LONG  (12648447)
+[ADDITION]
+NAME ClassViewer OptionalToolTips
+[INSTANCE]
+INSTANCE 6
+PARENT 2
+[PROMPTS]
+%TplName DEFAULT  ('OptionalToolTips (ABC)')
+%TplDescription DEFAULT  ('Optional ToolTips Extension')
+%ConditionalGlobalVariable DEFAULT  ('glo:bShowTips')
+%ToolTipDelayTime DEFAULT  ('1000')
+[ADDITION]
+NAME KCR KCR_SetWindowHelp
+[INSTANCE]
+INSTANCE 3
+OWNER 4
+[PROMPTS]
+%TplName DEFAULT  ('KCR_SetWindowHelp (Devuna)')
+%TplDescription DEFAULT  ('Set Window Help Property')
+[CALLS]
+srcReadClarionProps
+winAdditionalFiles
+[WINDOW]
+Window  WINDOW('Scan Options'),AT(,,236,142),FONT(,,COLOR:Black,,CHARSET:ANSI),DOUBLE,TILED, |
+          ALRT(EscKey),CENTER,GRAY,PALETTE(256),WALLPAPER('WALLPAPER.GIF')
+          BUTTON('Scan N&ow'),AT(138,124,45,14),USE(?OK:Button),DEFAULT,#ORDINAL(1)
+          BUTTON('Cancel'),AT(187,124,45,14),USE(?Cancel:Button),#ORDINAL(2)
+          PANEL,AT(4,4,228,116),USE(?ScanPanel),FILL(COLOR:BTNFACE),#ORDINAL(3)
+          PROMPT('&Redirection File:'),AT(8,8),USE(?szRedFilePath:Prompt),TRN,#ORDINAL(4)
+          ENTRY(@s42),AT(72,8,140,10),USE(loc:szCompactRedFilePath),COLOR(COLOR:BTNFACE),READONLY, |
+            SKIP,#ORDINAL(5)
+          BUTTON('...'),AT(216,8,11,10),USE(?LookupRedPath:Button),TIP('Select the Redi' & |
+            'rection file to use.'),#ORDINAL(6)
+          PROMPT('&Current Directory:'),AT(8,22),USE(?szCurrentDir:Prompt),TRN,#ORDINAL(7)
+          ENTRY(@s42),AT(72,22,140,10),USE(loc:szCompactCurrentDir),COLOR(COLOR:BTNFACE),READONLY, |
+            SKIP,#ORDINAL(8)
+          BUTTON('...'),AT(216,22,11,10),USE(?LookupCurrentDir:Button),TIP('Select the ' & |
+            'directory to be used as the current<0DH,0AH>working directory for the scan' & |
+            'ning process.'),#ORDINAL(9)
+          GROUP,AT(8,32,219,84),USE(?ClarionGroup),BOXED,#ORDINAL(10)
+            GROUP(' Include Standard Equate Files'),AT(14,39,206,57),USE(?StandardEquateGroup), |
+              BOXED,#ORDINAL(11)
+              CHECK(' EQUATES.CLW'),AT(19,49),USE(loc:bEquates),COLOR(COLOR:BTNFACE),#ORDINAL(12)
+              CHECK(' KEYCODES.CLW'),AT(19,71),USE(loc:bKeycodes),COLOR(COLOR:BTNFACE),#ORDINAL(13)
+              CHECK(' ERRORS.CLW'),AT(19,60),USE(loc:bErrors),COLOR(COLOR:BTNFACE),#ORDINAL(14)
+              CHECK(' TPLEQU.CLW'),AT(100,60),USE(loc:bTplEqu),COLOR(COLOR:BTNFACE),#ORDINAL(15)
+              CHECK(' PROPERTY.CLW'),AT(100,49),USE(loc:bProperty),COLOR(COLOR:BTNFACE),#ORDINAL(16)
+              CHECK(' WINEQU.CLW'),AT(100,82),USE(loc:bWinEqu),COLOR(COLOR:BTNFACE),#ORDINAL(17)
+              CHECK(' PRNPROP.CLW'),AT(19,82),USE(loc:bPrnProp),COLOR(COLOR:BTNFACE),#ORDINAL(18)
+              CHECK(' WINDOWS.INC'),AT(100,71),USE(loc:bWindows),COLOR(COLOR:BTNFACE),#ORDINAL(19)
+            END
+            BUTTON('Additional &Files...'),AT(14,100,68,11),USE(?AdditionalFilesButton),TIP('Select Add' & |
+              'itional Files for Processing'),#ORDINAL(20)
+            CHECK(' Scan &All Source Files'),AT(100,100),USE(glo:bRefreshAll),COLOR(COLOR:BTNFACE), |
+              TIP('Check to scan all source files.<0DH,0AH>Leave unchecked to scan only' & |
+              ' files that have<0DH,0AH>been modified since the last scan.'),#ORIG(glo:bRefreshAll), |
+              #ORDINAL(21)
+          END
+        END
+
+[END]

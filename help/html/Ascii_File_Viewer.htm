@@ -1,0 +1,230 @@
+<!--
+! ================================================================================
+! Notice : Copyright (C) 2017, Devuna
+!          Distributed under LGPLv3 (http://www.gnu.org/licenses/lgpl.html)
+!
+!    This file is part of Devuna-ClassViewer (https://github.com/Devuna/Devuna-ClassViewer)
+!
+!    Devuna-ClassViewer is free software: you can redistribute it and/or modify
+!    it under the terms of the GNU General Public License as published by
+!    the Free Software Foundation, either version 3 of the License, or
+!    (at your option) any later version.
+!
+!    Devuna-ClassViewer is distributed in the hope that it will be useful,
+!    but WITHOUT ANY WARRANTY; without even the implied warranty of
+!    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+!    GNU General Public License for more details.
+!
+!    You should have received a copy of the GNU General Public License
+!    along with Devuna-ClassViewer.  If not, see <http://www.gnu.org/licenses/>.
+! ================================================================================
+-->
+<html><head><title>Ascii File Viewer</title>
+<meta name="GENERATOR" content="Forehtml Pro 5.0">
+<link rel="stylesheet" type="text/css" href="ClassViewer.css">
+
+
+<body>
+
+<table width="100%"><tr>
+<td align="left" width="33%"><a href="Contents.htm"><img src="\images\home.gif" align="bottom" alt="Contents"></a></td>
+<td align="center" width="33%"></td>
+<td align="right" width="33%"><a href="Main_Window.htm"><img src="\images\prev.gif" align="bottom" alt="Main Window"></a>
+<a href="Edit_Options.htm"><img src="\images\next.gif" align="bottom" alt="Edit Options"></a></td>
+</tr></table><hr>
+
+<p class="BannerBase">
+Ascii File Viewer</p><hr>
+<p class="Base">
+The Ascii File Viewer is the component of the program that provides a means for the user to easily view
+the selected item in the context of the selected item's source file(s).</p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+There are three user definable colors that are used by the Ascii File Viewer: Selected Background, Highlight
+Color 1, and Highlight Color 2.  [See: <a href="Edit_Options.htm">Edit Options</a>].</p>
+<p class="Base">
+&nbsp;</p>
+<UL><LI><p class="Bullet1" style="font-size: 10pt ; margin: 0pt  0pt  1px  0pt; font-family: segoe ui semilight,sans-serif; ">The
+Selected Background color highlights the currently selected source line.</p></LI>
+<LI><p class="Bullet1" style="font-size: 10pt ; margin: 0pt  0pt  1px  0pt; font-family: segoe ui semilight,sans-serif; ">Highlight
+Color 1 highlights the initial source line selected when the viewer was started.</p></LI>
+<LI><p class="Bullet1" style="font-size: 10pt ; margin: 0pt  0pt  1px  0pt; font-family: segoe ui semilight,sans-serif; ">Highlight
+Color 2 highlights source lines that reference the item that was selected in the Tree View when the viewer
+was started.</p></LI>
+<p class="Base">
+&nbsp;</p>
+<p class="Indent1">
+The highlighted source lines are shown on a COLOR:BTNFACE background except when the source line is also
+the currently selected source line; in which case the Selected Background color is used.</p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+<img src="\images\asciiViewer1.jpg" alt="\images\asciiViewer1.jpg" width="604" height="312" align="left">&nbsp;</p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+List Box</h4>
+<p class="Base">
+Use the scroll bars to view the source file.  Double Click to switch to Text Box mode.</p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+Text Box</h4>
+<p class="Base">
+The source file is available in a text control to allow the user to select and copy portions of the source
+file.</p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+Function Buttons</h4><table cellpadding="2">
+<tr><td width="192">
+<p class="Base">
+<img src="\images\vcrfirst.jpg" alt="\images\vcrfirst.jpg" align="baseline"></p></td><td width="192">
+<p class="Base">
+Top - Move to the first line of the file.</p></td></tr>
+<tr><td width="192">
+<p class="Base">
+<img src="\images\vcrback.jpg" alt="\images\vcrback.jpg" align="baseline"></p></td><td width="192">
+<p class="Base">
+Page Up - Move 1 page up in the file.</p></td></tr>
+<tr><td width="192">
+<p class="Base">
+<img src="\images\vcrforward.jpg" alt="\images\vcrforward.jpg" align="baseline"></p></td><td width="192">
+<p class="Base">
+Page Down - Move 1 page down in the file.</p></td></tr>
+<tr><td width="192">
+<p class="Base">
+<img src="\images\vcrlast.jpg" alt="\images\vcrlast.jpg" align="baseline"></p></td><td width="192">
+<p class="Base">
+Bottom - Move to the last line of the file.</p></td></tr>
+<tr><td width="192">
+<p class="Base">
+<img src="\images\goto.jpg" alt="\images\goto.jpg" align="baseline"></p></td><td width="192">
+<p class="Base">
+Go To - displays a small dialog box to allow the user to jump to any line number.</p></td></tr>
+<tr><td width="192">
+<p class="Base">
+<img src="\images\find.jpg" alt="\images\find.jpg" align="baseline"></p></td><td width="192">
+<p class="Base">
+Find - displays a small dialog box to allow the user to search for specific text.</p></td></tr>
+<tr><td width="192">
+<p class="Base">
+<img src="\images\printer.jpg" alt="\images\printer.jpg" align="baseline"></p></td><td width="192">
+<p class="Base">
+Print - displays a print options dialog to allow the user to print all or part of the file.</p></td></tr>
+<tr><td width="192">
+<p class="Base">
+<img src="\images\edit.jpg" alt="\images\edit.jpg" align="baseline"></p></td><td width="192">
+<p class="Base">
+Edit - launches the user defined Editor.</p></td></tr>
+<tr><td width="192">
+<p class="Base">
+<img src="\images\textview.jpg" alt="\images\textview.jpg" align="baseline"></p></td><td width="192">
+<p class="Base">
+Text - switch to the text view of the document.</p></td></tr>
+<tr><td width="192">
+<p class="Base">
+<img src="\images\listview.jpg" alt="\images\listview.jpg" width="21" height="21" align="baseline"></p></td><td width="192">
+<p class="Base">
+List - switch to the list view of the document.</p></td></tr></table>
+
+<p class="Base">
+&nbsp;</p>
+<h4>
+Hot Keys</h4><table cellpadding="2">
+<tr><td width="192">
+<p class="Base">
+Ctrl+G</p></td><td width="192">
+<p class="Base">
+display GoTo dialog</p></td></tr>
+<tr><td width="192">
+<p class="Base">
+Alt+F3</p></td><td width="192">
+<p class="Base">
+display Find dialog</p></td></tr>
+<tr><td width="192">
+<p class="Base">
+Ctrl+F</p></td><td width="192">
+<p class="Base">
+display Find dialog</p></td></tr>
+<tr><td width="192">
+<p class="Base">
+F3</p></td><td width="192">
+<p class="Base">
+Find Next match</p></td></tr>
+<tr><td width="192">
+<p class="Base">
+Shift+F3</p></td><td width="192">
+<p class="Base">
+Find Previous match</p></td></tr>
+<tr><td width="192">
+<p class="Base">
+Ctrl+F3</p></td><td width="192">
+<p class="Base">
+Find Next reference (when launched from Call Tree view)</p></td></tr>
+<tr><td width="192">
+<p class="Base">
+Ctrl+Shift+F3</p></td><td width="192">
+<p class="Base">
+Find Previous reference (when launched from Call Tree view)</p></td></tr>
+<tr><td width="192">
+<p class="Base">
+Ctrl+P</p></td><td width="192">
+<p class="Base">
+display Print dialog</p></td></tr>
+<tr><td width="192">
+<p class="Base">
+Ctrl+E</p></td><td width="192">
+<p class="Base">
+launch Editor</p></td></tr>
+<tr><td width="192">
+<p class="Base">
+Ctrl+T</p></td><td width="192">
+<p class="Base">
+switch to Text Mode</p></td></tr>
+<tr><td width="192">
+<p class="Base">
+Ctrl+L</p></td><td width="192">
+<p class="Base">
+switch to List Mode</p></td></tr></table>
+
+<p class="Base">
+&nbsp;</p>
+<h4>
+Popup Menu</h4>
+<p class="Base">
+<a name="afvPopupMenu"></a><img src="\images\EditPopupMenu.jpg" alt="\images\EditPopupMenu.jpg" width="210" height="135" align="baseline"></p>
+<p class="Base">
+Viewer functions can also be accessed from a popup menu.  Right-click on the viewer display to get the
+menu to appear.</p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+There are two special functions that are only available on the popup menu:</p>
+<p class="Base">
+Toggle All Folds - collapses or expands all folds</p>
+<p class="Base">
+FoldMargin - hides or shows the fold margin.</p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+The fundamental operation in folding is making lines invisible or visible. Line visibility is a property
+of the view rather than the document. From the point of view of the user, lines are hidden and displayed
+using fold points. Generally, the fold points of a document are based on the hierarchical structure of
+the document contents.</p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+Close</h4>
+<p class="Base">
+Close the Ascii File Viewer window.</p></UL>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+<span  style="font-size: 8pt ; ">Copyright © 2017 Devuna</span></p>
+<p class="Base">
+<span  style="font-size: 8pt ; ">All rights reserved.</span></p>
+</body></html>

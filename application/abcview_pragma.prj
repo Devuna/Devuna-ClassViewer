@@ -1,0 +1,13 @@
+#pragma link("abcview.res")
+
+#pragma define(_KCRDllMode_=>0)
+#pragma define(_KCRLinkMode_=>1)
+
+#pragma define(_XmlLibDllMode_=>0)
+#pragma define(_XmlLibLinkMode_=>1)
+
+#pragma define(_svDllMode_=>0)
+#pragma define(_svLinkMode_=>1)
+
+#pragma define(_Scintilla_=>1)
+#pragma define(UseDefaultWordlist=>0)

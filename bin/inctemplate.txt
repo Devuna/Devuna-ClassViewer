@@ -1,0 +1,48 @@
+#PROMPT('User Name:',@S60),%UserName,DEFAULT(ClassViewer),AT(,,180,10)
+#PROMPT('Copyright:',@S60),%Copyright,DEFAULT(©2014-2016 Devuna),AT(,,180,10)
+#PROMPT('Check Option 1',CHECK),%Check1,DEFAULT(0),AT(,,,10)
+#PROMPT('Check Option 2',CHECK),%Check2,DEFAULT(1),AT(80,68,,10)
+#PROMPT('Comments:',TEXT),%Comments,AT(8,,180,60),PROMPTAT(8,,,)
+#PROMPT('How Many?',SPIN(@N10)),%HowMany,AT(,,40,10)
+#PROMPT('If file not found',DROP('Create the file|Halt Program')),%FileNotFound,AT(,,180,10)
+#PROMPT('Ask for Choice',OPTION),%OptionSymbol,AT(,,180,54)
+#PROMPT('Option One',RADIO),%OptionSymbolRadio1,VALUE(A)
+#PROMPT('Option Two',RADIO),%OptionSymbolRadio2,VALUE(B)
+#PROMPT('Option Three',RADIO),%OptionSymbolRadio3,VALUE(C)
+#PROMPT('How Far?',SPIN(@N-10.2)),%HowFar,AT(40,128,40,10),PROMPTAT(8,128,36,10)
+
+!ABCIncludeFile(%Category)
+
+!================================================================
+! Copyright 2017 by Devuna
+! Distributed under LGPLv3 (http://www.gnu.org/licenses/lgpl.html)  
+!================================================================
+!Example class inc template
+!This Class was written by %UserName
+!Copyright %Copyright
+!Creation Date: %Date at %Time
+!================================================================
+
+OMIT('_EndOfInclude_',_%ClassNameClassPresent_)
+_%ClassNameClassPresent_ EQUATE(1)
+
+%ClassName          CLASS,TYPE,MODULE('%ClwFileName'),LINK('%ClwFileName',_%CategoryLinkMode_),DLL(_%CategoryDllMode_)
+Construct             PROCEDURE
+Destruct              PROCEDURE
+%Methods21
+%Properties21
+                    END
+
+!_EndOfInclude_
+
+OMIT('end_omit')
+Check1 = %Check1
+Check2 = %Check2
+How Many? = %HowMany
+How Far? = %HowFar
+File Not Found Selection = %FileNotFound
+Option = %OptionSymbol
+!comments----------------
+!%Comments
+!comments----------------
+!end_omit

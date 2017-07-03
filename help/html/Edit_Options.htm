@@ -1,0 +1,501 @@
+<!--
+! ================================================================================
+! Notice : Copyright (C) 2017, Devuna
+!          Distributed under LGPLv3 (http://www.gnu.org/licenses/lgpl.html)
+!
+!    This file is part of Devuna-ClassViewer (https://github.com/Devuna/Devuna-ClassViewer)
+!
+!    Devuna-ClassViewer is free software: you can redistribute it and/or modify
+!    it under the terms of the GNU General Public License as published by
+!    the Free Software Foundation, either version 3 of the License, or
+!    (at your option) any later version.
+!
+!    Devuna-ClassViewer is distributed in the hope that it will be useful,
+!    but WITHOUT ANY WARRANTY; without even the implied warranty of
+!    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+!    GNU General Public License for more details.
+!
+!    You should have received a copy of the GNU General Public License
+!    along with Devuna-ClassViewer.  If not, see <http://www.gnu.org/licenses/>.
+! ================================================================================
+-->
+<html><head><title>Edit Options</title>
+<meta name="GENERATOR" content="Forehtml Pro 5.0">
+<link rel="stylesheet" type="text/css" href="ClassViewer.css">
+
+
+<body>
+
+<table width="100%"><tr>
+<td align="left" width="33%"><a href="Contents.htm"><img src="\images\home.gif" align="bottom" alt="Contents"></a></td>
+<td align="center" width="33%"></td>
+<td align="right" width="33%"><a href="Ascii_File_Viewer.htm"><img src="\images\prev.gif" align="bottom" alt="Ascii File Viewer"></a>
+<a href="Scan_Options.htm"><img src="\images\next.gif" align="bottom" alt="Scan Options"></a></td>
+</tr></table><hr>
+
+<p class="BannerBase">
+Edit Options</p><hr>
+<p class="Base">
+The Edit Options dialog is used to configure the appearance and behaviour of the program.  The options,
+except for the Standard Equate Files and Additional Files List, are stored in the program INI file.</p>
+<p class="Base">
+&nbsp;</p><table cellpadding="2">
+<tr><td width="192" height="163">
+<p class="Base">
+<img src="\images\note22.jpg" alt="\images\note22.jpg" width="51" height="27" align="baseline"></p></td><td width="192" height="163">
+<p class="Base">
+The program will first look in current directory for a file named ClassViewer.INI.  If it finds a local ini
+file, it will use that one, otherwise it will default to the ini file located in the %windir folder.
+This is useful if the program is run from multiple folders to maintain several different database sets.</p></td></tr></table>
+
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+<a name="ClarionTab"></a><img src="\images\EDITOPTIONS3.jpg" alt="\images\EDITOPTIONS3.jpg" width="642" height="381" align="baseline" USEmap="#EDITOPTIONS">
+<map name="EDITOPTIONS">
+<area shape="rect" coords="11,113,145,130" href="Edit_Options.htm#ViewerTab">
+<area shape="rect" coords="12,97,146,112" href="Edit_Options.htm#TemplatesTab">
+<area shape="rect" coords="12,82,146,99" href="Edit_Options.htm#EditorTab">
+<area shape="rect" coords="12,66,145,82" href="Edit_Options.htm#ColorPreferencesTab">
+<area shape="rect" coords="12,50,146,64" href="Edit_Options.htm#ApplicationTab"></map></p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+Include Standard Equate Files</h4>
+<p class="Base">
+Use the check boxes it select the standard equate files to be included in the scan.  By default, the scan
+process only scans the class inc and clw files.  There are several other standard files that contain items
+that may be of interest to the user and the check boxes provide a convenient way to specify the inclusions
+desired.  Standard files that are not available in the <span  style=" font-variant: small-caps ;">%root%\libsrc</span>
+folder are disabled.</p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+Additional Files</h4>
+<p class="Base">
+Press the Additional Files button to display the <a href="Additional_Files.htm">Additional Files</a> dialog
+which allows the user to include specific files.</p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+Redirection File</h4>
+<p class="Base">
+The redirection file is the primary mechanism used by Class Viewer to determine what folders need to be
+scanned.  The default value is the standard redirection file for the version of Clarion that has been
+selected.  The user can override this file prior to scanning by pressing the ellipsis button to the right
+of the field.  A file dialog is displayed to allow the user to select a redirection file.</p>
+<h4>
+&nbsp;</h4>
+<p class="Base">
+<a name="ApplicationTab"></a><img src="\images\aPPLICATIONTAB4.jpg" alt="\images\aPPLICATIONTAB4.jpg" width="642" height="381" align="baseline" USEmap="#APPLICATIONTAB">
+<map name="APPLICATIONTAB">
+<area shape="rect" coords="12,114,145,128" href="Edit_Options.htm#ViewerTab">
+<area shape="rect" coords="12,34,145,48" href="Edit_Options.htm#ClarionTab">
+<area shape="rect" coords="12,66,145,80" href="Edit_Options.htm#ColorPreferencesTab">
+<area shape="rect" coords="12,82,145,96" href="Edit_Options.htm#EditorTab">
+<area shape="rect" coords="12,98,145,112" href="Edit_Options.htm#TemplatesTab"></map></p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+Font</h4>
+<p class="Base">
+Use the ellipsis to the right of the field to select the font to be used by the application.  Care should
+be taken not to choose too large of a font size as the screens may not be able to accommodate it.</p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+Background</h4>
+<p class="Base">
+The drop list provides the following choices:</p>
+<H5 style="font-size: 10pt ; font-weight: bold; margin: 6pt  0pt  1px  27pt ; ">
+Color</H5>
+<p class="Indent1">
+Choose this option to select colors to be used for the application windows.</p>
+<p class="Indent1">
+&nbsp;</p>
+<H6>
+Color 1</H6>
+<H6>
+This is the color used by the Main window.</H6>
+<H6>
+&nbsp;</H6>
+<H6>
+Color 2</H6>
+<H6>
+This is the color used by all windows except the Main window.</H6>
+<H5 style="font-size: 10pt ; font-weight: bold; margin: 6pt  0pt  1px  27pt ; ">
+Wallpaper</H5>
+<p class="Indent1">
+Choose this option to select wallpapers to be used for the application windows.</p>
+<p class="Indent1">
+&nbsp;</p>
+<H6>
+Wallpaper 1</H6>
+<H6>
+This is the wallpaper used by the Main window.</H6>
+<H6>
+&nbsp;</H6>
+<H6>
+Wallpaper 2</H6>
+<H6>
+This is the wallpaper used by all windows except the Main window.</H6>
+<H5 style="font-size: 10pt ; font-weight: bold; margin: 6pt  0pt  1px  27pt ; ">
+None</H5>
+<p class="Indent1">
+Choose this option to disable the use of colors or wallpapers for the application windows.</p>
+<p class="Indent1">
+&nbsp;</p>
+<h4>
+DoubleClick Action</h4>
+<p class="Base">
+Select the default program action when a Tree View item is double clicked.</p>
+<UL><LI><p class="Bullet1" style="font-size: 10pt ; margin: 0pt  0pt  1px  0pt; font-family: segoe ui semilight,sans-serif; "><b>View</b>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;invoke the Ascii File Viewer</p></LI></UL>
+<UL><LI><p class="Bullet1" style="font-size: 10pt ; margin: 0pt  0pt  1px  0pt; font-family: segoe ui semilight,sans-serif; "><b>Edit</b>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;invoke the default Editor
+<bR>&nbsp;</p></LI>
+<h4>
+Enable Balloon Tips</h4>
+<p class="Base">
+Check this option to enable balloon style tooltips.  You will need to restart the application in order
+for a change in this option to have effect.</p>
+<p class="Base">
+&nbsp;</p><table cellpadding="2">
+<tr><td width="192">
+<p class="Base">
+<img src="\images\note22.jpg" alt="\images\note22.jpg" width="51" height="27" align="baseline"></p></td><td width="192">
+<p class="Base">
+Some users have reported problems seeing tooltips when this option is enabled.  If the program is not
+displaying tooltips, try turning this option off.</p></td></tr></table>
+
+<p class="Base">
+&nbsp;</p>
+<h4>
+Auto Expand</h4>
+<p class="Base">
+Check this option to have the program automatically expand an item in the Tree View when it is selected
+in the Object List.  If this option is unchecked, then the Tree View for the selected object will not
+be expanded.</p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+<a name="SparseTrees"></a>Show Sparse Trees</h4>
+<p class="Base">
+Check this option to limit the tree to the selected class and its direct parents.  Uncheck to have the
+tree display the class parents and all classes derived from the parent classes.</p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+Use html Help</h4>
+<p class="Base">
+Check this option to use html style help.  Uncheck to use Windows style help.</p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+Favorites Menu...</h4>
+<p class="Base">
+Press this button to access the <a href="Favorites_Menu.htm">Favorites Menu</a> dialog.  The dialog is
+used to configure the Favorites Menu located on the Main window Tools Menu.</p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+XML Stylesheet</h4>
+<p class="Base">
+Use the ellipsis button to the right of this field to select an XML stylesheet.  If the field is not empty,
+the XML export options will place a &lt;?xml-style ?&gt; processing instruction near the beginning of
+the exported xml files.  If you do not use style sheets to view the XML export files, then leave this
+field blank.  To clear the field, remove the XmlStyleSheet= line from the abcview.ini file.</p>
+<h4>
+<a name="ColorPreferencesTab"></a>&nbsp;</h4>
+<p class="Base">
+<img src="\images\COLORPREFERENCESTAB4.jpg" alt="\images\COLORPREFERENCESTAB4.jpg" width="642" height="381" align="baseline" USEmap="#COLORPREFERENCESTAB">
+<map name="COLORPREFERENCESTAB">
+<area shape="rect" coords="12,33,144,47" href="Edit_Options.htm#ClarionTab">
+<area shape="rect" coords="12,48,144,63" href="Edit_Options.htm#ApplicationTab">
+<area shape="rect" coords="11,79,145,95" href="Edit_Options.htm#EditorTab">
+<area shape="rect" coords="12,97,146,113" href="Edit_Options.htm#TemplatesTab">
+<area shape="rect" coords="12,113,145,130" href="Edit_Options.htm#ViewerTab"></map></p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+Selected Back</h4>
+<p class="Base">
+Use the ellipsis button to the right of the field to select the Selected Back color.  This color is used
+in the application list boxes, the Ascii File Viewer, and in the refresh progress bar.</p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+Module Color</h4>
+<p class="Base">
+Use the ellipsis button to the right of the field to select the Module color.  This color is used to identify
+items that are declared within the class definition module.</p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+Private Color</h4>
+<p class="Base">
+Use the ellipsis button to the right of the field to select the Private color.  This color is used to
+identify items that have the <span  style=" font-variant: small-caps ;">private</span> attribute.</p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+Protected Color</h4>
+<p class="Base">
+Use the ellipsis button to the right of the field to select the Protected color.  This color is used to
+identify items that have the <span  style=" font-variant: small-caps ;">protected</span> attribute.</p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+Virtual Color</h4>
+<p class="Base">
+Use the ellipsis button to the right of the field to select the Virtual color.  This color is used to
+identify items that have the <span  style=" font-variant: small-caps ;">virtual</span> attribute.</p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+Hyperlink Color</h4>
+<p class="Base">
+Use the ellipsis button to the right of the field to select the Hyperlink color.  This color is used (in
+addition to the underline font) to identify references to objects that can be hyperlinked.  This color
+will not override the Private or Protected attribute colors.</p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+Note Color</h4>
+<p class="Base">
+Use the ellipsis button to the right of the field to select the Note background color.  This color is
+used as the background color when viewing notes.</p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+Highlight Color 1</h4>
+<p class="Base">
+Use the ellipsis button to the right of the field to select the Ascii File Viewer Highlight Color 1.
+This color is used by the Ascii File Viewer to identify the source line that was jumped to when the Ascii
+File Viewer was invoked.  The background color used with the highlight color is COLOR:BTNFACE.</p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+Highlight Color 2</h4>
+<p class="Base">
+Use the ellipsis button to the right of the field to select the Ascii File Viewer Highlight Color 2.
+This color is used by the Ascii File Viewer to identify the lines that contain references to item highlighted
+in the Tree View when the Ascii File Viewer was invoked.  The background color used with the highlight
+color is COLOR:BTNFACE.</p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+<a name="EditorTab"></a><img src="\images\EDITORTAB4.jpg" alt="\images\EDITORTAB4.jpg" width="642" height="381" align="baseline" USEmap="#EDITORTAB">
+<map name="EDITORTAB">
+<area shape="rect" coords="12,33,145,49" href="Edit_Options.htm#ClarionTab">
+<area shape="rect" coords="12,49,145,64" href="Edit_Options.htm#ApplicationTab">
+<area shape="rect" coords="12,66,145,80" href="Edit_Options.htm#ColorPreferencesTab">
+<area shape="rect" coords="12,98,146,113" href="Edit_Options.htm#TemplatesTab">
+<area shape="rect" coords="12,113,145,129" href="Edit_Options.htm#ViewerTab"></map></p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+Use Windows Associations</h4>
+<p class="Base">
+Check this option if you want to use Windows Associations when initiating an edit process for a file.</p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+Command Line</h4>
+<p class="Base">
+Enter the command line to be used when initiating an edit process for a file.  Use the ellipsis button
+to the right of the field to locate the editor program.</p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+Editor List</h4>
+<p class="Base">
+The editor list contains a list of suggested editors that can be used with the Class Viewer program.
+These shareware editors are reasonably priced, support syntax/keyword coloring and have been recommended
+by our users.  Devuna has no association with any of the vendors mentioned in the list and does not provide
+support for the editors listed.  The list is provided for the convenience of our Class Viewer users.
+</p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+Double click on a web address to be taken to that vendor's web site where you can download a trial version
+of their editor.</p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+Double click on the Command Line Example to have it pasted into the Command Line field.</p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+<img src="\images\TEMPLATESTAB3.jpg" alt="\images\TEMPLATESTAB3.jpg" width="708" height="381" align="baseline" USEmap="#TEMPLATESTAB">
+<map name="TEMPLATESTAB">
+<area shape="rect" coords="12,33,210,49" href="Edit_Options.htm#ClarionTab">
+<area shape="rect" coords="12,49,210,65" href="Edit_Options.htm#ApplicationTab">
+<area shape="rect" coords="12,66,209,82" href="Edit_Options.htm#ColorPreferencesTab">
+<area shape="rect" coords="12,81,210,97" href="Edit_Options.htm#EditorTab">
+<area shape="rect" coords="12,113,210,129" href="Edit_Options.htm#ViewerTab"></map><a name="TemplatesTab"></a></p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+Class Include File Templates</h4>
+<p class="Base">
+Press this button to access the inc Template file registry.  inc Templates are simple text files that
+are used by the <a href="Add_Class_Wizard.htm">Add Class Wizard</a> to generate class include (inc) files.
+Before they can be used, templates must be added to the template registry.</p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+Class Source File Templates</h4>
+<p class="Base">
+Press this button to access the clw template file registry.  clw templates are simple text files that
+are used by the <a href="Add_Class_Wizard.htm">Add Class Wizard</a> to generate class source (clw) files.
+Before they can be used, templates must be added to the template registry.</p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+<b>Wrapper Generator Templates</b></p>
+<p class="Base">
+Press this button to access the wrapper generator template registry.  Wrapper generator templates are
+simple text files that are used by the Wrapper Generator to generate template (tpl) files.</p>
+<p class="Base">
+Before they can be used, templates must be added to the template registry.</p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+<a name="ViewerTab"></a><img src="\images\VIEWERTAB3.jpg" alt="\images\VIEWERTAB3.jpg" width="642" height="381" align="baseline" USEmap="#VIEWERTAB">
+<map name="VIEWERTAB">
+<area shape="rect" coords="12,33,130,48" href="Edit_Options.htm#ClarionTab">
+<area shape="rect" coords="12,49,128,64" href="Edit_Options.htm#ApplicationTab">
+<area shape="rect" coords="12,66,128,80" href="Edit_Options.htm#ColorPreferencesTab">
+<area shape="rect" coords="12,82,128,97" href="Edit_Options.htm#EditorTab">
+<area shape="rect" coords="11,97,128,113" href="Edit_Options.htm#TemplatesTab"></map></p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+The Viewer Folder contains one folder for Default settings and then a folder for each lexer style used
+by the scintilla control.  The options for each folder are the same.</p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+Font</h4>
+<p class="Base">
+Use the ellipsis to the right of the field to select the font to be used by the style identified by the
+current tab.</p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+Fore Color</h4>
+<p class="Base">
+Use the ellipsis button to the right of the field to select the Foreground color.</p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+Back Color</h4>
+<p class="Base">
+Use the ellipsis button to the right of the field to select the Background color.</p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+Case</h4>
+<p class="Base">
+Select the case to be used by the style identified by the current tab.</p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+Options</h4>
+<p class="Base">
+Select athe additional options to be used by the style identified by the current tab.</p>
+<p class="Base">
+&nbsp;</p>
+<H5 style="font-size: 10pt ; font-weight: bold; margin: 6pt  0pt  1px  27pt ; ">
+EOL Filled</H5>
+<H6>
+If the last character in the line has a style with this attribute set, the remainder of the line up to
+the right edge of the window is filled with the background colour set for the last character. This is
+useful when a document contains embedded sections in another language such as html pages with embedded
+JavaScript. By setting <span class="CODE1">eolFilled</span><span  style="font-size: 12pt ; font-family: Times New Roman,sans-serif; ">
+to </span><span class="CODE1" style="font-size: 12pt ; font-family: Times New Roman,sans-serif; ">true</span><span  style="font-size: 12pt ; font-family: Times New Roman,sans-serif; ">
+and a consistent background colour (different from the background colour set for the html styles) to all
+JavaScript styles then JavaScript sections will be easily distinguished from html.</span></H6>
+<H5 style="font-size: 10pt ; font-weight: bold; margin: 6pt  0pt  1px  27pt ; ">
+Visible</H5>
+<H6>
+Text is normally visible. However, you can completely hide it by giving it a style with the <span class="CODE1">visible</span>
+set to 0. This could be used to hide comments for example.</H6>
+<H5 style="font-size: 10pt ; font-weight: bold; margin: 6pt  0pt  1px  27pt ; ">
+Hot Spot</H5>
+<H6>
+This style is used to mark ranges of text that can detect mouse clicks. The cursor changes to a hand over
+hotspots, and the foreground, and background colours may change and an underline appear to indicate that
+these areas are sensitive to clicking. ClassViewer uses this to access the Clarion help file when the
+text is clicked.</H6>
+<p class="Base">
+&nbsp;</p>
+<h4>
+Apply Defaults</h4>
+<p class="Base">
+This button only appears when the Default Tab is selected.  Press this button to display a message box
+that will prompt for the Default characteristics to apply.  The choices are:</p>
+<p class="Base">
+&nbsp;</p>
+<H5>
+Font
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span  style="font-weight: normal; font-family: segoe ui semilight,sans-serif; ">Apply
+the default font to all styles.</span></H5>
+<H5>
+Background<span  style="font-weight: normal; font-family: segoe ui semilight,sans-serif; ">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Apply the default back color to all styles.</span></H5>
+<H5>
+All<span  style="font-weight: normal; font-family: segoe ui semilight,sans-serif; ">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Apply all the default characteristics to all styles.</span></H5>
+<H5>
+Cancel<span  style="font-weight: normal; font-family: segoe ui semilight,sans-serif; ">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Do not apply any default characteristics and return to the Edit Options</span></H5>
+<H5>
+&nbsp;</H5>
+<h4>
+Clarion Editor</h4>
+<p class="Base">
+This button only appears when the Default Folder is selected.  Press this button to display a message
+box that will prompt for the Clarion Editor colors to load.  The choices are:</p>
+<p class="Base">
+&nbsp;</p>
+<H5>
+Current
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span  style="font-weight: normal; font-family: segoe ui semilight,sans-serif; ">Load
+and apply the current Clarion Editor colors from C60EDT.INI.</span></H5>
+<H5>
+Default
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span  style="font-weight: normal; font-family: segoe ui semilight,sans-serif; ">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Load and apply the default Clarion Editor colors from C60EDT.INI.</span></H5>
+<H5>
+Cancel<span  style="font-weight: normal; font-family: segoe ui semilight,sans-serif; ">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Do not load and apply the Clarion Editor colors and return to the Edit Options.</span></H5>
+<p class="Base">
+&nbsp;</p>
+<h4>
+OK</h4>
+<p class="Base">
+Press the OK Button to save your changes and return to the <a href="Main_Window.htm#Tree_View">Main</a>
+window.</p>
+<p class="Base">
+&nbsp;</p>
+<h4>
+Cancel</h4>
+<p class="Base">
+Press the Cancel Button to discard any changes you have made and return to the <a href="Main_Window.htm#Tree_View">Main</a>
+window.</p></UL>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+&nbsp;</p>
+<p class="Base">
+<span  style="font-size: 8pt ; ">Copyright © 2017 Devuna</span></p>
+<p class="Base">
+<span  style="font-size: 8pt ; ">All rights reserved.</span></p>
+</body></html>

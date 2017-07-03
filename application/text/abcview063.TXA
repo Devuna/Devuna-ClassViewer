@@ -1,0 +1,1341 @@
+[MODULE]
+[COMMON]
+FROM ABC GENERATED
+[EMBED]
+EMBED %StartOfModule
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 1300
+PROPERTY:END
+!region Notices
+! ================================================================================
+! Notice : Copyright (C) 2017, Devuna
+!          Distributed under LGPLv3 (http://www.gnu.org/licenses/lgpl.html)
+!
+!    This file is part of Devuna-ClassViewer (https://github.com/Devuna/Devuna-ClassViewer)
+!
+!    Devuna-ClassViewer is free software: you can redistribute it and/or modify
+!    it under the terms of the GNU General Public License as published by
+!    the Free Software Foundation, either version 3 of the License, or
+!    (at your option) any later version.
+!
+!    Devuna-ClassViewer is distributed in the hope that it will be useful,
+!    but WITHOUT ANY WARRANTY; without even the implied warranty of
+!    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+!    GNU General Public License for more details.
+!
+!    You should have received a copy of the GNU General Public License
+!    along with Devuna-ClassViewer.  If not, see <http://www.gnu.org/licenses/>.
+! ================================================================================
+!endregion Notices
+[END]
+[END]
+[PROCEDURE]
+NAME winGenerateTemplate
+PROTOTYPE '(*CSTRING szClassName),LONG,PROC'
+PARAMETERS '(*CSTRING szClassName) !,LONG,PROC'
+[COMMON]
+DESCRIPTION 'Class Wrapper Template Generator'
+FROM ABC Window
+MODIFIED '2017/07/02' ' 8:47:33'
+[DATA]
+[SCREENCONTROLS]
+! PROMPT('l Return Value:'),USE(?lReturnValue:Prompt)
+! ENTRY(@n-14),USE(lReturnValue),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(lReturnValue),RIGHT(1)
+lReturnValue             LONG
+!!> GUID('f7e6b3cf-ad24-4bf6-888e-e1972fa7b881'),PROMPT('l Return Value:'),HEADER('l Return Value'),PICTURE(@n-14),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! TEXT,USE(TemplateFileName)
+[REPORTCONTROLS]
+! TEXT,USE(TemplateFileName)
+TemplateFileName         CSTRING(256),STATIC
+!!> GUID('ffdecdf7-6458-4502-bad4-6fc22a1966f0'),PICTURE(@s255)
+[SCREENCONTROLS]
+! TEXT,USE(WizardFileName)
+[REPORTCONTROLS]
+! TEXT,USE(WizardFileName)
+WizardFileName           CSTRING(256),STATIC
+!!> GUID('19ef0c52-c1b5-47e6-9c58-c31893da3c73'),PICTURE(@s255)
+[PROMPTS]
+%ClassItem UNIQUE DEFAULT  ('Default', 'WindowToolbar')
+%DefaultBaseClassType DEPEND %ClassItem DEFAULT TIMES 2
+WHEN  ('Default') ('WindowManager')
+WHEN  ('WindowToolbar') ('ToolbarClass')
+
+%ActualDefaultBaseClassType DEPEND %ClassItem DEFAULT TIMES 2
+WHEN  ('Default') ('')
+WHEN  ('WindowToolbar') ('')
+
+%ClassLines DEPEND %ClassItem MULTI DEFAULT TIMES 1
+WHEN  ('Default') ('Init {19}PROCEDURE(),BYTE,PROC,DERIVED', 'Kill {19}PROCEDURE(),BYTE,PROC,DERIVED', |
+  'Reset {18}PROCEDURE(BYTE Force=0),DERIVED', 'TakeAccepted {11}PROCEDURE(),BYTE,PROC,DERIVED')
+
+%ReturnValue FIELD  (lReturnValue)
+%WindowOperationMode DEFAULT  ('Use WINDOW setting')
+%INISaveWindow LONG  (0)
+%ProcedureDisableEnhanceFocus LONG  (0)
+%ProcedureUseEnterInsteadTabOverride LONG  (0)
+%WindowUseEnterInsteadTab LONG  (1)
+%ProcedureUseEnterInsteadTabExcludeG LONG  (1)
+%WindowUseEnterInsteadTabExclude MULTI DEFAULT  ()
+%GlobalObject DEPEND %ClassItem DEFAULT TIMES 2
+WHEN  ('Default') ('NO')
+WHEN  ('WindowToolbar') ('NO')
+
+%ThisObjectName DEPEND %ClassItem DEFAULT TIMES 2
+WHEN  ('Default') ('ThisWindow')
+WHEN  ('WindowToolbar') ('Toolbar')
+
+%UseDefaultABCBaseClass DEPEND %ClassItem LONG TIMES 2
+WHEN  ('Default') (1)
+WHEN  ('WindowToolbar') (1)
+
+%UseABCBaseClass DEPEND %ClassItem LONG TIMES 2
+WHEN  ('Default') (1)
+WHEN  ('WindowToolbar') (1)
+
+%ABCBaseClass DEPEND %ClassItem DEFAULT TIMES 2
+WHEN  ('Default') ('ADOBlob')
+WHEN  ('WindowToolbar') ('ADOBlob')
+
+%ExtBaseClass DEPEND %ClassItem DEFAULT TIMES 0
+
+%BaseClassIncludeFile DEPEND %ClassItem DEFAULT TIMES 0
+
+%DeriveFromBaseClass DEPEND %ClassItem LONG TIMES 2
+WHEN  ('Default') (0)
+WHEN  ('WindowToolbar') (0)
+
+%NewMethods DEPEND %ClassItem MULTI LONG TIMES 0
+
+%NewMethodName DEPEND %NewMethods DEFAULT TIMES 0
+
+%NewMethodPrototype DEPEND %NewMethods DEFAULT TIMES 0
+
+%NewClassPropertyItems DEPEND %ClassItem MULTI LONG TIMES 0
+
+%NewClassProperty DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataType DEPEND %NewClassPropertyItems DEFAULT TIMES 1
+WHEN  ('WindowToolbar')TIMES 0
+
+%NewClassOtherType DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataIsRef DEPEND %NewClassPropertyItems LONG TIMES 0
+
+%NewClassDataSize DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim1 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim2 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim3 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim4 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%ClassMethods DEPEND %ClassItem MULTI LONG TIMES 0
+
+%ClassMethodName DEPEND %ClassMethods DEFAULT TIMES 0
+
+%ClassMethodPrototype DEPEND %ClassMethods DEFAULT TIMES 0
+
+%ClassPropertyItems DEPEND %ClassItem MULTI LONG TIMES 0
+
+%ClassProperty DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataType DEPEND %ClassPropertyItems DEFAULT TIMES 1
+WHEN  ('WindowToolbar')TIMES 0
+
+%ClassOtherType DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataIsRef DEPEND %ClassPropertyItems LONG TIMES 0
+
+%ClassDataSize DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim1 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim2 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim3 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim4 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%WindowStyles MULTI LONG  ()
+%WindowStyleFontName DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontNameVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontNameIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleFontSize DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontSizeVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontSizeIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleFontStyle DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontStyleVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontStyleIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleFontColor DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontCharSet DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleForegroundNormal DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleForegroundNormalVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleForegroundNormalIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleBackgroundNormal DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleBackgroundNormalVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleBackgroundNormalIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleForegroundSelected DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleForegroundSelectedVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleForegroundSelectedIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleBackgroundSelected DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleBackgroundSelectedVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleBackgroundSelectedIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStylePicture DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStylePictureVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStylePictureIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleOtherListboxes MULTI DEFAULT  ()
+%ProcedureAutoBindFields MULTI LONG  ()
+%ProcedureAutoBindField DEPEND %ProcedureAutoBindFields DEFAULT TIMES 0
+
+%ProcedureAutoBindFieldTPL DEPEND %ProcedureAutoBindFields DEFAULT TIMES 0
+
+%ProcedureAutoBindProcedures MULTI LONG  ()
+%ProcedureAutoBindProcedure DEPEND %ProcedureAutoBindProcedures DEFAULT TIMES 0
+
+%ProcedureAutoBindProcedureTPL DEPEND %ProcedureAutoBindProcedures DEFAULT TIMES 0
+
+%ProcedureAutoBindFieldsIgnored MULTI LONG  ()
+%ProcedureAutoBindFieldIgnored DEPEND %ProcedureAutoBindFieldsIgnored DEFAULT TIMES 0
+
+%ProcedureAutoBindProceduresIgnored MULTI LONG  ()
+%ProcedureAutoBindProcedureIgnored DEPEND %ProcedureAutoBindProceduresIgnored DEFAULT TIMES 0
+
+%ProcedureAutoBindValidToAddField LONG  (0)
+%ProcedureUserBindFields MULTI LONG  ()
+%ProcedureUserBindField DEPEND %ProcedureUserBindFields FIELD TIMES 0
+
+%ProcedureAutoBindFieldIgnore DEPEND %ProcedureAutoBindFields LONG TIMES 0
+
+%ProcedureUserBindProcedures MULTI LONG  ()
+%ProcedureUserBindProcedure DEPEND %ProcedureUserBindProcedures PROCEDURE TIMES 0
+
+%ProcedureAutoBindProcedureIgnore DEPEND %ProcedureAutoBindProcedures LONG TIMES 0
+
+%ProcedureUserBindExpressions MULTI LONG  ()
+%ProcedureUserBindExpressionName DEPEND %ProcedureUserBindExpressions DEFAULT TIMES 0
+
+%ProcedureUserBindExpression DEPEND %ProcedureUserBindExpressions DEFAULT TIMES 0
+
+%ButtonAction DEPEND %Control DEFAULT TIMES 8
+WHEN  ('') ('No Special Action')
+WHEN  ('?CancelButton') ('No Special Action')
+WHEN  ('?EditTplTemplate:Button') ('No Special Action')
+WHEN  ('?LookupFile') ('No Special Action')
+WHEN  ('?OkButton') ('No Special Action')
+WHEN  ('?TitleString') ('No Special Action')
+WHEN  ('?WizardFileName') ('No Special Action')
+WHEN  ('?szClassName') ('No Special Action')
+
+%ButtonRunName DEPEND %Control DEFAULT TIMES 4
+WHEN  ('?CancelButton') ('')
+WHEN  ('?EditTplTemplate:Button') ('')
+WHEN  ('?LookupFile') ('')
+WHEN  ('?OkButton') ('')
+
+%ButtonRunParameters DEPEND %Control DEFAULT TIMES 4
+WHEN  ('?CancelButton') ('')
+WHEN  ('?EditTplTemplate:Button') ('')
+WHEN  ('?LookupFile') ('')
+WHEN  ('?OkButton') ('')
+
+%ButtonProcedure DEPEND %Control PROCEDURE TIMES 4
+WHEN  ('?CancelButton') ()
+WHEN  ('?EditTplTemplate:Button') ()
+WHEN  ('?LookupFile') ()
+WHEN  ('?OkButton') ()
+
+%ButtonThread DEPEND %Control LONG TIMES 4
+WHEN  ('?CancelButton') (0)
+WHEN  ('?EditTplTemplate:Button') (0)
+WHEN  ('?LookupFile') (0)
+WHEN  ('?OkButton') (0)
+
+%ButtonThreadStack DEPEND %Control DEFAULT TIMES 8
+WHEN  ('') ('25000')
+WHEN  ('?CancelButton') ('25000')
+WHEN  ('?EditTplTemplate:Button') ('25000')
+WHEN  ('?LookupFile') ('25000')
+WHEN  ('?OkButton') ('25000')
+WHEN  ('?TitleString') ('25000')
+WHEN  ('?WizardFileName') ('25000')
+WHEN  ('?szClassName') ('25000')
+
+%ButtonParameters DEPEND %Control DEFAULT TIMES 4
+WHEN  ('?CancelButton') ('')
+WHEN  ('?EditTplTemplate:Button') ('')
+WHEN  ('?LookupFile') ('')
+WHEN  ('?OkButton') ('')
+
+%ButtonReturnValueAssignment DEPEND %Control FIELD TIMES 4
+WHEN  ('?CancelButton') ()
+WHEN  ('?EditTplTemplate:Button') ()
+WHEN  ('?LookupFile') ()
+WHEN  ('?OkButton') ()
+
+%ButtonReturnValueReferenceAssign DEPEND %Control LONG TIMES 4
+WHEN  ('?CancelButton') (0)
+WHEN  ('?EditTplTemplate:Button') (0)
+WHEN  ('?LookupFile') (0)
+WHEN  ('?OkButton') (0)
+
+%ButtonRequest DEPEND %Control DEFAULT TIMES 8
+WHEN  ('') ('None')
+WHEN  ('?CancelButton') ('None')
+WHEN  ('?EditTplTemplate:Button') ('None')
+WHEN  ('?LookupFile') ('None')
+WHEN  ('?OkButton') ('None')
+WHEN  ('?TitleString') ('None')
+WHEN  ('?WizardFileName') ('None')
+WHEN  ('?szClassName') ('None')
+
+%ButtonThreadParameters DEPEND %Control DEFAULT TIMES 4
+WHEN  ('?CancelButton') ('')
+WHEN  ('?EditTplTemplate:Button') ('')
+WHEN  ('?LookupFile') ('')
+WHEN  ('?OkButton') ('')
+
+%ButtonThreadReturnValueAssignment DEPEND %Control FIELD TIMES 4
+WHEN  ('?CancelButton') ()
+WHEN  ('?EditTplTemplate:Button') ()
+WHEN  ('?LookupFile') ()
+WHEN  ('?OkButton') ()
+
+%PreLookupKey DEPEND %Control KEY TIMES 0
+
+%PreLookupField DEPEND %Control COMPONENT TIMES 0
+
+%PreLookupProcedure DEPEND %Control PROCEDURE TIMES 0
+
+%PreLookupProcedureParameters DEPEND %Control DEFAULT TIMES 0
+
+%PostLookupKey DEPEND %Control KEY TIMES 0
+
+%PostLookupField DEPEND %Control COMPONENT TIMES 0
+
+%PostLookupProcedure DEPEND %Control PROCEDURE TIMES 0
+
+%PostLookupProcedureParameters DEPEND %Control DEFAULT TIMES 0
+
+%PostLookupDuringValidate DEPEND %Control LONG TIMES 9
+WHEN  ('') (1)
+WHEN  ('?CancelButton') (1)
+WHEN  ('?EditTplTemplate:Button') (1)
+WHEN  ('?LookupFile') (1)
+WHEN  ('?OkButton') (1)
+WHEN  ('?TemplateFileName') (1)
+WHEN  ('?TitleString') (1)
+WHEN  ('?WizardFileName') (1)
+WHEN  ('?szClassName') (1)
+
+%LookupAssign DEPEND %Control MULTI LONG TIMES 0
+
+%MoreTarget DEPEND %LookupAssign FIELD TIMES 0
+
+%MoreField DEPEND %LookupAssign DEFAULT TIMES 0
+
+%ForceWindowRefresh DEPEND %Control LONG TIMES 0
+
+%CheckedAssigns DEPEND %Control MULTI LONG TIMES 0
+
+%CheckedAssignVariable DEPEND %CheckedAssigns FIELD TIMES 0
+
+%CheckedAssignValue DEPEND %CheckedAssigns DEFAULT TIMES 0
+
+%CheckedHides DEPEND %Control MULTI LONG TIMES 0
+
+%CheckedControl DEPEND %CheckedHides DEFAULT TIMES 0
+
+%CheckedControlAction DEPEND %CheckedHides DEFAULT TIMES 8
+WHEN  ('')TIMES 0
+WHEN  ('?CancelButton')TIMES 0
+WHEN  ('?EditTplTemplate:Button')TIMES 0
+WHEN  ('?LookupFile')TIMES 0
+WHEN  ('?OkButton')TIMES 0
+WHEN  ('?TitleString')TIMES 0
+WHEN  ('?WizardFileName')TIMES 0
+WHEN  ('?szClassName')TIMES 0
+
+%CheckedEnables DEPEND %Control MULTI LONG TIMES 0
+
+%CheckedControl1 DEPEND %CheckedEnables DEFAULT TIMES 0
+
+%CheckedControl1Action DEPEND %CheckedEnables DEFAULT TIMES 8
+WHEN  ('')TIMES 0
+WHEN  ('?CancelButton')TIMES 0
+WHEN  ('?EditTplTemplate:Button')TIMES 0
+WHEN  ('?LookupFile')TIMES 0
+WHEN  ('?OkButton')TIMES 0
+WHEN  ('?TitleString')TIMES 0
+WHEN  ('?WizardFileName')TIMES 0
+WHEN  ('?szClassName')TIMES 0
+
+%UncheckedAssigns DEPEND %Control MULTI LONG TIMES 0
+
+%UncheckedAssignVariable DEPEND %UncheckedAssigns FIELD TIMES 0
+
+%UncheckedAssignValue DEPEND %UncheckedAssigns DEFAULT TIMES 0
+
+%UnCheckedHides DEPEND %Control MULTI LONG TIMES 0
+
+%UnCheckedControl DEPEND %UnCheckedHides DEFAULT TIMES 0
+
+%UnCheckedControlAction DEPEND %UnCheckedHides DEFAULT TIMES 8
+WHEN  ('')TIMES 0
+WHEN  ('?CancelButton')TIMES 0
+WHEN  ('?EditTplTemplate:Button')TIMES 0
+WHEN  ('?LookupFile')TIMES 0
+WHEN  ('?OkButton')TIMES 0
+WHEN  ('?TitleString')TIMES 0
+WHEN  ('?WizardFileName')TIMES 0
+WHEN  ('?szClassName')TIMES 0
+
+%UnCheckedEnables DEPEND %Control MULTI LONG TIMES 0
+
+%UnCheckedControl1 DEPEND %UnCheckedEnables DEFAULT TIMES 0
+
+%UnCheckedControl1Action DEPEND %UnCheckedEnables DEFAULT TIMES 8
+WHEN  ('')TIMES 0
+WHEN  ('?CancelButton')TIMES 0
+WHEN  ('?EditTplTemplate:Button')TIMES 0
+WHEN  ('?LookupFile')TIMES 0
+WHEN  ('?OkButton')TIMES 0
+WHEN  ('?TitleString')TIMES 0
+WHEN  ('?WizardFileName')TIMES 0
+WHEN  ('?szClassName')TIMES 0
+
+%ProcedureUseEnterInsteadTabExcludeListCombo LONG  (0)
+%ProcedureUseEnterInsteadTabDisableNextTabStop LONG  (0)
+%ProcedureUseEnterInsteadTabEnableNextTabStop LONG  (0)
+%ExtUITabIcon DEPEND %Control DEFAULT TIMES 0
+
+%ExtUITabStyleOverrideGlobal DEPEND %Control LONG TIMES 0
+
+%ExtUITabStyle DEPEND %Control DEFAULT TIMES 1
+WHEN  ('') ('Default')
+
+%CheckedDisables DEPEND %Control MULTI LONG TIMES 0
+
+%CheckedDisableControl DEPEND %CheckedDisables DEFAULT TIMES 0
+
+%CheckedDisableControlAction DEPEND %CheckedDisables DEFAULT TIMES 1
+WHEN  ('')TIMES 0
+
+%UnCheckedDisables DEPEND %Control MULTI LONG TIMES 0
+
+%UnCheckedDisableControl DEPEND %UnCheckedDisables DEFAULT TIMES 0
+
+%UnCheckedDisableControlAction DEPEND %UnCheckedDisables DEFAULT TIMES 1
+WHEN  ('')TIMES 0
+
+%ProcedureOneInstance LONG  (0)
+%FieldGradientColorType DEPEND %Control DEFAULT TIMES 2
+WHEN  ('') ('Off')
+WHEN  ('?Panel1') ('Off')
+
+%FieldGradientColorTypeVariable DEPEND %Control DEFAULT TIMES 2
+WHEN  ('') ('')
+WHEN  ('?Panel1') ('')
+
+%FieldGradientColorTypeIsVariable DEPEND %Control LONG TIMES 2
+WHEN  ('') (0)
+WHEN  ('?Panel1') (0)
+
+%FieldGradientColorFrom DEPEND %Control LONG TIMES 2
+WHEN  ('') (-1)
+WHEN  ('?Panel1') (-1)
+
+%FieldGradientColorFromVariable DEPEND %Control DEFAULT TIMES 0
+
+%FieldGradientColorFromIsVariable DEPEND %Control LONG TIMES 2
+WHEN  ('') (0)
+WHEN  ('?Panel1') (0)
+
+%FieldGradientColorTo DEPEND %Control LONG TIMES 2
+WHEN  ('') (-1)
+WHEN  ('?Panel1') (-1)
+
+%FieldGradientColorToVariable DEPEND %Control DEFAULT TIMES 0
+
+%FieldGradientColorToIsVariable DEPEND %Control LONG TIMES 2
+WHEN  ('') (0)
+WHEN  ('?Panel1') (0)
+
+%PreserveVarsLoc MULTI LONG  ()
+%PreserveVarLoc DEPEND %PreserveVarsLoc DEFAULT TIMES 0
+
+%ActiveImageEnable DEPEND %Control LONG TIMES 0
+
+%AIObjectName DEPEND %Control DEFAULT TIMES 1
+WHEN  ('') ('AIBtn0')
+
+%AIEnableMimicControl DEPEND %Control LONG TIMES 1
+WHEN  ('') (1)
+
+%AIMimicControl DEPEND %Control DEFAULT TIMES 1
+WHEN  ('') ('?Panel1')
+
+%AIImgRound DEPEND %Control LONG TIMES 0
+
+%AIOverrideImg DEPEND %Control DEFAULT TIMES 0
+
+%AIOverrideImgVariable DEPEND %Control DEFAULT TIMES 0
+
+%AIOverrideImgIsVariable DEPEND %Control LONG TIMES 1
+WHEN  ('') (0)
+
+%AIDisableImg DEPEND %Control DEFAULT TIMES 0
+
+%AIDisableImgVariable DEPEND %Control DEFAULT TIMES 0
+
+%AIDisableImgIsVariable DEPEND %Control LONG TIMES 1
+WHEN  ('') (0)
+
+%AIHotImg DEPEND %Control DEFAULT TIMES 0
+
+%AIHotImgVariable DEPEND %Control DEFAULT TIMES 0
+
+%AIHotImgIsVariable DEPEND %Control LONG TIMES 1
+WHEN  ('') (0)
+
+%AIPressedImg DEPEND %Control DEFAULT TIMES 0
+
+%AIPressedImgVariable DEPEND %Control DEFAULT TIMES 0
+
+%AIPressedImgIsVariable DEPEND %Control LONG TIMES 1
+WHEN  ('') (0)
+
+[EMBED]
+EMBED %ControlEventHandling
+[INSTANCES]
+WHEN '?CancelButton'
+[INSTANCES]
+WHEN 'Accepted'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 5000
+PROPERTY:END
+POST(EVENT:CloseWindow)
+[END]
+[END]
+WHEN '?OkButton'
+[INSTANCES]
+WHEN 'Accepted'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 5000
+PROPERTY:END
+DO LoadWizardTemplate
+DO WriteTemplate
+POST(EVENT:CloseWindow)
+[END]
+[END]
+WHEN '?EditTplTemplate:Button'
+[INSTANCES]
+WHEN 'Accepted'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 5000
+PROPERTY:END
+DO EditSource
+[END]
+[END]
+WHEN '?TemplateFileName'
+[INSTANCES]
+WHEN 'Accepted'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 6000
+PROPERTY:END
+ThisWindow.Reset()
+[END]
+[END]
+WHEN '?LookupFile'
+[INSTANCES]
+WHEN 'Accepted'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 8800
+PROPERTY:END
+SELF.Reset()
+[END]
+[END]
+WHEN '?WizardFileName'
+[INSTANCES]
+WHEN 'Accepted'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 5000
+PROPERTY:END
+ThisWindow.Reset()
+[END]
+[END]
+[END]
+EMBED %WindowManagerMethodCodeSection
+[INSTANCES]
+WHEN 'Init'
+[INSTANCES]
+WHEN '(),BYTE'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 8800
+PROPERTY:END
+INIMgr.Fetch('Options','TplWizardOutput',TemplateFileName)
+IF TemplateFileName = ''
+   TemplateFileName = szClassName & '.tpl'
+END
+TemplateFileLookup.DefaultFile = TemplateFileName
+TemplateFileName = ''                                 !Force user to select
+
+CategoryQ.szClassName = ClassNameQ.szClassName
+GET(CategoryQ,+CategoryQ.szClassName)
+IF ERRORCODE() OR CategoryQ.szCategory = ''
+   CategoryQ.szCategory = 'ABC'
+END
+
+ClassQ.szClassSort = ClassNameQ.szSortName
+GET(ClassQ,+ClassQ.szClassSort)
+IF ERRORCODE()
+   CLEAR(ClassQ)
+END
+
+ModuleQ.lModuleId = ClassQ.lIncludeId
+GET(ModuleQ,+ModuleQ.lModuleId)
+IF ERRORCODE()
+   CLEAR(ModuleQ)
+END
+
+IF ~RECORDS(tplTemplateQ)
+   tplTemplateQ.szPath = PATH() & '\' & 'TplWizard.txt'
+   IF EXISTS(tplTemplateQ.szPath)
+      tplTemplateQ.szName = 'Sample Wrapper Template'
+      ADD(tplTemplateQ)
+   END
+END
+
+GET(tplTemplateQ,1)
+?WizardFileName{PROP:Selected} = 1
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 9300
+PROPERTY:END
+CASE glo:Background
+OF 1  !Color
+   window{PROP:Wallpaper} = ''
+   window{PROP:Color} = glo:Color2
+OF 2  !Wallpaper
+   window{PROP:Wallpaper} = glo:szWallpaper2
+   window{PROP:Tiled} = glo:Tiled2
+   window{PROP:Color} = COLOR:NONE
+OF 3  !None
+   window{PROP:Wallpaper} = ''
+   window{PROP:Color} = COLOR:NONE
+END
+J = LASTFIELD()
+LOOP I = 1 TO J
+   SETFONT(I,glo:Typeface,glo:FontSize,glo:FontColor,glo:FontStyle,0)
+END
+?szClassName{PROP:FontStyle} = FONT:BOLD
+IF glo:bUseHTMLHelp
+   IF oHH &= NULL
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 9700
+PROPERTY:END
+   ELSE
+      oHH.SetHelpFile( 'ABCVIEW.CHM' )
+   END
+END
+[END]
+[END]
+WHEN 'Reset'
+[INSTANCES]
+WHEN '(BYTE Force=0)'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 5001
+PROPERTY:END
+GET(tplTemplateQ,CHOICE(?WizardFileName))
+IF ERRORCODE()
+   DISABLE(?OKButton)
+ELSE
+   IF tplTemplateQ.szName <> '' AND TemplateFileName <> ''
+      ENABLE(?OKButton)
+   ELSE
+      DISABLE(?OKButton)
+   END
+END
+[END]
+[END]
+[END]
+EMBED %ProcedureRoutines
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 500
+PROPERTY:END
+LoadWizardTemplate ROUTINE
+  szAsciiFileName = tplTemplateQ.szPath   !WizardFileName
+  IF szAsciiFileName = ''
+     szAsciiFileName = 'TplWizard.txt'
+     INIMgr.Fetch('Options','TplWizardTemplate',szAsciiFileName)
+  END
+  INIMgr.Update('Options','TplWizardTemplate',szAsciiFileName)
+  DO LoadTemplate
+  EXIT
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 510
+PROPERTY:END
+LoadTemplate ROUTINE
+
+  DATA
+I           LONG
+J           LONG
+K           LONG
+upperText   CSTRING(SIZE(SourceFile.sText)+1)
+
+  CODE
+  OPEN(SourceFile)
+  IF ERRORCODE()
+     MESSAGE('Template File (' & szAsciiFileName & ')',ERROR(),ICON:EXCLAMATION)
+  ELSE
+     SET(SourceFile)
+     LOOP
+        NEXT(SourceFile)
+        IF ERRORCODE()
+           BREAK
+        ELSE
+           !parse classname
+           tplQ.Text = ''
+           upperText = UPPER(CLIP(SourceFile.sText))
+           I = 1
+           K = LEN(upperText)
+           J = INSTRING('{{CLASSNAME}',upperText,1,1)
+           LOOP WHILE J <> 0
+              tplQ.Text = tplQ.Text & SourceFile.sText[I : J-1] & szClassName
+              I = J + 11
+              J = INSTRING('{{CLASSNAME}',upperText,1,I)
+           END
+           IF I < K
+              tplQ.Text = tplQ.Text & SourceFile.sText[I : K]
+           END
+
+           !parse class category
+           SourceFile.sText = tplQ.Text
+           upperText = UPPER(CLIP(SourceFile.sText))
+           tplQ.Text = ''
+           I = 1
+           K = LEN(upperText)
+           J = INSTRING('{{CATEGORY}',upperText,1,1)
+           LOOP WHILE J <> 0
+              tplQ.Text = tplQ.Text & SourceFile.sText[I : J-1] & CategoryQ.szCategory
+              I = J + 10
+              J = INSTRING('{{CATEGORY}',upperText,1,I)
+           END
+           IF I < K
+              tplQ.Text = tplQ.Text & SourceFile.sText[I : K]
+           END
+
+
+
+           !parse Add Class Group
+           upperText = UPPER(CLIP(tplQ.Text))
+           IF upperText[1 : 15] = '{{ADDCLASSGROUP}'
+              DO WriteAddClassGroup
+           ELSE
+              ADD(tplQ)
+           END
+        END
+     END
+     CLOSE(SourceFile)
+  END
+  EXIT
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 520
+PROPERTY:END
+WriteTemplate   ROUTINE
+
+  DATA
+I           LONG
+J           LONG
+
+  CODE
+  szAsciiFileName = TemplateFileName
+  IF szAsciiFileName = ''
+     szAsciiFileName = szClassName & '.tpl'
+  END
+
+  CREATE(SourceFile)
+  IF ERRORCODE()
+     MESSAGE('Template File (' & szAsciiFileName & ')',ERROR(),ICON:EXCLAMATION)
+  ELSE
+     OPEN(SourceFile)
+     IF ERRORCODE()
+        MESSAGE('Template File (' & szAsciiFileName & ')',ERROR(),ICON:EXCLAMATION)
+     ELSE
+        J = RECORDS(tplQ)
+        LOOP I = 1 TO J
+          GET(tplQ,I)
+          SourceFile.sText = tplQ.Text
+          ADD(SourceFile)
+        END
+        DO WriteAddClassGroup
+        CLOSE(SourceFile)
+        INIMgr.Update('Options','TplWizardOutput',szAsciiFileName)
+     END
+  END
+  EXIT
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 530
+PROPERTY:END
+WriteAddClassGroup  ROUTINE
+  DATA
+I   LONG
+J   LONG
+
+  CODE
+  SETCURSOR(CURSOR:WAIT)
+  tplQ.Text = '#! ======================================================================================='
+  ADD(tplQ)
+  tplQ.Text = '#! %AddClass - Add the Class to the ABC variables'
+  ADD(tplQ)
+  tplQ.Text = '#! ======================================================================================='
+  ADD(tplQ)
+  tplQ.Text = '#GROUP(%AddClass)'
+  ADD(tplQ)
+  DO AddClass
+  SETCURSOR()
+  EXIT
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 540
+PROPERTY:END
+AddClass    ROUTINE
+  IF UPPER(ModuleQ.szModulePath) = UPPER(szRoot & '\Libsrc\') & CHOOSE(glo:bClarionVersion > CWVERSION_C60EE,'win\','')
+     tplQ.Text = '  #RETURN          #! Not Required - Class defined in ' & ModuleQ.szModulePath & ModuleQ:szModuleName
+     ADD(tplQ)
+  ELSE
+     tplQ.Text = '  #FIX(%pClassName,''' & szClassName & ''')'
+     ADD(tplQ)
+     tplQ.Text= '  #IF(%pClassName = ''' & szClassName & ''')'
+     ADD(tplQ)
+     tplQ.Text = '    #RETURN'
+     ADD(tplQ)
+     tplQ.Text = '  #ENDIF'
+     ADD(tplQ)
+
+     tplQ.Text = '  #ADD(%pClassName,''' & szClassName & ''')'
+     ADD(tplQ)
+     tplQ.Text = '  #SET(%pClassCategory,''' & CategoryQ.szCategory & ''')'
+     ADD(tplQ)
+     tplQ.Text = '  #SET(%pClassIncFile,''' & ModuleQ.szModulePath & ModuleQ.szModuleName & ''')'
+     ADD(tplQ)
+     tplQ.Text = '  #SET(%pClassParent,''' & ClassQ.szParentClassName & ''')'
+     ADD(tplQ)
+
+     bInherited = FALSE
+     szDefined = szClassName
+     DO AddClassInterfaces
+     DO AddClassMethods
+     DO AddClassProperties
+
+     LOOP WHILE ClassQ.szParentClassName
+        ClassQ.szClassSort = UPPER(ClassQ.szParentClassName)
+        GET(ClassQ,+ClassQ.szClassSort)
+        IF ERRORCODE()
+           CLEAR(ClassQ)
+        END
+
+        ModuleQ.lModuleId = ClassQ.lIncludeId
+        GET(ModuleQ,+ModuleQ.lModuleId)
+        IF ERRORCODE()
+           CLEAR(ModuleQ)
+        END
+
+        bInherited = TRUE
+        szDefined = ClassQ.szClassName
+        DO AddClassInterfaces
+        DO AddClassMethods
+        DO AddClassProperties
+     END
+  END
+
+  EXIT
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 550
+PROPERTY:END
+AddClassInterfaces  ROUTINE
+  DATA
+lSourceLine     LONG
+szImplements    CSTRING(1025)
+I               LONG
+J               LONG
+K               LONG
+
+  CODE
+  lSourceLine = srcGetImplements(ClassQ.lClassID,szImplements)
+  IF szImplements
+     I = 1
+     J = LEN(szImplements)
+     K = INSTRING(',',szImplements,1,I)
+     LOOP WHILE K
+        tplQ.Text = '  #ADD(%pClassImplements,''' & szImplements[I : K-1] & ''')'
+        ADD(tplQ)
+        I = K+1
+        K = INSTRING(',',szImplements,1,I)
+     END
+     IF I < J
+        tplQ.Text = '  #ADD(%pClassImplements,''' & szImplements[I : J] & ''')'
+        ADD(tplQ)
+     END
+  END
+  EXIT
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 560
+PROPERTY:END
+AddClassMethods ROUTINE
+  DATA
+I   LONG
+J   LONG
+
+  CODE
+  MethodQ.lClassID = ClassQ.lClassID
+  GET(MethodQ,+MethodQ.lClassID)
+  IF ~ERRORCODE()
+     J = RECORDS(MethodQ)
+     I = POINTER(MethodQ)
+     LOOP I = I TO J
+        GET(MethodQ,I)
+        IF MethodQ.lClassID = ClassQ.lClassID
+           DO AddMethod
+        ELSE
+           BREAK
+        END
+     END
+  END
+  EXIT
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 570
+PROPERTY:END
+AddMethod   ROUTINE
+  DATA
+szPrototype    CSTRING(1025)
+
+  CODE
+  IF ~(bInherited AND MethodQ.bPrivate)
+     IF ~MethodQ.bModule
+        tplQ.Text = '  #!'
+        ADD(tplQ)
+        tplQ.Text = '  #ADD(%pClassMethod,''' & MethodQ.szMethodName & ''')'
+        ADD(tplQ)
+
+        IF MethodQ.szReturnType
+           szPrototype = MethodQ.szPrototype & ',' & MethodQ.szReturnType
+        ELSE
+           szPrototype = MethodQ.szPrototype
+        END
+        tplQ.Text = '  #FIX(%pClassMethodPrototype,''' & szPrototype & ''')'
+        ADD(tplQ)
+        tplQ.Text = '  #IF(%pClassMethodPrototype <> ''' & szPrototype & ''')'
+        ADD(tplQ)
+        tplQ.Text = '    #ADD(%pClassMethodPrototype,''' & szPrototype & ''')'
+        ADD(tplQ)
+        tplQ.Text = '    #SET(%pClassMethodFinal,' & MethodQ.bFinal & ')'
+        ADD(tplQ)
+        tplQ.Text = '    #SET(%pClassMethodPrivate,' & MethodQ.bPrivate & ')'
+        ADD(tplQ)
+        tplQ.Text = '    #SET(%pClassMethodVirtual,' & MethodQ.bVirtual & ')'
+        ADD(tplQ)
+        tplQ.Text = '    #SET(%pClassMethodProtected,' & MethodQ.bProtected & ')'
+        ADD(tplQ)
+        tplQ.Text = '    #SET(%pClassMethodProcAttribute,' & MethodQ.bProc & ')'
+        ADD(tplQ)
+        tplQ.Text = '    #SET(%pClassMethodInherited,' & bInherited & ')'
+        ADD(tplQ)
+        tplQ.Text = '    #SET(%pClassMethodDefined,''' & szDefined & ''')'
+        ADD(tplQ)
+        tplQ.Text = '    #SET(%pClassMethodReturnType,''' & MethodQ.szReturnType & ''')'
+        ADD(tplQ)
+        tplQ.Text = '    #SET(%pClassMethodParentCall,''PARENT.' & MethodQ.szMethodName & srcGetParameters(MethodQ.szPrototype) & ''')'
+        ADD(tplQ)
+        tplQ.Text = '    #SET(%pClassMethodDll,''' & MethodQ.szDll & ''')'
+        ADD(tplQ)
+        tplQ.Text = '    #SET(%pClassMethodExtName,''' & MethodQ.szExtName & ''')'
+        ADD(tplQ)
+        tplQ.Text = '    #SET(%pClassMethodCallConv,''' & MethodQ.szCallConv & ''')'
+        ADD(tplQ)
+        tplQ.Text = '    #SET(%pClassMethodExtends,' & MethodQ.bExtends & ')'
+        ADD(tplQ)
+        tplQ.Text = '  #ENDIF'
+        ADD(tplQ)
+     END
+  END
+  EXIT
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 580
+PROPERTY:END
+AddClassProperties ROUTINE
+  DATA
+I   LONG
+J   LONG
+
+  CODE
+  PropertyQ.lClassID = ClassQ.lClassID
+  GET(PropertyQ,+PropertyQ.lClassID)
+  IF ~ERRORCODE()
+     J = RECORDS(PropertyQ)
+     I = POINTER(PropertyQ)
+     LOOP I = I TO J
+        GET(PropertyQ,I)
+        IF PropertyQ.lClassID = ClassQ.lClassID
+           DO AddProperty
+        ELSE
+           BREAK
+        END
+     END
+  END
+  EXIT
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 590
+PROPERTY:END
+AddProperty ROUTINE
+  IF ~(bInherited AND PropertyQ.bPrivate)
+     IF ~PropertyQ.bModule
+        tplQ.Text = '  #!'
+        ADD(tplQ)
+        tplQ.Text = '  #FIX(%pClassProperty,''' & PropertyQ.szPropertyName & ''')'
+        ADD(tplQ)
+        tplQ.Text = '  #IF(%pClassProperty = ''' & PropertyQ.szPropertyName & ''')'
+        ADD(tplQ)
+        tplQ.Text = '    #ADD(%pClassProperty,''' & PropertyQ.szPropertyName & ''')'
+        ADD(tplQ)
+        tplQ.Text = '    #SET(%pClassPropertyPrototype,''' & PropertyQ:szDataType & ''')'
+        ADD(tplQ)
+        tplQ.Text = '    #SET(%pClassPropertyPrivate,' & PropertyQ.bPrivate & ')'
+        ADD(tplQ)
+        tplQ.Text = '    #SET(%pClassPropertyProtected,' & PropertyQ.bProtected & ')'
+        ADD(tplQ)
+        tplQ.Text = '    #SET(%pClassPropertyInherited,' & bInherited & ')'
+        ADD(tplQ)
+        tplQ.Text = '    #SET(%pClassPropertyDefined,''' & szDefined & ''')'
+        ADD(tplQ)
+        tplQ.Text = '  #ENDIF'
+        ADD(tplQ)
+     END
+  END
+  EXIT
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 600
+PROPERTY:END
+EditSource  ROUTINE
+  DATA
+I               LONG,AUTO
+J               LONG,AUTO
+lSearchLine     LONG(1)
+szCommandLine   CSTRING(256)
+
+  CODE
+  szCommandline = 'Notepad.exe ' & tplTemplateQ.szPath
+  IF glo:szEditorCommand
+     szCommandLine = glo:szEditorCommand
+     I = INSTRING('.EXE ',UPPER(szCommandLine),1)
+     IF I
+        szCommandLine = SHORTPATH(szCommandLine[1 : I+3]) & szCommandLine[I+4 : LEN(szCommandLine)]
+     END
+     !look for filename parameter token
+     I = INSTRING('%1',szCommandLine,1)
+     IF I
+        szCommandLine = SUB(szCommandLine,1,I-1) & |
+                        tplTemplateQ.szPath & |
+                        SUB(szCommandLine,I+2,LEN(szCommandLine)-(I+1))
+     END
+     !look for line number parameter token
+     I = INSTRING('%2',szCommandLine,1)
+     IF I
+        szCommandLine = SUB(szCommandLine,1,I-1) & |
+                        lSearchLine & |
+                        SUB(szCommandLine,I+2,LEN(szCommandLine)-(I+1))
+     END
+  END
+  RUN(szCommandLine)
+  IF RUNCODE() = -4   !Failed to execute
+    CASE MESSAGE('An error occurred trying to execute the following command:||' & szCommandLine & |
+            '||Do you want to use Notepad?',ERROR(),ICON:EXCLAMATION, |
+            BUTTON:YES+BUTTON:NO,BUTTON:YES)
+    OF BUTTON:YES
+       RUN('Notepad.exe ' & tplTemplateQ.szPath)
+    END
+  END
+  EXIT
+[END]
+EMBED %DataSection
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 50
+PROPERTY:END
+!region Notices
+! ================================================================================
+! Notice : Copyright (C) 2017, Devuna
+!          Distributed under LGPLv3 (http://www.gnu.org/licenses/lgpl.html)
+!
+!    This file is part of Devuna-ClassViewer (https://github.com/Devuna/Devuna-ClassViewer)
+!
+!    Devuna-ClassViewer is free software: you can redistribute it and/or modify
+!    it under the terms of the GNU General Public License as published by
+!    the Free Software Foundation, either version 3 of the License, or
+!    (at your option) any later version.
+!
+!    Devuna-ClassViewer is distributed in the hope that it will be useful,
+!    but WITHOUT ANY WARRANTY; without even the implied warranty of
+!    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+!    GNU General Public License for more details.
+!
+!    You should have received a copy of the GNU General Public License
+!    along with Devuna-ClassViewer.  If not, see <http://www.gnu.org/licenses/>.
+! ================================================================================
+!endregion Notices
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 1300
+PROPERTY:END
+tplQ        QUEUE
+Text          CSTRING(SIZE(SourceFile.sText)+1)
+            END
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 3000
+PROPERTY:END
+bInherited      BYTE
+szDefined       LIKE(ClassQ.szClassName)
+[END]
+EMBED %WindowManagerMethodDataSection
+[INSTANCES]
+WHEN 'Init'
+[INSTANCES]
+WHEN '(),BYTE'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 5000
+PROPERTY:END
+I                    LONG,AUTO
+J                    LONG,AUTO
+[END]
+[END]
+[END]
+[END]
+[ADDITION]
+NAME ABC cwHHProc
+[INSTANCE]
+INSTANCE 2
+OWNER 5
+[PROMPTS]
+%cwHHFileName DEFAULT  ('')
+%cwHHContextURL DEFAULT  ('')
+%cwHHAltTrapKey DEFAULT  ('')
+[ADDITION]
+NAME KCR KCR_SetWindowHelp
+[INSTANCE]
+INSTANCE 1
+OWNER 4
+[PROMPTS]
+%TplName DEFAULT  ('KCR_SetWindowHelp (Devuna)')
+%TplDescription DEFAULT  ('Set Window Help Property')
+[ADDITION]
+NAME ABC DOSFileLookup
+[INSTANCE]
+INSTANCE 3
+[PROMPTS]
+%ClassItem UNIQUE DEFAULT  ('Default')
+%DefaultBaseClassType DEPEND %ClassItem DEFAULT TIMES 1
+WHEN  ('Default') ('SelectFileClass')
+
+%ActualDefaultBaseClassType DEPEND %ClassItem DEFAULT TIMES 1
+WHEN  ('Default') ('')
+
+%ClassLines DEPEND %ClassItem MULTI DEFAULT TIMES 0
+
+%DOSFileDialogHeader DEFAULT  ('Template Filename...')
+%DOSFileField FIELD  (TemplateFileName)
+%DOSInitialDirectory DEFAULT  ('')
+%DOSInitialFilename DEFAULT  ('')
+%ReturnToOriginalDir LONG  (1)
+%AllowLongFilenames LONG  (1)
+%DOSFileDialogType DEFAULT  ('Save')
+%AllowNoError LONG  (0)
+%DefaultOnCancel LONG  (0)
+%AllowMultiSelect LONG  (0)
+%ActionsToTake DEFAULT  ('')
+%AssignToImageControl LONG  (0)
+%ImageControl DEFAULT  ('')
+%ImageResize LONG  (1)
+%DOSVariableMask LONG  (0)
+%DOSMaskVariable DEFAULT  ('')
+%DOSMaskDesc DEFAULT  ('Template Files (*.tpl)')
+%DOSMask DEFAULT  ('*.tpl')
+%DOSMoreMasks MULTI LONG  (1)
+%DOSMoreMaskDesc DEPEND %DOSMoreMasks DEFAULT TIMES 1
+WHEN  (1) ('All Files')
+
+%DOSMoreMask DEPEND %DOSMoreMasks DEFAULT TIMES 1
+WHEN  (1) ('*.*')
+
+%RedisplayWindow LONG  (1)
+%UpdateFields MULTI LONG  ()
+%UpdateFeq DEPEND %UpdateFields DEFAULT TIMES 0
+
+%GlobalObject DEPEND %ClassItem DEFAULT TIMES 1
+WHEN  ('Default') ('NO')
+
+%ThisObjectName DEPEND %ClassItem DEFAULT TIMES 1
+WHEN  ('Default') ('TemplateFileLookup')
+
+%UseDefaultABCBaseClass DEPEND %ClassItem LONG TIMES 1
+WHEN  ('Default') (1)
+
+%UseABCBaseClass DEPEND %ClassItem LONG TIMES 1
+WHEN  ('Default') (1)
+
+%ABCBaseClass DEPEND %ClassItem DEFAULT TIMES 1
+WHEN  ('Default') ('ADOBlob')
+
+%ExtBaseClass DEPEND %ClassItem DEFAULT TIMES 0
+
+%BaseClassIncludeFile DEPEND %ClassItem DEFAULT TIMES 0
+
+%DeriveFromBaseClass DEPEND %ClassItem LONG TIMES 1
+WHEN  ('Default') (0)
+
+%NewMethods DEPEND %ClassItem MULTI LONG TIMES 0
+
+%NewMethodName DEPEND %NewMethods DEFAULT TIMES 0
+
+%NewMethodPrototype DEPEND %NewMethods DEFAULT TIMES 0
+
+%NewClassPropertyItems DEPEND %ClassItem MULTI LONG TIMES 0
+
+%NewClassProperty DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataType DEPEND %NewClassPropertyItems DEFAULT TIMES 1
+WHEN  ('Default')TIMES 0
+
+%NewClassOtherType DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataIsRef DEPEND %NewClassPropertyItems LONG TIMES 0
+
+%NewClassDataSize DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim1 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim2 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim3 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim4 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%ClassMethods DEPEND %ClassItem MULTI LONG TIMES 0
+
+%ClassMethodName DEPEND %ClassMethods DEFAULT TIMES 0
+
+%ClassMethodPrototype DEPEND %ClassMethods DEFAULT TIMES 0
+
+%ClassPropertyItems DEPEND %ClassItem MULTI LONG TIMES 0
+
+%ClassProperty DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataType DEPEND %ClassPropertyItems DEFAULT TIMES 1
+WHEN  ('Default')TIMES 0
+
+%ClassOtherType DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataIsRef DEPEND %ClassPropertyItems LONG TIMES 0
+
+%ClassDataSize DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim1 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim2 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim3 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim4 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+[CALLS]
+srcGetImplements
+srcGetParameters
+srcGetReturnType
+srcGetSourceLine
+[WINDOW]
+Window  WINDOW('Generate Wrapper'),AT(,,182,104),DOUBLE,CENTER,GRAY
+          PANEL,AT(4,4,174,78),USE(?Panel1),#ORIG(?Panel1)
+          STRING('Press OK to Generate a Wrapper Template for:'),AT(10,8),USE(?TitleString), |
+            TRN,#ORIG(?String1)
+          STRING(@s63),AT(10,18,160,10),USE(szClassName),FONT(,,,FONT:bold),CENTER
+          PROMPT('Wrapper Generator Template:'),AT(10,28),USE(?tplTemplateName:Prompt),TRN, |
+            #ORIG(?Prompt7)
+          LIST,AT(10,38,148,10),USE(WizardFileName),VSCROLL,COLOR(COLOR:White),DROP(10),FORMAT('90L(2)@s60@'), |
+            FROM(tplTemplateQ),TIP('Select the template to be used for<0DH,0AH>creating' & |
+            ' the wrapper template.'),#FIELDS(incTemplateQ),#ORIG(?List3)
+          BUTTON('...'),AT(162,38,10,10),USE(?EditTplTemplate:Button),SKIP,TIP('Edit the s' & |
+            'elected Wrapper Generator Template.'),#ORIG(?Button6)
+          PROMPT('Generated Template File:'),AT(10,52),USE(?TemplateFileName:Prompt),TRN,#LINK(?TemplateFileName), |
+            #ORIG(?TemplateFileName:Prompt)
+          ENTRY(@s255),AT(10,62,148,10),USE(TemplateFileName),COLOR(COLOR:White),REQ,TIP('Select the' & |
+            ' filename for the <0DH,0AH>generated template (tpl) file.'),#LINK(?TemplateFileName:Prompt), |
+            #ORIG(TemplateFileName)
+          BUTTON('...'),AT(162,62,10,10),USE(?LookupFile),#ORIG(?LookupFile),#SEQ(3)
+          BUTTON('&OK'),AT(83,86,45,14),USE(?OkButton),DEFAULT,DISABLE
+          BUTTON('Cancel'),AT(133,86,45,14),USE(?CancelButton)
+        END
+
+[END]
