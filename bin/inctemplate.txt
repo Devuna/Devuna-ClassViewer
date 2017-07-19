@@ -15,7 +15,7 @@
 
 !================================================================
 ! Copyright 2017 by Devuna
-! Distributed under LGPLv3 (http://www.gnu.org/licenses/lgpl.html)  
+! Distributed under the MIT License (https://opensource.org/licenses/MIT)
 !================================================================
 !Example class inc template
 !This Class was written by %UserName

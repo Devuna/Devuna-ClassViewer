@@ -3,22 +3,21 @@
 !region Notices
 ! ================================================================================
 ! Notice : Copyright (C) 2017, Devuna
-!          Distributed under LGPLv3 (http://www.gnu.org/licenses/lgpl.html)
+!          Distributed under the MIT License (https://opensource.org/licenses/MIT)
 !
 !    This file is part of Devuna-ClassViewer (https://github.com/Devuna/Devuna-ClassViewer)
 !
 !    Devuna-ClassViewer is free software: you can redistribute it and/or modify
-!    it under the terms of the GNU General Public License as published by
-!    the Free Software Foundation, either version 3 of the License, or
-!    (at your option) any later version.
+!    it under the terms of the MIT License as published by
+!    the Open Source Initiative.
 !
 !    Devuna-ClassViewer is distributed in the hope that it will be useful,
 !    but WITHOUT ANY WARRANTY; without even the implied warranty of
 !    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-!    GNU General Public License for more details.
+!    MIT License for more details.
 !
-!    You should have received a copy of the GNU General Public License
-!    along with Devuna-ClassViewer.  If not, see <http://www.gnu.org/licenses/>.
+!    You should have received a copy of the MIT License
+!    along with Devuna-ClassViewer.  If not, see <https://opensource.org/licenses/MIT>.
 ! ================================================================================
 !endregion Notices
 
@@ -40,21 +39,21 @@
   INCLUDE('CSciViewer.inc'),ONCE
   INCLUDE('ABREPORT.INC'),ONCE
   INCLUDE('KEYSTONE.CLW','equates'),ONCE
-  
+
   ! Procedure Map
   MAP
     GetFileExtension(*CSTRING szFile),STRING
     GetMaximum(LONG, LONG),LONG
     EnumPrinters(*QUEUE pQueue, *CSTRING pPrinterName),LONG,PROC
     GetPrinterDevice(*CSTRING szPrinterName, *HGLOBAL hDevNames, *HGLOBAL hDevMode),BOOL,PROC
-   
+
     MODULE('SciUtil.c')
       CallSciMsgProc(LONG fn,       |
                      LONG ptr,      |
                      LONG uMsg,     |
                      LONG wParam,   |
                      LONG lParam),LONG,RAW,PROC,NAME('_CallSciMsgProc@FPFllll_lllll')
-      GetXPMData(LONG lImage),LONG,NAME('_GetXPMData')                     
+      GetXPMData(LONG lImage),LONG,NAME('_GetXPMData')
     END
 
     MODULE('win32API')
@@ -117,19 +116,19 @@
       SetWindowLong(UNSIGNED hWnd, SIGNED Index, LONG dwNewLong),LONG,PASCAL,RAW,NAME('SetWindowLongA'),PROC
       GetWindowLong(UNSIGNED hWnd, SIGNED Index),LONG,PASCAL,RAW,NAME('GetWindowLongA')
       GetClassName(UNSIGNED hWnd, *CSTRING ClassName, LONG nClassName),LONG,PASCAL,RAW,PROC,NAME('GetClassNameA')
-      
+
       CreateFile(*CSTRING szFileName, LONG dwDesiredAccess, LONG dwShareMode, LONG lpSecurityAttributes, |
                LONG dwCreationDisposition, LONG dwFlagsAndAttributes, UNSIGNED hTemplateFile),UNSIGNED, |
                NAME('CreateFileA'),PASCAL,RAW
       ReadFile(UNSIGNED hFile, LONG lpBuffer, LONG dwBytes, *LONG dwBytesRead, LONG lpOverlapped),BOOL,RAW,PASCAL
-      GetFileSize(UNSIGNED hFile, *LONG FileSizeHigh),LONG,RAW,PASCAL  
+      GetFileSize(UNSIGNED hFile, *LONG FileSizeHigh),LONG,RAW,PASCAL
       CloseHandle(UNSIGNED),BOOL,RAW,PASCAL,PROC
       CreateFileMapping(UNSIGNED hFile, LONG lpAttributes, LONG flProtect, LONG dwMaximumSizeHigh, LONG dwMaximumSizeLow, LONG lpName),UNSIGNED,PASCAL,NAME('CreateFileMappingA')
       MapViewOfFile(UNSIGNED hFileMappingObject, LONG dwDesiredAccess, LONG dwFileOffsetHigh, LONG dwFileOffsetLow, LONG dwNumberOfBytesToMap),LONG,PASCAL
       MoveMemory(LONG lpDestination, LONG lpSource, LONG nLength),PASCAL,NAME('RtlMoveMemory')
       UnmapViewOfFile(LONG pBuf),BOOL,PROC,PASCAL
       GetTempPath(LONG nBufferLength, *CSTRING szBuffer),LONG,PASCAL,RAW,PROC,NAME('GetTempPathA')
-      
+
       PrintDlg(*?),BOOL,RAW,PASCAL,NAME('PrintDlgA')
       GetDeviceCaps(HDC, SIGNED),SIGNED,PASCAL,NAME('GetDeviceCaps')
       GetLocaleInfo(ULONG,ULONG,*CSTRING,SIGNED),SIGNED,PASCAL,RAW,NAME('GetLocaleInfoA'),PROC
@@ -144,14 +143,14 @@
       StartDoc(HDC,*kcr_DOCINFO),SIGNED,PASCAL,RAW,NAME('StartDocA'),PROC
       StartPage(HDC hdc),LONG,PASCAL,PROC
       SetBkColor(HDC hdc, LONG crColor),BOOL,PASCAL,PROC
-      SetTextColor(HDC hdc, LONG crColor),LONG,PASCAL,PROC    
+      SetTextColor(HDC hdc, LONG crColor),LONG,PASCAL,PROC
       SetTextAlign(HDC hdc, UNSIGNED uMode),UNSIGNED,PASCAL,PROC
       ExtTextOut(HDC hdc, LONG X, LONG Y, long fuOptions, *Sci_Rectangle rc, <*cstring lpString>, long cbCount, long lpDx),BOOL,RAW,PASCAL,NAME('ExtTextOutA'),PROC
       MoveToEx(HDC hdc, SIGNED x, SIGNED y, LONG lpPoint),BOOL,RAW,PASCAL,PROC
       LineTo(HDC hdc, SIGNED x, SIGNED y),BOOL,PASCAL,PROC
       EndDoc(HDC),SIGNED,PASCAL,PROC
       EndPage(HDC hdc),LONG,PASCAL,PROC
-      
+
       RegOpenKeyEx(ULONG,*CSTRING,ULONG,ULONG,*ULONG),LONG,RAW,PASCAL,NAME('RegOpenKeyExA'),PROC
       RegQueryValueEx(ULONG,*CSTRING,ULONG,*ULONG,ULONG,*ULONG),LONG,RAW,PASCAL,NAME('RegQueryValueExA'),PROC
       RegCloseKey(ULONG),LONG,RAW,PASCAL,NAME('RegCloseKey'),PROC
@@ -162,7 +161,7 @@
         OpenPrinter(*CSTRING pPrinterName, *HANDLE phPrinter, *kcr_PRINTER_DEFAULTS pDefaults),BOOL,PASCAL,RAW,PROC,NAME('OpenPrinterA')
         GetPrinter(HANDLE hPrinter, LONG Level, LONG pPrinter, LONG cbBuf, *LONG  pcbNeeded),BOOL,PASCAL,RAW,PROC,NAME('GetPrinterA')
         ClosePrinter(HANDLE hPrinter),BOOL,PROC,PASCAL
-    END            
+    END
   END
 
 _O_RDONLY         EQUATE(00000h) ! open for reading only
@@ -180,7 +179,7 @@ AddData                 PROCEDURE(LONG lpData, LONG nLength),LONG,VIRTUAL
 ConvertToDocument       PROCEDURE(),LONG,VIRTUAL
                      END
 thisLoaderClass      &ILoader
-lpDocument           LONG                     
+lpDocument           LONG
 
 !§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
 ! CSciViewer methods
@@ -203,12 +202,12 @@ i           LONG
 
   CODE                                      ! Enter Procedure
   db.mg_init('CSciViewer')
-   
+
   SELF.ErrorStatus &= NEW ErrorStatusClass  !2004.05.15 RR - 6.1
   SELF.ErrorMgr &= NEW ErrorClass
   SELF.ErrorMgr.Init(SELF.ErrorStatus)      !2004.05.15 RR - 6.1
   SELF.ErrorMgr.AddErrors(ClassErrors)
-  
+
   ReturnValue = PARENT.Init(W, feq, id, Themed)
 
   SELF.Popup &= NEW PopupClass
@@ -232,7 +231,7 @@ i           LONG
   SELF.StandardEquates         &= rgStandardEquates
   SELF.ReservedWordsLabels     &= rgReservedWordsLabels         !2003.10.25 KCR
   SELF.ReservedWordsProcLabels &= rgReservedWordsProcLabels     !2003.10.25 KCR
-  
+
   SELF.Typeface = 'MS Sans Serif'
 
   FindGroup.What = ''
@@ -242,8 +241,8 @@ i           LONG
   FindGroup.WordStart = FALSE
   FindGroup.RegExp    = FALSE
   FindGroup.POSIX     = FALSE
-  
-  
+
+
   RETURN(ReturnValue)                       ! Exit Procedure
 
 
@@ -356,10 +355,10 @@ Bytes                    STRING(65535)
                     END
 fh                  SHORT
 fm                  LONG
-ppBuf               LONG 
+ppBuf               LONG
 pBuf                LONG
-cch                 LONG                
-shortName           CSTRING(260)    
+cch                 LONG
+shortName           CSTRING(260)
 lFileSizeHigh       LONG
 !clock1start         LONG
 !clock1end           LONG
@@ -368,7 +367,7 @@ lFileSizeHigh       LONG
 FILE_MAP_READ       EQUATE(00004h)
 
   CODE                                      ! Enter Procedure
-  
+
   szAAFileName = szFileName
   SELF.szFileName &= szAAFileName
 
@@ -386,33 +385,33 @@ FILE_MAP_READ       EQUATE(00004h)
 ?       ASSERT(~SELF.szTextBuffer &= NULL)
         IF ~SELF.szTextBuffer &= NULL
            fm = CreateFileMapping(fh, 0, PAGE_READONLY, lFileSizeHigh, lFileSize, 0)
-           IF fm 
+           IF fm
               pBuf = MapViewOfFile(fm, FILE_MAP_READ,0,0,lFileSize)
               MoveMemory(ADDRESS(SELF.szTextBuffer), pBuf, lFileSize)
               UnmapViewOfFile(pBuf)
               CloseHandle(fm)
-           END 
-        END   
+           END
+        END
         SELF.szTextBuffer[lFileSize + 1] = '<0>'
-       
+
         SELF.SetBuffer()
         ReturnValue = TRUE
      END
      CloseHandle(fh)
   ELSE
      ReturnValue = FALSE
-  END  
+  END
   !clock1end = CLOCK()
   RETURN ReturnValue
 
-  OMIT('__OLDCODE__')  
+  OMIT('__OLDCODE__')
   !method2
   clock2start = CLOCK()
   OPEN(A_A,ReadOnly+DenyWrite)
   IF ~ERRORCODE()
      lFileSize = BYTES(A_A)
      CLOSE(A_A)
- 
+
      IF ~SELF.szTextBuffer &= NULL                          ! If we already have a buffer allocated
         DISPOSE(SELF.szTextBuffer)                          !   dispose buffer
         SELF.szTextBuffer &= NULL                           !   clear reference
@@ -436,7 +435,7 @@ FILE_MAP_READ       EQUATE(00004h)
   END
   !clock2end = CLOCK()
   !db.debugout('[' & lFileSize & '] method1 = ' & FORMAT((clock1end-clock1start)/100,@N5.3) & ' method2 = ' & FORMAT((clock2end-clock2start)/100,@N5.3))
-  
+
   RETURN(ReturnValue)                       ! Exit Procedure
 
 ! Procedure Routines
@@ -452,7 +451,7 @@ lBytePtr            LONG(0)
 cc                  LONG
 
   CODE                                      ! Enter Routine
-  
+
   OPEN(A_A,ReadOnly+DenyWrite)
   IF ~ERRORCODE()
      lBytesRead = 0                                         ! We haven't read any bytes yet
@@ -487,7 +486,7 @@ cc                  LONG
      CLOSE(A_A)
      SELF.szTextBuffer[lBytesRead + 1] = '<0>'                          ! *** IMPORTANT ***
     ! cc = thisLoaderClass.AddData(ADDRESS(SELF.szTextBuffer),lBytesRead)
-     
+
 
      SETCURSOR()
   END
@@ -498,9 +497,9 @@ cc                  LONG
 ! =======================================================================================
 ! CSciViewer.ClearBuffer
 ! purpose:  Clear class text buffer and Scintilla Control buffer
-! inputs :  
+! inputs :
 ! outputs:  Class text buffer and Scintilla Control buffer are cleared
-! returns:  
+! returns:
 ! =======================================================================================
 CSciViewer.ClearBuffer PROCEDURE() !,VIRTUAL
 
@@ -519,9 +518,9 @@ lBytes  LONG
 ! =======================================================================================
 ! CSciViewer.SetBuffer
 ! purpose:  Set the Scintilla Control buffer
-! inputs :  
+! inputs :
 ! outputs:  the Scintilla Control buffer is filled
-! returns:  
+! returns:
 ! =======================================================================================
 CSciViewer.SetBuffer   PROCEDURE() !,VIRTUAL
 szEmpty  CSTRING('')
@@ -544,7 +543,7 @@ szEmpty  CSTRING('')
 ! purpose:  Set the Scintilla Control lexer
 ! inputs :  *CSTRING szFileType - the file extension or type
 ! outputs:  The Scintilla Control lexer is set
-! returns:  
+! returns:
 ! =======================================================================================
 CSciViewer.SetLexerType    PROCEDURE(STRING szFileType) !,VIRTUAL
 
@@ -574,29 +573,29 @@ CSciViewer.SetLexerType    PROCEDURE(STRING szFileType) !,VIRTUAL
 ! =======================================================================================
 ! CSciViewer.SetTextLexer
 ! purpose:  Set the Scintilla Control Text lexer
-! inputs :  
+! inputs :
 ! outputs:  The Scintilla Control Text lexer is set
-! returns:  
+! returns:
 ! =======================================================================================
 CSciViewer.SetTextLexer    PROCEDURE !,VIRTUAL
 
   CODE                                      ! Enter Procedure
   SELF.SetLexer(SCLEX_NULL)
-  SELF.ClearDocumentStyle()  
+  SELF.ClearDocumentStyle()
   RETURN                                    ! Exit Procedure
 
 
 ! =======================================================================================
 ! CSciViewer.SetClarionLexer
 ! purpose:  Set the Scintilla Control Text lexer
-! inputs :  
+! inputs :
 ! outputs:  The Scintilla Control Text lexer is set
-! returns:  
+! returns:
 ! =======================================================================================
 CSciViewer.SetClarionLexer     PROCEDURE !,VIRTUAL
 
   CODE                                      ! Enter Procedure
-  
+
   SELF.SetLexer(SCLEX_CLWNOCASE)
   SELF.SetKeywords(0, SELF.ClarionKeywords)
   SELF.SetKeywords(1, SELF.CompilerDirectives)
@@ -616,9 +615,9 @@ CSciViewer.SetClarionLexer     PROCEDURE !,VIRTUAL
 ! =======================================================================================
 ! CSciViewer.SetDefaultMonoFont
 ! purpose:  Set the Scintilla Control default font to mono
-! inputs :  
+! inputs :
 ! outputs:  The Scintilla Control default font is set to mono
-! returns:  
+! returns:
 ! =======================================================================================
 CSciViewer.SetDefaultMonoFont  PROCEDURE !,VIRTUAL
 
@@ -635,9 +634,9 @@ szMonoFont      CSTRING('Courier New')      ! Face name for mono font
 ! =======================================================================================
 ! CSciViewer.SetDefaultFont
 ! purpose:  Set the Scintilla Control default font
-! inputs :  
+! inputs :
 ! outputs:  The Scintilla Control default font is set
-! returns:  
+! returns:
 ! =======================================================================================
 CSciViewer.SetDefaultFont  PROCEDURE(*CSTRING szFontName, LONG lFontPoint) !,VIRTUAL
 
@@ -657,9 +656,9 @@ CSciViewer.SetDefaultFont  PROCEDURE(*CSTRING szFontName, LONG lFontPoint) !,VIR
 ! =======================================================================================
 ! CSciViewer.SetDefaults
 ! purpose:  Set the Scintilla Control defaults
-! inputs :  
+! inputs :
 ! outputs:  The Scintilla Control defaults are set
-! returns:  
+! returns:
 ! =======================================================================================
 CSciViewer.SetDefaults  PROCEDURE() !,VIRTUAL
 
@@ -727,7 +726,7 @@ szMonoFont      CSTRING('Courier New')      ! Face name for mono font
   SELF.SetMarginMaskN(MARGIN_SCRIPT_FOLD_INDEX, SC_MASK_FOLDERS)
   SELF.SetMarginSensitiveN(MARGIN_SCRIPT_FOLD_INDEX,1)
   SELF.SetMarginWidthN(MARGIN_SCRIPT_FOLD_INDEX, 16)
-  
+
   !following are for debugging folding
   !SELF.SetMarginWidthN(0, lNumberWidth+8)
   !SELF.SetFoldFlags(64) !16
@@ -749,9 +748,9 @@ szMonoFont      CSTRING('Courier New')      ! Face name for mono font
 ! =======================================================================================
 ! CSciViewer.AskGoToLine
 ! purpose:  Ask User what line to go to
-! inputs :  
+! inputs :
 ! outputs:  The given line is scrolled to the top of the window
-! returns:  
+! returns:
 ! =======================================================================================
 CSciViewer.AskGoToLine  PROCEDURE() !,VIRTUAL
 
@@ -788,21 +787,21 @@ GotoDialog WINDOW('Go To Line Number'),AT(,,105,38),CENTER,GRAY,FONT('Segoe UI',
   END
   CLOSE(GotoDialog)
   IF OKGo THEN SELF.GoToLine(LineNo-1).
-  
+
   RETURN                                    ! Exit Procedure
 
 
 ! =======================================================================================
 ! CSciViewer.GoToLine
 ! purpose:  enforce visibility in case folded
-! inputs :  
-! outputs:  
-! returns:  
+! inputs :
+! outputs:
+! returns:
 ! =======================================================================================
 CSciViewer.GoToLine  PROCEDURE(LONG lLine) !,VIRTUAL
 
   CODE
-  
+
   IF SELF.bInitialised
      PARENT.EnsureVisibleEnforcePolicy(lLine)
      PARENT.GoToLine(lLine)
@@ -857,9 +856,9 @@ CurrentLine LONG,AUTO
 ! =======================================================================================
 ! CSciViewer.SearchAsk
 ! purpose:  Ask User what to look for.  Provides wrap around option if file limit reached
-! inputs :  
+! inputs :
 ! outputs:  The given line is scrolled to the top of the window
-! returns:  
+! returns:
 ! =======================================================================================
 CSciViewer.SearchAsk PROCEDURE()
 thisHH   &tagHTMLHelp
@@ -869,9 +868,9 @@ thisHH   &tagHTMLHelp
 ! =======================================================================================
 ! CSciViewer.SearchAsk
 ! purpose:  Ask User what to look for.  Provides wrap around option if file limit reached
-! inputs :  
+! inputs :
 ! outputs:  The given line is scrolled to the top of the window
-! returns:  
+! returns:
 ! =======================================================================================
 CSciViewer.SearchAsk PROCEDURE(BOOL bShowWindow)
 thisHH   &tagHTMLHelp
@@ -880,9 +879,9 @@ thisHH   &tagHTMLHelp
 ! =======================================================================================
 ! CSciViewer.SearchAsk
 ! purpose:  Ask User what to look for.  Provides wrap around option if file limit reached
-! inputs :  
+! inputs :
 ! outputs:  The given line is scrolled to the top of the window
-! returns:  
+! returns:
 ! =======================================================================================
 CSciViewer.SearchAsk PROCEDURE(BOOL bShowWindow, tagHTMLHelp HTMLHelp)
 ! Static variables so that they persist
@@ -936,9 +935,9 @@ FindOptions WINDOW('Find'),AT(,,285,75),CENTER,GRAY,IMM,FONT('Segoe UI',10,COLOR
   CODE                                      ! Enter Procedure
   IF SELF.bInitialised
      lFoundPosition = SELF.GetCurrentPos()
- 
+
      OmitWindow = 1 - bShowWindow
-     
+
      LOOP
        IF ~OmitWindow
           OPEN(FindOptions)
@@ -970,12 +969,12 @@ FindOptions WINDOW('Find'),AT(,,285,75),CENTER,GRAY,IMM,FONT('Segoe UI',10,COLOR
                    OF F12Key
                       IF NOT HTMLHelp &= NULL
                          HTMLHelp.ShowTopic('Find.htm')
-                      END   
+                      END
                  END
 
             OF EVENT:CloseDown
                POST(EVENT:CloseWindow)
-               
+
             OF EVENT:CloseWindow
                SELF.FindWindowTakeCloseWindow()
                IF buttonPressed = FALSE
@@ -983,7 +982,7 @@ FindOptions WINDOW('Find'),AT(,,285,75),CENTER,GRAY,IMM,FONT('Segoe UI',10,COLOR
                !ELSE
                !   buttonPressed = FALSE
                END
-               
+
             OF EVENT:OpenWindow
                SELF.FindWindowTakeOpenWindow()
                IF FindGroup.What = ''
@@ -991,7 +990,7 @@ FindOptions WINDOW('Find'),AT(,,285,75),CENTER,GRAY,IMM,FONT('Segoe UI',10,COLOR
                ELSE
                   !lFoundPosition = SELF.GetCurrentPos()
                   SearchPerformed = FALSE
-               END   
+               END
                lFoundNext = INVALID_POSITION
                DO UpdateWindow
                SELECT(?FindGroup:What)
@@ -1008,7 +1007,7 @@ FindOptions WINDOW('Find'),AT(,,285,75),CENTER,GRAY,IMM,FONT('Segoe UI',10,COLOR
                   DO UpdateWindow
                OF ?FindGroup:POSIX
                   DO UpdateWindow
-               
+
                OF ?NextButton
                   SearchPerformed = TRUE
                   buttonPressed = ?NextButton
@@ -1018,7 +1017,7 @@ FindOptions WINDOW('Find'),AT(,,285,75),CENTER,GRAY,IMM,FONT('Segoe UI',10,COLOR
                   SearchPerformed = TRUE
                   buttonPressed = ?cmdBookmarkAll
                   POST(EVENT:CloseWindow)
-                  
+
                OF ?CancelButton
                   Quit = TRUE
                   buttonPressed = ?CancelButton
@@ -1027,18 +1026,18 @@ FindOptions WINDOW('Find'),AT(,,285,75),CENTER,GRAY,IMM,FONT('Segoe UI',10,COLOR
 
             OF EVENT:Moved
                GETPOSITION(0,WinXPos,WinYPos)
-               
+
             OF EVENT:NewSelection
                CASE FIELD()
                  OF ?FindGroup:What
                     DO UpdateWindow
-               END     
+               END
             END
 
             UPDATE(?FindGroup:What)
             ?NextButton{PROP:Disable} = CHOOSE(FindGroup.What = '')
             ?cmdBookmarkAll{PROP:Disable} = CHOOSE(FindGroup.What = '')
-            
+
 
           END   !ACCEPT
 
@@ -1050,7 +1049,7 @@ FindOptions WINDOW('Find'),AT(,,285,75),CENTER,GRAY,IMM,FONT('Segoe UI',10,COLOR
        IF Quit
           IF SearchPerformed = FALSE
              SELF.GotoPos(SELF.GetSelectionStart())
-          END   
+          END
           BREAK
        ELSE
           CASE buttonPressed
@@ -1080,9 +1079,9 @@ FindOptions WINDOW('Find'),AT(,,285,75),CENTER,GRAY,IMM,FONT('Segoe UI',10,COLOR
                   SELF.GrabFocus()
                   IF bShowWindow = FALSE
                      BREAK
-                  END   
+                  END
                END
-               
+
             OF ?cmdBookmarkAll
                currentPosition = SELF.GetCurrentPos()
                IF FindGroup.Direction = 'Down'
@@ -1098,17 +1097,17 @@ FindOptions WINDOW('Find'),AT(,,285,75),CENTER,GRAY,IMM,FONT('Segoe UI',10,COLOR
                        BREAK
                     OF -1
                        BREAK
-                  ELSE      
+                  ELSE
                        markerHandle = SELF.MarkerAdd(SELF.LineFromPosition(lFoundNext),1)
                        IF FindGroup.Direction = 'Down'
                           SELF.GotoPos(lFoundNext + LEN(FindGroup.What) + 1)
-                       END   
+                       END
                   END
                END
                SELF.GotoPos(currentPosition)
                SELF.SetAnchor(SELF.GetCurrentPos())
                BREAK
-          END 
+          END
           buttonPressed = FALSE
        END
      END
@@ -1116,7 +1115,7 @@ FindOptions WINDOW('Find'),AT(,,285,75),CENTER,GRAY,IMM,FONT('Segoe UI',10,COLOR
   END
 
   RETURN                                    ! Exit Procedure
-  
+
 UpdateWindow   ROUTINE
    UPDATE()
    ?NextButton{PROP:Disable} = CHOOSE(FindGroup.What = '')
@@ -1135,13 +1134,13 @@ UpdateWindow   ROUTINE
    IF FindGroup.RegExp = TRUE
       DISABLE(?FindGroup:MatchCase,?FindGroup:WordStart)
       ENABLE(?FindGroup:POSIX)
-   ELSE   
+   ELSE
       FindGroup.POSIX = FALSE
       DISABLE(?FindGroup:POSIX)
       ENABLE(?FindGroup:MatchCase,?FindGroup:WordStart)
    END
    DISPLAY(?FindGroup:MatchCase,?FindGroup:POSIX)
-   EXIT  
+   EXIT
 
 ! =======================================================================================
 ! CSciViewer.SearchNext(*FindGrp  Find)
@@ -1189,9 +1188,9 @@ SearchFlags LONG,AUTO
 ! =======================================================================================
 ! CSciViewer.PrintAsk
 ! purpose:  Print the document
-! inputs :  
+! inputs :
 ! outputs:  The document is printed
-! returns:  
+! returns:
 ! RAS.2003.05.22 (File Print) - Created procedure and tested
 ! KCR.2003.07.15 - modified for CSciViewer
 ! =======================================================================================
@@ -1249,13 +1248,13 @@ DataDetail DETAIL,AT(,,7500,135),USE(?DataDetail),FONT('Courier New',8,,FONT:reg
      LOOP LOC:LineNumber = 0 TO LOC:LineCount
         LOC:LineShow   = LOC:LineNumber + 1
         LOC:DetailLine = ''
-        LOC:LineLength = SELF.LineLength(LOC:LineNumber)                   
+        LOC:LineLength = SELF.LineLength(LOC:LineNumber)
 
         IF (LOC:LineLength < SIZE(LOC:DetailLine)) THEN
-          LOC:LineLength = SELF.GetLine(LOC:LineNumber, LOC:DetailLine)    
-          IF LOC:LineLength > 1                                            
-             LOC:DetailLine[LOC:LineLength-1] = '<0>'                      
-          END                                                              
+          LOC:LineLength = SELF.GetLine(LOC:LineNumber, LOC:DetailLine)
+          IF LOC:LineLength > 1
+             LOC:DetailLine[LOC:LineLength-1] = '<0>'
+          END
         ELSE
           LOC:DetailLine    = '*** LINE IS TOO BIG ***'
         END
@@ -1266,7 +1265,7 @@ DataDetail DETAIL,AT(,,7500,135),USE(?DataDetail),FONT('Courier New',8,,FONT:reg
      END
      ENDPAGE(SciPrint)
 
-     
+
      SciPrint{PROP:flushpreview} = Previewer.Display()
 
      CLOSE(SciPrint)
@@ -1282,7 +1281,7 @@ DataDetail DETAIL,AT(,,7500,135),USE(?DataDetail),FONT('Courier New',8,,FONT:reg
 ! purpose:  Set the colors used by the control
 ! inputs :  *COLORGROUPTYPE color
 ! outputs:  The colors are set as defined in the passed colorgroup
-! returns:  
+! returns:
 ! KCR.2003.07.19 - Initial Version
 ! =======================================================================================
 CSciViewer.SetColors PROCEDURE(*COLORGROUPTYPE color) !,VIRTUAL
@@ -1292,7 +1291,7 @@ styleNumber LONG,AUTO
   CODE                                      ! Enter Procedure
 
   IF SELF.bInitialised
-     
+
      SELF.Style = color                     ! Save as current style
 
      IF color.StyleGroup[SCE_CLW_DEFAULT+1].Font
@@ -1363,9 +1362,9 @@ styleNumber LONG,AUTO
 ! =======================================================================================
 ! CSciViewer.FoldMargin
 ! purpose:  Toggle Fold Margin on or off
-! inputs :  
-! outputs:  
-! returns:  
+! inputs :
+! outputs:
+! returns:
 ! KCR.2004.12.20 - Initial Version
 ! =======================================================================================
 CSciViewer.FoldMargin PROCEDURE() !,VIRTUAL
@@ -1398,9 +1397,9 @@ J           LONG,AUTO
 ! =======================================================================================
 ! CSciViewer.FoldAll
 ! purpose:  Expand or Contract all folds
-! inputs :  
-! outputs:  
-! returns:  
+! inputs :
+! outputs:
+! returns:
 ! KCR.2004.12.20 - Initial Version
 ! =======================================================================================
 CsciViewer.FoldAll  PROCEDURE()
@@ -1444,9 +1443,9 @@ CurrentLine     LONG
 ! =======================================================================================
 ! CSciViewer.Expand
 ! purpose:  Expand or Contract levels
-! inputs :  
-! outputs:  
-! returns:  
+! inputs :
+! outputs:
+! returns:
 ! KCR.2004.12.20 - Initial Version
 ! =======================================================================================
 CsciViewer.Expand   PROCEDURE (*LONG line, BOOL doExpand, BOOL force, LONG visLevels, LONG level)
@@ -1499,20 +1498,20 @@ levelLine       LONG
 ! =======================================================================================
 ! CSciViewer.GetFindGroup()
 ! purpose:  Return FindGroup
-! inputs :  
-! outputs:  
-! returns:  
+! inputs :
+! outputs:
+! returns:
 ! =======================================================================================
-CSciViewer.GetFindGroup          PROCEDURE() !,STRING,VIRTUAL                    ! 
+CSciViewer.GetFindGroup          PROCEDURE() !,STRING,VIRTUAL                    !
    CODE
       RETURN FindGroup
 
 ! =======================================================================================
 ! CSciViewer.SetFindGroup()
 ! purpose:  Set FindGroup
-! inputs :  
-! outputs:  
-! returns:  
+! inputs :
+! outputs:
+! returns:
 ! =======================================================================================
 CSciViewer.SetFindGroup          PROCEDURE(*FindGrp pFindGroup) !,VIRTUAL        !
    CODE
@@ -1522,22 +1521,22 @@ CSciViewer.SetFindGroup          PROCEDURE(*FindGrp pFindGroup) !,VIRTUAL       
 ! =======================================================================================
 ! CSciViewer.GetFindWhat()
 ! purpose:  Return value in FindGroup.what
-! inputs :  
-! outputs:  
-! returns:  
+! inputs :
+! outputs:
+! returns:
 ! =======================================================================================
-CSciViewer.GetFindWhat           PROCEDURE() !,STRING,VIRTUAL                    ! 
+CSciViewer.GetFindWhat           PROCEDURE() !,STRING,VIRTUAL                    !
    CODE
       RETURN FindGroup.What
 
 ! =======================================================================================
 ! CSciViewer.SetFindWhat()
 ! purpose:  Set the value in FindGroup.what
-! inputs :  
-! outputs:  
-! returns:  
+! inputs :
+! outputs:
+! returns:
 ! =======================================================================================
-CSciViewer.SetFindWhat           PROCEDURE(szWhat) !,VIRTUAL                    ! 
+CSciViewer.SetFindWhat           PROCEDURE(szWhat) !,VIRTUAL                    !
    CODE
       FindGroup.What = szWhat
       RETURN
@@ -1545,9 +1544,9 @@ CSciViewer.SetFindWhat           PROCEDURE(szWhat) !,VIRTUAL                    
 ! =======================================================================================
 ! CSciViewer.FindWindowTakeCloseWindow()
 ! purpose:  To provide virtual access to the Find window CloseWindow Event
-! inputs :  
-! outputs:  
-! returns:  
+! inputs :
+! outputs:
+! returns:
 ! =======================================================================================
 CSciViewer.FindWindowTakeCloseWindow PROCEDURE() !,VIRTUAL
   CODE                                      ! Enter Procedure
@@ -1557,9 +1556,9 @@ CSciViewer.FindWindowTakeCloseWindow PROCEDURE() !,VIRTUAL
 ! =======================================================================================
 ! CSciViewer.FindWindowTakeOpenWindow()
 ! purpose:  To provide virtual access to the Find window OpenWindow Event
-! inputs :  
-! outputs:  
-! returns:  
+! inputs :
+! outputs:
+! returns:
 ! =======================================================================================
 CSciViewer.FindWindowTakeOpenWindow PROCEDURE() !,VIRTUAL
   CODE                                      ! Enter Procedure
@@ -1568,9 +1567,9 @@ CSciViewer.FindWindowTakeOpenWindow PROCEDURE() !,VIRTUAL
 ! =======================================================================================
 ! CSciViewer.SetDefaultMonoFont
 ! purpose:  Set the Scintilla Control default font to mono
-! inputs :  
+! inputs :
 ! outputs:  The Scintilla Control default font is set to mono
-! returns:  
+! returns:
 ! =======================================================================================
 CSciViewer.SetTypeface  PROCEDURE(*STRING sTypeface) !,VIRTUAL
 
@@ -1591,94 +1590,94 @@ CSciViewer.GetSelection   PROCEDURE(*Sci_CharacterRange crange)   !,VIRTUAL
 ! =======================================================================================
 ! CSciViewer.GetCurrentLineNumber
 ! purpose:  Return the current line number
-! inputs :  
-! outputs:  
-! returns:  
-! =======================================================================================   
+! inputs :
+! outputs:
+! returns:
+! =======================================================================================
 CSciViewer.GetCurrentLineNumber PROCEDURE()
    CODE
       RETURN SELF.LineFromPosition(SELF.GetCurrentPos())
-      
-      
+
+
 ! =======================================================================================
 ! CSciViewer.BookmarkAdd
 ! purpose:  Add a bookmark
 ! inputs :  line number to be bookmarked
-! outputs:  
-! returns:  
-! =======================================================================================   
+! outputs:
+! returns:
+! =======================================================================================
 CSciViewer.BookmarkAdd PROCEDURE(LONG lineno)
 markerHandle   LONG
 
   CODE
-  	   IF lineno = -1
-  		   lineno = SELF.GetCurrentLineNumber()
-  		END   
-  	   IF NOT SELF.BookmarkPresent(lineno)
-  		   markerHandle = SELF.MarkerAdd(lineno, markerBookmark)
-  		END   
+           IF lineno = -1
+                   lineno = SELF.GetCurrentLineNumber()
+                END
+           IF NOT SELF.BookmarkPresent(lineno)
+                   markerHandle = SELF.MarkerAdd(lineno, markerBookmark)
+                END
 
-  		
+
 ! =======================================================================================
 ! CSciViewer.BookmarkDelete
 ! purpose:  Delete bookmark
 ! inputs :  line number to have bookmark removed
-! outputs:  
-! returns:  
-! =======================================================================================   
+! outputs:
+! returns:
+! =======================================================================================
 CSciViewer.BookmarkDelete PROCEDURE(LONG lineno)
   CODE
-  	   IF lineno = -1
-  		   lineno = SELF.GetCurrentLineNumber()
-  		END   
-  	   IF SELF.BookmarkPresent(lineno)
-  		   SELF.MarkerDelete(lineno, markerBookmark)
-  		END  
-  		
-  		
+           IF lineno = -1
+                   lineno = SELF.GetCurrentLineNumber()
+                END
+           IF SELF.BookmarkPresent(lineno)
+                   SELF.MarkerDelete(lineno, markerBookmark)
+                END
+
+
 ! =======================================================================================
 ! CSciViewer.BookmarkPresent
 ! purpose:  Check if line in bookmarked
 ! inputs :  line number to be checked
-! outputs:  
-! returns:  
-! =======================================================================================   
+! outputs:
+! returns:
+! =======================================================================================
 CSciViewer.BookmarkPresent PROCEDURE(LONG lineno)
 state       LONG,AUTO
 
   CODE
       IF lineno = -1
-  		   lineno = SELF.GetCurrentLineNumber()
-  		END   
-  	   state = SELF.MarkerGet(lineno)
-  	   RETURN BAND(state,(BSHIFT(1,markerBookmark)))
-  	   
+                   lineno = SELF.GetCurrentLineNumber()
+                END
+           state = SELF.MarkerGet(lineno)
+           RETURN BAND(state,(BSHIFT(1,markerBookmark)))
+
 ! =======================================================================================
 ! CSciViewer.BookmarkToggle
 ! purpose:  Toggle a bookmark on and off
 ! inputs :  Line number with bookmark to toggle
-! outputs:  
-! returns:  
-! =======================================================================================   
+! outputs:
+! returns:
+! =======================================================================================
 CSciViewer.BookmarkToggle PROCEDURE(LONG lineno)
   CODE
-  	   IF lineno = -1
-  		   lineno = SELF.GetCurrentLineNumber()
-  		END   
-  	   IF SELF.BookmarkPresent(lineno)
-  		   SELF.BookmarkDelete(lineno)
-  	   ELSE
-  		   SELF.BookmarkAdd(lineno)
-  		END   
+           IF lineno = -1
+                   lineno = SELF.GetCurrentLineNumber()
+                END
+           IF SELF.BookmarkPresent(lineno)
+                   SELF.BookmarkDelete(lineno)
+           ELSE
+                   SELF.BookmarkAdd(lineno)
+                END
 
 ! =======================================================================================
 ! CSciViewer.BookmarkNext
 ! purpose:  Go to next/previous bookmark
 ! inputs :  forwardScan true = next; false = previous
 !           select = true sets anchor
-! outputs:  
-! returns:  
-! =======================================================================================   
+! outputs:
+! returns:
+! =======================================================================================
 CSciViewer.BookmarkNext PROCEDURE(BOOL forwardScan, BOOL select)
 lineno         LONG
 lineStart      LONG
@@ -1688,43 +1687,43 @@ nextLine       LONG
 
   CODE
       lineno = SELF.GetCurrentLineNumber()
-  	   anchor = SELF.GetAnchor()
+           anchor = SELF.GetAnchor()
       IF forwardScan
-   	   lineStart = lineno + 1                 !Scan starting from next line
-   	   lineRetry = 0  				            !If not found, try from the beginning
-  		   nextLine = SELF.MarkerNext(lineStart, BSHIFT(1,markerBookmark))
-  	   ELSE
-  		   lineStart = lineno - 1                 !Scan starting from previous line
-  		   lineRetry = SELF.GetLineCount()  !If not found, try from the end
-  		   nextLine = SELF.MarkerPrevious(lineStart, BSHIFT(1,markerBookmark))
-  		END   
-  	   IF nextLine < 0
-  	      IF forwardScan
-  		      nextLine = SELF.MarkerNext(lineRetry, BSHIFT(1,markerBookmark))
-  		   ELSE
-  		      nextLine = SELF.MarkerPrevious(lineRetry, BSHIFT(1,markerBookmark))
-         END		    
-      END   
-  	   IF nextLine < 0                           !No bookmark
-  		   MESSAGE('No bookmarks!','Warning',ICON:Exclamation)
-  	   ELSIF nextLine = lineno                   !Only one, and already on it
-  		   MESSAGE('No more bookmarks!','Warning',ICON:Exclamation)
-  		ELSE   
-  			SELF.EnsureVisibleEnforcePolicy(nextLine)
-  		   SELF.GotoLine(nextLine)
-  		   IF select
-  		      SELF.SetAnchor(anchor)
-  		   END
-  		END   
-      
-   
+           lineStart = lineno + 1                 !Scan starting from next line
+           lineRetry = 0                                            !If not found, try from the beginning
+                   nextLine = SELF.MarkerNext(lineStart, BSHIFT(1,markerBookmark))
+           ELSE
+                   lineStart = lineno - 1                 !Scan starting from previous line
+                   lineRetry = SELF.GetLineCount()  !If not found, try from the end
+                   nextLine = SELF.MarkerPrevious(lineStart, BSHIFT(1,markerBookmark))
+                END
+           IF nextLine < 0
+              IF forwardScan
+                      nextLine = SELF.MarkerNext(lineRetry, BSHIFT(1,markerBookmark))
+                   ELSE
+                      nextLine = SELF.MarkerPrevious(lineRetry, BSHIFT(1,markerBookmark))
+         END
+      END
+           IF nextLine < 0                           !No bookmark
+                   MESSAGE('No bookmarks!','Warning',ICON:Exclamation)
+           ELSIF nextLine = lineno                   !Only one, and already on it
+                   MESSAGE('No more bookmarks!','Warning',ICON:Exclamation)
+                ELSE
+                        SELF.EnsureVisibleEnforcePolicy(nextLine)
+                   SELF.GotoLine(nextLine)
+                   IF select
+                      SELF.SetAnchor(anchor)
+                   END
+                END
+
+
 ! =======================================================================================
 ! CSciViewer.OnPrint
 ! purpose:  Print the Document
 ! inputs :  bShowDialog
-! outputs:  
-! returns:  
-! =======================================================================================   
+! outputs:
+! returns:
+! =======================================================================================
 CSciViewer.OnPrint   PROCEDURE(BOOL bShowDialog)   !,VIRTUAL
 
 pdlg                 LIKE(kcr_PRINTDLG),PRE(pd)
@@ -1736,7 +1735,7 @@ dm                   &kcr_DEVMODE
 hdc                  HDC
 crange               LIKE(Sci_CharacterRange)
 startPos             LONG
-endPos               LONG 
+endPos               LONG
 rectMargins          LIKE(Sci_Rectangle)
 rectPhysMargins      LIKE(Sci_Rectangle)
 ptPage               LIKE(Sci_Point)
@@ -1754,47 +1753,47 @@ headerLineHeight     LONG
 fontHeader           HFONT
 footerLineHeight     LONG
 fontFooter           HFONT
-lengthDoc	         LONG
-lengthDocMax	      LONG
-lengthPrinted	      LONG(0)
+lengthDoc                LONG
+lengthDocMax          LONG
+lengthPrinted         LONG(0)
 frPrint              LIKE(Sci_RangeToFormat)
 pageNum              LONG(1)
 printPage            BOOL
-ta                   UNSIGNED                  
-rcw                  LIKE(Sci_Rectangle)                  
+ta                   UNSIGNED
+rcw                  LIKE(Sci_Rectangle)
 pen                  HPEN
-penOld               HPEN 
+penOld               HPEN
 nullFr               &Sci_RangeToFormat
 szOutputName         CSTRING(260)
 szDataType           CSTRING('WMF')
-!	print.header.format=$(FileNameExt) -- Printed on $(CurrentDate), $(CurrentTime) -- Page $(CurrentPage)
-!	print.footer.format=$(FilePath) -- File date: $(FileDate) -- File time: $(FileTime)
+!       print.header.format=$(FileNameExt) -- Printed on $(CurrentDate), $(CurrentTime) -- Page $(CurrentPage)
+!       print.footer.format=$(FilePath) -- File date: $(FileDate) -- File time: $(FileTime)
 ProgressWindow WINDOW,AT(,,200,8),CENTER,FONT('Segoe UI',10),TIMER(10),NOFRAME
       PROGRESS,AT(0,0),FULL,USE(?ProgressBar),RANGE(0,100)
    END
-   
-i              LONG   
+
+i              LONG
 PrinterQueue   QUEUE
 PrinterName       CSTRING(256)
                END
-               
+
 XPSDocumentWriterPresent   BOOL(FALSE)
-szDriver          CSTRING('WINSPOOL') 
+szDriver          CSTRING('WINSPOOL')
 szDevice          CSTRING('Microsoft XPS Document Writer')
 hPrinter          HANDLE
 printerDefaults   &kcr_PRINTER_DEFAULTS
 cbBuf    LONG
 cbNeeded LONG
-cc       LONG  
+cc       LONG
 x        LONG
 y        LONG
 w        LONG
-h        LONG                    
+h        LONG
    CODE                                      ! Enter Procedure
 
    IF SELF.bInitialised = TRUE
       SELF.AnnotationClearAll()
-   
+
       EnumPrinters(PrinterQueue,PrinterQueue.PrinterName)
       LOOP i = 1 TO RECORDS(PrinterQueue)
          GET(PrinterQueue,i)
@@ -1803,7 +1802,7 @@ h        LONG
             BREAK
          END
       END
-      
+
       !initialize the PrintDialog structure
       pdlg.lStructSize  = SIZE(pdlg)
       pdlg.hwndOwner    = SELF.GetWindowHandle()
@@ -1832,34 +1831,34 @@ h        LONG
       IF NOT bShowDialog
          !Don't display dialog box, just use the default printer and options
          pdlg.Flags = BOR(pdlg.Flags,PD_RETURNDEFAULT)
-      END   
+      END
 
       !get user printer selection
-      IF XPSDocumentWriterPresent = TRUE 
+      IF XPSDocumentWriterPresent = TRUE
          IF GetPrinterDevice(szDevice,hDevNames,hDevMode)
             hdc = CreateDC(szDriver,szDevice,0,0)
-         ELSE   
+         ELSE
             XPSDocumentWriterPresent = FALSE
             IF PrintDlg(pdlg)
-       	      hDevMode = pdlg.hDevMode
-      	      hDevNames = pdlg.hDevNames
-	            hdc = pdlg.hDC
-	         ELSE
-	            RETURN
-	         END
-	      END
+              hDevMode = pdlg.hDevMode
+              hDevNames = pdlg.hDevNames
+                    hdc = pdlg.hDC
+                 ELSE
+                    RETURN
+                 END
+              END
       ELSE
          IF PrintDlg(pdlg)
-          	hDevMode = pdlg.hDevMode
-         	hDevNames = pdlg.hDevNames
-	         hdc = pdlg.hDC
-	      ELSE
-	         RETURN
-	      END   
-	   END   
-	   
-      DISPLAY()    
-      
+                hDevMode = pdlg.hDevMode
+                hDevNames = pdlg.hDevNames
+                 hdc = pdlg.hDC
+              ELSE
+                 RETURN
+              END
+           END
+
+      DISPLAY()
+
       ! Get printer resolution
       ptDpi.x = GetDeviceCaps(hdc, LOGPIXELSX)    ! dpi in X direction
       ptDpi.y = GetDeviceCaps(hdc, LOGPIXELSY)    ! dpi in Y direction
@@ -1876,13 +1875,13 @@ h        LONG
       ! To get the right and lower unprintable area,
       ! we take the entire width and height of the paper and
       ! subtract everything else.
-      rectPhysMargins.right = ptPage.x						       | ! total paper width
+      rectPhysMargins.right = ptPage.x                                                 | ! total paper width
                               - GetDeviceCaps(hdc, HORZRES)  | ! printable width
-                              - rectPhysMargins.left;				! left unprintable margin
+                              - rectPhysMargins.left;                           ! left unprintable margin
 
-      rectPhysMargins.bottom = ptPage.y						    | ! total paper height
+      rectPhysMargins.bottom = ptPage.y                                             | ! total paper height
                                - GetDeviceCaps(hdc, VERTRES) | !printable height
-                               - rectPhysMargins.top;				! right unprintable margin
+                               - rectPhysMargins.top;                           ! right unprintable margin
 
       ! At this point, rectPhysMargins contains the widths of the
       ! unprintable regions on all four sides of the page in device units.
@@ -1898,28 +1897,28 @@ h        LONG
 
          GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_IMEASURE, localeInfo, 3)
 
-         IF (localeInfo[1] = '0') 	! Metric system. '1' is US System
+         IF (localeInfo[1] = '0')       ! Metric system. '1' is US System
             rectSetup.left    = MulDiv(pagesetupMargin.left, ptDpi.x, 2540)
             rectSetup.top     = MulDiv(pagesetupMargin.top, ptDpi.y, 2540)
-            rectSetup.right	= MulDiv(pagesetupMargin.right, ptDpi.x, 2540)
-            rectSetup.bottom	= MulDiv(pagesetupMargin.bottom, ptDpi.y, 2540)
+            rectSetup.right     = MulDiv(pagesetupMargin.right, ptDpi.x, 2540)
+            rectSetup.bottom    = MulDiv(pagesetupMargin.bottom, ptDpi.y, 2540)
          ELSE
-            rectSetup.left	   = MulDiv(pagesetupMargin.left, ptDpi.x, 1000)
-            rectSetup.top	   = MulDiv(pagesetupMargin.top, ptDpi.y, 1000)
-            rectSetup.right	= MulDiv(pagesetupMargin.right, ptDpi.x, 1000)
-            rectSetup.bottom	= MulDiv(pagesetupMargin.bottom, ptDpi.y, 1000)
+            rectSetup.left         = MulDiv(pagesetupMargin.left, ptDpi.x, 1000)
+            rectSetup.top          = MulDiv(pagesetupMargin.top, ptDpi.y, 1000)
+            rectSetup.right     = MulDiv(pagesetupMargin.right, ptDpi.x, 1000)
+            rectSetup.bottom    = MulDiv(pagesetupMargin.bottom, ptDpi.y, 1000)
          END
 
          ! Dont reduce margins below the minimum printable area
-         rectMargins.left	   = GetMaximum(rectPhysMargins.left, rectSetup.left)
-         rectMargins.top	   = GetMaximum(rectPhysMargins.top, rectSetup.top)
-         rectMargins.right	   = GetMaximum(rectPhysMargins.right, rectSetup.right)
-         rectMargins.bottom	= GetMaximum(rectPhysMargins.bottom, rectSetup.bottom)
+         rectMargins.left          = GetMaximum(rectPhysMargins.left, rectSetup.left)
+         rectMargins.top           = GetMaximum(rectPhysMargins.top, rectSetup.top)
+         rectMargins.right         = GetMaximum(rectPhysMargins.right, rectSetup.right)
+         rectMargins.bottom     = GetMaximum(rectPhysMargins.bottom, rectSetup.bottom)
       ELSE
-         rectMargins.left	   = rectPhysMargins.left
-         rectMargins.top	   = rectPhysMargins.top
-         rectMargins.right	   = rectPhysMargins.right
-         rectMargins.bottom	= rectPhysMargins.bottom
+         rectMargins.left          = rectPhysMargins.left
+         rectMargins.top           = rectPhysMargins.top
+         rectMargins.right         = rectPhysMargins.right
+         rectMargins.bottom     = rectPhysMargins.bottom
       END
 
       ! rectMargins now contains the values used to shrink the printable
@@ -1938,21 +1937,21 @@ h        LONG
       SelectObject(hdc, fontHeader)
       GetTextMetrics(hdc, ADDRESS(tm))
       headerLineHeight = tm.tmHeight + tm.tmExternalLeading
-      
+
       ! Print.footer.style=font:Arial Narrow,size:10,italics
       footerLineHeight = MulDiv(footerFormatSize,ptDpi.y, 72)
       fontFooter = CreateFont(footerLineHeight,0,0,0,400,1,0,0,0,0,0,0,0,szFooterFont)
       SelectObject(hdc, fontHeader)
       GetTextMetrics(hdc, ADDRESS(tm))
       footerLineHeight = tm.tmHeight + tm.tmExternalLeading
-      
+
       szOutputName = ''
-      IF XPSDocumentWriterPresent = TRUE 
+      IF XPSDocumentWriterPresent = TRUE
          IF GetTempPath(SIZE(szOutputName),szOutputName) > 0
             szOutputName = szOutputName & 'kss.xps'
             REMOVE(szOutputName)
          END
-      END   
+      END
 
       di.cbSize       = SIZE(di)
       di.lpszDocName  = ADDRESS(szDocName)
@@ -1963,13 +1962,13 @@ h        LONG
       END
       di.lpszDatatype = 0  !ADDRESS(szDataType)
       di.fwType       = 0
-      
+
       IF StartDoc(hdc, di) < 0
          MESSAGE('Can not start printer document.','Print Error',ICON:HAND)
       ELSE
-         lengthDoc	 = SELF.GetLength()
+         lengthDoc       = SELF.GetLength()
          lengthDocMax = lengthDoc
-         
+
          ! Requested to print selection
          IF BAND(pdlg.Flags,PD_SELECTION)
             IF startPos > endPos
@@ -1983,12 +1982,12 @@ h        LONG
             IF lengthPrinted < 0
                lengthPrinted = 0
             END
-            
+
             IF lengthDoc > lengthDocMax
                lengthDoc = lengthDocMax
-            END   
-         END       
- 
+            END
+         END
+
          ! We must substract the physical margins from the printable area
          frPrint.hdc = hdc
          frPrint.hdcTarget = hdc
@@ -2006,7 +2005,7 @@ h        LONG
          IF footerFormatSize > 0
             frPrint.rc.bottom -= footerLineHeight + footerLineHeight / 2
          END
-         
+
          GETPOSITION(0,x,y,w,h)
          OPEN(ProgressWindow)
          SETPOSITION(0,x+w-286,y+h+16,,)
@@ -2014,12 +2013,12 @@ h        LONG
            CASE EVENT()
              OF EVENT:CloseDown
                 POST(EVENT:CloseWindow,,,1)
-             OF EVENT:CloseWindow   
+             OF EVENT:CloseWindow
                 BREAK
              OF EVENT:OpenWindow
                 ?ProgressBar{PROP:Progress} = 0
                 DISPLAY(?ProgressBar)
-             OF EVENT:Timer   
+             OF EVENT:Timer
                 IF LengthPrinted < lengthDoc
                    ?ProgressBar{PROP:Progress} = (LengthPrinted / lengthDoc) * 100
                    DISPLAY(?ProgressBar)
@@ -2059,7 +2058,7 @@ h        LONG
 
                    lengthPrinted = SELF.FormatRange(printPage, frPrint)
 
-                   IF (printPage) 
+                   IF (printPage)
                       IF footerFormatSize > 0
                          !GUI::gui_string sFooter = GUI::StringFromUTF8(propsPrint.GetExpanded("print.footer.format").c_str());
                          szFooter = 'Printed on ' & FORMAT(TODAY(),@D3) & ' at ' & FORMAT(CLOCK(),@T3) & ' -- Page ' & pageNum
@@ -2090,7 +2089,7 @@ h        LONG
 
                    IF (BAND(pdlg.Flags,PD_PAGENUMS) AND (pageNum > pdlg.nToPage))
                       BREAK
-                   END   
+                   END
                 ELSE
                    ProgressWindow{PROP:Timer} = 0
                    POST(EVENT:CloseWindow)
@@ -2104,22 +2103,22 @@ h        LONG
 
          EndDoc(hdc)
       END   !IF StartDoc
-      
-      IF XPSDocumentWriterPresent = TRUE 
+
+      IF XPSDocumentWriterPresent = TRUE
           cc = GlobalFree(hDevMode)
           ASSERT(cc=0)
           cc = GlobalFree(hDevNames)
           ASSERT(cc=0)
-      END   
-          
+      END
+
       DeleteDC(hdc)
       DeleteObject(fontHeader)
       DeleteObject(fontFooter)
    END
-   
+
    RETURN
-   
-   
+
+
 !§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
 ! WindowComponent Callback Methods
 !§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
@@ -2151,13 +2150,13 @@ CSciViewer.Kill PROCEDURE
         DISPOSE(SELF.ErrorMgr)
         SELF.ErrorMgr &= NULL
      END
-     
+
      ! Free dynamically allocated memory
      IF ~SELF.szTextBuffer &= NULL                             ! If we already have a buffer allocated
         DISPOSE(SELF.szTextBuffer)
         SELF.szTextBuffer &= NULL
      END
-     
+
      db.Kill()
   END
 
@@ -2232,7 +2231,7 @@ CSciViewer.SetAlerts PROCEDURE
 ! CSciViewer.TakeEvent
 ! purpose:  Process the current ACCEPT loop event.
 !           The TakeEvent method processes all window events and returns a value indicating
-!           whether ACCEPT loop processing is complete and should stop. 
+!           whether ACCEPT loop processing is complete and should stop.
 ! inputs :
 ! outputs:
 ! returns:  BYTE
@@ -2360,7 +2359,7 @@ lStart      LONG,AUTO
   lLength  = lLength - lStart + 1
   sExtension = SUB(szFile, lStart, lLength)
   RETURN(sExtension)
-  
+
 GetMaximum  PROCEDURE(Val1,Val2)
    CODE
      IF Val1 > Val2
@@ -2385,7 +2384,7 @@ szSubKey                CSTRING(256)                          !
   CODE
  retval = ERROR_SUCCESS
  szSubKey = 'System\CurrentControlSet\control\Print\Printers'
- 
+
  cc = RegOpenKeyEx(HKEY_LOCAL_MACHINE,szSubKey,0,KEY_ENUMERATE_SUB_KEYS,hKeyPrinters)
  if cc = ERROR_SUCCESS
    dwSubKey = 0
@@ -2419,13 +2418,13 @@ printerInfo       &kcr_PRINTER_INFO_2
 dwBytesReturned   LONG
 dwBytesNeeded     LONG
 pDevMode          LONG
-_hDevMode         HGLOBAL  
+_hDevMode         HGLOBAL
 dm                &kcr_DEVMODE
 drvNameLen        LONG
 ptrNameLen        LONG
 porNameLen        LONG
 pDevNames         LONG
-_hDevNames        HGLOBAL 
+_hDevNames        HGLOBAL
 tcOffset          LONG
 dn                &kcr_DEVNAMES
 cs                &CSTRING
@@ -2435,10 +2434,10 @@ cs                &CSTRING
     printerDefaults &= NULL
     IF OpenPrinter(szPrinterName, hPrinter, printerDefaults) = FALSE
        RETURN FALSE
-    END   
+    END
 
     ! obtain PRINTER_INFO_2 structure and close printer
-    
+
     GetPrinter(hPrinter, 2, 0, 0, dwBytesNeeded)
     ppi = GlobalAlloc(GPTR, dwBytesNeeded)
     printerInfo &= (ppi)
@@ -2451,10 +2450,10 @@ cs                &CSTRING
 
     ! Allocate a global handle for DEVMODE
     dm &= (printerInfo.pDevmode)
-    
+
     _hDevMode = GlobalAlloc(GHND, dm.dmSize + dm.driverExtra)
     ASSERT(_hDevMode)
-    
+
     pDevMode = GlobalLock(_hDevMode)
     ASSERT(pDevMode)
 
@@ -2501,4 +2500,4 @@ cs                &CSTRING
     phDevNames = _hDevNames
     RETURN TRUE
 
-	
+

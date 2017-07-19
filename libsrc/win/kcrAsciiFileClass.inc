@@ -4,22 +4,21 @@
 !region Notices
 ! ================================================================================
 ! Notice : Copyright (C) 2017, Devuna
-!          Distributed under LGPLv3 (http://www.gnu.org/licenses/lgpl.html)
+!          Distributed under the MIT License (https://opensource.org/licenses/MIT)
 !
 !    This file is part of Devuna-ClassViewer (https://github.com/Devuna/Devuna-ClassViewer)
 !
 !    Devuna-ClassViewer is free software: you can redistribute it and/or modify
-!    it under the terms of the GNU General Public License as published by
-!    the Free Software Foundation, either version 3 of the License, or
-!    (at your option) any later version.
+!    it under the terms of the MIT License as published by
+!    the Open Source Initiative.
 !
 !    Devuna-ClassViewer is distributed in the hope that it will be useful,
 !    but WITHOUT ANY WARRANTY; without even the implied warranty of
 !    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-!    GNU General Public License for more details.
+!    MIT License for more details.
 !
-!    You should have received a copy of the GNU General Public License
-!    along with Devuna-ClassViewer.  If not, see <http://www.gnu.org/licenses/>.
+!    You should have received a copy of the MIT License
+!    along with Devuna-ClassViewer.  If not, see <https://opensource.org/licenses/MIT>.
 ! ================================================================================
 !endregion Notices
 
@@ -48,7 +47,7 @@ Length                USHORT
 DisplayQueue        QUEUE,TYPE
 LineNo                STRING(5)
 Line                  STRING(255)
-Style                 LONG                                                  
+Style                 LONG
                     END
 
 kcrAsciiFileClass   CLASS,TYPE,MODULE('kcrAsciiFileClass.clw'),LINK('kcrAsciiFileClass.clw',),DLL(_KCRDllMode_)
@@ -143,9 +142,9 @@ ListBox               UNSIGNED,PRIVATE
 ListBoxItems          UNSIGNED,PRIVATE
 TopLine               UNSIGNED
 Popup                 &PopupClass
-Searcher              &kcrAsciiSearchClass                                  
+Searcher              &kcrAsciiSearchClass
 Translator            &TranslatorClass,PRIVATE
-Printer               &kcrAsciiPrintClass                                   
+Printer               &kcrAsciiPrintClass
 SearcherSelfCreated   BYTE,PRIVATE
 PrinterSelfCreated    BYTE,PRIVATE
 
@@ -161,7 +160,7 @@ Kill                  PROCEDURE
 PageDown              PROCEDURE,PROTECTED                                   !Moves down one page
 PageUp                PROCEDURE,PROTECTED                                   !Moves up one page
 Reset                 PROCEDURE(*STRING Filename),BYTE,PROC
-SetDisplayQueueStyle  PROCEDURE(LONG LineNo, *LONG Style),VIRTUAL 
+SetDisplayQueueStyle  PROCEDURE(LONG LineNo, *LONG Style),VIRTUAL
 SetLine               PROCEDURE(LONG Number),VIRTUAL,PROTECTED
 SetLineRelative       PROCEDURE(LONG Number),PROTECTED                      !scrolls LineCount Lines -ve up +ve down
 SetListboxSelection   PROCEDURE(LONG SelectLine),PRIVATE

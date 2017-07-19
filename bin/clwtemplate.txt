@@ -1,9 +1,9 @@
 #PREFIX
 !======================================================================================
 ! %MethodName %Prototype
-! purpose :   
-! inputs  :  
-! outputs :  
+! purpose :
+! inputs  :
+! outputs :
 ! returns : %ReturnType
 !=======================================================================================
 #ENDPREFIX
@@ -11,7 +11,7 @@
   MEMBER
 !=======================================================================================
 ! Copyright 2017 by Devuna
-! Distributed under LGPLv3 (http://www.gnu.org/licenses/lgpl.html)  
+! Distributed under the MIT License (https://opensource.org/licenses/MIT)
 !=======================================================================================
 !Example class clw template
 !This Class was written by %UserName
@@ -26,10 +26,10 @@
 
 ! ======================================================================================
 ! %ClassName.Construct
-! purpose :   
-! inputs  :  
-! outputs :  
-! returns : 
+! purpose :
+! inputs  :
+! outputs :
+! returns :
 ! =======================================================================================
 %ClassName.Construct PROCEDURE
 
@@ -39,10 +39,10 @@
 
 ! ======================================================================================
 ! %ClassName.Destruct
-! purpose :   
-! inputs  :  
-! outputs :  
-! returns : 
+! purpose :
+! inputs  :
+! outputs :
+! returns :
 ! =======================================================================================
 %ClassName.Destruct PROCEDURE
 

@@ -1,22 +1,21 @@
 ! //////////////////////////////////////////////////////////////////////////////////////////////////
 ! //
 ! // Notice : Copyright (C) 2017, Devuna
-! //          Distributed under LGPLv3 (http://www.gnu.org/licenses/lgpl.html)
+! //          Distributed under the MIT License (https://opensource.org/licenses/MIT)
 ! //
 ! //    This file is part of Devuna-ClassViewer (https://github.com/Devuna/Devuna-ClassViewer)
 ! //
 ! //    Devuna-ClassViewer is free software: you can redistribute it and/or modify
-! //    it under the terms of the GNU General Public License as published by
-! //    the Free Software Foundation, either version 3 of the License, or
-! //    (at your option) any later version.
+! //    it under the terms of the MIT License as published by
+! //    the Open Source Initiative.
 ! //
 ! //    Devuna-ClassViewer is distributed in the hope that it will be useful,
 ! //    but WITHOUT ANY WARRANTY; without even the implied warranty of
 ! //    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-! //    GNU General Public License for more details.
+! //    MIT License for more details.
 ! //
-! //    You should have received a copy of the GNU General Public License
-! //    along with Devuna-ClassViewer.  If not, see <http://www.gnu.org/licenses/>.
+! //    You should have received a copy of the MIT License
+! //    along with Devuna-ClassViewer.  If not, see <https://opensource.org/licenses/MIT>.
 ! //
 ! //////////////////////////////////////////////////////////////////////////////////////////////////
 ! //
@@ -32,62 +31,62 @@
 ! //  S SSSS   BBBBBB
 ! //
 ! //////////////////////////////////////////////////////////////////////////////////////////////////
-  
+
 [ Support Files ]
 ! --- Required temporary installation files ---
-  
-  
+
+
 [ Billboards ]
 ! --- Billboard files ---
-  
-  
+
+
 [ Initialize Setup ]
 ! --- Define commonly used constants ---
 #include script "Common Definitions.sbi"
-  
+
 ! Important: Initialize default install folder and program group variables
 Set Variable %_SB_INSTALLDIR% to "[INSTALLDIR]"
 Set Variable %_SB_PROGRAMGROUP% to "[PRODUCTNAME]"
-  
+
 ! %_SB_BACKUPDIR% holds the path that all backup files will be copied to when overwritten
 Set Variable %_SB_BACKUPDIR% to "%_SB_INSTALLDIR%\BACKUP"
-  
-  
+
+
 [ Features ]
 ! If features are enabled, %_SB_FEATURESID% holds all selections separated by a vertical bar "|"
 ! Warning: It is not recommended to manually modify the %_SB_FEATURESID% variable!
-  
-  
+
+
 [ Setup Types ]
 ! If setup types are enabled, %_SB_SETUPTYPEID% holds the selected type
 ! Warning: It is not recommended to manually modify the %_SB_SETUPTYPEID% variable!
-  
+
 ::Define Setup Type ("Typical")
 ::Define Setup Type ("Minimal")
 ::Define Setup Type ("Custom") [Custom Type]
-  
+
 Define Wizard Dialog "#1" (Welcome)
 [ User Interface ]
 ! Wizard dialog definition(s)
 Define Wizard Dialog "#2" (License Agreement)
 Define Wizard Dialog "#3" (Select Install Folder) (%_SB_INSTALLDIR%)
 Define Wizard Dialog "#4" (Ready to Install) ()
-  
+
 ! The Wizard Loop displays the dialog screens that the user sees in the installation
 Loop Wizard (Abort Dialog Active)
 End
-  
+
 ! Display progress dialog
 Progress Dialog: Display ()
-  
+
 ! Create installation .log
 Create Installation App & Log ("[UNINSTALL_LOG]")
-  
+
 [ Create Folders ]
-  
-  
+
+
 [ Install Files ]
-  
+
 Install File(s) "C:\GitHub\Devuna-ClassViewer\bin\abcview.exe" to "%_SB_INSTALLDIR%\abcview.exe" [Feature:Always Install]
 Install File(s) "C:\GitHub\Devuna-ClassViewer\bin\Add_ClassTpl.txt" to "%_SB_INSTALLDIR%\Add_ClassTpl.txt" [Feature:Always Install]
 Install File(s) "C:\GitHub\Devuna-ClassViewer\bin\ClaASC.dll" to "%_SB_INSTALLDIR%\ClaASC.dll" [Feature:Always Install]
@@ -105,41 +104,41 @@ Install File(s) "C:\GitHub\Devuna-ClassViewer\bin\SciLexer.dll" to "%_SB_INSTALL
 Install File(s) "C:\GitHub\Devuna-ClassViewer\bin\Scintilla_Licence.txt" to "%_SB_INSTALLDIR%\Scintilla_Licence.txt" [Feature:Always Install]
 Install File(s) "C:\GitHub\Devuna-ClassViewer\bin\TplWizard.txt" to "%_SB_INSTALLDIR%\TplWizard.txt" [Feature:Always Install]
 Install File(s) "C:\GitHub\Devuna-ClassViewer\help\abcview.chm" to "%_SB_INSTALLDIR%\abcview.chm" [Feature:Always Install]
-  
+
 [ Create Shortcuts ]
-  
+
 ::Create Shortcut "ClassViewer" in "Desktop\ClassViewer" [Feature:Always Install]
 ::Create Program Folder "ClassViewer" in "Programs\ClassViewer" [Feature:Always Install]
 ::Create Shortcut "ClassViewer" in "Programs\ClassViewer\ClassViewer" [Feature:Always Install]
 ::Create Shortcut "ClassViewer Help" in "Programs\ClassViewer\ClassViewer Help" [Feature:Always Install]
 ::Create Shortcut "Uninstall ClassViewer" in "Programs\ClassViewer\Uninstall ClassViewer" [Feature:Always Install]
-  
+
 [ Edit Registry ]
-  
-  
+
+
 [ Edit INI Files ]
-  
-  
+
+
 [ Modify System ]
-  
-  
+
+
 [ Execute Programs ]
 Delete File(s) ("%_SB_INSTALLDIR%\CWHH70.DLL") [Remove read-only]
 Delete File(s) ("%_SB_INSTALLDIR%\C70*.DLL") [Remove read-only]
-  
-  
+
+
 [ Finalize Setup ]
 ! Register all queued pending file operations
 Register all pending file operations ()
-  
+
 ! Register all queued Clarion Template files
 Register all pending Clarion Templates ()
-  
+
 [ Final User Interface ]
 ! Final wizard dialog definition(s)
 Define Wizard Dialog "#1" (Finish) ()
-  
+
 ! The Wizard Loop displays the dialog screens that the user sees in the installation
 Loop Wizard (Abort Dialog Active)
 End
-  
+

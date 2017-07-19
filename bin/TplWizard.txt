@@ -1,6 +1,6 @@
 #! =======================================================================================
 #! Copyright 2017 by Devuna
-#! Distributed under LGPLv3 (http://www.gnu.org/licenses/lgpl.html) 
+#! Distributed under the MIT License (https://opensource.org/licenses/MIT)
 #! =======================================================================================
 #TEMPLATE({ClassName},'{ClassName} Class Template'),FAMILY('ABC')
 #INCLUDE('ABOOP.TPW')

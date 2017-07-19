@@ -4,21 +4,21 @@
 #!                           Devuna ClassViewer Templates
 #! ================================================================================
 #! Notice : Copyright (C) 2017, Devuna
-#!          Distributed under LGPLv3 (http://www.gnu.org/licenses/lgpl.html)
+#!          Distributed under the MIT License (https://opensource.org/licenses/MIT)
 #!
 #!    This file is part of Devuna-ClassViewer (https://github.com/Devuna/Devuna-DateTimePicker)
 #!
 #!    Devuna-ClassViewer is free software: you can redistribute it and/or modify
-#!    it under the terms of the GNU General Public License as published by
-#!    the Free Software Foundation, either version 3 of the License, or
+#!    it under the terms of the MIT License as published by
+#!    the Open Source Initiative.
 #!
 #!    Devuna-ClassViewer is distributed in the hope that it will be useful,
 #!    but WITHOUT ANY WARRANTY; without even the implied warranty of
 #!    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#!    GNU General Public License for more details.
+#!    MIT License for more details.
 #!
-#!    You should have received a copy of the GNU General Public License
-#!    along with Devuna-ClassViewer.  If not, see <http://www.gnu.org/licenses/>.
+#!    You should have received a copy of the MIT License
+#!    along with Devuna-ClassViewer.  If not, see <https://opensource.org/licenses/MIT>.
 #! ================================================================================
 #!
 #!
@@ -41,9 +41,9 @@ ELSE
    DctInit
 END
 #ENDAT
-#!		
-#!		
-#!		
+#!
+#!
+#!
 #! ----------------------------------------------------------------
 #EXTENSION(OptionalToolTips,'Optional ToolTips'),PROCEDURE,REQ(KCR_ToolTips(KCR))
 #! ----------------------------------------------------------------
@@ -96,13 +96,12 @@ END
     #DISPLAY ('This template 1s free software:                                       '),AT(15)
     #DISPLAY ('You can redistribute it and/or modify it under the terms of the GNU   '),AT(15)
     #DISPLAY ('General Public License as published by the Free Software Foundation,  '),AT(15)
-    #DISPLAY ('either version 3 of the License,or (at your option) any later version.'),AT(15)
     #DISPLAY (''),AT(15)
     #DISPLAY ('This template is distributed in the hope that they will be useful     '),AT(15)
     #DISPLAY ('but WITHOUT ANY WARRANTY; without even the implied warranty           '),AT(15)
     #DISPLAY ('of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.'),AT(15)
     #DISPLAY (''),AT(15)
-    #DISPLAY ('See the GNU General Public License for more details.'),AT(15)
+    #DISPLAY ('See the MIT License for more details.'),AT(15)
     #DISPLAY ('http://www.gnu.org/licenses/'),AT(15)
     #DISPLAY ('Copyright 2017 Devuna'),AT(15)
   #ENDBOXED
